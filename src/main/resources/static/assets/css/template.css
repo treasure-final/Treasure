@@ -26,6 +26,14 @@ font & reset css
 --------------------------------------------- 
 */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900");
+
+@font-face {
+  font-family: "GmarketSansMedium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 /* 
 ---------------------------------------------
 reset
@@ -139,7 +147,7 @@ hgroup {
 
 html,
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "GmarketSansMedium", "Poppins", sans-serif;
   font-weight: 400;
   background-color: #fff;
   font-size: 16px;
@@ -191,7 +199,7 @@ Global Styles
 html,
 body {
   background: #fff;
-  font-family: "Poppins", sans-serif;
+  font-family: "GmarketSansMedium", "Poppins", sans-serif;
 }
 
 body .page-content {
@@ -291,7 +299,6 @@ section {
 .heading-section h4 em {
   color: #272c19;
   font-style: normal;
-  text-decoration: underline;
 }
 
 /* 

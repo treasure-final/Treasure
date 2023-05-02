@@ -86,12 +86,13 @@
     <h2>TREASURE</h2>
     <form method="post" action="loginInsert" id="login-form">
         이메일 주소
-        <input type="text" name="email" placeholder="Email">
+        <input type="text" name="email" placeholder="Email" value="${sessionScope.saveOk==null?"":sessionScope.loginEmail }">
 
         비밀번호
         <input type="password" name="password" placeholder="Password">
         <label for="remember-check">
-            <input type="checkbox" id="remember-check">아이디 저장하기
+            <input type="checkbox" id="remember-check" name="saveOk"
+                   name="${sessionScope.saveOk==null?"":"checked"}">아이디 저장하기
         </label>
         <input type="submit" value="Login">
     </form>

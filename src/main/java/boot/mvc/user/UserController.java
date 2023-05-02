@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 
@@ -21,12 +22,12 @@ public class UserController {
 
 	@PostMapping("/loginInsert")
 	public String loginInsert(String email, String password,
-							  HttpSession session) {
+							  HttpSession session, @RequestParam(required = false) String saveOk) {
 		int check = service.checkIdAndPassword(email, password);
 		if(check==1) {
 			session.setAttribute("loginEmail", email);
 			session.setAttribute("loginOk", "loginOk");
-			session.setAttribute("saveOk", "saveOk");
+			session.setAttribute("saveOk", saveOk);
 			return "redirect:/";
 		} else {
 			return "redirect:loginForm";
@@ -36,8 +37,6 @@ public class UserController {
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("loginOk");
-		session.removeAttribute("loginEmail");
-		session.removeAttribute("saveOk");
 		return "redirect:/";
 	}
 }

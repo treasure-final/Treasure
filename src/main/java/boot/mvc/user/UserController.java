@@ -1,5 +1,6 @@
 package boot.mvc.user;
 
+import boot.mvc.user.kakaoApi.KakaoLoginBO;
 import boot.mvc.user.naverApi.NaverLoginBO;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import org.json.simple.JSONObject;
@@ -28,21 +29,39 @@ public class UserController {
 
     private NaverLoginBO naverLoginBO;
     private String apiResult = null;
+    
+    @Autowired
+    private KakaoLoginBO kakaoLoginBO;
 
     @Autowired
     private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
         this.naverLoginBO = naverLoginBO;
     }
+    
 
     @GetMapping("/loginForm")
     public String loginForm(Model model, HttpSession session) {
         String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
         System.out.println("네이버" + naverAuthUrl);
         model.addAttribute("urlNaver", naverAuthUrl);
-
+        
+        String kakaoAuthUrl = kakaoLoginBO.getAuthorizationUrl(session);
+        System.out.println("카카오:" + kakaoAuthUrl);
+        model.addAttribute("urlKakao", kakaoAuthUrl);
+        
         return "user/loginForm";
     }
-
+    
+	/*
+	 * @RequestMapping(value = "/login.do",method =
+	 * {RequestMethod.GET,RequestMethod.POST}) public String login(Model model,
+	 * HttpSession session) { String kakaoAuthUrl =
+	 * kakaoLoginBO.getAuthorizationUrl(session); System.out.println("카카오:" +
+	 * kakaoAuthUrl); model.addAttribute("urlKakao", kakaoAuthUrl);
+	 * 
+	 * return "user/loginForm"; }
+	 */
+    
     @RequestMapping(value = "/naverLoginCallback", method = {RequestMethod.GET, RequestMethod.POST})
     public String callbackNaver(@RequestParam String code, @RequestParam String state,
                                 HttpSession session) throws Exception {
@@ -78,7 +97,7 @@ public class UserController {
         for (int i = 0; i < hps.length; i++) {
             hp += hps[i];
         }
-        userDto.setUser_hp(Integer.parseInt(hp));
+        userDto.setUser_hp(hp);
 
         // 생년월일 String -> Date 형변환
         Date birth = Date.valueOf(birthyear + "-" + birthday);
@@ -88,6 +107,36 @@ public class UserController {
 
         return "redirect:/";
     }
+    
+    @RequestMapping(value = "/callbackKakao.do",method = {RequestMethod.GET,RequestMethod.POST})
+    public String callbackKakao(Model model,@RequestParam String code, @RequestParam String state, HttpSession session) throws Exception{
+    		
+    	System.out.println("카카오 로그인 성공 callbackKakao");
+    	OAuth2AccessToken oauthToken;
+    	oauthToken=kakaoLoginBO.getAccessToken(session, code, state);
+    	apiResult=kakaoLoginBO.getUserProfile(oauthToken);
+    	
+    	JSONParser jsonParser=new JSONParser();
+    	JSONObject jsonObj;
+    	
+    	jsonObj = (JSONObject) jsonParser.parse(apiResult);
+        JSONObject response_obj = (JSONObject) jsonObj.get("kakao_account");
+        JSONObject response_obj2=(JSONObject) response_obj.get("profile");
+        
+        String email=(String) response_obj.get("email");
+        String nickname=(String) response_obj2.get("nickname");
+        
+        session.setAttribute("signIn", apiResult);
+        session.setAttribute("email", email);
+        session.setAttribute("nickname", nickname);
+        session.setAttribute("loginOk", "loginOk");
+        
+        UserDto userDto = new UserDto();
+        userDto.setUser_email(email);
+        userDto.setUser_nickname(nickname);
+	
+    	return "redirect:/";
+    } 
 
     @PostMapping("/loginProc")
     public String loginProc(String email, String password,

@@ -53,7 +53,7 @@ body {
 	margin-bottom: 20px;
 	text-align: center;
 	font-weight: bold;
-	margin-top: 30%;
+	margin-top: 10%;
 }
 
 .join-wrapper>h3{
@@ -61,6 +61,7 @@ body {
 	color: black;
 	margin-bottom: 20px;
 	text-align: center;
+	opacity: 0.5;
 }
 
 #join-form>input{
@@ -86,8 +87,8 @@ body {
 }
 
 .agree > input[type="checkbox"]{
-	transform: scale(1.3);
-	margin-left: 10px;
+	transform: scale(1.2);
+	margin-right: 10px;
 }
 
 .agree{
@@ -107,7 +108,7 @@ body {
 	transition: all 0.3s;
 	position: relative;
 	overflow: hidden;
-	margin: 0 auto;
+	margin: auto;
 	width: 100%;
 	text-align: center;
 	margin-bottom: 50px;
@@ -125,6 +126,15 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+.addrnumber{
+	height: 48px;
+	padding: 0 10px;
+	box-sizing: border-box;
+	margin-bottom: 16px;
+	border-radius: 6px;
+	background-color: #F8F8F8;
+}
+
 .addrsearch{
 	font-size: 11px;
 	color: #fff;
@@ -134,7 +144,7 @@ input::-webkit-inner-spin-button {
 	transition: all 0.3s;
 	position: relative;
 	overflow: hidden;
-	margin:auto;
+	margin: auto;
 	width: 80px;
 	height: 35px;
 	text-align: center;
@@ -154,6 +164,11 @@ input::-webkit-inner-spin-button {
 	margin-bottom: 16px;
 	border-radius: 6px;
 	background-color: #F8F8F8;
+	padding: 0 10px;
+}
+
+.kakaoaddr>input::placeholder{
+	color: #D2D2D2;
 }
 
 .agreemore{
@@ -181,14 +196,14 @@ input::-webkit-inner-spin-button {
 	<h3>회원가입</h3>
 	<form action="joinInsert" method="post" id="join-form">
 		이메일 주소
-		<input type="email" name="user_email" id="user_email" placeholder="로그인시 사용 할 이메일을 입력해주세요" required="required" autofocus="autofocus" onkeyup="keyevent()">
+		<input type="email" name="user_email" id="user_email" placeholder="로그인시 사용 할 이메일 입력해주세요" required="required" autofocus="autofocus" onkeyup="keyevent()">
 		<span class="emailok" style="width: 60px; color: #747f55;"></span><br><br>
 		
 		비밀번호
-        <input type="password" name="user_pass" id="user_pass" placeholder="비밀번호를 입력해주세요" required="required">
+        <input type="password" name="user_pass" id="user_pass" placeholder="특수문자와 대문자를 포함한 8자리 이상 16자리 이하" required="required">
         
         비밀번호 확인
-        <input type="password" id="user_pass2" placeholder="비밀번호를 입력해주세요" required="required">
+        <input type="password" id="user_pass2" placeholder="다시 한 번 입력해주세요" required="required">
         <span class="passsuccess" style="width: 60px; color: #747f55;"></span><br><br>
         
         닉네임
@@ -207,7 +222,7 @@ input::-webkit-inner-spin-button {
         <div class="formbold-mb-3 kakaoaddr">
 	    <label class="formbold-form-label"> 주소 </label>
 	        <div style="align-content: flex-end;">
-		    <input type="text" id="sample6_postcode" placeholder="우편번호" class="formbold-form-input" style="width: 300px;" required>
+		    <input type="text" id="sample6_postcode" placeholder="우편번호" class="formbold-form-input addrnumber" style="width: 330px;" required>
 		    <input type="button" class="formbold-btn btn-s addrsearch" onclick="sample6_execDaumPostcode()" value="주소검색"><br>
 	        </div>
 		<input type="text" id="sample6_address" name="addr1" placeholder="주소" class="formbold-form-input" readonly="readonly" >
@@ -216,10 +231,10 @@ input::-webkit-inner-spin-button {
       	</div><br>
         
         <div class="agree">
-        <label for="agree1">개인정보 활용 동의 (필수)</label>&nbsp;<input type="button" class="agreemore" data-toggle="modal" data-target="#agreeModal" value="더보기"><input type="checkbox" required="required" id="agree1">
+       <input type="checkbox" required="required" id="agree1"><label for="agree1">개인정보 활용 동의 (필수)</label>&nbsp;<input type="button" class="agreemore" data-toggle="modal" data-target="#agreeModal" value="더보기">
         </div><br>
         <div class="agree" style="margin-bottom: 30px;">
-        <label for="agree2">광고성 정보 수신 동의 (선택)</label><input type="checkbox" id="agree2">
+        <input type="checkbox" id="agree2"><label for="agree2">광고성 정보 수신 동의 (선택)</label>
         </div>
         <br>
         <button type="submit" id="join-button">가입하기</button>

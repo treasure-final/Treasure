@@ -131,6 +131,20 @@
             opacity: 0.5;
             margin-bottom: 40px;
         }
+        
+        #btn-api {
+		  display: flex;
+		  justify-content: center;
+		  align-items: center;
+		  flex-wrap: wrap;
+		  margin: auto;
+		}
+		
+		.btn{
+			margin: auto;
+			cursor: pointer;
+		}
+
     </style>
     <script>
         $(document).ready(function () {
@@ -177,28 +191,17 @@
             <span onclick="location.href='emailSearchForm'">이메일 찾기</span><span class="bar">|</span>
             <span>비밀번호 찾기</span>
         </div>
-        <div id="btn-api" style="margin-top: 20px; cursor: pointer">
+        <div id="btn-api" style="margin-top: 30px;">
             <%--            <button onclick="showLoginPopup();"><img width="200" height="50" src="../../img/naverBtn.png"></button>--%>
-            <button type="button" class="btn" onclick="location.href='${urlNaver}'" style="border: none">
-                <img src="../../img/midNaverBtn.png" width="130px;" height=100%;>
+            <button type="button" class="btn" onclick="location.href='${urlNaver}'" style="border: none;">
+                <img src="../../img/naver_login.png" style="width: 180px; height: 45px;">
             </button>
+        
+    		 <button type="button" class="btn" onclick="location.href='${urlKakao}'" style="border: none">
+            	<img src="../../img/kakao_login_medium.png" style="width: 180px; height: 45px;">
+            </button>        
         </div>
     </form>
-    <script>
-
-        // // 네이버 로그인을 위한 팝업창 생성
-        // function showLoginPopup(){
-        //     let uri = 'https://nid.naver.com/oauth2.0/authorize?' +
-        //         'response_type=code' +                  // 인증과정에 대한 내부 구분값 code 로 전공 (고정값)
-        //         '&client_id=Lal4yqj3h0j5M_kfZORf' +     // 발급받은 client_id 를 입력
-        //         '&state=NAVER_LOGIN_TEST' +             // CORS 를 방지하기 위한 특정 토큰값(임의값 사용)
-        //         '&redirect_uri=http://localhost:8080/naverLoginCallback';   // 어플케이션에서 등록했던 CallBack URL를 입력
-        //
-        //     // 사용자가 사용하기 편하게끔 팝업창으로 띄어준다.
-        //     window.open(uri, "Naver Login Test PopupScreen", "width=450, height=600");
-        // }
-
-    </script>
 </div>
 </body>
 </html>

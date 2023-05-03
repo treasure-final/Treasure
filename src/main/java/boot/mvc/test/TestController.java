@@ -17,7 +17,7 @@ public class TestController {
 		int total = service.getTotalCount();
 		model.addAttribute("total", total);
 		
-		return "test";
+		return "detail";
 	}
 	
 }

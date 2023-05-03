@@ -13,7 +13,8 @@
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script type="application/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
+    <script type="application/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js"
+            charset="utf-8"></script>
     <style>
         @font-face {
             font-family: "GmarketSansMedium";
@@ -86,14 +87,14 @@
             color: #fff;
             background-color: #747f55;
             padding: 5px 20px;
-            border-radius: 25px;
+            border-radius: 10px;
             font-weight: 400;
             text-transform: capitalize;
             letter-spacing: 0.5px;
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
-            margin: 0 auto;
+            margin-top: 15px;
             width: 100%;
             text-align: center;
         }
@@ -112,6 +113,10 @@
 
         #sub-menu span {
             padding-right: 20px;
+        }
+
+        #sub-menu span:not(.bar) {
+            cursor: pointer;
         }
     </style>
     <script>
@@ -155,16 +160,32 @@
 
         <input type="submit" value="Login" id="btn-login">
         <div id="sub-menu">
-            <span>회원 가입</span><span>|</span>
-            <span>이메일 찾기</span><span>|</span>
+            <span>회원 가입</span><span class="bar">|</span>
+            <span>이메일 찾기</span><span class="bar">|</span>
             <span>비밀번호 찾기</span>
         </div>
         <div id="btn-api" style="margin-top: 20px; cursor: pointer">
-            <button type="button" class="btn" onclick="location.href='${urlNaver}'">
-                <img src="../../img/naverBtn.png" width="300px;" height=20%;>
+            <%--            <button onclick="showLoginPopup();"><img width="200" height="50" src="../../img/naverBtn.png"></button>--%>
+            <button type="button" class="btn" onclick="location.href='${urlNaver}'" style="border: none">
+                <img src="../../img/midNaverBtn.png" width="130px;" height=100%;>
             </button>
         </div>
     </form>
+    <script>
+
+        // // 네이버 로그인을 위한 팝업창 생성
+        // function showLoginPopup(){
+        //     let uri = 'https://nid.naver.com/oauth2.0/authorize?' +
+        //         'response_type=code' +                  // 인증과정에 대한 내부 구분값 code 로 전공 (고정값)
+        //         '&client_id=Lal4yqj3h0j5M_kfZORf' +     // 발급받은 client_id 를 입력
+        //         '&state=NAVER_LOGIN_TEST' +             // CORS 를 방지하기 위한 특정 토큰값(임의값 사용)
+        //         '&redirect_uri=http://localhost:8080/naverLoginCallback';   // 어플케이션에서 등록했던 CallBack URL를 입력
+        //
+        //     // 사용자가 사용하기 편하게끔 팝업창으로 띄어준다.
+        //     window.open(uri, "Naver Login Test PopupScreen", "width=450, height=600");
+        // }
+
+    </script>
 </div>
 </body>
 </html>

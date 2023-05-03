@@ -17,7 +17,7 @@ import java.util.UUID;
 public class NaverLoginBO {
     private final static String CLIENT_ID = "Lal4yqj3h0j5M_kfZORf";
     private final static String CLIENT_SECRET = "jRebdFIEjV";
-    private final static String REDIRECT_URL = "http://localhost:8080";
+    private final static String REDIRECT_URL = "http://localhost:8080/naverLoginCallback";
     private final static String SESSION_STATE = "oauth_state";
     private final static String PROFILE_API_URL = "https://openapi.naver.com/v1/nid/me";
 

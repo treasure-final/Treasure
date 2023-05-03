@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,8 +43,8 @@ public class UserController {
         return "user/loginForm";
     }
 
-    @RequestMapping(value = "/callbackNaver", method = {RequestMethod.GET, RequestMethod.POST})
-    public String callbackNaver(Model model, @RequestParam String code, @RequestParam String state,
+    @RequestMapping(value = "/naverLoginCallback", method = {RequestMethod.GET, RequestMethod.POST})
+    public String callbackNaver(@RequestParam String code, @RequestParam String state,
                                 HttpSession session) throws Exception {
         System.out.println("로그인 성공 callbackNaver");
         OAuth2AccessToken auth2AccessToken;
@@ -57,18 +58,36 @@ public class UserController {
         JSONObject response_obj = (JSONObject) jsonObj.get("response");
 
         String email = (String) response_obj.get("email");
+        String birthday = (String) response_obj.get("birthday");
+        String nickname = (String) response_obj.get("nickname");
+        String mobile = (String) response_obj.get("mobile");
         String name = (String) response_obj.get("name");
+        String birthyear = (String) response_obj.get("birthyear");
 
         session.setAttribute("signIn", apiResult);
-        session.setAttribute("email", email);
-        session.setAttribute("name", name);
+        session.setAttribute("loginEmail", email);
+        session.setAttribute("loginOk", "loginOk");
 
-        return "redirect:loginSuccess";
-    }
+        UserDto userDto = new UserDto();
+        userDto.setUser_email(email);
+        userDto.setUser_name(name);
+        userDto.setUser_nickname(nickname);
 
-    @GetMapping("/loginSuccess")
-    public String loginSuccess() {
-        return "user/loginSuccess";
+        // 전화번호 String -> int 형변환
+        String[] hps = mobile.split("-");
+        String hp = "";
+        for (int i = 0; i < hps.length; i++) {
+            hp += hps[i];
+        }
+        userDto.setUser_hp(Integer.parseInt(hp));
+
+        // 생년월일 String -> Date 형변환
+        Date birth = Date.valueOf(birthyear + "-" + birthday);
+        userDto.setUser_birth(birth);
+        if (service.userSearchEmail(email) != 1)
+            service.insertJoinUser(userDto);
+
+        return "redirect:/";
     }
 
     @PostMapping("/loginProc")
@@ -98,6 +117,7 @@ public class UserController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.removeAttribute("loginOk");
+        session.removeAttribute("signIn");
         return "redirect:/";
     }
 
@@ -111,13 +131,9 @@ public class UserController {
     @GetMapping("/emailCheck")
     @ResponseBody
     public Map<String, Integer> emailCheck(String user_email) {
-
         Map<String, Integer> map = new HashMap<>();
-
         int n = service.userSearchEmail(user_email);
-
         map.put("count", n);
-
         return map;
     }
 

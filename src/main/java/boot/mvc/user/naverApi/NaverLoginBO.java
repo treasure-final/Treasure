@@ -6,12 +6,14 @@ import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.UUID;
 
+@Component
 public class NaverLoginBO {
     private final static String CLIENT_ID = "Lal4yqj3h0j5M_kfZORf";
     private final static String CLIENT_SECRET = "jRebdFIEjV";
@@ -34,7 +36,7 @@ public class NaverLoginBO {
 
     public OAuth2AccessToken getAccessToken(HttpSession session, String code, String state) throws IOException {
         String sessionState = getSession(session);
-        if(StringUtils.pathEquals(sessionState, state)) {
+        if (StringUtils.pathEquals(sessionState, state)) {
             OAuth20Service auth20Service = new ServiceBuilder()
                     .apiKey(CLIENT_ID)
                     .apiSecret(CLIENT_SECRET)

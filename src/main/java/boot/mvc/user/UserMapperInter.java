@@ -14,4 +14,6 @@ public interface UserMapperInter {
     //이메일 중복 체크
     public int userSearchEmail(String user_email);
 
+    //닉네임 중복 체크
+    public int userSearchNickname(String user_nickname);
 }

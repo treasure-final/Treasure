@@ -13,6 +13,7 @@
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="application/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
     <style>
         @font-face {
             font-family: "GmarketSansMedium";
@@ -139,11 +140,11 @@
 <div class="login-wrapper">
     <h2>TREASURE</h2>
 
-    <form method="post" action="loginInsert" id="login-form">
+    <form method="post" action="loginProc" id="login-form">
         이메일 주소
         <input type="text" name="email" id="email" placeholder="Email" required="required"
                value="${sessionScope.saveOk==null?"":sessionScope.loginEmail }">
-
+        <span>${valid_email}</span>
         비밀번호
         <input type="password" name="password" id="password" placeholder="Password" required="required">
         <label for="remember-check">
@@ -159,10 +160,9 @@
             <span>비밀번호 찾기</span>
         </div>
         <div id="btn-api" style="margin-top: 20px; cursor: pointer">
-<%--            <button type="button" value="네이버 로그인"></button>--%>
-<%--            <button type="button" value="카카오 로그인"></button>--%>
-            <img src="../../img/2023-05-02 162707.png" width="102%"; height="50px";">
-            <img src="../../img/2023-05-02 162733.png" width="100%"; height="50px;">
+            <button type="button" class="btn" onclick="location.href='${urlNaver}'">
+                <img src="../../img/naverBtn.png" width="300px;" height=20%;>
+            </button>
         </div>
     </form>
 </div>

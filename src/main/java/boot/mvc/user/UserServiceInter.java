@@ -1,7 +1,5 @@
 package boot.mvc.user;
 
-import java.util.Map;
-
 public interface UserServiceInter {
     public int checkIdAndPassword(String email, String pass);
     
@@ -13,5 +11,4 @@ public interface UserServiceInter {
   	
   	//닉네임 중복 체크
   	public int userSearchNickname(String user_nickname);
-
 }

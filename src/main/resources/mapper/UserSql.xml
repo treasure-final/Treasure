@@ -4,22 +4,30 @@
 
 <mapper namespace="boot.mvc.user.UserMapperInter">
     <select id="checkIdAndPassword" parameterType="Map" resultType="int">
-        select count(*) from user where user_email = #{user_email} and user_pass = #{user_pass}
+        select count(*)
+        from user
+        where user_email = #{user_email}
+          and user_pass = #{user_pass}
     </select>
-    
+
     <!-- 가입insert -->
     <insert id="insertJoinUser" parameterType="UserDto">
-    	insert into user (user_email,user_pass,user_name,user_nickname,user_hp,user_birth,user_addr,user_joinday) values (#{user_email},#{user_pass},#{user_name},#{user_nickname},#{user_hp},#{user_birth},#{user_addr},now())
+        insert into user (user_email, user_pass, user_name, user_nickname, user_hp, user_birth, user_addr, user_joinday)
+        values (#{user_email}, #{user_pass}, #{user_name}, #{user_nickname}, #{user_hp}, #{user_birth}, #{user_addr},
+                now())
     </insert>
-    
+
     <!--아이디 중복 확인  -->
     <select id="userSearchEmail" parameterType="String" resultType="int">
-		select count(*) from user where user_email=#{user_email}
-	</select>
-	
-	<!--닉네임 중복 확인  -->
-	<select id="userSearchNickname" parameterType="String" resultType="int">
-		select count(*) from user where user_nickname=#{user_nickname}
-	</select>
-    
+        select count(*)
+        from user
+        where user_email = #{user_email}
+    </select>
+
+    <!--닉네임 중복 확인  -->
+    <select id="userSearchNickname" parameterType="String" resultType="int">
+        select count(*)
+        from user
+        where user_nickname = #{user_nickname}
+    </select>
 </mapper>

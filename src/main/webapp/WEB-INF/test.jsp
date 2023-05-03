@@ -71,7 +71,7 @@
                         <li><a href="details.html">Details</a></li>
                         <c:set var="loginOk" value="${sessionScope.loginOk}"></c:set>
                         <c:if test="${empty loginOk}">
-                            <li><a href="#">Join</a></li>
+                            <li><a href="joinForm">Join</a></li>
                             <li><a href="loginForm">Login</a></li>
                         </c:if>
                         <c:if test="${not empty loginOk}">

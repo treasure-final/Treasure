@@ -21,7 +21,7 @@ public class KakaoLoginBO {
 	
 	private final static String KAKAO_CLIENT_ID="c0ee5dfabcb25023cb9d19cba121cc54";
 	private final static String KAKAO_CLIENT_SECRET ="Hj8fJ026wrvn7NorzNEzW8CuDk5Q6pgs";
-	private final static String KAKAO_REDIRECT_URI = "https://localhost:8080/callbackKakao.do";
+	private final static String KAKAO_REDIRECT_URI = "http://localhost:8080/callbackKakao.do";
 	private final static String SESSION_STATE = "kakao_oauth_state";
 	private final static String PROFILE_API_URL = "https://kapi.kakao.com/v2/user/me";
 	

@@ -24,7 +24,6 @@ public class UserService implements UserServiceInter {
     //가입
     @Override
     public void insertJoinUser(UserDto dto) {
-        // TODO Auto-generated method stub
         mapper.insertJoinUser(dto);
 
     }
@@ -32,14 +31,22 @@ public class UserService implements UserServiceInter {
     //이메일 중복 체크
     @Override
     public int userSearchEmail(String user_email) {
-        // TODO Auto-generated method stub
         return mapper.userSearchEmail(user_email);
     }
 
     //닉네임 중복 체크
     @Override
     public int userSearchNickname(String user_nickname) {
-        // TODO Auto-generated method stub
         return mapper.userSearchNickname(user_nickname);
+    }
+
+    @Override
+    public int checkEmailByUserInfo(Map<String, String> map) {
+        return mapper.checkEmailByUserInfo(map);
+    }
+
+    @Override
+    public String findEmailByUserInfo(String hp) {
+        return mapper.findEmailByUserInfo(hp);
     }
 }

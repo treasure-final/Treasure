@@ -32,14 +32,14 @@
         }
 
         .login-wrapper {
-            width: 1000px;
-            height: 400px;
+            width: 50%;
             padding: 40px;
             box-sizing: border-box;
-            margin-left: 10%;
-            margin-top: 10%;
+            margin-top: 100px !important;
             line-height: 30px;
-            background-color: #999999;
+            background-color: #ced4da;
+            margin: auto;
+            position: relative;
         }
 
         .login-wrapper > h2 {

@@ -132,18 +132,19 @@
             margin-bottom: 40px;
         }
 
+        
         #btn-api {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            margin: auto;
-        }
-
-        .btn{
-            margin: auto;
-            cursor: pointer;
-        }
+		  display: flex;
+		  justify-content: center;
+		  align-items: center;
+		  flex-wrap: wrap;
+		  margin: auto;
+		}
+		
+		.btn{
+			margin: auto;
+			cursor: pointer;
+		}
 
     </style>
     <script>
@@ -192,14 +193,13 @@
             <span>비밀번호 찾기</span>
         </div>
         <div id="btn-api" style="margin-top: 30px;">
-            <%--            <button onclick="showLoginPopup();"><img width="200" height="50" src="../../img/naverBtn.png"></button>--%>
             <button type="button" class="btn" onclick="location.href='${urlNaver}'" style="border: none;">
                 <img src="../../img/naver_login.png" style="width: 180px; height: 45px;">
             </button>
-
-            <button type="button" class="btn" onclick="location.href='${urlKakao}'" style="border: none">
-                <img src="../../img/kakao_login_medium.png" style="width: 180px; height: 45px;">
-            </button>
+        
+    		 <button type="button" class="btn" onclick="location.href='${urlKakao}'" style="border: none">
+            	<img src="../../img/kakao_login_medium.png" style="width: 180px; height: 45px;">
+            </button>        
         </div>
     </form>
 </div>

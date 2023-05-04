@@ -8,16 +8,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class TestController {
 
-	@Autowired
-	TestService service;
-	
-	@GetMapping("/")
-	public String test(Model model) {
-		
-		int total = service.getTotalCount();
-		model.addAttribute("total", total);
-		
-		return "test";
-	}
+	/*
+	 * @Autowired TestService service;
+	 */
+	/*
+	 * @GetMapping("/") public String test(Model model) {
+	 * 
+	 * int total = service.getTotalCount(); model.addAttribute("total", total);
+	 * 
+	 * return "test"; }
+	 */
 	
 }

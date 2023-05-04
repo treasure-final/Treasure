@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller(value = "/buy")
+@Controller
 public class PurcahseController {
 
 	@Autowired
@@ -14,6 +14,6 @@ public class PurcahseController {
 
 	@GetMapping("/select")
 	public String selectSize() {
-		return "/purchase/purchaseSize";
+		return "purchase/purchaseSize";
 	}
 }

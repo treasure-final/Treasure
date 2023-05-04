@@ -52,6 +52,7 @@ public class UserController {
         return "user/loginForm";
     }
     
+	
 	/*
 	 * @RequestMapping(value = "/login.do",method =
 	 * {RequestMethod.GET,RequestMethod.POST}) public String login(Model model,

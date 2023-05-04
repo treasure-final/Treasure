@@ -87,13 +87,34 @@ body {
 }
 
 .agree > input[type="checkbox"]{
-	transform: scale(1.2);
-	margin-right: 10px;
+	display: none;
 }
 
+input[type="checkbox"] + label{
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border:2px solid #747f55;
+        position: relative;
+        margin-right: 5px;
+      }
+      
+input[id="agree1"]:checked + label::after,input[id="agree2"]:checked + label::after{
+        content:'✔';
+        color: #747f55;
+        font-size: 15px;
+        width: 20px;
+        height: 20px;
+        text-align: center;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+
 .agree{
-	display: inline-block;
-	margin-bottom: 5px;
+	margin-bottom: 3px;
+	display: flex;
+  	align-items: center; 
 }
 
 #join-button{
@@ -231,10 +252,10 @@ input::-webkit-inner-spin-button {
       	</div><br>
         
         <div class="agree">
-       <input type="checkbox" required="required" id="agree1"><label for="agree1">개인정보 활용 동의 (필수)</label>&nbsp;<input type="button" class="agreemore" data-toggle="modal" data-target="#agreeModal" value="더보기">
+       <input type="checkbox" required="required" id="agree1"><label for="agree1"></label><div class="agree-info">개인정보 활용 동의 (필수)</div>&nbsp;<input type="button" class="agreemore" data-toggle="modal" data-target="#agreeModal" value="더보기">
         </div><br>
-        <div class="agree" style="margin-bottom: 30px;">
-        <input type="checkbox" id="agree2"><label for="agree2">광고성 정보 수신 동의 (선택)</label>
+        <div class="agree">
+        <input type="checkbox" id="agree2"><label for="agree2"></label><div class="agree-adv">광고성 정보 수신 동의 (선택)</div>
         </div>
         <br>
         <button type="submit" id="join-button">가입하기</button>

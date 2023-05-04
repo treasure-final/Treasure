@@ -37,7 +37,7 @@
             box-sizing: border-box;
             margin-top: 100px !important;
             line-height: 30px;
-            background-color: #ced4da;
+            /*background-color: #ced4da;*/
             margin: auto;
             position: relative;
         }
@@ -83,24 +83,25 @@
             background-size: contain;
         }
 
-        #btn-login {
+        .btn-login {
             font-size: 14px;
             color: #fff;
             background-color: #747f55;
-            padding: 5px 20px;
-            border-radius: 10px;
+            padding: 10px 20px;
+            border-radius: 25px;
             font-weight: 400;
             text-transform: capitalize;
             letter-spacing: 0.5px;
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
-            margin-top: 15px;
-            width: 100%;
+            margin-top: 15px !important;
+            margin: 5px;
+            width: 50%;
             text-align: center;
         }
 
-        #btn-login:hover {
+        .btn-login:hover {
             background-color: #fff;
             color: #747f55;
             border: 1px solid #747f55;
@@ -111,15 +112,63 @@
             margin-left: 30%;
             font-weight: bold;
         }
+
+        img.buy_item_image {
+            width: 200px;
+        }
+        span.buy_brand {
+            font-size: 15px;
+            font-weight: bold;
+        }
+        span.buy_title {
+            font-size: 15px;
+        }
+        span.buy_size {
+            font-size: 12px;
+            vertical-align: middle;
+
+        }
+        div.buy_size {
+            margin: 3px;
+            padding: 18px;
+            flex-direction: column;
+            border: 1px solid darkgray;
+            border-radius: 15px;
+            background-color: white;
+            width: 24%;
+            vertical-align: middle;
+            text-align: center;
+            cursor: pointer;
+            line-height: 13px;
+        }
     </style>
 </head>
 <body>
     <div class="login-wrapper">
-        <div><i id="logo">TREASURE</i></div>
-
+        <div style="display: flex;">
+<%--            <div style="background-color: white; width: 200px; height: 200px;">--%>
+                <img src="/img/item_image/shoes/1.png" class="buy_item_image">
+<%--            </div>--%>
+            <div style="flex-direction: column; padding: 20px;">
+                <span class="buy_brand">Jordan</span><br>
+                <span class="buy_title">(W) 조던 1 x 트래비스 스캇 레트로 로우 OG SP 미디움 올리브</span><br>
+            </div>
+        </div>
         <form method="" action="" id="">
-            <input type="button" value="button" id="btn-login" class="">
+            <div style="display:flex;">
+            <c:forEach var="i" begin="1" end="4" step="1">
+                <div class="buy_size">
+                    <span class="buy_size">size</span><br>
+                    <span class="buy_size" style="color: #ec0b00;">금액</span>
+                </div>
+            </c:forEach>
+            </div>
         </form>
+        <div style="display: flex;">
+            <button type="button" class="btn-login">빠른배송</button>
+            <button type="button" class="btn-login">일반배송<br><span style="font-size: 5px; color: white;">3일</span></button>
+        </div>
+
     </div>
 </body>
 </html>

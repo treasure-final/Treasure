@@ -15,6 +15,7 @@ import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
 
 
+
 @Component 
 public class KakaoLoginBO {
 	

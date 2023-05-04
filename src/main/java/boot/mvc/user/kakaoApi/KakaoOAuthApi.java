@@ -3,7 +3,7 @@ package boot.mvc.user.kakaoApi;
 import com.github.scribejava.core.builder.api.DefaultApi20;
 
 public class KakaoOAuthApi extends DefaultApi20 {
-	
+
 	protected KakaoOAuthApi() {
 		
 	}

@@ -31,7 +31,7 @@
             border: none;
         }
 
-        .login-wrapper {
+        .search-wrapper {
             width: 480px;
             height: 800px;
             padding: 40px;
@@ -48,7 +48,7 @@
             text-align: center;
         }
 
-        #login-form > input:not(#btn-login) {
+        #search-form > input:not(.btn-search) {
             width: 100%;
             height: 48px;
             padding: 0 10px;
@@ -58,31 +58,31 @@
             background-color: #F8F8F8;
         }
 
-        #login-form > input::placeholder {
+        #search-form > input::placeholder {
             color: #D2D2D2;
         }
 
-        #login-form > input[type="checkbox"] {
+        #search-form > input[type="checkbox"] {
             display: none;
         }
 
-        #login-form > label {
+        #search-form > label {
             color: #babbbc;
         }
 
-        #login-form input[type="checkbox"] + label {
+        #search-form input[type="checkbox"] + label {
             cursor: pointer;
             padding-left: 26px;
             background-repeat: no-repeat;
             background-size: contain;
         }
 
-        #login-form input[type="checkbox"]:checked + label {
+        #search-form input[type="checkbox"]:checked + label {
             background-repeat: no-repeat;
             background-size: contain;
         }
 
-        #btn-login {
+        .btn-search {
             font-size: 14px;
             color: #fff;
             background-color: #747f55;
@@ -94,75 +94,70 @@
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
-            margin-top: 15px;
+            margin-top: 20px;
             width: 100%;
             text-align: center;
         }
 
-        #btn-login:hover {
+        .btn-search:hover {
             background-color: #fff;
             color: #747f55;
             border: 1px solid #747f55;
         }
 
-        #sub-menu {
-            margin-left: 65px;
-            margin-top: 5px;
-            color: #495057;
-        }
-
-        #sub-menu span {
-            padding-right: 30px;
-        }
-
-        #sub-menu span:not(.bar) {
-            cursor: pointer;
-        }
-
-        #logo {
+        #logo i {
             font-size: 25px;
             margin-left: 30%;
             font-weight: bold;
-        }
-
-        #sub_logo {
-            font-size: 13px;
-            margin-left: 20%;
-            opacity: 0.5;
             margin-bottom: 40px;
         }
 
-        
-        #btn-api {
-		  display: flex;
-		  justify-content: center;
-		  align-items: center;
-		  flex-wrap: wrap;
-		  margin: auto;
-		}
-		
-		.btn{
-			margin: auto;
-			cursor: pointer;
-		}
+        #logo {
+            margin-bottom: 20px;
+        }
 
+        .hr {
+            border: none;
+            height: 2px;
+            background: black;
+            margin-bottom: 20px;
+        }
+
+        #note {
+            opacity: 0.7;
+            margin-bottom: 30px;
+        }
+
+        #content {
+            font-size: 15px;
+            margin: 100px 0;
+            line-height: 30px;
+        }
     </style>
     <script>
         $(document).ready(function () {
-            $(".submitBtn").click(function () {
-                let email = $("#email").val();
-                let password = $("#password").val();
+            $("#result-form").hide();
+            $(".btn-search").click(function () {
+                let name = $("#name").val();
+                let birth = $("#birth").val();
+                let phone = $("#phone").val();
                 $.ajax({
                     type: "get",
-                    url: "loginError",
+                    url: "emailSearchProc",
                     data: {
-                        "email": email,
-                        "password": password
+                        "name": name,
+                        "birth": birth,
+                        "phone": phone
                     },
                     success: function (res) {
-                        if (res == 0) {
-                            alert("이메일 혹은 비밀번호를 확인해주세요");
+                        $("#search-form").hide();
+                        if (res.check == 1) {
+                            $("#content").append("회원님의 이메일은<br> " + res.email + " 로 가입되어 있습니다.<br>");
+                        } else {
+                            $("#content").append("가입된 이메일이 존재하지 않습니다.");
+                            $(".moveLogin").hide();
                         }
+                        $("#result-form").show();
                     }
                 });
             });
@@ -170,37 +165,25 @@
     </script>
 </head>
 <body>
-<div class="login-wrapper">
-    <div><i id="logo">TREASURE</i></div>
-    <div id="sub_logo">welcome to the world of treasure</div>
-    <form method="post" action="loginProc" id="login-form">
-        이메일 주소
-        <input type="text" name="email" id="email" placeholder="Email" required="required"
-               value="${sessionScope.saveOk==null?"":sessionScope.loginEmail }">
-        <span>${valid_email}</span>
-        비밀번호
-        <input type="password" name="password" id="password" placeholder="Password" required="required">
-        <label for="remember-check">
-            <input type="checkbox" id="remember-check" name="saveOk"
-                   name="${sessionScope.saveOk==null?"":"checked"}">
-        </label>
-        <span>아이디 저장하기</span>
+<div class="search-wrapper">
+    <div id="logo"><i>이메일 찾기</i></div>
+    <div class="hr"></div>
+    <div id="note" align="center">개인정보 보호를 위해 이메일 주소의 일부를 알려드립니다</div>
+    <form id="search-form">
+        이름
+        <input type="text" name="name" id="name" required="required">
+        생년월일
+        <input type="date" name="birth" id="birth" required="required">
+        전화번호
+        <input type="text" name="phone" id="phone" required="required">
 
-        <input type="submit" value="Login" id="btn-login" class="submitBtn">
-        <div id="sub-menu">
-            <span onclick="location.href='joinForm'">회원 가입</span><span class="bar">|</span>
-            <span onclick="location.href='emailSearchForm'">이메일 찾기</span><span class="bar">|</span>
-            <span>비밀번호 찾기</span>
-        </div>
-        <div id="btn-api" style="margin-top: 30px;">
-            <button type="button" class="btn" onclick="location.href='${urlNaver}'" style="border: none;">
-                <img src="../../img/naver_login.png" style="width: 180px; height: 45px;">
-            </button>
-        
-    		 <button type="button" class="btn" onclick="location.href='${urlKakao}'" style="border: none">
-            	<img src="../../img/kakao_login_medium.png" style="width: 180px; height: 45px;">
-            </button>        
-        </div>
+        <input type="button" value="이메일 찾기" class="btn-search submitBtn">
+    </form>
+    <form id="result-form">
+        <div id="content" align="center"></div>
+        <div class="hr"></div>
+        <input type="button" value="로그인하러 가기" class="btn-search moveLogin"
+               onclick="location.href='loginForm'">
     </form>
 </div>
 </body>

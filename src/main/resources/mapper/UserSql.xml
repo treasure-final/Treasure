@@ -30,4 +30,19 @@
         from user
         where user_nickname = #{user_nickname}
     </select>
+
+    <!--이메일 찾기 회원 검사-->
+    <select id="checkEmailByUserInfo" parameterType="Map" resultType="int">
+        select count(*)
+        from user
+        where user_name = #{user_name}
+          and user_birth = #{user_birth}
+          and user_hp = #{user_hp}
+    </select>
+
+    <select id="findEmailByUserInfo" parameterType="Map" resultType="String">
+        select user_email
+        from user
+        where user_hp = #{user_hp}
+    </select>
 </mapper>

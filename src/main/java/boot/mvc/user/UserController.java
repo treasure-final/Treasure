@@ -38,7 +38,7 @@ public class UserController {
         this.naverLoginBO = naverLoginBO;
     }
 
-    @GetMapping("/loginForm")
+    @GetMapping("/user/loginForm")
     public String loginForm(Model model, HttpSession session) {
         String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
         model.addAttribute("urlNaver", naverAuthUrl);
@@ -47,7 +47,7 @@ public class UserController {
         System.out.println("카카오:" + kakaoAuthUrl);
         model.addAttribute("urlKakao", kakaoAuthUrl);
 
-        return "user/loginForm";
+        return "/user/loginForm";
     }
 
     /*
@@ -136,7 +136,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    @PostMapping("/loginProc")
+    @PostMapping("/user/loginProc")
     public String loginProc(String email, String password,
                             HttpSession session, @RequestParam(required = false) String saveOk) {
 
@@ -151,7 +151,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/loginError")
+    @GetMapping("/user/loginError")
     @ResponseBody
     public int loginError(String email, String password) {
         int check = service.checkIdAndPassword(email, password);
@@ -160,7 +160,7 @@ public class UserController {
         return check;
     }
 
-    @GetMapping("/logout")
+    @GetMapping("/user/logout")
     public String logout(HttpSession session) {
         session.removeAttribute("loginOk");
         session.removeAttribute("signIn");
@@ -168,13 +168,13 @@ public class UserController {
     }
 
     // 가입폼으로 이동
-    @GetMapping("/joinForm")
+    @GetMapping("/user/joinForm")
     public String joinForm() {
-        return "user/joinForm";
+        return "/user/joinForm";
     }
 
     // 이메일 중복 체크
-    @GetMapping("/emailCheck")
+    @GetMapping("/user/emailCheck")
     @ResponseBody
     public Map<String, Integer> emailCheck(String user_email) {
         Map<String, Integer> map = new HashMap<>();
@@ -183,7 +183,7 @@ public class UserController {
         return map;
     }
 
-    @PostMapping("/joinInsert")
+    @PostMapping("/user/joinInsert")
     public String joinInsert(@ModelAttribute UserDto dto, String addr1, String addr2, String addr3, HttpSession session) {
         String user_addr = addr1 + " " + addr2 + " " + addr3;
         dto.setUser_addr(user_addr);
@@ -194,7 +194,7 @@ public class UserController {
     }
 
     //닉네임 중복 체크
-    @GetMapping("/nickNameCheck")
+    @GetMapping("/user/nickNameCheck")
     @ResponseBody
     public Map<String, Integer> nickNameCheck(String user_nickname) {
         Map<String, Integer> map = new HashMap<>();
@@ -203,12 +203,12 @@ public class UserController {
         return map;
     }
 
-    @GetMapping("/emailSearchForm")
+    @GetMapping("/user/emailSearchForm")
     public String emailSearchForm() {
-        return "user/emailSearchForm";
+        return "/user/emailSearchForm";
     }
 
-    @GetMapping("emailSearchProc")
+    @GetMapping("/user/emailSearchProc")
     @ResponseBody
     public Map<String, Object> searchEmail(String name, String birth, String phone) {
         Map<String, String> map = new HashMap<>();

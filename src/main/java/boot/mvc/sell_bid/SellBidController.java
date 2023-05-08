@@ -11,4 +11,8 @@ public class SellBidController {
 	@Autowired
 	SellBidService service;
 	
+	@GetMapping("/agreeForm")
+	public String agreeForm() {
+		return "sell/SellAgree";
+	}
 }

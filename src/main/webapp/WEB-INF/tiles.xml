@@ -25,6 +25,7 @@
 		<put-attribute name="main" value="/WEB-INF/{1}/{2}.jsp" />
 	</definition>
 	
+	
 	<!-- 레이아웃2 설정 기본-->
 	<definition name="/sub/*/*" extends="layout2">
 		<put-attribute name="main" value="/WEB-INF/{1}/{2}.jsp" />

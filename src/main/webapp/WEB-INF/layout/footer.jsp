@@ -17,17 +17,29 @@
 
 <title></title>
 <style type="text/css">
- 	#footquestion{
- 	float: right; margin-right: 60px; 
+#footquestion {
+	font-size: 13px;
+	color: #747f55;
+	background-color: #fff;
+	padding: 12px 30px;
+	border-radius: 25px;
+	font-weight: 400;
+	text-transform: capitalize;
+	letter-spacing: 0.5px;
+	transition: all 0.3s;
+	position: relative;
+	overflow: hidden;
+	margin: auto;
+	width: 200px;
+	text-align: center;
+	margin-bottom: 50px;
+	border: 1px solid #747f55;
+	margin-left: 30px;
+	
 }
 
-  #footquestion button:hover {
-	
-  
- 
-} 
-h6, b{
-  color: #747f55;
+h6{
+  color: gray;
 }
 </style>
 	  <link rel="stylesheet" href="assets/css/animate.css">
@@ -48,7 +60,7 @@ h6, b{
 			<li style="line-height: 50px;"><a href="#"><b>이용안내</b></a></li>
 			<li style="line-height: 30px;"><a href="#">검수기준</a></li>
 			<li style="line-height: 30px;"><a href="#">이용정책</a></li>
-			<li style="line-height: 30px;"><a href="#">커뮤니티 가이드라인</a></li>
+			<li style="line-height: 30px;"><a href="#">커뮤니티</a></li>
 		</ul>
 	</div>
 		
@@ -74,7 +86,7 @@ h6, b{
 		</ul>
 		
 		
-		<button type="button" id="footquestion" onclick="#"  style=" ">자주묻는 질문</button>
+		<button type="button" id="footquestion" onclick="#">자주묻는 질문</button>
 	</div>
 </div>
 
@@ -92,14 +104,14 @@ h6, b{
 		
 		<div style=" width: 210px;  float: right; ">
 		<a href="#">
-		<img src="assets/images/footerlogo1.png" style="width: 30px; height: 30px; margin-left: 50px;">
+		<img src="../assets/images/footerlogo1.png" style="width: 30px; height: 30px; margin-left: 50px;">
 		</a>
 		<a href="#">
-		<img src="assets/images/footerlogo3.png" style="width: 30px; height: 30px; margin-left: 12px;">
+		<img src="../assets/images/footerlogo3.png" style="width: 30px; height: 30px; margin-left: 12px;">
 		</a>
 		
 		<a href="#">
-		<img src="assets/images/footerlogo2.png" style="width: 30px; height: 30px; margin-left: 12px;">
+		<img src="../assets/images/footerlogo2.png" style="width: 30px; height: 30px; margin-left: 12px;">
 		</a>
 	</div>
 		
@@ -108,11 +120,11 @@ h6, b{
 		 사업장소재지 : 서울특별시 강남구 테헤란로 132 8층 쌍용교육센터</h6>
 		<br>
 		
-		<b style=" font-size: 12px;  ">XX은행 채무지급보증 안내</b>
-		<h6 style="font-size: 9px;">당사는 고객님의 현금 결제 금액에 대해 신한은행과 채무지급보증 계약을 체결하여 안전거래를 보장하고 있습니다. <br>
+		<b style=" font-size: 12px;">XX은행 채무지급보증 안내</b>
+		<div style="font-size: 9px; color: gray;">당사는 고객님의 현금 결제 금액에 대해 신한은행과 채무지급보증 계약을 체결하여 안전거래를 보장하고 있습니다. <br>
 		서비스가입 사실 확인 트레져(주)는 통신판매 중개자로서 통신판매의 당사자가 아닙니다. <br>
 		본 상품은 개별판매자가 등록한 상품으로 상품, 상품정보, 거래에 관한 의무와 책임은 각 판매자에게 있습니다. <Br>
-		단 이용약관 및 정책, 기타 거래 체결 과정에서 고지하는 내용 등에 따라 검수하고 보증하는 내용에 대한 책임은 트레져(주)에 있습니다.</h6>
+		단 이용약관 및 정책, 기타 거래 체결 과정에서 고지하는 내용 등에 따라 검수하고 보증하는 내용에 대한 책임은 트레져(주)에 있습니다.</div>
 		
 		
 		

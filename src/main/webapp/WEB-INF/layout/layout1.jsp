@@ -21,18 +21,16 @@
 
 
 <style type="text/css">
-
 div.layout div.layout {
 	
 }
-
 
 div.layout div.header {
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
-	height: 80px;
+	height: 100px;
 	padding: 1rem;
 	display: flex;
 	justify-content: space-between;
@@ -54,7 +52,6 @@ div.layout div.main {
 	top: 110px;
 	height: 5100px;
 	width: 100%;
-	background: green;
 }
 
 div.layout div.footer {
@@ -64,9 +61,6 @@ div.layout div.footer {
 	height: 550px;
 	left: 160px;
 	width: 1200px;
-	
-	
-	
 }
 
 /* 화면 스크롤 버튼*/
@@ -88,7 +82,6 @@ div.layout div.footer {
 	transition: .2s;
 	color: #fff;
 	margin-right: .4rem;
-	
 }
 
 .moveTopBtn:hover {
@@ -97,18 +90,17 @@ div.layout div.footer {
 }
 
 /* 글꼴 적용*/
-
 @font-face {
-    font-family: 'GmarketSansMedium';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-body {
-	    font-family: 'GmarketSansMedium';
-	
+	font-family: 'GmarketSansMedium';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
 }
 
+body {
+	font-family: 'GmarketSansMedium';
 }
 </style>
 </head>

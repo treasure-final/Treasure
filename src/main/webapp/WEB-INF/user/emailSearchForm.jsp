@@ -23,9 +23,9 @@
             font-style: normal;
         }
 
-        * {
+        div.main {
             font-family: "GmarketSansMedium";
-            font-size: 10px;
+            font-size: 13px;
             padding: 0;
             margin: 0;
             border: none;
@@ -37,7 +37,7 @@
             padding: 40px;
             box-sizing: border-box;
             margin-left: 33%;
-            margin-top: 5%;
+            margin-top: 20px;
             line-height: 30px;
         }
 

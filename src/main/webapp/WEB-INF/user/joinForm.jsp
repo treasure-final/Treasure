@@ -19,52 +19,42 @@
 
 <style type="text/css">
 @font-face {
-  font-family: "GmarketSansMedium";
-
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
-    format("woff");
-  font-weight: normal;
-  font-style: normal;
+	font-family: "GmarketSansMedium";
+	src:
+		url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+		format("woff");
+	font-weight: normal;
 }
 
-*{
+div.main {
+	font-family: "GmarketSansMedium";
+	font-size: 13px;
 	padding: 0;
 	margin: 0;
 	border: none;
+	color: black;
 }
 
-body {
-	font-size: 13px;
-	font-family: 'GmarketSansMedium';
-}
-
-.join-wrapper{
-	width: 500px;
-	height: 350px;
+.join-wrapper {
+	width: 480px;
+	height: 800px;
 	padding: 40px;
 	box-sizing: border-box;
 	justify-content: center;
 	margin: auto;
+	margin-top: 20px;
 }
 
-.join-wrapper>h2{
+.join-wrapper>h2 {
 	font-size: 25px;
-	color: black;
 	margin-bottom: 20px;
 	text-align: center;
-	font-weight: bold;
-	margin-top: 10%;
+	margin-top: 30px;
+	margin-bottom: 50px;
 }
 
-.join-wrapper>h3{
-	font-size: 20px;
-	color: black;
-	margin-bottom: 20px;
-	text-align: center;
-	opacity: 0.5;
-}
 
-#join-form>input{
+#join-form>input {
 	width: 100%;
 	height: 48px;
 	padding: 0 10px;
@@ -74,50 +64,50 @@ body {
 	background-color: #F8F8F8;
 }
 
-
-#join-form > input::placeholder{
+#join-form>input::placeholder {
 	color: #D2D2D2;
 }
 
-#join-form > input[type="submit"]{
+#join-form>input[type="submit"] {
 	color: #fff;
 	font-size: 16px;
 	background-color: #999999;
 	margin-top: 20px;
 }
 
-.agree > input[type="checkbox"]{
+.agree>input[type="checkbox"] {
 	display: none;
 }
 
-input[type="checkbox"] + label{
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        border:2px solid #747f55;
-        position: relative;
-        margin-right: 5px;
-      }
-      
-input[id="agree1"]:checked + label::after,input[id="agree2"]:checked + label::after{
-        content:'✔';
-        color: #747f55;
-        font-size: 15px;
-        width: 20px;
-        height: 20px;
-        text-align: center;
-        position: absolute;
-        left: 0;
-        top: 0;
-      }
-
-.agree{
-	margin-bottom: 3px;
-	display: flex;
-  	align-items: center; 
+input[type="checkbox"]+label {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border: 2px solid #747f55;
+	position: relative;
+	margin-right: 5px;
 }
 
-#join-button{
+input[id="agree1"]:checked+label::after, input[id="agree2"]:checked+label::after
+	{
+	content: '✔';
+	color: #747f55;
+	font-size: 15px;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.agree {
+	margin-bottom: 3px;
+	display: flex;
+	align-items: center;
+}
+
+#join-button {
 	font-size: 13px;
 	color: #fff;
 	background-color: #747f55;
@@ -133,6 +123,7 @@ input[id="agree1"]:checked + label::after,input[id="agree2"]:checked + label::af
 	width: 100%;
 	text-align: center;
 	margin-bottom: 50px;
+	border: 1px solid #747f55;
 }
 
 #join-button:hover {
@@ -141,13 +132,13 @@ input[id="agree1"]:checked + label::after,input[id="agree2"]:checked + label::af
 	border: 1px solid #747f55;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
 }
 
-.addrnumber{
+
+.addrnumber {
 	height: 48px;
 	padding: 0 10px;
 	box-sizing: border-box;
@@ -156,14 +147,14 @@ input::-webkit-inner-spin-button {
 	background-color: #F8F8F8;
 }
 
-.addrsearch{
+.addrsearch {
 	font-size: 11px;
 	color: #fff;
 	background-color: #747f55;
 	border-radius: 25px;
 	font-weight: 300;
 	transition: all 0.3s;
-	position: relative;
+	position: absolute;
 	overflow: hidden;
 	margin: auto;
 	width: 80px;
@@ -178,7 +169,7 @@ input::-webkit-inner-spin-button {
 	border: 1px solid #747f55;
 }
 
-.kakaoaddr>input{
+.kakaoaddr>input {
 	width: 100%;
 	height: 48px;
 	box-sizing: border-box;
@@ -188,33 +179,32 @@ input::-webkit-inner-spin-button {
 	padding: 0 10px;
 }
 
-.kakaoaddr>input::placeholder{
+.kakaoaddr>input::placeholder {
 	color: #D2D2D2;
 }
 
-.agreemore{
+.agreemore {
 	font-size: 12px;
 	background-color: #fff;
 	color: gray;
 }
 
-.agreebutton{
+.agreebutton {
 	font-size: 15px;
 	background-color: #fff;
+	border: 1px solid #fff;
 }
 
-.agreecontent{
+.agreecontent {
 	font-size: 12px;
 }
 </style>
 
-
-
 </head>
 <body>
 	<div class="join-wrapper">
-	<h2>TREASURE</h2>
-	<h3>회원가입</h3>
+	<h2><i>회원가입</i></h2>
+	
 	<form action="joinInsert" method="post" id="join-form">
 		이메일 주소
 		<input type="email" name="user_email" id="user_email" placeholder="로그인시 사용 할 이메일 입력해주세요" required="required" autofocus="autofocus" onkeyup="keyevent()">
@@ -414,6 +404,7 @@ input::-webkit-inner-spin-button {
          }
      }).open();
  }
+
 </script>
 
 <!--개인정보 이용약관 모달  -->

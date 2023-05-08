@@ -22,7 +22,7 @@
 	font-weight: normal;
 	font-style: normal;
 }
-
+/* 
 * {
 	font-family: "GmarketSansMedium";
 	font-size: 10px;
@@ -30,12 +30,14 @@
 	margin: 0;
 	border: none;
 }
+ */
+
 
 .agree-wrapper {
 	width: 650px;
 	padding: 40px;
 	box-sizing: border-box;
-	margin-top: 100px !important;
+	margin-top: 20px !important;
 	line-height: 30px;
 	margin: auto;
 	position: relative;

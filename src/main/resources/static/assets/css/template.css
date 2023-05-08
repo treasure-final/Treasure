@@ -157,13 +157,12 @@ body {
 }
 
 a {
-  color: #ccc;
+  color: black;
   text-decoration: none !important;
 }
 a:hover {
-  color: #f99;
+  color: #747f55;
 }
-
 h1,
 h2,
 h3,
@@ -407,6 +406,9 @@ Header Style
 --------------------------------------------- 
 */
 
+
+
+
 .background-header {
   background-color: #fff !important;
   height: 70px !important;
@@ -436,12 +438,14 @@ Header Style
   transition: all 0.5s ease 0s;
 }
 
+/*로고  위치*/
 .header-area .main-nav {
-  min-height: 80px;
+  height: 80px;
   background: transparent;
-  display: flex;
-  padding: 15px 0px;
+	width:100%;	
+	text-align: center;
   border-radius: 50px;
+  
 }
 
 .background-header .main-nav {
@@ -450,7 +454,7 @@ Header Style
 }
 
 .header-area .main-nav #search {
-  position: relative;
+  position: absolute;
 }
 
 .header-area .main-nav #search input {
@@ -473,42 +477,54 @@ Header Style
   font-size: 16px;
 }
 
+
+/**/
 .header-area .main-nav .logo {
-  border-right: 1px solid #dfebda;
-  flex-basis: 25%;
-  margin-right: 5%;
+ 
+ margin-left:200px;
+ width:"100%";
   -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
+  height: 50px;
+
 }
 
 .header-area .main-nav .logo img {
   width: 191px;
+  
 }
 
 .background-header .main-nav .logo {
   margin-top: 8px;
+    
+  
 }
 
 .background-header .main-nav .logo img {
   width: 180px;
+   
+    
+
+    
 }
 
+
 .header-area .main-nav .nav {
-  display: inline-flex;
+  
   flex-basis: 70%;
   justify-content: flex-end;
   vertical-align: middle;
-  text-align: right;
   margin-top: 0px;
   margin-right: 0px;
   -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
-  position: relative;
-  z-index: 999;
+  position: absolute;
+
+  
 }
 
 .header-area .main-nav .nav li {
@@ -533,11 +549,11 @@ Header Style
   letter-spacing: 0.3px;
 }
 
-.header-area .main-nav .nav li:last-child a {
+/* .header-area .main-nav .nav li:last-child a {
   background-color: #dfebda;
   padding: 8px 10px 8px 20px;
   border-radius: 23px;
-}
+} */
 
 .header-area .main-nav .nav li:last-child a img {
   max-width: 30px;

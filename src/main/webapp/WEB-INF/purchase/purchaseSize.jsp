@@ -13,8 +13,8 @@
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script type="application/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js"
-            charset="utf-8"></script>
+    <script type="application/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         @font-face {
             font-family: "GmarketSansMedium";
@@ -105,6 +105,7 @@
             background-color: #fff;
             color: #747f55;
             border: 1px solid #747f55;
+            cursor: pointer;
         }
 
         #logo {
@@ -132,43 +133,77 @@
             margin: 3px;
             padding: 18px;
             flex-direction: column;
-            border: 1px solid darkgray;
-            border-radius: 15px;
+            border: 1px solid #ebebeb;
+            border-radius: 20px;
             background-color: white;
-            width: 24%;
+            width: 110px;
             vertical-align: middle;
             text-align: center;
             cursor: pointer;
             line-height: 13px;
         }
+
+        div.size_active {
+            border: 2px solid #747f55;
+        }
+
+        div.buy_size:hover{
+            background-color: #f3f3f3;
+        }
     </style>
+    <script>
+        $(function() {
+            //빠른배송 버튼 hover:아이콘 색상 변경
+           $(".fastbox").hover(function() {
+               $(".fa-paper-plane").css("color","#ff6961");
+           },function() {
+               $(".fa-paper-plane").css("color","#ffffff");
+           });
+
+            //일반배송 버튼 hover:배송기간 색상 변경
+            $(".nomalbox").hover(function() {
+                $(".nomalday").css("color","#747f55");
+            },function() {
+                $(".nomalday").css("color","#ffffff");
+            });
+
+            //사이즈 선택했을 때 적용 사항
+            $(".buy_size").click(function() {
+                $(".buy_size").removeClass("size_active");
+                $(this).addClass("size_active");
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="login-wrapper">
         <div style="display: flex;">
 <%--            <div style="background-color: white; width: 200px; height: 200px;">--%>
-                <img src="/img/item_image/shoes/1.png" class="buy_item_image">
+                <img src="/img/item_image/1.png" class="buy_item_image">
 <%--            </div>--%>
-            <div style="flex-direction: column; padding: 20px;">
+            <div style="flex-direction: column; padding: 20px; margin-top: 30px;">
                 <span class="buy_brand">Jordan</span><br>
                 <span class="buy_title">(W) 조던 1 x 트래비스 스캇 레트로 로우 OG SP 미디움 올리브</span><br>
             </div>
         </div>
         <form method="" action="" id="">
             <div style="display:flex;">
-            <c:forEach var="i" begin="1" end="4" step="1">
-                <div class="buy_size">
-                    <span class="buy_size">size</span><br>
-                    <span class="buy_size" style="color: #ec0b00;">금액</span>
-                </div>
+<%--                여성이라 사이즈는 225부터 시작, 사이즈는 5씩 증가--%>
+                <c:forEach var="size" begin="225" step="5" end="270" varStatus="i">
+                    <div class="buy_size">
+                        <span class="buy_size">${size}</span><br>
+                        <span class="buy_size" style="color: #ec0b00;">금액</span>
+                    </div>
+                <c:if test="${i.count%4==0}">
+                    </div><div style="display:flex;">
+                </c:if>
             </c:forEach>
             </div>
         </form>
-        <div style="display: flex;">
-            <button type="button" class="btn-login">빠른배송</button>
-            <button type="button" class="btn-login">일반배송<br><span style="font-size: 5px; color: white;">3일</span></button>
+        <div style="display: flex; margin-top: 25px;">
+            <button type="button" class="btn-login fastbox"><i class="fa-solid fa-paper-plane fa-xs" style="color: #ffffff;"></i>&nbsp;빠른배송</button>
+            <button type="button" class="btn-login nomalbox" style="line-height: 17px;">일반배송<br><span class="nomalday" style="font-size: 5px; color: white;">3일</span></button>
         </div>
-
     </div>
 </body>
 </html>

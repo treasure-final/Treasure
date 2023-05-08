@@ -17,7 +17,7 @@ public class PurcahseController {
 	public ModelAndView selectSize() {
 		ModelAndView mv=new ModelAndView();
 
-		mv.setViewName("/purchase/purchaseSize");
+		mv.setViewName("purchase/purchaseSize");
 		return mv;
 	}
 }

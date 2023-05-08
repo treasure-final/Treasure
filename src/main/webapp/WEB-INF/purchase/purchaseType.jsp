@@ -97,6 +97,7 @@
             margin-right: 7px;
             cursor: pointer;
         }
+
         .deadline:hover {
             background-color: #f3f3f3;
         }
@@ -116,7 +117,15 @@
             width: 49%;
             margin-top: 20px;
             font-size: 16px;
-        "
+        }
+
+        .result-bottom {
+            border-top: 1px solid #b9b9b9;
+            width: 95%;
+            height: 10%;
+            margin-top: 15px;
+            font-size: 14px;
+            padding-top: 20px;
         }
     </style>
     <script>
@@ -141,10 +150,38 @@
                     .css("color", "#fff");
             })
             $(".deadline").click(function () {
+
+                let day = $(this).text();
+                let intDay = $(this).attr("day");
+
+                let today = new Date();
+
+                let year = today.getFullYear();
+
+                let month = today.getMonth() + 1
+                let date = today.getDate() + parseInt(intDay);
+                let deadDay = year + "/" + month + "/" + date;
+
                 $(".deadline").css("border", "1px solid darkgray");
                 $(this).css("border", "1px solid black");
+                $("#deadline-day").text(day);
+                $("#deadline-date").text(deadDay);
             });
-        })
+        });
+
+        function inputNumberFormat(obj) {
+            obj.value = comma(uncomma(obj.value));
+        }
+
+        function comma(str) {
+            str = String(str);
+            return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+        }
+
+        function uncomma(str) {
+            str = String(str);
+            return str.replace(/[^\d]+/g, '');
+        }
     </script>
 </head>
 <body>
@@ -189,7 +226,7 @@
         <div style="padding-top: 20px; padding-bottom: 10px; font-size: 14px; opacity: 0.4">총 결제금액은
             다음 화면에서 계산됩니다.
         </div>
-        <div style="border-top: 1px solid #b9b9b9; width: 95%; height: 10%; margin-top: 15px; font-size: 14px; padding-top: 20px">
+        <div class="result-bottom">
             총 결제금액<span style="font-size: 14px; opacity: 0.4; margin-left: 450px;">다음 화면에서 확인</span>
             <input type="button" value="즉시 구매 계속" class="btn-submit">
         </div>
@@ -198,7 +235,7 @@
     <div id="result-bid" style="margin-left: 40px">
         <div style="font-size: 13px;">구매 희망가</div>
         <div align="right" style="font-size: 20px; margin-right: 35px;" id="buy-form">
-            <input type="text" id="hopePrice">원
+            <input type="text" id="hopePrice" placeholder="희망가 입력" onkeyup="inputNumberFormat(this)">원
         </div>
 
         <div class="result-content"
@@ -209,24 +246,26 @@
         </div>
         <div style="padding: 30px 0;">
             <p style="font-size: 14px;">입찰 마감기한</p>
-            <p style="font-size: 13px;">30일 (2023/06/06 마감)</p><br>
-            <span class="deadline">
+            <p style="font-size: 13px;"><span id="deadline-day" style="font-size: 13px"></span>(<span id="deadline-date"
+                                                                                                      style="font-size: 13px;"></span>)
+                마감</p><br>
+            <span class="deadline" day="1">
                 1일
             </span>
-            <span class="deadline">
+            <span class="deadline" day="3">
                 3일
             </span>
-            <span class="deadline">
+            <span class="deadline" day="7">
+                7일
+            </span>
+            <span class="deadline" day="30">
                 30일
             </span>
-            <span class="deadline">
-                30일
-            </span>
-            <span class="deadline">
+            <span class="deadline" day="60">
                 60일
             </span>
         </div>
-        <div style="border-top: 1px solid #b9b9b9; width: 95%; height: 10%; margin-top: 15px; font-size: 14px; padding-top: 20px">
+        <div class="result-bottom">
             총 결제금액<span style="font-size: 14px; opacity: 0.4; margin-left: 450px;">다음 화면에서 확인</span>
             <input type="button" value="구매 입찰 계속" class="btn-submit"></div>
     </div>

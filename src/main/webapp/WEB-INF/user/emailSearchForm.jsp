@@ -56,6 +56,7 @@
             margin-bottom: 16px;
             border-radius: 6px;
             background-color: #F8F8F8;
+            font-family: "GmarketSansMedium";
         }
 
         #search-form > input::placeholder {

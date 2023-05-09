@@ -34,6 +34,10 @@ div.main {
 	color: black;
 }
 
+*{
+	font-family: "GmarketSansMedium";
+}
+
 #logo {
 	font-size: 25px;
 	font-weight: bold;

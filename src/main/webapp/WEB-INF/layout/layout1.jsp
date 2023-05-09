@@ -48,19 +48,17 @@ div.layout div.header {
 	} 
 		*/
 div.layout div.main {
-	position: absolute;
+	position: relative;
 	top: 110px;
-	height: 5100px;
 	width: 100%;
 }
 
 div.layout div.footer {
-	position: absolute;
+	position: relative;
 	border: 0px solid green;
-	top: 5300px;
+	top: 600px;
 	height: 550px;
-	left: 160px;
-	width: 1200px;
+	width: 100%;
 }
 
 /* 화면 스크롤 버튼*/

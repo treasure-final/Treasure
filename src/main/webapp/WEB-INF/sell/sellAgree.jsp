@@ -22,16 +22,10 @@
 	font-weight: normal;
 	font-style: normal;
 }
-/* 
-* {
-	font-family: "GmarketSansMedium";
-	font-size: 10px;
-	padding: 0;
-	margin: 0;
-	border: none;
-}
- */
 
+*{
+	font-family: "GmarketSansMedium";
+}
 
 .agree-wrapper {
 	width: 800px;
@@ -196,6 +190,31 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
 	margin-bottom: 50px;
 }
 </style>
+
+<script>
+	function checkAgreement() {
+	    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+	    for (var i = 0; i < checkboxes.length; i++) {
+	        if (!checkboxes[i].checked) {
+	            alert("모든 약관에 동의해야 합니다.");
+	            return;
+	        }
+	    }
+	    location.href='/sell/sellType';
+	}
+	
+	function checkAllAgreements() {
+	    var checkboxes = document.querySelectorAll('#agree-check input[type="checkbox"]');
+	    var allChecked = true;
+	    for (var i = 0; i < checkboxes.length - 1; i++) {
+	        if (!checkboxes[i].checked) {
+	            allChecked = false;
+	            break;
+	        }
+	    }
+	    checkboxes[checkboxes.length - 1].checked = allChecked;
+	}
+</script>
 </head>
 <body>
 <div class="agree-wrapper">
@@ -215,23 +234,23 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
     		
     	<div class="agree-check" id="agree-check">
     		<div>
-    		<span>판매하려는 상품과 일치 합니다</span><input type="checkbox" required="required" id="check1" class="chk"><label for="check1"></label>
+    		<span>판매하려는 상품과 일치 합니다</span><input type="checkbox" required="required" id="check1" class="chk" onchange="checkAllAgreements()"><label for="check1"></label>
     		</div>
     		
     		<div>
-    		<span>국내/해외에서 발매한 정품 및 새상품 입니다</span><input type="checkbox" required="required" id="check2" class="chk"><label for="check2"></label>
+    		<span>국내/해외에서 발매한 정품 및 새상품 입니다</span><input type="checkbox" required="required" id="check2" class="chk" onchange="checkAllAgreements()"><label for="check2"></label>
     		</div>
     		
     		<div>
-    		<span>패키지 상태를 확인하였으며 문제가 없습니다</span><input type="checkbox" required="required" id="check3" class="chk"><label for="check3"></label>
+    		<span>패키지 상태를 확인하였으며 문제가 없습니다</span><input type="checkbox" required="required" id="check3" class="chk" onchange="checkAllAgreements()"><label for="check3"></label>
     		</div>
     		
     		<div>
-    		<span>이중 포장하여 발송 합니다</span><input type="checkbox" required="required" id="check4" class="chk"><label for="check4"></label>
+    		<span>이중 포장하여 발송 합니다</span><input type="checkbox" required="required" id="check4" class="chk" onchange="checkAllAgreements()"><label for="check4"></label>
     		</div>
     		
     		<div>
-    		<span>TREASURE의 이용정책을 확인 하였습니다</span><input type="checkbox" required="required" id="check5" class="chk"><label for="check5"></label>
+    		<span>TREASURE의 이용정책을 확인 하였습니다</span><input type="checkbox" required="required" id="check5" class="chk" onchange="checkAllAgreements()"><label for="check5"></label>
     		</div>
     		
     		<div>
@@ -241,7 +260,7 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
     	 
     	<div style="display: flex;">
     	<button type="button" id="agree-back">뒤로가기</button> 
-        <button type="button" id="agree-next" onclick="location.href='/sell/sellType'">판매 계속하기</button>
+        <button type="button" id="agree-next" onclick="checkAgreement()">판매 계속하기</button>
         </div>
 </div>
 

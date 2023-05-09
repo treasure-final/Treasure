@@ -25,6 +25,10 @@
 	font-style: normal;
 }
 
+*{
+	font-family: "GmarketSansMedium";
+}
+
 div.main {
 	font-family: "GmarketSansMedium";
 	font-size: 13px;

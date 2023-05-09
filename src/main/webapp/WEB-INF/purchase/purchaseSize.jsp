@@ -11,7 +11,8 @@
           rel="stylesheet">
     <title>Treasure</title>
     <!-- Bootstrap core CSS -->
-    <%--    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">--%>
+
+<%--    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">--%>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="application/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />

@@ -35,11 +35,10 @@ public class PurcahseController {
 
 		mv.setViewName("purchase/purchaseType");
 		return mv;
-	}
+  }
+
 
 	@GetMapping("/buy/check")
 	public String buyAgree() {
 		return "purchase/purchaseAgree";
 	}
-
-}

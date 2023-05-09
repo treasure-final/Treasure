@@ -218,9 +218,9 @@ div.sell_size:hover {
     	<div><i id="logo">판매하기</i></div>
     	<div class="hr"></div>
         <div style="display: flex;">
-<%--            <div style="background-color: white; width: 200px; height: 200px;">--%>
+
                 <img src="/img/item_image/1.png" class="sell_item_image">
-<%--            </div>--%>
+
             <div style="flex-direction: column; padding: 20px; margin-top: 30px;">
                 <span class="sell_brand">Jordan</span><br>
                 <span class="sell_title">(W) 조던 1 x 트래비스 스캇 레트로 로우 OG SP 미디움 올리브</span><br>
@@ -242,7 +242,7 @@ div.sell_size:hover {
         </form>
        <div style="display: flex;">
     	<button type="button" id="sell-back">뒤로가기</button> 
-        <button type="button" id="sell-next" onclick="location.href='/sell/sellAgree'">판매계속</button>
+        <button type="button" id="sell-next" onclick="location.href='/sell/sellAgree'">판매 계속하기</button>
         </div>
     </div>
 </body>

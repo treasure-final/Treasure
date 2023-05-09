@@ -96,7 +96,7 @@ a:hover {
 		</div>
 		
 		<div id="menulist">
-				<ul>
+				<ul class="tul">
 					<li style="margin-right: 40px;"><a href="#"><b>Home</b></a></li>
 					<li style="margin-right: 40px;"><a href="#">Style</a></li>
 					<li style="margin-right: 40px;"><a href="/sell/sellSize">Shop</a></li>

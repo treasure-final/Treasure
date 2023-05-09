@@ -241,7 +241,7 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
     	 
     	<div style="display: flex;">
     	<button type="button" id="agree-back">뒤로가기</button> 
-        <button type="button" id="agree-next" onclick="location.href='/sell/sellType'">판매계속</button>
+        <button type="button" id="agree-next" onclick="location.href='/sell/sellType'">판매 계속하기</button>
         </div>
 </div>
 

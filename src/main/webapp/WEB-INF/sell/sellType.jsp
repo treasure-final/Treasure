@@ -43,6 +43,7 @@ div.main {
 	margin: 50px auto;
 	line-height: 30px;
 	background-color: #ffffff;
+	font-family: "GmarketSansMedium";
 }
 
 #logo {
@@ -52,6 +53,52 @@ div.main {
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 20px;
+}
+
+#sell-back {
+	font-size: 13px;
+	color: #747f55;
+	background-color: #fff;
+	padding: 12px 30px;
+	border-radius: 25px;
+	font-weight: 400;
+	text-transform: capitalize;
+	letter-spacing: 0.5px;
+	transition: all 0.3s;
+	position: relative;
+	overflow: hidden;
+	margin: auto;
+	width: 45%;
+	text-align: center;
+	margin-bottom: 50px;
+	margin-top: 30px;
+	border: 1px solid #747f55;
+}
+
+#sell-next {
+	font-size: 13px;
+	color: #fff;
+	background-color: #747f55;
+	padding: 12px 30px;
+	border-radius: 25px;
+	font-weight: 400;
+	text-transform: capitalize;
+	letter-spacing: 0.5px;
+	transition: all 0.3s;
+	position: relative;
+	overflow: hidden;
+	margin: auto;
+	width: 45%;
+	text-align: center;
+	margin-bottom: 50px;
+	margin-top: 30px;
+	border: 1px solid #747f55;
+}
+
+#sell-next:hover {
+	background-color: #fff;
+	color: #747f55;
+	border: 1px solid #747f55;
 }
 
 .container>h2 {
@@ -140,7 +187,9 @@ div.main {
 	margin-top: 15px;
 	font-size: 14px;
 	padding-top: 20px;
+	
 }
+
 
 .hr {
 	border: none;
@@ -148,6 +197,8 @@ div.main {
 	background: black;
 	margin-bottom: 50px;
 }
+
+
 </style>
 <script>
 	$(function() {
@@ -252,7 +303,10 @@ div.main {
         </div>
         <div class="result-bottom">
             총 정산금액<span style="font-size: 14px; margin-left: 500px;">177,000원</span>
-            <input type="button" value="판매계속" class="btn-submit">
+            <div style="display: flex;">
+            <button type="button" id="sell-back">뒤로가기</button> 
+            <button type="button" id="sell-next" onclick="location.href=''">판매 계속하기</button>
+            </div>
         </div>
     </div>
 
@@ -289,8 +343,11 @@ div.main {
             </span>
         </div>
         <div class="result-bottom">
-            총 정산금액<span style="font-size: 14px; opacity: 0.4; margin-left: 450px;">999,999원</span>
-            <input type="button" value="판매 입찰 계속" class="btn-submit"></div>
+            총 정산금액<span style="font-size: 14px; margin-left: 500px;">999,999원</span>
+            <div style="display: flex;">
+            <button type="button" id="sell-back">뒤로가기</button> 
+            <button type="button" id="sell-next" onclick="location.href=''">판매 입찰 계속하기</button>
+            </div>
     </div>
 </div>
 </body>

@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PurcahseService implements PurcahseServiceInter {
+public class PurchaseService implements PurchaseServiceInter {
 
 	@Autowired
-	PurcahseMapperInter mapper;
+	PurchaseMapperInter mapper;
 	
 }

@@ -11,6 +11,7 @@
           rel="stylesheet">
     <title>Treasure</title>
     <!-- Bootstrap core CSS -->
+
 <%--    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">--%>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="application/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
@@ -164,11 +165,11 @@
     <script type="text/javascript">
         $(function() {
             //빠른배송 버튼 hover:아이콘 색상 변경
-           $(".fastbox").hover(function() {
-               $(".fa-paper-plane").css("color","#ff6961");
-           },function() {
-               $(".fa-paper-plane").css("color","#ffffff");
-           });
+            $(".fastbox").hover(function() {
+                $(".fa-paper-plane").css("color","#ff6961");
+            },function() {
+                $(".fa-paper-plane").css("color","#ffffff");
+            });
 
             //일반배송 버튼 hover:배송기간 색상 변경
             $(".nomalbox").hover(function() {
@@ -205,26 +206,26 @@
         <div><i id="logo">사이즈 선택</i></div>
         <div class="hr"></div>
         <div style="display: flex;">
-<%--            <div style="background-color: white; width: 200px; height: 200px;">--%>
-                <img src="/img/item_image/1.png" class="buy_item_image">
-<%--            </div>--%>
+            <%--            <div style="background-color: white; width: 200px; height: 200px;">--%>
+            <img src="/img/item_image/1.png" class="buy_item_image">
+            <%--            </div>--%>
             <div style="flex-direction: column; padding: 20px; margin-top: 30px;">
                 <span class="buy_brand">Jordan</span><br>
                 <span class="buy_title">(W) 조던 1 x 트래비스 스캇 레트로 로우 OG SP 미디움 올리브</span><br>
             </div>
         </div>
-            <div style="display:flex;">
-<%--                여성이라 사이즈는 225부터 시작, 사이즈는 5씩 증가--%>
-                <c:forEach var="size" begin="225" step="5" end="270" varStatus="i">
-                    <div class="buy_size">
-                        <span class="buy_size selectSize">${size}</span><br>
-                        <span class="buy_size" style="color: #ec0b00;">139,000</span>
-                    </div>
-                <c:if test="${i.count%4==0}">
-                    </div><div style="display:flex;">
-                </c:if>
-            </c:forEach>
+        <div style="display:flex;">
+            <%--                여성이라 사이즈는 225부터 시작, 사이즈는 5씩 증가--%>
+            <c:forEach var="size" begin="225" step="5" end="270" varStatus="i">
+            <div class="buy_size">
+                <span class="buy_size selectSize">${size}</span><br>
+                <span class="buy_size" style="color: #ec0b00;">139,000</span>
             </div>
+            <c:if test="${i.count%4==0}">
+        </div><div style="display:flex;">
+        </c:if>
+        </c:forEach>
+    </div>
         <div style="display: flex; margin-top: 25px;">
             <button type="button" class="btn-login fastbox" onclick="map();"><i class="fa-solid fa-paper-plane fa-xs" style="color: #ffffff; "></i>&nbsp;빠른배송</button>
             <button type="button" class="btn-login nomalbox" style="line-height: 17px;">일반배송<br><span class="nomalday" style="font-size: 5px; color: white;">3일</span></button>
@@ -232,4 +233,3 @@
     </div>
 </body>
 </html>
-    

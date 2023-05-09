@@ -37,9 +37,8 @@ public class PurcahseController {
 		return mv;
   }
 
+
 	@GetMapping("/buy/check")
 	public String buyAgree() {
 		return "purchase/purchaseAgree";
 	}
-
-}

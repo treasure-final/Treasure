@@ -11,7 +11,7 @@
           rel="stylesheet">
     <title>Treasure</title>
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<%--    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">--%>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="application/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js"
             charset="utf-8"></script>
@@ -130,10 +130,13 @@
     </style>
     <script>
         $(function () {
+            buyWay="";
+
             $("#result-bid").hide();
             $("#buy-bid").css("background-color", "#e3e3e3")
                 .css("color", "black");
             $("#buy-bid").click(function () {
+                buyWay="bid";
                 $("#result-immediate").hide();
                 $("#result-bid").show();
                 $("#buy-immediate").css("background-color", "#e3e3e3")
@@ -142,6 +145,7 @@
                     .css("color", "#fff");
             });
             $("#buy-immediate").click(function () {
+                buyWay="immediate";
                 $("#result-bid").hide();
                 $("#result-immediate").show();
                 $("#buy-bid").css("background-color", "#e3e3e3")
@@ -195,7 +199,7 @@
                 <b style="font-size: 14px">DR0148-102</b><br>
                 (W) Nike Air Force 1 '07 LX Summit White Gorge Green<br>
                 <p style="opacity: 0.6; font-size: 14px;">(W) 나이키 에어포스 1 '07 LX 서밋 화이트 골지 그린</p>
-                240
+                ${map.get("size")}
             </div>
         </div>
         <div id="right-info"
@@ -218,7 +222,7 @@
     </div>
     <div id="result-immediate" style="margin-left: 40px">
         <div style="font-size: 13px;">즉시 구매가</div>
-        <div align="right" style="font-size: 20px; margin-right: 35px; margin-top: 10px">177,000원</div>
+        <div align="right" style="font-size: 20px; margin-right: 35px; margin-top: 10px">123333}</div>
 
         <div class="result-content"
              style="border-top: 1px solid #b9b9b9; width: 95%; height: 10%; margin-top: 39px;">

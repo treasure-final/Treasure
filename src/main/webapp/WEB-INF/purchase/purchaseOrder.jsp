@@ -114,6 +114,22 @@
         td {
            font-size: 14px;
         }
+
+        .hr {
+            border: none;
+            height: 2px;
+            background: black;
+            margin-bottom: 50px;
+        }
+
+        #logo {
+            font-size: 25px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
     </style>
     <script>
         $(function () {
@@ -127,6 +143,8 @@
 </head>
 <body>
 <div class="container">
+    <div><i id="logo">구매/결제</i></div>
+    <div class="hr"></div>
     <div id="info" style="width: 100%; height: 30%; margin-bottom: 10px; margin-left: 40px;">
         <img src="../../img/화면%20캡처%202023-05-04%20140755.png"
              style="width: 110px; float: left; margin-right: 20px; border-radius: 10px;">

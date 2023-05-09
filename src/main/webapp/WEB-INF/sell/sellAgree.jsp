@@ -272,7 +272,12 @@ $("#check6").click(function(){
    
    $(".chk").prop("checked", allchk);
    
-})
+});
+
+//일단은 걍 뒤로가기
+$("#agree-back").click(function(){
+	history.back();
+});
 </script>
 </body>
 </html>

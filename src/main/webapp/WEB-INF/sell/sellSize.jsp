@@ -249,6 +249,13 @@ div.sell_size:hover {
         <button type="button" id="sell-next" onclick="location.href='/sell/sellAgree'">판매 계속하기</button>
         </div>
     </div>
+
+<script type="text/javascript">
+//일단은 걍 뒤로가기
+$("#sell-back").click(function(){
+	history.back();
+});
+</script>    
 </body>
 </html>
     

@@ -167,23 +167,13 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	font-weight: 300;
 	transition: all 0.3s;
 	position: absolute;
-	width: 80px;
+	width: 70px;
 	height: 35px;
 	text-align: center;
 	margin-bottom: 10px;
-	padding-left: 20px;
-}
-
-.addrsearch input[type="button"] {
-  position: relative;
-}
-
-.addrsearch input[type="button"]::before {
-  content: '주소검색';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+	padding-left: 15px;
+	padding-top: 3px;
+	margin: 10px 0;
 }
 
 .addrsearch:hover {

@@ -42,3 +42,4 @@ public class PurcahseController {
 	public String buyAgree() {
 		return "purchase/purchaseAgree";
 	}
+}

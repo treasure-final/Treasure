@@ -13,187 +13,208 @@
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
  <script type="application/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
-<style>
-@font-face {
-	font-family: "GmarketSansMedium";
-	src:
-		url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
-		format("woff");
-	font-weight: normal;
-	font-style: normal;
-}
-/* 
-* {
-	font-family: "GmarketSansMedium";
-	font-size: 10px;
-	padding: 0;
-	margin: 0;
-	border: none;
-}
- */
+	<style>
+		@font-face {
+			font-family: "GmarketSansMedium";
+			src:
+					url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+					format("woff");
+			font-weight: normal;
+			font-style: normal;
+		}
+
+		*{
+			font-family: "GmarketSansMedium";
+		}
+
+		.agree-wrapper {
+			width: 800px;
+			padding: 40px;
+			box-sizing: border-box;
+			margin-top: 20px !important;
+			line-height: 30px;
+			margin: auto;
+			position: relative;
+		}
+
+		input[type="checkbox"] {
+			display: none;
+			float: right;
+		}
+
+		input[type="checkbox"]+label {
+			width: 25px;
+			height: 25px;
+			border: 2px solid #747f55;
+			position: relative;
+			margin-right: 5px;
+			float: right;
+		}
+
+		input[id="check1"]:checked+label::after, input[id="check2"]:checked+label::after,
+		input[id="check3"]:checked+label::after, input[id="check4"]:checked+label::after,
+		input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after {
+			content: '✔';
+			color: #fff;
+			background: #747f55;
+			font-size: 18px;
+			width: 25px;
+			height: 25px;
+			text-align: center;
+			position: absolute;
+			left: 0;
+			top: 0;
+			float: right;
+		}
 
 
-.agree-wrapper {
-	width: 650px;
-	padding: 40px;
-	box-sizing: border-box;
-	margin-top: 20px !important;
-	line-height: 30px;
-	margin: auto;
-	position: relative;
-}
+		#agree-back {
+			font-size: 13px;
+			color: #747f55;
+			background-color: #fff;
+			padding: 12px 30px;
+			border-radius: 25px;
+			font-weight: 400;
+			text-transform: capitalize;
+			letter-spacing: 0.5px;
+			transition: all 0.3s;
+			position: relative;
+			overflow: hidden;
+			margin: auto;
+			width: 45%;
+			text-align: center;
+			margin-bottom: 50px;
+			margin-top: 30px;
+			border: 1px solid #747f55;
+		}
 
-input[type="checkbox"] {
-	display: none;
-	float: right;
-}
+		#agree-next {
+			font-size: 13px;
+			color: #fff;
+			background-color: #747f55;
+			padding: 12px 30px;
+			border-radius: 25px;
+			font-weight: 400;
+			text-transform: capitalize;
+			letter-spacing: 0.5px;
+			transition: all 0.3s;
+			position: relative;
+			overflow: hidden;
+			margin: auto;
+			width: 45%;
+			text-align: center;
+			margin-bottom: 50px;
+			margin-top: 30px;
+			border: 1px solid #747f55;
+		}
 
-input[type="checkbox"]+label {
-	width: 25px;
-	height: 25px;
-	border: 2px solid #747f55;
-	position: relative;
-	margin-right: 5px;
-	float: right;
-}
+		#agree-next:hover {
+			background-color: #fff;
+			color: #747f55;
+			border: 1px solid #747f55;
+		}
 
-input[id="check1"]:checked+label::after, input[id="check2"]:checked+label::after,
-input[id="check3"]:checked+label::after, input[id="check4"]:checked+label::after,
-input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after {
-	content: '✔';
-	color: #fff;
-	background: #747f55;
-	font-size: 18px;
-	width: 25px;
-	height: 25px;
-	text-align: center;
-	position: absolute;
-	left: 0;
-	top: 0;
-	float: right;
-}
+		#logo {
+			font-size: 25px;
+			font-weight: bold;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			margin-bottom: 20px;
+		}
 
+		.item {
+			width: 100%;
+			margin: auto;
+			margin-top: 30px;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+		}
 
-#agree-back {
-	font-size: 13px;
-	color: #747f55;
-	background-color: #fff;
-	padding: 12px 30px;
-	border-radius: 25px;
-	font-weight: 400;
-	text-transform: capitalize;
-	letter-spacing: 0.5px;
-	transition: all 0.3s;
-	position: relative;
-	overflow: hidden;
-	margin: auto;
-	width: 45%;
-	text-align: center;
-	margin-bottom: 50px;
-	margin-top: 30px;
-	border: 1px solid #747f55;
-	cursor: pointer;
-}
+		.item-photo {
+			width: 150px;
+			object-fit: cover;
+			border-radius: 10px;
+		}
 
-#agree-next {
-	font-size: 13px;
-	color: #fff;
-	background-color: #747f55;
-	padding: 12px 30px;
-	border-radius: 25px;
-	font-weight: 400;
-	text-transform: capitalize;
-	letter-spacing: 0.5px;
-	transition: all 0.3s;
-	position: relative;
-	overflow: hidden;
-	margin: auto;
-	width: 45%;
-	text-align: center;
-	margin-bottom: 50px;
-	margin-top: 30px;
-}
+		.item-info {
+			display: flex;
+			flex-direction: column;
+			margin-left: 20px;
+		}
 
-#agree-next:hover {
-	background-color: #fff;
-	color: #747f55;
-	border: 1px solid #747f55;
-	cursor: pointer;
-}
+		.item-info>li {
+			list-style: none;
+			font-size: 14px;
+		}
 
-#logo {
-	font-size: 25px;
-	font-weight: bold;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-bottom: 20px;
-}
+		.agree-ment {
+			margin-top: 30px;
+			font-size: 20px;
+		}
 
-.hr {
-	border: none;
-	height: 2px;
-	background: black;
-	margin-bottom: 50px;
-}
+		.agree-check {
+			width: 100%;
+			height: 350px;
+			margin: auto;
+			margin-top: 10px;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			border: 1px solid #D2D2D2;
+			justify-content: center;
+			align-items: flex-start;
+			border-radius: 10px;
+		}
 
-.item {
-	width: 100%;
-	margin: auto;
-	margin-top: 30px;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-}
+		.agree-check>div {
+			display: flex;
+			align-items: center;
+			padding: 10px;
+		}
 
-.item-photo {
-	width: 160px;
-	object-fit: cover;
-}
+		.agree-check>div>span {
+			display: flex;
+			align-items: center;
+			font-size: 15px;
+			padding: 3px;
+			width: 640px;
+			margin-left: 10px;
+		}
 
-.item-info {
-	display: flex;
-	flex-direction: column;
-	margin-left: 20px;
-}
+		.hr {
+			border: none;
+			height: 2px;
+			background: black;
+			margin-bottom: 50px;
+		}
+	</style>
 
-.item-info>li {
-	list-style: none;
-	font-size: 18px;
-}
+	<script>
+		function checkAgreement() {
+			var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+			for (var i = 0; i < checkboxes.length; i++) {
+				if (!checkboxes[i].checked) {
+					alert("모든 약관에 동의해야 합니다.");
+					return;
+				}
+			}
+			location.href='/buy/type';
+		}
 
-.agree-ment {
-	margin-top: 30px;
-	font-size: 20px;
-}
-
-.agree-check {
-	width: 100%;
-	height: 350px;
-	margin: auto;
-	margin-top: 10px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	border: 1px solid #D2D2D2;
-	justify-content: center;
-	align-items: flex-start;
-}
-
-.agree-check>div {
-	display: flex;
-	align-items: center;
-	padding: 10px;
-}
-
-.agree-check>div>span {
-	display: flex;
-	align-items: center;
-	font-size: 15px;
-	padding: 3px;
-	width: 500px;
-}
-</style>
+		function checkAllAgreements() {
+			var checkboxes = document.querySelectorAll('#agree-check input[type="checkbox"]');
+			var allChecked = true;
+			for (var i = 0; i < checkboxes.length - 1; i++) {
+				if (!checkboxes[i].checked) {
+					allChecked = false;
+					break;
+				}
+			}
+			checkboxes[checkboxes.length - 1].checked = allChecked;
+		}
+	</script>
 </head>
 <body>
 <div class="agree-wrapper">
@@ -234,8 +255,8 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
     	</div>
     	 
     	<div style="display: flex;">
-    	<button type="button" id="agree-back">뒤로가기</button> 
-        <button type="button" id="agree-next">구매계속</button>
+    	<button type="button" id="agree-back" onclick="location.href='select'">뒤로가기</button>
+        <button type="button" id="agree-next" onclick="checkAgreement()">구매계속</button>
         </div>
 </div>
 

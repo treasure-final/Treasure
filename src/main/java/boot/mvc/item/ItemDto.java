@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 @Alias("ItemDto")
 public class ItemDto {
+
     private String item_num;
     private String item_brandname;
     private String item_category;

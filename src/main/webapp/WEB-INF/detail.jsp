@@ -186,10 +186,10 @@
 
 										<div class="col-7">
 											<div class="mb-4">
-												<button type="button" class="btn btn-detail btn-lg w-100" style="height: 7vh;">구매</button>
+												<button type="button" class="btn btn-detail btn-lg w-100" style="height: 7vh;" onclick="location.href=''">구매</button>
 											</div>
 											<div>
-												<button type="button" class="btn btn-outline-detail btn-lg w-100" style="height: 7vh;">판매</button>
+												<button type="button" class="btn btn-outline-detail btn-lg w-100" style="height: 7vh;" onclick="location.href=''">판매</button>
 											</div>
 										</div>
 									</div>
@@ -1032,15 +1032,10 @@
 																						</div>
 																					</div>
 																				</div>
-
 																			</div>
-
 																		</div>
-
-
 																	</div>
 																</div>
-
 															</div>
 														</div>
 													</div>
@@ -1320,22 +1315,22 @@
 
 		<div class="mt-4 mb-lg-5" style="border: 1px solid gray; height: 80vh;">
 		<a href=''>
-				<img alt="" src="/assets/images/2.png" style="border: 1px solid gray; height: 200px; width: 212px;">
+				<img alt="" src="/assets/images/8.png" style="border: 1px solid gray; height: 200px; width: 212px;">
 			</a>
 			<a href=''>
-				<img alt="" src="/assets/images/3.png" style="border: 1px solid gray; height: 200px; width: 212px;">
+				<img alt="" src="/assets/images/9.png" style="border: 1px solid gray; height: 200px; width: 212px;">
 			</a>
 			<a href=''>
-				<img alt="" src="/assets/images/4.png" style="border: 1px solid gray; height: 200px; width: 212px;">
+				<img alt="" src="/assets/images/10.png" style="border: 1px solid gray; height: 200px; width: 212px;">
 			</a>
 			<a href=''>
-				<img alt="" src="/assets/images/5.png" style="border: 1px solid gray; height: 200px; width: 212px;">
+				<img alt="" src="/assets/images/11.png" style="border: 1px solid gray; height: 200px; width: 212px;">
 			</a>
 			<a href=''>
-				<img alt="" src="/assets/images/6.png" style="border: 1px solid gray; height: 200px; width: 212px;">
+				<img alt="" src="/assets/images/12.png" style="border: 1px solid gray; height: 200px; width: 212px;">
 			</a>
 			<a href=''>
-				<img alt="" src="/assets/images/7.png" style="border: 1px solid gray; height: 200px; width: 212px;">
+				<img alt="" src="/assets/images/13.png" style="border: 1px solid gray; height: 200px; width: 212px;">
 			</a>
 		</div>
 

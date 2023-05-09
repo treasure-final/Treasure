@@ -8,59 +8,65 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- Remember to include jQuery :) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+
+<!-- jQuery Modal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
+
 
 
 <title>Treasure</title>
 
 <style type="text/css">
 @font-face {
-  font-family: "GmarketSansMedium";
-
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
-    format("woff");
-  font-weight: normal;
-  font-style: normal;
+	font-family: "GmarketSansMedium";
+	src:
+		url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+		format("woff");
+	font-weight: normal;
 }
 
 *{
+font-family: "GmarketSansMedium";
+}
+
+div.main {
+	font-family: "GmarketSansMedium";
+	font-size: 13px;
 	padding: 0;
 	margin: 0;
 	border: none;
+	color: black;
 }
 
-body {
-	font-size: 14px;
-	font-family: 'GmarketSansMedium';
-}
-
-.join-wrapper{
-	width: 500px;
-	height: 350px;
+.join-wrapper {
+	width: 480px;
+	height: 800px;
 	padding: 40px;
 	box-sizing: border-box;
 	justify-content: center;
 	margin: auto;
+	margin-top: 20px;
 }
 
-.join-wrapper>h2{
-	font-size: 24px;
-	color: black;
+.join-wrapper>h2 {
+	font-size: 25px;
 	margin-bottom: 20px;
 	text-align: center;
-	font-weight: bold;
-	margin-top: 30%;
+	margin-top: 30px;
+	margin-bottom: 50px;
 }
 
-.join-wrapper>h3{
-	font-size: 20px;
-	color: black;
-	margin-bottom: 20px;
-	text-align: center;
-}
 
-#join-form>input{
+#join-form>input {
 	width: 100%;
 	height: 48px;
 	padding: 0 10px;
@@ -70,30 +76,51 @@ body {
 	background-color: #F8F8F8;
 }
 
-
-#join-form > input::placeholder{
+#join-form>input::placeholder {
 	color: #D2D2D2;
 }
 
-#join-form > input[type="submit"]{
+#join-form>input[type="submit"] {
 	color: #fff;
 	font-size: 16px;
 	background-color: #999999;
 	margin-top: 20px;
 }
 
-.agree > input[type="checkbox"]{
-	transform: scale(1.3);
-	margin-left: 10px;
+.agree>input[type="checkbox"] {
+	display: none;
 }
 
-.agree{
+input[type="checkbox"]+label {
 	display: inline-block;
-	margin-bottom: 5px;
+	width: 20px;
+	height: 20px;
+	border: 2px solid #747f55;
+	position: relative;
+	margin-right: 5px;
 }
 
-#join-button{
-	font-size: 14px;
+input[id="agree1"]:checked+label::after, input[id="agree2"]:checked+label::after
+	{
+	content: '✔';
+	color: #747f55;
+	font-size: 15px;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.agree {
+	margin-bottom: 3px;
+	display: flex;
+	align-items: center;
+}
+
+#join-button {
+	font-size: 13px;
 	color: #fff;
 	background-color: #747f55;
 	padding: 12px 30px;
@@ -104,9 +131,11 @@ body {
 	transition: all 0.3s;
 	position: relative;
 	overflow: hidden;
-	margin: 0 auto;
+	margin: auto;
 	width: 100%;
 	text-align: center;
+	margin-bottom: 50px;
+	border: 1px solid #747f55;
 }
 
 #join-button:hover {
@@ -115,25 +144,46 @@ body {
 	border: 1px solid #747f55;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
 }
 
-.addrsearch{
-	font-size: 14px;
+
+.addrnumber {
+	height: 48px;
+	padding: 0 10px;
+	box-sizing: border-box;
+	margin-bottom: 16px;
+	border-radius: 6px;
+	background-color: #F8F8F8;
+}
+
+.addrsearch {
+	font-size: 11px;
 	color: #fff;
 	background-color: #747f55;
 	border-radius: 25px;
 	font-weight: 300;
 	transition: all 0.3s;
-	position: relative;
-	overflow: hidden;
-	margin: 0 auto;
-	width: 100px;;
-	height: 40px;
+	position: absolute;
+	width: 80px;
+	height: 35px;
 	text-align: center;
+	margin-bottom: 10px;
+	padding-left: 20px;
+}
+
+.addrsearch input[type="button"] {
+  position: relative;
+}
+
+.addrsearch input[type="button"]::before {
+  content: '주소검색';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .addrsearch:hover {
@@ -142,34 +192,48 @@ input::-webkit-inner-spin-button {
 	border: 1px solid #747f55;
 }
 
-.kakaoaddr>input{
+.kakaoaddr>input {
 	width: 100%;
 	height: 48px;
 	box-sizing: border-box;
 	margin-bottom: 16px;
 	border-radius: 6px;
 	background-color: #F8F8F8;
+	padding: 0 10px;
 }
 
+.kakaoaddr>input::placeholder {
+	color: #D2D2D2;
+}
+
+.agreemore {
+	font-size: 12px;
+	background-color: #fff;
+	color: gray;
+}
+
+.agreebutton {
+	font-size: 15px;
+	background-color: #fff;
+	border: 1px solid #fff;
+}
 </style>
-
-
 
 </head>
 <body>
 	<div class="join-wrapper">
-	<h2>TREASURE</h2>
-	<h3>회원가입</h3>
+	<h2><i>회원가입</i></h2>
+	
 	<form action="joinInsert" method="post" id="join-form">
 		이메일 주소
-		<input type="email" name="user_email" id="user_email" placeholder="로그인시 사용 할 이메일을 입력해주세요" required="required" autofocus="autofocus" onkeyup="keyevent()">
+		<input type="email" name="user_email" id="user_email" placeholder="로그인시 사용 할 이메일 입력해주세요" required="required" autofocus="autofocus" onkeyup="keyevent()">
 		<span class="emailok" style="width: 60px; color: #747f55;"></span><br><br>
 		
 		비밀번호
-        <input type="password" name="user_pass" id="user_pass" placeholder="비밀번호를 입력해주세요" required="required">
+        <input type="password" name="user_pass" id="user_pass" placeholder="특수문자와 대문자를 포함한 8자리 이상 16자리 이하" required="required">
         
         비밀번호 확인
-        <input type="password" id="user_pass2" placeholder="비밀번호를 입력해주세요" required="required">
+        <input type="password" id="user_pass2" placeholder="다시 한 번 입력해주세요" required="required">
         <span class="passsuccess" style="width: 60px; color: #747f55;"></span><br><br>
         
         닉네임
@@ -188,19 +252,19 @@ input::-webkit-inner-spin-button {
         <div class="formbold-mb-3 kakaoaddr">
 	    <label class="formbold-form-label"> 주소 </label>
 	        <div style="align-content: flex-end;">
-		    <input type="text" id="sample6_postcode" placeholder="우편번호" class="formbold-form-input" style="width: 300px;" required>
+		    <input type="text" id="sample6_postcode" placeholder="우편번호" class="formbold-form-input addrnumber" style="width: 330px;" required>
 		    <input type="button" class="formbold-btn btn-s addrsearch" onclick="sample6_execDaumPostcode()" value="주소검색"><br>
 	        </div>
-		<input type="text" id="sample6_address" name="addr1" placeholder="주소" class="formbold-form-input" disabled >
+		<input type="text" id="sample6_address" name="addr1" placeholder="주소" class="formbold-form-input" readonly="readonly" >
 		<input type="text" id="sample6_detailAddress" name="addr2" placeholder="상세주소" class="formbold-form-input">
-		<input type="text" id="sample6_extraAddress" name="addr3" placeholder="참고항목" class="formbold-form-input" disabled >
+		<input type="text" id="sample6_extraAddress" name="addr3" placeholder="참고항목" class="formbold-form-input"  readonly="readonly" >
       	</div><br>
         
         <div class="agree">
-        <label for="agree1">개인정보 활용 동의 (필수)</label><input type="checkbox" required="required" id="agree1">
+       <input type="checkbox" required="required" id="agree1"><label for="agree1"></label><div class="agree-info">개인정보 활용 동의 (필수)</div>&nbsp;<p><a  style="font-size: 11px; color: gray;" href="#ex1" rel="modal:open">더보기</a></p>
         </div><br>
-        <div class="agree" style="margin-bottom: 30px;">
-        <label for="agree2">광고성 정보 수신 동의 (선택)</label><input type="checkbox" id="agree2">
+        <div class="agree">
+        <input type="checkbox" id="agree2"><label for="agree2"></label><div class="agree-adv">광고성 정보 수신 동의 (선택)</div>
         </div>
         <br>
         <button type="submit" id="join-button">가입하기</button>
@@ -222,6 +286,9 @@ input::-webkit-inner-spin-button {
 		      }else if($("span.nicknameok").data("nickcount")!==0){
 		    	  event.preventDefault();
 			      alert("닉네임을 다시 입력해주세요");	  
+		      }else if(!validatePassword()){
+		    	  event.preventDefault();
+		    	    alert("비밀번호는 8자리 이상 16자리 이하이며, 영어 대소문자와 숫자, 특수문자가 모두 포함되어야 합니다.");
 		      }else{
 		    	  alert("회원 가입이 완료 되었습니다");
 		      }
@@ -280,7 +347,7 @@ input::-webkit-inner-spin-button {
 	  $("#user_nickname").click(function(){
 		  $("span.nicknameok").text("").data("nickcount",0);
 	  });
-	  
+	   
 	});
 	
 	//비밀번호 일치확인
@@ -297,6 +364,12 @@ input::-webkit-inner-spin-button {
 	    	 $("span.passsuccess").text("비밀번호 일치 확인을 해주세요");
 	    }
 	});
+	
+	function validatePassword() {
+		  var password = document.getElementById("user_pass").value;
+		  var passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,16}$/;
+		  return passwordPattern.test(password);
+	}
 </script>
 
 
@@ -350,7 +423,49 @@ input::-webkit-inner-spin-button {
          }
      }).open();
  }
+
 </script>
-	
+
+<script>
+$(document).ready1(function() {
+  // 모달창 열릴 때 이벤트 처리
+  $('#ex1').on($.modal.OPEN, function() {
+    // 모달창 내부의 내용 높이 계산
+    var contentHeight = $('.modal-content').outerHeight();
+    // 모달창 높이 조정
+    $(this).height(contentHeight + 60); // padding 등을 고려하여 추가 여백을 더해줌
+   
+  });
+ 
+});
+
+</script>
+
+<!-- Modal HTML embedded directly into document -->
+<div id="ex1" class="modal" style="width: 800px;  margin-top: 150px; font-size: 11px;">
+  <p><b>Treasure(주)는 서비스 제공을 위하여 개인정보를 수집 ・ 이용 및 제공합니다.<br><br>
+					회원가입 시점에 이용자로부터 수집하는 개인정보는 아래와 같습니다.</b><br><br>
+					1) 회원 가입 시에 이름, 휴대전화번호, 주소, 생년월일, 이메일(로그인ID), 비밀번호를 필수 항목으로 수집하며, 선택항목으로 닉네임, 프로필 사진, 카드 정보, 거래은행 및 계좌번호를 수집합니다.<br><br>
+					2) 네이버 및 카카오 아이디로 로그인 시에는 이용자 고유 식별자를 필수 항목으로 수집하고, 이메일 주소, 이름(별명), 프로필 사진을 선택 항목으로 수집합니다.<br><br>
+					<b>회사는 원칙적으로 이용자 동의 없이 개인정보를 외부에 제공하지 않습니다.<br><br>
+					회사는 수집한 개인정보를 다음과 같은 목적으로만 이용합니다.</b><br><br>
+					1) 회원가입 의사의 확인, 이용자 본인확인, 이용자 식별, 회원탈퇴 의사의 확인 등 회원관리를 위해 개인정보를 이용합니다.<br><br>
+					2) 콘텐츠 등 기존 서비스 제공(광고 포함)에 더하여, 인구통계학적 분석, 서비스 방문 및 이용기록의 분석, 개인정보 및 관심에 기반한 이용자간 관계의 형성, 지인 및 관심사 등에 기반한 맞춤형 서비스 제공 등 신규 서비스 요소의 발굴 및 기존 서비스 개선 등을 위하여 개인정보를 이용합니다.<br><br>					
+					3) 법령 및 이용약관을 위반하는 회원에 대한 이용 제한 조치, 부정 이용 행위를 포함하여 서비스의 원활한 운영에 지장을 주는 행위에 대한 방지 및 제재, 계정 도용 및 부정거래방지, 약관 개정 등의 고지사항 전달, 분쟁조정을 위한 기록 보존, 민원처리 등 이용자 보호 및 서비스 운영을 위하여 개인정보를 이용합니다.<br><br>					
+					4) 유료 서비스 제공에 따르는 본인인증, 구매 및 요금 결제, 상품 및 서비스의 배송을 위하여 개인정보를 이용합니다.<br><br>					
+					5) 이벤트 진행 및 경품 배송, 제세공과금 처리를 위해개인정보를 이용합니다.<br><br>					
+					6) 거래처 등록 및 대금 지급을 위해 개인정보를 이용합니다.<br><br>					
+					7) 광고성 정보 제공 등 마케팅 및 프로모션 목적으로 개인정보를 이용합니다.<br><br>					
+					8) 서비스 이용 기록과 접속 빈도 분석, 서비스 이용에 대한 통계, 서비스 분석 및 통계에 따른 맞춤 서비스 제공과 광고 게재 등에 개인정보를 이용합니다.<br><br>					
+					9) 보안, 프라이버시, 안전 측면에서 이용자가 안심하고 이용할 수 있는 서비스 이용환경 구축을 위해 개인정보를 이용합니다.<br><br>
+					다만, 이용자들이 개인정보 제공에 사전에 동의한 경우, 관련 법령에 의해 개인정보 제출 의무가 발생한 경우에는 개인정보가 제공될 수 있습니다.			
+					"Treasure"는 회원님에게 서비스를 제공하는 데에 반드시 필요한 업무 중 일부를 외부 업체에 위탁하고 있습니다.					
+					외부 업체에 업무 위탁 시 계약서 등을 통해서 개인정보보호 관련 법규의 준수, 개인정보에 관한 비밀유지, 제3자 제공에 대한 금지, 사고 시의 책임 부담, 위탁 기간, 처리 종료 후의 개인정보의 파기 등을 규정하고, 이를 준수하도록 관리 감독하고 있습니다.<br><br>
+					이용자 및 법정대리인은 언제든지 자신의 개인정보를 조회하거나 수정할 수 있으며, 언제든지 계정 삭제를 요청할 수 있습니다.
+					이용자가 개인정보의 오류에 대한 정정을 요청하신 경우에는 정정을 완료하기 전까지 당해 개인정보를 이용 또는 제공하지 않습니다.
+					또한 잘못된 개인정보를 제3자에게 이미 제공한 경우에는 정정 처리결과를 제3자에게 지체 없이 통지하여 정정이 이루어지도록 하겠습니다.
+					회사는 이용자의 요청에 의해 해지 또는 삭제된 개인정보를 아래 "개인정보의 보유 및 이용기간"에 명시된 바에 따라 처리하고 그 외의 용도로 열람 또는 이용할 수 없도록 처리하고 있습니다..</p>
+  <a href="#" rel="modal:close" style="font-size: 13px;"><b>Close</b></a>
+</div>
 </body>
 </html>

@@ -23,12 +23,13 @@
             font-style: normal;
         }
 
-        * {
+        div.main {
             font-family: "GmarketSansMedium";
-            font-size: 10px;
+            font-size: 13px;
             padding: 0;
             margin: 0;
             border: none;
+            color: black;
         }
 
         .container {
@@ -51,7 +52,6 @@
         #buy-form > input {
             width: 95%;
             height: 48px;
-            padding: 0 10px;
             box-sizing: border-box;
             margin-bottom: 16px;
             border-radius: 6px;
@@ -67,7 +67,8 @@
         }
 
         .btn-buyType {
-            font-size: 14px;
+            font-family: "GmarketSansMedium";
+            font-size: 15px;
             color: #fff;
             background-color: #ef6253;
             padding: 10px 0;
@@ -92,7 +93,7 @@
 
         .deadline {
             border: 1px solid darkgray;
-            padding: 15px 50px;
+            padding: 12px 46px;
             border-radius: 15px;
             margin-right: 7px;
             cursor: pointer;
@@ -103,12 +104,14 @@
         }
 
         .btn-submit {
+            font-family: "GmarketSansMedium";
             width: 100%;
-            padding: 17px 0;
+            padding-bottom: 35px;
+            padding-top: 13px;
             border-radius: 15px;
             background-color: #747f55;
             color: #ffffff;
-            font-size: 14px;
+            font-size: 15px;
             cursor: pointer;
         }
 
@@ -193,11 +196,12 @@
              style="width: 70%; float: left; height: 40%; margin-right: 20px; margin-bottom: 10px; line-height: 20px; margin-top: 15px">
             <div id="content" style="font-size: 14px;">
                 <b style="font-size: 14px">DR0148-102</b><br>
-                (W) Nike Air Force 1 '07 LX Summit White Gorge Green<br>
-                <p style="opacity: 0.6; font-size: 14px;">(W) 나이키 에어포스 1 '07 LX 서밋 화이트 골지 그린</p>
+                (W) Nike Air Force 1 '07 LX Summit White Gorge Green
+                <div style="opacity: 0.6; font-size: 14px;">(W) 나이키 에어포스 1 '07 LX 서밋 화이트 골지 그린</div>
                 240
             </div>
         </div>
+
         <div id="right-info"
              style="border-top: 1px solid #b9b9b9; width: 90%; float: left; height: 40%;">
             <div class="price-info" align="center">
@@ -209,7 +213,7 @@
                 -
             </div>
             <div id="typeBtn"
-                 style="margin-left: 7px; background-color: #e3e3e3; height: 50px; margin-top: 100px; margin-right: 10px; border-radius: 25px">
+                 style="margin-left: 7px; background-color: #e3e3e3; height: 55px; margin-top: 100px; margin-right: 10px; border-radius: 25px">
                 <input type="button" value="구매 입찰" class="btn-buyType" id="buy-bid"
                        style="float: left; margin-right: 23px; margin-left: 2px;">
                 <input type="button" value="즉시 구매" class="btn-buyType" id="buy-immediate" style="float: left">
@@ -235,7 +239,8 @@
     <div id="result-bid" style="margin-left: 40px">
         <div style="font-size: 13px;">구매 희망가</div>
         <div align="right" style="font-size: 20px; margin-right: 35px;" id="buy-form">
-            <input type="text" id="hopePrice" placeholder="희망가 입력" onkeyup="inputNumberFormat(this)">원
+            <input type="text" id="hopePrice" placeholder="희망가 입력" onkeyup="inputNumberFormat(this)"
+            style="color: black; font-size: 20px; font-weight: normal">원
         </div>
 
         <div class="result-content"

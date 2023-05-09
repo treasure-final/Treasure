@@ -19,7 +19,7 @@ public class PurcahseController {
 
 	@RequestMapping(value = "/buy/select", method = RequestMethod.GET)
 	public ModelAndView selectSize() {
-		ModelAndView mv=new ModelAndView();
+		ModelAndView mv = new ModelAndView();
 
 		mv.setViewName("purchase/purchaseSize");
 		return mv;
@@ -27,18 +27,23 @@ public class PurcahseController {
 
 	@GetMapping("/buy/type")
 	public ModelAndView selectType(String size, String deliveryWay) {
-		ModelAndView mv=new ModelAndView();
-		Map<String,Object> map=new HashMap<>();
-		map.put("size",size);
-		map.put("deliveryWay",deliveryWay);
-		mv.addObject("map",map);
+		ModelAndView mv = new ModelAndView();
+		Map<String, Object> map = new HashMap<>();
+		map.put("size", size);
+		map.put("deliveryWay", deliveryWay);
+		mv.addObject("map", map);
 
 		mv.setViewName("purchase/purchaseType");
 		return mv;
-  }
-
+	}
 
 	@GetMapping("/buy/check")
 	public String buyAgree() {
 		return "purchase/purchaseAgree";
 	}
+
+	@GetMapping("/buy/order")
+	public String order() {
+		return "/purchase/purchaseOrder";
+	}
+}

@@ -7,5 +7,4 @@ import lombok.Data;
 @Data
 @Alias("ItemDto")
 public class ItemDto {
-
 }

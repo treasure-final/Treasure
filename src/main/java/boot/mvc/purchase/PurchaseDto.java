@@ -6,6 +6,6 @@ import lombok.Data;
 
 @Data
 @Alias("PurcahseDto")
-public class PurcahseDto {
+public class PurchaseDto {
 
 }

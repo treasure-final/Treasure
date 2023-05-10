@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class PurchaseController {
 
 	@Autowired
-	PurcahseService service;
+	PurchaseService service;
 
 	//구매 사이즈 선택
 	@GetMapping("/buy/select")

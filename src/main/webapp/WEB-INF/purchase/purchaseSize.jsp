@@ -186,24 +186,25 @@
                 //사이즈 값 받아오기
                 size=$(this).find(':nth-child(1)').text();
             });
-        });
 
-        //버튼 눌렀을 때 배송 방법 받아 와서 구매 동의로 이동하는 함수
-        function map() {
-            //사이즈 선택 안했을 시 alert
-            if(typeof size=="undefined" || size==null || size=="") {
-                alert("사이즈를 선택해주세요");
-            }
-            //deliveryWay : 배송방법
-            if($(this).hasClass('fastbox')) {
-                deliveryWay="fast"; //빠른배송
-            } else {
-                deliveryWay="nomal"; //일반배송
-            }
-            //구매동의로 이동
-            var data="size="+size+"&deliveryWay="+deliveryWay;
-            location.href="check?"+data;
-        }
+            //배송 방법 받아오기
+            $(".btn-login").click(function() {
+                //사이즈 선택 안했을 시 alert
+                if(typeof size=="undefined") {
+                    alert("사이즈를 선택해주세요");
+                } else {
+                    //deliveryWay : 배송방법
+                    if($(this).hasClass("fastbox")) {
+                        deliveryWay="fast"; //빠른배송
+                    } else {
+                        deliveryWay="nomal"; //일반배송
+                    }
+                    //구매동의로 이동
+                    var data="size="+size+"&deliveryWay="+deliveryWay;
+                    location.href="check?"+data;
+                }
+            });
+        });
     </script>
 </head>
 <body>
@@ -232,8 +233,8 @@
         </c:forEach>
     </div>
         <div style="display: flex; margin-top: 25px;">
-            <button type="button" class="btn-login fastbox" onclick="map();"><i class="fa-solid fa-paper-plane fa-xs" style="color: #ffffff; "></i>&nbsp;빠른배송</button>
-            <button type="button" class="btn-login nomalbox" style="line-height: 17px;" onclick="map();">일반배송<br><span class="nomalday" style="font-size: 5px; color: white;">3일</span></button>
+            <button type="button" class="btn-login fastbox"><i class="fa-solid fa-paper-plane fa-xs" style="color: #ffffff; "></i>&nbsp;빠른배송</button>
+            <button type="button" class="btn-login nomalbox" style="line-height: 17px;">일반배송<br><span class="nomalday" style="font-size: 5px; color: white;">3일</span></button>
         </div>
     </div>
 </body>

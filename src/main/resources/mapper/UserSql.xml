@@ -51,6 +51,7 @@
     	update user set user_nickname=#{user_nickname},user_hp=#{user_hp},user_birth=#{user_birth},user_addr=#{user_addr} where user_num=#{user_num}
     </update>
     
+    <!-- num에 대한 데이터 -->
     <select id="getUserNumData" parameterType="String" resultType="UserDto">
     	select * from user where user_num=#{user_num}
     </select>
@@ -58,4 +59,5 @@
     <select id="findEmailUserNum" parameterType="String" resultType="String">
     	select user_num from user where user_email=#{user_email}
     </select>
+    
 </mapper>

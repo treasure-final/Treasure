@@ -232,12 +232,12 @@ div.main {
 										<div class="col-7">
 											<div class="mb-4">
 												<button type="button" class="btn btn-detail btn-lg w-100" style="height: 7vh; margin-top: 90px"
-													onclick="location.href=''"
+													onclick="location.href='/buy/select'"
 												>구매</button>
 											</div>
 											<div>
 												<button type="button" class="btn btn-outline-detail btn-lg w-100" style="height: 7vh;"
-													onclick="location.href=''"
+													onclick="location.href='/sell/sellSize'"
 												>판매</button>
 											</div>
 										</div>

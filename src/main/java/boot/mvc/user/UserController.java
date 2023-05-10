@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Date;
 import java.util.HashMap;
@@ -105,7 +106,8 @@ public class UserController {
 
         return "redirect:/";
     }
-
+   
+    
     @RequestMapping(value = "/callbackKakao.do", method = {RequestMethod.GET, RequestMethod.POST})
     public String callbackKakao(Model model, @RequestParam String code, @RequestParam String state, HttpSession session) throws Exception {
 
@@ -128,13 +130,56 @@ public class UserController {
         session.setAttribute("email", email);
         session.setAttribute("nickname", nickname);
         session.setAttribute("loginOk", "loginOk");
-
+        
         UserDto userDto = new UserDto();
         userDto.setUser_email(email);
-        userDto.setUser_nickname(nickname);
+        userDto.setUser_name(nickname);
+        
+        
+        if (service.userSearchEmail(email) != 1) {
+        	
+        	service.insertJoinUser(userDto);
+        	 	
+        	model.addAttribute("user_num", service.findEmailUserNum(email));
 
-        return "redirect:/";
+        	return "redirect:/user/kakaoUserForm?user_num="+model.getAttribute("user_num");
+        }else {
+        	
+        	return "redirect:/";
+        }
+        
     }
+    
+    
+   @GetMapping("/user/kakaoUserForm")
+   public ModelAndView kakaoUserForm(String user_num) {
+      
+      ModelAndView mview=new ModelAndView();
+      
+      UserDto dto=service.getUserNumData(user_num);
+      String email=dto.getUser_email();
+      
+      mview.addObject("dto", dto);
+      mview.addObject("user_num", service.findEmailUserNum(email));
+      mview.setViewName("/user/kakaoUserForm");
+      
+      return mview;
+   }
+    
+    @PostMapping("/user/updateKaKaoUser")
+    public String updateKakaoUser(@ModelAttribute UserDto dto, String addr1, String addr2, String addr3) {
+    	
+    	String user_addr = addr1 + " " + addr2 + " " + addr3;
+        dto.setUser_addr(user_addr);
+        
+        System.out.println(dto.getUser_num());
+    	service.kakaoUserInfoUpdate(dto);
+    	
+    	return "redirect:/";
+    	
+    }
+    
+    
 
     @PostMapping("/user/loginProc")
     public String loginProc(String email, String password,
@@ -147,7 +192,7 @@ public class UserController {
             session.setAttribute("saveOk", saveOk);
             return "redirect:/";
         } else {
-            return "redirect:loginForm";
+            return "redirect:/user/loginForm";
         }
     }
 
@@ -190,7 +235,7 @@ public class UserController {
         System.out.println(addr1 + " " + addr2 + " " + addr3);
 
         service.insertJoinUser(dto);
-        return "redirect:/loginForm";
+        return "redirect:/user/loginForm";
     }
 
     //닉네임 중복 체크
@@ -237,4 +282,9 @@ public class UserController {
         }
         return map2;
     }
+    
+
+
+    
+    
 }

@@ -100,7 +100,7 @@ a:hover {
 					<li style="margin-right: 40px;"><a href="#"><b>Home</b></a></li>
 					<li style="margin-right: 40px;"><a href="#">Style</a></li>
 					<li style="margin-right: 40px;"><a href="/sell/sellSize">Shop</a></li>
-					<li style="margin-right: 40px;"><a href="#">My</a></li>
+					<li style="margin-right: 40px;"><a href="/user/kakaoUserForm">My</a></li>
 				</ul>
 			</div>
 

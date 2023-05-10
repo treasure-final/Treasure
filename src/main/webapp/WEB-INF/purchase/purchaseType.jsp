@@ -201,7 +201,7 @@
                 <b style="font-size: 14px">DR0148-102</b><br>
                 (W) Nike Air Force 1 '07 LX Summit White Gorge Green<br>
                 <p style="opacity: 0.6; font-size: 14px;">(W) 나이키 에어포스 1 '07 LX 서밋 화이트 골지 그린</p>
-                ${map.get("size")}
+                ${size}
             </div>
         </div>
 
@@ -235,7 +235,7 @@
         </div>
         <div class="result-bottom">
             총 결제금액<span style="font-size: 14px; opacity: 0.4; margin-left: 450px;">다음 화면에서 확인</span>
-            <input type="button" value="즉시 구매 계속" class="btn-submit">
+            <input type="button" value="즉시 구매 계속" class="btn-submit" onclick="location.href='order'">
         </div>
     </div>
 
@@ -246,8 +246,7 @@
             style="color: black; font-size: 20px; font-weight: normal">원
         </div>
 
-        <div class="result-content"
-             style="border-top: 1px solid #b9b9b9; width: 95%; height: 10%; margin-top: 15px;">
+        <div class="result-content" style="border-top: 1px solid #b9b9b9; width: 95%; height: 10%; margin-top: 15px;">
         </div>
         <div style="padding-top: 20px; padding-bottom: 10px; font-size: 14px; opacity: 0.4">총 결제금액은
             다음 화면에서 계산됩니다.
@@ -275,7 +274,7 @@
         </div>
         <div class="result-bottom">
             총 결제금액<span style="font-size: 14px; opacity: 0.4; margin-left: 450px;">다음 화면에서 확인</span>
-            <input type="button" value="구매 입찰 계속" class="btn-submit"></div>
+            <input type="button" value="구매 입찰 계속" class="btn-submit" onclick="location.href='order'"></div>
     </div>
 </div>
 </body>

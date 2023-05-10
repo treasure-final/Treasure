@@ -5,40 +5,47 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 @Controller
 public class PurcahseController {
 
 	@Autowired
 	PurcahseService service;
 
+	//구매 사이즈 선택
+	@GetMapping("/buy/select")
+	public String selectSize() {
+		return "purchase/purchaseSize";
+	}
 
-	@RequestMapping(value = "/buy/select", method = RequestMethod.GET)
-	public ModelAndView selectSize() {
+	//구매 동의
+	@GetMapping("/buy/check")
+	public ModelAndView buyAgree(String size, String deliveryWay) {
 		ModelAndView mv=new ModelAndView();
 
-		mv.setViewName("purchase/purchaseSize");
+		mv.addObject("size",size);
+		mv.addObject("deliveryWay",deliveryWay);
+
+		mv.setViewName("purchase/purchaseAgree");
 		return mv;
 	}
 
+	//구매입찰/즉시구매 선택
 	@GetMapping("/buy/type")
-	public ModelAndView selectType(String size, String deliveryWay) {
-		ModelAndView mv=new ModelAndView();
-		Map<String,Object> map=new HashMap<>();
-		map.put("size",size);
-		map.put("deliveryWay",deliveryWay);
-		mv.addObject("map",map);
+	public ModelAndView selectType(String size,String deliveryWay) {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("size",size);
+		mv.addObject("deliveryWay",deliveryWay);
 
 		mv.setViewName("purchase/purchaseType");
 		return mv;
-  }
-
-
-	@GetMapping("/buy/check")
-	public String buyAgree() {
-		return "purchase/purchaseAgree";
 	}
+
+	//구매/결제
+	@GetMapping("/buy/order")
+	public ModelAndView buyOrder() {
+		ModelAndView mv=new ModelAndView();
+
+		mv.setViewName("purchase/purchaseOrder");
+		return mv;
+	}
+}

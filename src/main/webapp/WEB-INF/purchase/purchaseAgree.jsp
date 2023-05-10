@@ -86,6 +86,7 @@
 			margin-bottom: 50px;
 			margin-top: 30px;
 			border: 1px solid #747f55;
+			cursor: pointer;
 		}
 
 		#agree-next {
@@ -112,6 +113,7 @@
 			background-color: #fff;
 			color: #747f55;
 			border: 1px solid #747f55;
+			cursor: pointer;
 		}
 
 		#logo {
@@ -191,6 +193,7 @@
 		}
 	</style>
 
+<%--	전체 체크되었을 때만 다음으로 이동 가능--%>
 	<script>
 		function checkAgreement() {
 			var checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -200,7 +203,9 @@
 					return;
 				}
 			}
-			location.href='/buy/type';
+
+			//사이즈와 배송 방법 같이 넘겨주기
+			location.href="/buy/type?size=${size}&deliveryWay=${deliveryWay}";
 		}
 
 		function checkAllAgreements() {
@@ -255,7 +260,7 @@
     	</div>
     	 
     	<div style="display: flex;">
-    	<button type="button" id="agree-back" onclick="location.href='select'">뒤로가기</button>
+    	<button type="button" id="agree-back" onclick="location.href='select?size=${size}&deliveryWay=${deliveryWay}'">뒤로가기</button>
         <button type="button" id="agree-next" onclick="checkAgreement()">구매계속</button>
         </div>
 </div>

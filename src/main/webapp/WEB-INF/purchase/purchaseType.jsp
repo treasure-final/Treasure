@@ -23,13 +23,12 @@
             font-style: normal;
         }
 
-        div.main {
+        * {
             font-family: "GmarketSansMedium";
-            font-size: 13px;
+            font-size: 10px;
             padding: 0;
             margin: 0;
             border: none;
-            color: black;
         }
 
         .container {
@@ -52,6 +51,7 @@
         #buy-form > input {
             width: 95%;
             height: 48px;
+            padding: 0 10px;
             box-sizing: border-box;
             margin-bottom: 16px;
             border-radius: 6px;
@@ -67,8 +67,7 @@
         }
 
         .btn-buyType {
-            font-family: "GmarketSansMedium";
-            font-size: 15px;
+            font-size: 14px;
             color: #fff;
             background-color: #ef6253;
             padding: 10px 0;
@@ -93,7 +92,7 @@
 
         .deadline {
             border: 1px solid darkgray;
-            padding: 12px 46px;
+            padding: 15px 50px;
             border-radius: 15px;
             margin-right: 7px;
             cursor: pointer;
@@ -104,14 +103,12 @@
         }
 
         .btn-submit {
-            font-family: "GmarketSansMedium";
             width: 100%;
-            padding-bottom: 35px;
-            padding-top: 13px;
+            padding: 17px 0;
             border-radius: 15px;
             background-color: #747f55;
             color: #ffffff;
-            font-size: 15px;
+            font-size: 14px;
             cursor: pointer;
         }
 
@@ -129,22 +126,6 @@
             margin-top: 15px;
             font-size: 14px;
             padding-top: 20px;
-        }
-
-        .hr {
-            border: none;
-            height: 2px;
-            background: black;
-            margin-bottom: 50px;
-        }
-
-        #logo {
-            font-size: 25px;
-            font-weight: bold;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 20px;
         }
     </style>
     <script>
@@ -200,6 +181,7 @@
             str = String(str);
             return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
         }
+        
 
         function uncomma(str) {
             str = String(str);
@@ -220,7 +202,7 @@
                 <b style="font-size: 14px">DR0148-102</b><br>
                 (W) Nike Air Force 1 '07 LX Summit White Gorge Green<br>
                 <p style="opacity: 0.6; font-size: 14px;">(W) 나이키 에어포스 1 '07 LX 서밋 화이트 골지 그린</p>
-                ${map.get("size")}
+                ${size}
             </div>
         </div>
 
@@ -235,7 +217,7 @@
                 -
             </div>
             <div id="typeBtn"
-                 style="margin-left: 7px; background-color: #e3e3e3; height: 55px; margin-top: 100px; margin-right: 10px; border-radius: 25px">
+                 style="margin-left: 7px; background-color: #e3e3e3; height: 48px; margin-top: 100px; margin-right: 10px; border-radius: 25px;">
                 <input type="button" value="구매 입찰" class="btn-buyType" id="buy-bid"
                        style="float: left; margin-right: 23px; margin-left: 2px;">
                 <input type="button" value="즉시 구매" class="btn-buyType" id="buy-immediate" style="float: left">
@@ -254,7 +236,7 @@
         </div>
         <div class="result-bottom">
             총 결제금액<span style="font-size: 14px; opacity: 0.4; margin-left: 450px;">다음 화면에서 확인</span>
-            <input type="button" value="즉시 구매 계속" class="btn-submit">
+            <input type="button" value="즉시 구매 계속" class="btn-submit" onclick="location.href='order'">
         </div>
     </div>
 
@@ -265,8 +247,7 @@
             style="color: black; font-size: 20px; font-weight: normal">원
         </div>
 
-        <div class="result-content"
-             style="border-top: 1px solid #b9b9b9; width: 95%; height: 10%; margin-top: 15px;">
+        <div class="result-content" style="border-top: 1px solid #b9b9b9; width: 95%; height: 10%; margin-top: 15px;">
         </div>
         <div style="padding-top: 20px; padding-bottom: 10px; font-size: 14px; opacity: 0.4">총 결제금액은
             다음 화면에서 계산됩니다.
@@ -294,7 +275,7 @@
         </div>
         <div class="result-bottom">
             총 결제금액<span style="font-size: 14px; opacity: 0.4; margin-left: 450px;">다음 화면에서 확인</span>
-            <input type="button" value="구매 입찰 계속" class="btn-submit"></div>
+            <input type="button" value="구매 입찰 계속" class="btn-submit" onclick="location.href='order'"></div>
     </div>
 </div>
 </body>

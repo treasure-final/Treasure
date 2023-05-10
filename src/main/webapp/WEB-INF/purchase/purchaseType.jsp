@@ -216,7 +216,7 @@
                 -
             </div>
             <div id="typeBtn"
-                 style="margin-left: 7px; background-color: #e3e3e3; height: 50px; margin-top: 100px; margin-right: 10px; border-radius: 25px">
+                 style="margin-left: 7px; background-color: #e3e3e3; height: 48px; margin-top: 100px; margin-right: 10px; border-radius: 25px">
                 <input type="button" value="구매 입찰" class="btn-buyType" id="buy-bid"
                        style="float: left; margin-right: 23px; margin-left: 2px;">
                 <input type="button" value="즉시 구매" class="btn-buyType" id="buy-immediate" style="float: left">

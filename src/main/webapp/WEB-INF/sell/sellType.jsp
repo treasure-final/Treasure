@@ -345,7 +345,7 @@ div.main {
             총 정산금액<span class="totalPrice" style="font-size: 14px; margin-left: 500px;">-원</span>
             <div style="display: flex;">
             <button type="button" id="sell-back">뒤로가기</button> 
-            <button type="button" id="sell-next" onclick="location.href=''">판매 계속하기</button>
+            <button type="button" id="sell-next" onclick="location.href='/sell/sellCalculate'">판매 계속하기</button>
             </div>
         </div>
     </div>
@@ -391,9 +391,18 @@ div.main {
             총 정산금액<span class="totalPrice" style="font-size: 14px; margin-left: 500px;">-원</span>
             <div style="display: flex;">
             <button type="button" id="sell-back">뒤로가기</button> 
-            <button type="button" id="sell-next" onclick="location.href=''">판매 입찰 계속하기</button>
+            <button type="button" id="sell-next" onclick="location.href='/sell/sellCalculate'">판매 입찰 계속하기</button>
             </div>
     </div>
 </div>
+
+</div>
+
+<script type="text/javascript">
+//일단은 걍 뒤로가기
+$("#sell-back").click(function(){
+	history.back();
+});
+</script>
 </body>
 </html>

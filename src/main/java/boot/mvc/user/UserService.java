@@ -49,4 +49,23 @@ public class UserService implements UserServiceInter {
     public String findEmailByUserInfo(String hp) {
         return mapper.findEmailByUserInfo(hp);
     }
+
+	@Override
+	public void kakaoUserInfoUpdate(UserDto dto) {
+		// TODO Auto-generated method stub
+		mapper.kakaoUserInfoUpdate(dto);
+		
+	}
+
+	@Override
+	public UserDto getUserNumData(String user_num) {
+		// TODO Auto-generated method stub
+		return mapper.getUserNumData(user_num);
+	}
+
+	@Override
+	public String findEmailUserNum(String user_email) {
+		// TODO Auto-generated method stub
+		return mapper.findEmailUserNum(user_email);
+	}
 }

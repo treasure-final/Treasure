@@ -207,11 +207,7 @@ Global Styles
 html,
 body {
   background: #fff;
-<<<<<<< HEAD
   font-family: "GmarketSansMedium", "Poppins", sans-serif;
-=======
-  font-family: "GmarketSansMedium" "Poppins", sans-serif;
->>>>>>> 115d72b667555f3f4679aaa3f299b8701ec4db72
 }
 
 body .page-content {

@@ -50,6 +50,19 @@
 	font-style: normal;
 }
 
+div.main {
+	font-family: "GmarketSansMedium";
+	font-size: 13px;
+	padding: 0;
+	margin: 0;
+	border: none;
+	color: black;
+}
+
+*{
+	font-family: "GmarketSansMedium";
+}
+
 .btn-detail-border:hover {
 	border-color: #747f55;
 	background-color: #747f55;

@@ -15,17 +15,17 @@
 <title>Treasure</title>
 
 <!-- Bootstrap core CSS -->
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 
 <!-- Additional CSS Files -->
-<link rel="stylesheet" href="assets/css/fontawesome.css">
-<link rel="stylesheet" href="assets/css/template.css">
-<link rel="stylesheet" href="assets/css/owl.css">
-<link rel="stylesheet" href="assets/css/animate.css">
+<link rel="stylesheet" href="../assets/css/fontawesome.css">
+<link rel="stylesheet" href="../assets/css/template.css">
+<link rel="stylesheet" href="../assets/css/owl.css">
+<link rel="stylesheet" href="../assets/css/animate.css">
 <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 
-<link rel="stylesheet" href="assets/css/detail.css">
+<link rel="stylesheet" href="../assets/css/detail.css">
 
 <!--chart.js  -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.min.js"></script>
@@ -1341,14 +1341,14 @@
 
 	<!-- Scripts -->
 	<!-- Bootstrap core JavaScript -->
-	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="../vendor/jquery/jquery.min.js"></script>
+	<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
 
-	<script src="assets/js/isotope.min.js"></script>
-	<script src="assets/js/owl-carousel.js"></script>
-	<script src="assets/js/tabs.js"></script>
-	<script src="assets/js/popup.js"></script>
-	<script src="assets/js/custom.js"></script>
+	<script src="../assets/js/isotope.min.js"></script>
+	<script src="../assets/js/owl-carousel.js"></script>
+	<script src="../assets/js/tabs.js"></script>
+	<script src="../assets/js/popup.js"></script>
+	<script src="../assets/js/custom.js"></script>
 
 </body>
 

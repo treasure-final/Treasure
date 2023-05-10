@@ -283,6 +283,11 @@ public class UserController {
         return map2;
     }
     
+    @GetMapping("/user/myPage")
+    public String myPageForm() {
+    	return "/user/myPage";
+    }
+    
 
 
     

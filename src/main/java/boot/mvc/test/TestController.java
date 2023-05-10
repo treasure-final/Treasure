@@ -17,5 +17,8 @@ public class TestController {
     * 
     * return "test"; }
     */
-   
+   @GetMapping("user/myPage")
+    public String mypage() {
+       return "/user/myPage";
+   }
 }

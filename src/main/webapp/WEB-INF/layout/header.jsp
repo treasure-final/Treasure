@@ -105,7 +105,14 @@ a:hover {
 			</div>
 
 			<div id="infostate">
-				<a href="/user/loginForm">로그인</a> &nbsp; <a href="#">고객센터</a>
+				<c:set var="loginOk" value="${sessionScope.loginOk}"></c:set>
+				<c:if test="${empty loginOk}">
+					<a href="/user/loginForm">로그인</a>
+				</c:if>
+				<c:if test="${not empty loginOk}">
+					<a href="/user/logout">로그아웃</a>
+				</c:if>
+				 &nbsp; <a href="#">고객센터</a>
 			</div>
 
 

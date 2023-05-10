@@ -1,5 +1,5 @@
 package boot.mvc.purchase;
 
-public interface PurcahseServiceInter {
+public interface PurchaseServiceInter {
 
 }

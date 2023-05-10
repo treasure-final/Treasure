@@ -39,6 +39,15 @@ font & reset css
 reset
 --------------------------------------------- 
 */
+
+@font-face {
+  font-family: "GmarketSansMedium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 html,
 body,
 div,
@@ -198,7 +207,11 @@ Global Styles
 html,
 body {
   background: #fff;
+<<<<<<< HEAD
   font-family: "GmarketSansMedium", "Poppins", sans-serif;
+=======
+  font-family: "GmarketSansMedium" "Poppins", sans-serif;
+>>>>>>> 115d72b667555f3f4679aaa3f299b8701ec4db72
 }
 
 body .page-content {

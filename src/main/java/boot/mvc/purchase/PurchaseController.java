@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class PurcahseController {
+public class PurchaseController {
 
 	@Autowired
 	PurcahseService service;

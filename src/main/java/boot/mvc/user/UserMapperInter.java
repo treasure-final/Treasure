@@ -29,4 +29,7 @@ public interface UserMapperInter {
     
     //이메일로 num 찾기
     public String findEmailUserNum(String user_email);
+    
+    //프로필 수정
+    public void userProfileUpdate(UserDto dto);
 }

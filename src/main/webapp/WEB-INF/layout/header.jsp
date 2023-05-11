@@ -22,6 +22,9 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<script src="hangul.js" type="text/javascript"></script>
+	<!-- or from CDN -->
+	<script src="https://unpkg.com/hangul-js" type="text/javascript"></script>
 	<script src="/assets/js/data.js"></script>
 <title></title>
 <style type="text/css">
@@ -83,6 +86,27 @@ a:hover {
   color: #747f55;
 }
 
+/* 자동 완성 창 css */
+.ui-autocomplete {
+	font-size: 12pt;
+	max-height: 300px;
+	overflow-y: auto;
+	/* prevent horizontal scrollbar */
+	overflow-x: hidden;
+	height: auto;
+	line-height: 24px;
+}
+.ui-menu-item div.ui-state-hover,
+.ui-menu-item div.ui-state-active {
+	color: #ffffff;
+	text-decoration: none;
+	background-color: #747f55;
+	border-radius: 0px;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	background-image: none;
+	border:none;
+}
 </style>
 
 </head>
@@ -116,28 +140,13 @@ a:hover {
 				<a href="/user/loginForm">로그인</a> &nbsp; <a href="#">고객센터</a>
 			</div>
 
-
 			<div id="searchinput" >
 			<img alt="" src="../assets/images/searchicon.png" style="width:  25px; z-index: 3; margin-left: 10px; position: absolute; margin-top: 10px;">
 				<input type="text" id="search" autocomplete="off" placeholder="상품 검색"  style=" z-index: 4; ">
-				<!-- 자동완성 단어 리스트 -->
 			</div>
 
 		</div>
 	</div>
-	<script type="text/javascript">
-		$(function () {	//화면 로딩후 시작
-			$("#search").autocomplete({  //오토 컴플릿트 시작
-				source: List,	// source는 data.js파일 내부의 List 배열
-				focus : function(event, ui) { // 방향키로 자동완성단어 선택 가능하게 만들어줌
-					return false;
-				},
-				minLength: 1,// 최소 글자수
-				delay: 100,	//autocomplete 딜레이 시간(ms)
-				//disabled: true, //자동완성 기능 끄기
-			});
-		});
-	</script>
 </body>
 
 </html>

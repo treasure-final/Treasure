@@ -110,10 +110,6 @@ a:hover {
 </style>
 
 </head>
-<%--<%--%>
-<%--	ItemService itemService = new ItemService();--%>
-<%--	List<ItemDto> itemKorList=itemService.getItemKorName();--%>
-<%--%>--%>
 <body>
 	<c:set var="root" value="<%=request.getContextPath()%>" />
 

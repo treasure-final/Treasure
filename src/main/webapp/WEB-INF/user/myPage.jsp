@@ -123,6 +123,14 @@
             width: 110px;
             float: left;
         }
+        
+        #profile-myimg {
+            margin-top: 20px;
+            margin-left: 25px;
+            width: 110px;
+            float: left;
+            border-radius: 50%;
+        }
 
         #profile-content {
             margin-left: 20px;
@@ -154,9 +162,13 @@
         }
     </style>
 
-    </script>
+    
 </head>
 <body>
+<form action="">
+<input type="hidden" name="user_num" value="${user_num }">
+<c:set var="loginOk" value="${sessionScope.loginOk}"></c:set>
+
 <div class="wrapper">
     <div class="side">
         <div class="side-title">마이 페이지</div>
@@ -184,9 +196,14 @@
 
     <div class="container">
         <div id="profile-info">
-            <div><img src="../../img/profile.png" id="profile-img"></div>
-            <div id="profile-content"><b style="font-size: 16px; opacity: 1">tenta3802</b>
-                <br><span style="opacity: 0.5">t*******2@naver.com</span>
+            <div>
+            <c:if test="${dto.user_photo==null }"><img src="../../img/profile.png" id="profile-img"></c:if>
+            <c:if test="${dto.user_photo!=null }"><img src="../../img/최고심3.jpg" id="profile-myimg"></c:if>
+            <!-- 나중에 사진 있을 경우 해당 사진으로 값 넣어주기..일단 최고심으로 대체 admin.jsp가 대체 어딨는지 몰겠움   -->
+            
+            </div>
+            <div id="profile-content"><b style="font-size: 16px; opacity: 1">${dto.user_name }</b>
+                <br><span style="opacity: 0.5">${dto.user_email }</span>
                 <br><input type="button" class="profile-btn" value="프로필 수정" align="left">
                 <input type="button" class="profile-btn" value="내 스타일" align="left" style="width: 80px">
             </div>
@@ -225,7 +242,8 @@
 
     <div style="clear: left"></div>
 </div>
-</div>
+
+</form>
 </body>
 </html>
 

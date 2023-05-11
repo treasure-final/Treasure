@@ -21,7 +21,6 @@
 	
 	<body>
 		<c:set var="root" value="<%=request.getContextPath() %>"/>
-	메인 
 	
 	
 	

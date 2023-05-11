@@ -8,10 +8,5 @@ public class ItemController {
 
 	@Autowired
 	ItemService service;
-	
-	@GetMapping("/item/detail")
-	public String itemDetail() {
-		return "/item/detail";
-	}
 
 }

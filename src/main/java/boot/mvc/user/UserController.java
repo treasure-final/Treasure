@@ -1,5 +1,6 @@
 package boot.mvc.user;
 
+import boot.mvc.board.BoardDto;
 import boot.mvc.user.kakaoApi.KakaoLoginBO;
 import boot.mvc.user.naverApi.NaverLoginBO;
 import com.github.scribejava.core.model.OAuth2AccessToken;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Provider.Service;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -283,11 +285,25 @@ public class UserController {
         return map2;
     }
     
+
     @GetMapping("/user/myPage")
-    public String myPageForm() {
+    public String myinfo(Model model, HttpSession session) {
+    	
+    	String loginEmail=(String)session.getAttribute("loginEmail");
+    	//System.out.println(loginEmail);
+    	
+    	String user_num=service.findEmailUserNum(loginEmail);
+    	//System.out.println(user_num);
+    		
+    	UserDto dto=service.getUserNumData(user_num);
+  
+		model.addAttribute("dto", dto);
+		model.addAttribute("user_num", user_num);
+    	
     	return "/user/myPage";
     }
     
+
 
 
     

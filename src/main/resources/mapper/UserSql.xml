@@ -68,6 +68,10 @@
 	    	</if>
     	where user_num=#{user_num}
     </update>
-    
-    
+    <select id="isUserEmail" parameterType="String" resultType="int">
+        select count(*) from user where user_email=#{user_email}
+    </select>
+    <update id="updateTemporarilyPass" parameterType="Map">
+        update user set user_pass=#{user_pass} where user_email=#{user_email}
+    </update>
 </mapper>

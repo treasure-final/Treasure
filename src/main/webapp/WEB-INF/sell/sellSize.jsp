@@ -195,24 +195,21 @@ div.sell_size:hover {
 </style>
 <script>
 	$(function() {
-		//빠른배송 버튼 hover:아이콘 색상 변경
-		$(".fastbox").hover(function() {
-			$(".fa-paper-plane").css("color", "#ff6961");
-		}, function() {
-			$(".fa-paper-plane").css("color", "#ffffff");
-		});
-
-		//일반배송 버튼 hover:배송기간 색상 변경
-		$(".nomalbox").hover(function() {
-			$(".nomalday").css("color", "#747f55");
-		}, function() {
-			$(".nomalday").css("color", "#ffffff");
-		});
-
+	var size;
+	
 		//사이즈 선택했을 때 적용 사항
 		$(".sell_size").click(function() {
 			$(".sell_size").removeClass("sell_active");
 			$(this).addClass("sell_active");
+			
+			size=$(this).find(':nth-child(1)').text();
+			
+		});
+		
+		$("#sell-next").click(function(){
+			
+			 location.href = "/sell/sellAgree?size=" + size;
+            
 		});
 	});
 </script>
@@ -246,7 +243,7 @@ div.sell_size:hover {
         </form>
        <div style="display: flex;">
     	<button type="button" id="sell-back">뒤로가기</button> 
-        <button type="button" id="sell-next" onclick="location.href='/sell/sellAgree'">판매 계속하기</button>
+        <button type="button" id="sell-next">판매 계속하기</button>
         </div>
     </div>
 

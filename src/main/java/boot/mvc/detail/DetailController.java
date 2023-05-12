@@ -15,7 +15,7 @@ public class DetailController {
 
 	@GetMapping("/item/detail")
 	public String detail() {
-		return "/item/detail";
+		return "/3/item/detail";
 	}
 	@GetMapping("/item/DetailgetData")
 	public ModelAndView DetailgetData(String Item_num) {

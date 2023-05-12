@@ -30,7 +30,7 @@ div.layout div.header {
 	top: 0;
 	left: 0;
 	right: 0;
-	height: 15%;
+	height: 19.5%;
 	padding: 1rem;
 	display: flex;
 	justify-content: space-between;
@@ -58,12 +58,12 @@ div.layout div.footer {
 	border: 0px solid green;
 	top: 600px;
 	height: 550px;
-	width: 100%;
+	width: 100%px;
 }
 
 /* 화면 스크롤 버튼*/
 .btns {
-	display: flex;
+	display: flex;	
 	position: fixed;
 	right: .4rem;
 	bottom: .4rem;
@@ -105,26 +105,21 @@ body {
 
 <body>
 	<div class="layout">
-
 		<div class="header">
 			<tiles:insertAttribute name="header" />
 		</div>
-
-
 		<div class="main">
 			<tiles:insertAttribute name="main" />
 		</div>
-
 		<div class="footer">
 			<tiles:insertAttribute name="footer" />
 		</div>
-		
 		<div class="btns">
 			<div class="moveTopBtn">
-				<span class="glyphicon glyphicon-triangle-top"></span>top
+				<span class="glyphicon glyphicon-triangle-top"></span>
+				top
 			</div>
 		</div>
-		
 	</div>
 	
 	<script>
@@ -136,18 +131,5 @@ body {
 	}
 	
 	</script>
-	
-	
-	
-
-
-
-
-
-
-
-
-
 </body>
-
 </html>

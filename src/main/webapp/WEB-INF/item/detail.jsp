@@ -19,25 +19,21 @@
 
 <!-- Bootstrap core CSS -->
 <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 
 <!-- Additional CSS Files -->
 <link rel="stylesheet" href="../assets/css/fontawesome.css">
 <link rel="stylesheet" href="../assets/css/template.css">
 <link rel="stylesheet" href="../assets/css/owl.css">
-<link rel="stylesheet" href="../assets/css/animate.css">
+<link rel="stylesheet" href="assets/css/animate.css">
 <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 
-<link rel="stylesheet" href="../assets/css/detail.css">
+<!-- <link rel="stylesheet" href="../assets/css/detail.css"> -->
 
 <!--chart.js  -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0"></script>
-<script src="Chart.bundle.js"></script>
-<script src="Chart.bundle.min.js"></script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script src="Chart.js"></script>
-<script src="Chart.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"
 ></script>
@@ -59,7 +55,7 @@ div.main {
 	color: black;
 }
 
-*{
+* {
 	font-family: "GmarketSansMedium";
 }
 
@@ -127,6 +123,7 @@ div.main {
 </style>
 </head>
 <body>
+
 	<div class="container mb-5">
 		<div class="row">
 			<div class="col-lg-12">
@@ -137,7 +134,7 @@ div.main {
 
 
 							<div class="featured-games header-text" style="width: 100%; height: 85vh;">
-								<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel" >
+								<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
 									<div class="carousel-indicators" style="margin-bottom: 100px">
 										<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0"
 											class="active" aria-current="true" aria-label="Slide 1"
@@ -172,7 +169,7 @@ div.main {
 									<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
 										data-bs-slide="prev"
 									>
-										<span class="carousel-control-prev-icon" aria-hidden="true" style=""></span>
+										<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 										<span class="visually-hidden">Previous</span>
 									</button>
 									<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
@@ -231,13 +228,13 @@ div.main {
 
 										<div class="col-7">
 											<div class="mb-4">
-												<button type="button" class="btn btn-detail btn-lg w-100" style="height: 7vh; margin-top: 90px"
-													onclick="location.href=''"
+												<button type="button" class="btn btn-detail btn-lg w-100"
+													style="height: 7vh; margin-top: 90px" onclick="location.href='/buy/select'"
 												>구매</button>
 											</div>
 											<div>
 												<button type="button" class="btn btn-outline-detail btn-lg w-100" style="height: 7vh;"
-													onclick="location.href=''"
+													onclick="location.href='/sell/sellSize'"
 												>판매</button>
 											</div>
 										</div>
@@ -875,7 +872,7 @@ div.main {
 																		</div>
 
 																		<div class="row col-5">
-																			<select class="form-select" id="exampleFormControlSelect1"
+																			<select class="form-select" id="exampleFormControlSelect2"
 																				aria-label="Default select example"
 																				style="border: 0px; font-size: 1em; float: right; color: #666;"
 																			>
@@ -1355,13 +1352,6 @@ div.main {
 			<button type="button" class="btn btn-outline-detail" style="width: 10%; height: 5vh;">더보기</button>
 		</div>
 	</div>
-
-	<script type="text/javascript">
-		$("#sizeselect").on('click', function() {
-			alert("쨘");
-		})
-	</script>
-
 	<!-- Scripts -->
 	<!-- Bootstrap core JavaScript -->
 	<script src="../vendor/jquery/jquery.min.js"></script>

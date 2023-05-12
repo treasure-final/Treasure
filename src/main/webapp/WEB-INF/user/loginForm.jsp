@@ -182,7 +182,7 @@ div.main {
         <div id="sub-menu">
             <span onclick="location.href='joinForm'">회원 가입</span><span class="bar">|</span>
             <span onclick="location.href='emailSearchForm'">이메일 찾기</span><span class="bar">|</span>
-            <span>비밀번호 찾기</span>
+            <span onclick="location.href='passSearchForm'">비밀번호 찾기</span>
         </div>
         <div id="btn-api" style="margin-top: 30px;">
             <button type="button" class="btn" onclick="location.href='${urlNaver}'" style="border: none; background-color: #fff;">

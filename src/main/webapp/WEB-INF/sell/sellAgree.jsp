@@ -200,7 +200,7 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
                return;
            }
        }
-       location.href='/sell/sellType';
+       location.href='/sell/sellType?size=${size}';
    }
    
    function checkAllAgreements() {
@@ -226,7 +226,7 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
              <li>DR0148-102</li>
              <li>(W) Nike Air Force 1 '07 LX Summit White Gorge Green</li>
              <li>(W) 나이키 에어포스 1 '07 LX 서밋 화이트 골지 그린</li>
-             <li>240</li>
+             <li>${size }</li>
           </ul>         
        </div>
        

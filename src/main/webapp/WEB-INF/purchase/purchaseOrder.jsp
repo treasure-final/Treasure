@@ -34,19 +34,12 @@
 
         .container {
             width: 800px;
-            height: 1200px;
+            height: 1500px;
             padding: 40px;
             box-sizing: border-box;
-            margin: 50px auto;
+            margin: 100px auto 200px auto;
             line-height: 30px;
             background-color: #ffffff;
-        }
-
-        .container > h2 {
-            font-size: 24px;
-            color: black;
-            margin-bottom: 40px;
-            text-align: center;
         }
 
         #buy-form > input {
@@ -112,7 +105,7 @@
         }
 
         td {
-           font-size: 14px;
+            font-size: 14px;
         }
 
         .hr {
@@ -130,14 +123,53 @@
             align-items: center;
             margin-bottom: 20px;
         }
+
+        .btn-submit {
+            width: 100%;
+            padding-top: 15px;
+            padding-bottom: 20px;
+            border-radius: 15px;
+            background-color: #747f55;
+            color: #ffffff;
+            font-size: 14px;
+            cursor: pointer;
+            height: 50px;
+        }
+
+        .btn-submit:hover {
+            background-color: #fff;
+            color: #747f55;
+            border: 1px solid #747f55;
+        }
     </style>
     <script>
         $(function () {
             $("#basic-box").css("border", "1px solid black");
-            $(".select-box").click(function () {
-                $(".select-box").css("border", "1px solid #e3e3e3");
-                $(this).css("border", "1px solid black");
-            });
+
+            if ("${deliveryWay}" !== "nomal") {
+                $(".select-box").click(function () {
+                    $(".select-box").css("border", "1px solid #e3e3e3");
+                    $(this).css("border", "1px solid black");
+                });
+            }
+
+            $("#btn-submit").click(function () {
+                let addr = $("#buy-addr").text();
+
+                $.ajax({
+                    type: "post",
+                    url: "insertBuyBid",
+                    data: {"price" : "${price}",
+                        "size" : "${size}",
+                        "deadline" : "${deadline}",
+                        "addr" : addr
+                    },
+                    success: function () {
+                        alert("성공")
+                        location.reload();
+                    }
+                });
+            })
         });
     </script>
 </head>
@@ -159,7 +191,8 @@
         </div>
         <div id="right-info"
              style="width: 90%; float: left; height: 40%;">
-            <span style="font-size: 18px;">배송 주소</span><span style="margin-left: 480px; cursor: pointer; opacity: 0.7; font-size: 14px;">+ 새 주소 추가</span>
+            <span style="font-size: 18px;">배송 주소</span><span
+                style="margin-left: 480px; cursor: pointer; opacity: 0.7; font-size: 14px;">+ 새 주소 추가</span>
             <table>
                 <tr>
                     <td class="left-td">받는분</td>
@@ -171,7 +204,7 @@
                 </tr>
                 <tr>
                     <td class="left-td">배송 주소</td>
-                    <td class="right-td">경기 성남시 분당구 경부고속도로 409 (삼평동) 111</td>
+                    <td class="right-td" id="buy-addr">경기 성남시 분당구 경부고속도로 409 (삼평동) 111</td>
                 </tr>
             </table>
             <input type="text" id="required-btn" placeholder="배송 시 요청사항을 입력해주세요">
@@ -224,7 +257,9 @@
             </table>
 
         </div>
-    </div>
+        <input type="hidden" id="userNum">
+        <input type="button" value="구매 입찰하기" class="btn-submit" id="btn-submit"></div>
+</div>
 </div>
 </body>
 </html>

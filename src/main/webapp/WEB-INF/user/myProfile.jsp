@@ -89,7 +89,7 @@ div.main {
 }
 
 #logo {
-	font-size: 25px;
+	font-size: 23px;
 	font-weight: bold;
 	margin-bottom: 20px;
 }
@@ -117,8 +117,8 @@ div.main {
 }
 
 .image-wrapper {
-  width: 160px;
-  height: 160px;
+  width: 140px;
+  height: 140px;
   overflow: hidden;
   border-radius: 50%;
 }
@@ -130,7 +130,7 @@ div.main {
 }
 
 #basicProfile span {
-	font-size: 24px;
+	font-size: 22px;
 }
 
 .photo-btn {
@@ -142,15 +142,15 @@ input[type="file"]+label {
 	border: 1px solid #e3e3e3;
 	background-color: #fff;
 	border-radius: 10px;
-	width: 120px;
+	width: 100px;
 	height: 40px;
 	margin-top: 20px;
-	font-size: 15px;
+	font-size: 12px;
 	color: black;
 	cursor: pointer;
 	display: block;
 	text-align: center;
-	line-height: 40px;
+	line-height: 41px;
 	align-items: center;
 	justify-content: center;
 }
@@ -166,17 +166,16 @@ input[type="file"]+label:hover {
 	border: 1px solid #e3e3e3;
 	background-color: #fff;
 	border-radius: 10px;
-	width: 120px;
-	height: 30px;
-	height: 50px;
+	width: 100px;
+	height: 40px;
 	margin-top: 15px;
 	margin-left: 10px;
-	font-size: 15px;
+	font-size: 12px;
 	color: black;
 	cursor: pointer;
 	display: block;
 	text-align: center;
-	line-height: 40px;
+	line-height: 35px;
 	align-items: center;
 	justify-content: center;
 	padding-left: 14px;
@@ -197,7 +196,7 @@ input[type="file"]+label:hover {
 }
 
 #detailProfile>div>span {
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: bold;
 }
 
@@ -209,6 +208,8 @@ input[type="file"]+label:hover {
 	padding: 5px 15px;
 	margin: 10px 0;
 	border: 1px solid #e3e3e3;
+	font-size: 13px;
+	height: 40px;
 }
 
 .profile-input:focus {
@@ -227,16 +228,16 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 
 .profilebtn {
-	font-size: 17px;
+	font-size: 15px;
 	color: black;
 	background-color: #fff;
-	padding: 20px 30px;
-	border-radius: 25px;
+	padding: 15px 25px;
+	border-radius: 20px;
 	font-weight: 400;
 	text-transform: capitalize;
 	overflow: hidden;
 	margin: auto;
-	width: 45%;
+	width: 40%;
 	text-align: center;
 	margin: 30px 3px 30px 3px;
 	border: 1px solid #e3e3e3;
@@ -320,9 +321,9 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 		    <input type="text" id="sample6_postcode" placeholder="우편번호" class="formbold-form-input profile-input" style="width: 250px;" required>
 		    <input type="button" class="formbold-btn btn-s addr-btn" onclick="sample6_execDaumPostcode()" value="주소검색">
 	        </div>
-		<input type="text" id="sample6_address" name="addr1" value="${dto.addr1 }" class="formbold-form-input profile-input">
-		<input type="text" id="sample6_detailAddress" name="addr2" value="${dto.addr2 }" class="formbold-form-inpu profile-input">
-		<input type="text" id="sample6_extraAddress" name="addr3" value="${dto.addr3 }" class="formbold-form-input profile-input" >
+		<input type="text" id="sample6_address" name="addr1" value="${dto.user_addr }" class="formbold-form-input profile-input">
+		<input type="text" id="sample6_detailAddress" name="addr2" placeholder="상세주소" class="formbold-form-inpu profile-input">
+		<input type="text" id="sample6_extraAddress" name="addr3" placeholder="참고항목" class="formbold-form-input profile-input" style="display: none;">
       	</div>
 
           <div>
@@ -330,10 +331,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
              <input type="number" class="profile-input" value="${dto.user_hp }" name="user_hp">   
           </div>
           
-          <div>
-             <span style="margin-bottom: 0px;">비밀번호</span>
-             <input type="text" class="profile-input" value="${dto.user_pass }" name="user_pass">          
-          </div>                                              
+                                                        
        </div>
        
        <div id="buttonProfile">

@@ -52,7 +52,6 @@ th>input[type=text] {
 	text-align: center;
 	padding: 0px;
 }
-
 th>input[type=file] {
 	width: 400px;
 	height: 400px;
@@ -82,49 +81,49 @@ th>input[type=file] {
 				</th>
 			</tr>
 			<tr>
-				<th>브랜드명</th>
+				<th style="text-align: center; vertical-align: middle;">브랜드명</th>
 				<th>
 					<input type="text" class="">
 				</th>
 			</tr>
 			<tr>
-				<th>카테고리</th>
+				<th style="text-align: center; vertical-align: middle;">카테고리</th>
 				<th>
 					<input type="text" class="">
 				</th>
 			</tr>
 			<tr>
-				<th>한글명</th>
+				<th style="text-align: center; vertical-align: middle;">한글명</th>
 				<th>
 					<input type="text" class="">
 				</th>
 			</tr>
 			<tr>
-				<th>영어</th>
+				<th style="text-align: center; vertical-align: middle;">영어</th>
 				<th>
 					<input type="text" class="">
 				</th>
 			</tr>
 			<tr>
-				<th>모델번호</th>
+				<th style="text-align: center; vertical-align: middle;">모델번호</th>
 				<th>
 					<input type="text" class="">
 				</th>
 			</tr>
 			<tr>
-				<th>출시일</th>
+				<th style="text-align: center; vertical-align: middle;">출시일</th>
 				<th>
 					<input type="date" id="today" style="width: 100%; text-align: center; padding-right: 30px">
 				</th>
 			</tr>
 			<tr>
-				<th>컬러</th>
+				<th style="text-align: center; vertical-align: middle;">컬러</th>
 				<th>
 					<input type="text" class="">
 				</th>
 			</tr>
 			<tr>
-				<th>발매가</th>
+				<th style="text-align: center; vertical-align: middle;">발매가</th>
 				<th>
 					<input type="text" class="">
 				</th>

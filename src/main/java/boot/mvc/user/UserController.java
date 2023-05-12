@@ -1,6 +1,5 @@
 package boot.mvc.user;
 
-import boot.mvc.board.BoardDto;
 import boot.mvc.user.kakaoApi.KakaoLoginBO;
 import boot.mvc.user.naverApi.NaverLoginBO;
 import com.github.scribejava.core.model.OAuth2AccessToken;
@@ -15,12 +14,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.security.Provider.Service;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -303,6 +305,67 @@ public class UserController {
     	return "/user/myPage";
     }
     
+    @GetMapping("/user/myProfile")
+    public String myProfile(Model model, HttpSession session) {
+    	
+    	String loginEmail=(String)session.getAttribute("loginEmail");
+    	//System.out.println(loginEmail);
+    	
+    	String user_num=service.findEmailUserNum(loginEmail);
+    	//System.out.println(user_num);
+    		
+    	UserDto dto=service.getUserNumData(user_num);
+    	
+    	  // 주소 분리
+        String user_addr = dto.getUser_addr();
+        String[] addressParts = user_addr.split(" ");
+        String addr1 = addressParts[0];
+        String addr2 = addressParts[1];
+        String addr3 = addressParts[2];
+
+        // 분리된 주소를 DTO에 저장
+        dto.setAddr1(addr1);
+        dto.setAddr2(addr2);
+        dto.setAddr3(addr3);
+  
+		model.addAttribute("dto", dto);
+		model.addAttribute("user_num", user_num);
+    	
+    	return "/user/myProfile";
+    }
+    
+    @PostMapping("/user/updateProfile")
+    public String updateProfile(UserDto dto, String addr1, String addr2, String addr3, HttpSession session, MultipartFile upload) {
+    	
+    	 String user_addr = addr1 + " " + addr2 + " " + addr3;
+         dto.setUser_addr(user_addr);
+    	
+    	String path=session.getServletContext().getRealPath("/save");
+    	
+    	String fileName = UUID.randomUUID().toString() + "_" + upload.getOriginalFilename();
+    	
+    	if(upload.isEmpty()) {
+    		dto.setUser_photo(null);
+    	}else {
+    		  		
+    		dto.setUser_photo(fileName);
+	    	
+	    	try {
+	    		upload.transferTo(new File(path+"\\"+fileName));
+				
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	      	
+    	}
+    	service.userProfileUpdate(dto);
+    	
+    	return "redirect:/user/myPage";
+    }
 
 
 

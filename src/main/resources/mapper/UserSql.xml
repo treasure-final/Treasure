@@ -60,4 +60,14 @@
     	select user_num from user where user_email=#{user_email}
     </select>
     
+    <!-- 프로필 수정 -->
+    <update id="userProfileUpdate" parameterType="UserDto">
+    	update user set user_nickname=#{user_nickname},user_hp=#{user_hp},user_birth=#{user_birth},user_addr=#{user_addr} 
+	    	<if test="user_photo!=null">
+	    	,user_photo=#{user_photo}
+	    	</if>
+    	where user_num=#{user_num}
+    </update>
+    
+    
 </mapper>

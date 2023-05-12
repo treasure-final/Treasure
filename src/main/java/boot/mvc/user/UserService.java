@@ -68,4 +68,11 @@ public class UserService implements UserServiceInter {
 		// TODO Auto-generated method stub
 		return mapper.findEmailUserNum(user_email);
 	}
+
+	@Override
+	public void userProfileUpdate(UserDto dto) {
+		// TODO Auto-generated method stub
+		mapper.userProfileUpdate(dto);
+		
+	}
 }

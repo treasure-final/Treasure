@@ -131,7 +131,7 @@ public class UserController {
         String nickname = (String) response_obj2.get("nickname");
 
         session.setAttribute("signIn", apiResult);
-        session.setAttribute("email", email);
+        session.setAttribute("loginEmail", email);
         session.setAttribute("nickname", nickname);
         session.setAttribute("loginOk", "loginOk");
         
@@ -309,14 +309,14 @@ public class UserController {
     public String myProfile(Model model, HttpSession session) {
     	
     	String loginEmail=(String)session.getAttribute("loginEmail");
-    	//System.out.println(loginEmail);
+    	System.out.println(loginEmail);
     	
     	String user_num=service.findEmailUserNum(loginEmail);
-    	//System.out.println(user_num);
+    	System.out.println(user_num);
     		
     	UserDto dto=service.getUserNumData(user_num);
     	
-    	  // 주소 분리
+    	 // 주소 분리
         String user_addr = dto.getUser_addr();
         String[] addressParts = user_addr.split(" ");
         String addr1 = addressParts[0];

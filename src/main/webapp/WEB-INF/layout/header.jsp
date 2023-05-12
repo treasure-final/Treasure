@@ -118,22 +118,36 @@ a:hover {
 		<div id="title">
 		
 		<div id="logoimg">
-			<a href="#"> <img src="../assets/images/mainlogo.png"
+			<a href="/"> <img src="../assets/images/mainlogo.png"
 				style="width: 200px;" >
 			</a>
 		</div>
 		
 		<div id="menulist">
 				<ul class="tul">
-					<li style="margin-right: 40px;"><a href="#"><b>Home</b></a></li>
+					<li style="margin-right: 40px;"><a href="/"><b>Home</b></a></li>
 					<li style="margin-right: 40px;"><a href="#">Style</a></li>
-					<li style="margin-right: 40px;"><a href="/sell/sellSize">Shop</a></li>
-					<li style="margin-right: 40px;"><a href="#">My</a></li>
+					<li style="margin-right: 40px;"><a href="/item/detail">Shop</a></li>
+					
+					<c:if test="${not empty loginOk}">
+					<li style="margin-right: 40px;"><a href="/user/myPage">My</a></li>
+					</c:if>
+					
+					<c:if test="${empty loginOk}">
+					<li style="margin-right: 40px;"><a id="noLoginMy">My</a></li>
+					</c:if>
 				</ul>
 			</div>
 
 			<div id="infostate">
-				<a href="/user/loginForm">로그인</a> &nbsp; <a href="#">고객센터</a>
+				<c:set var="loginOk" value="${sessionScope.loginOk}"></c:set>
+				<c:if test="${empty loginOk}">
+					<a href="/user/loginForm">로그인</a>
+				</c:if>
+				<c:if test="${not empty loginOk}">
+					<a href="/user/logout">로그아웃</a>
+				</c:if>
+				 &nbsp; <a href="#">고객센터</a>
 			</div>
 
 			<div id="searchinput" >
@@ -143,6 +157,13 @@ a:hover {
 
 		</div>
 	</div>
+	
+	<script type="text/javascript">
+	  document.getElementById("noLoginMy").addEventListener("click", function() {
+		    alert("로그인 후 이용 가능합니다");
+		    window.location.href = "/user/loginForm";
+		  });	
+	</script>
 </body>
 
 </html>

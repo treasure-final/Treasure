@@ -127,6 +127,22 @@
             font-size: 14px;
             padding-top: 20px;
         }
+
+        .hr {
+            border: none;
+            height: 2px;
+            background: black;
+            margin-bottom: 50px;
+        }
+
+        #logo {
+            font-size: 25px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
     </style>
     <script>
         $(function () {
@@ -216,8 +232,7 @@
                 <div style="opacity: 0.7; font-size: 14px;">즉시 판매가</div>
                 -
             </div>
-            <div id="typeBtn"
-                 style="margin-left: 7px; background-color: #e3e3e3; height: 48px; margin-top: 100px; margin-right: 10px; border-radius: 25px;">
+            <div id="typeBtn" style="margin-left: 7px; background-color: #e3e3e3; height: 48px; margin-top: 100px; margin-right: 10px; border-radius: 25px;">
                 <input type="button" value="구매 입찰" class="btn-buyType" id="buy-bid"
                        style="float: left; margin-right: 23px; margin-left: 2px;">
                 <input type="button" value="즉시 구매" class="btn-buyType" id="buy-immediate" style="float: left">
@@ -226,7 +241,7 @@
     </div>
     <div id="result-immediate" style="margin-left: 40px">
         <div style="font-size: 13px;">즉시 구매가</div>
-        <div align="right" style="font-size: 20px; margin-right: 35px; margin-top: 10px">123333}</div>
+        <div align="right" style="font-size: 20px; margin-right: 35px; margin-top: 10px">123333원</div>
 
         <div class="result-content"
              style="border-top: 1px solid #b9b9b9; width: 95%; height: 10%; margin-top: 39px;">

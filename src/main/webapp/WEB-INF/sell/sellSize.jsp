@@ -1,26 +1,32 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-          rel="stylesheet">
-    <title>Treasure</title>
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <script type="application/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+	rel="stylesheet"
+>
+<title>Treasure</title>
+<!-- Bootstrap core CSS -->
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="application/javascript"
+	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js" charset="utf-8"
+></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+	integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"
+/>
 <style>
 @font-face {
 	font-family: "GmarketSansMedium";
-	src:
-		url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
-		format("woff");
+	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff") format("woff");
 	font-weight: normal;
 	font-style: normal;
 }
@@ -34,7 +40,7 @@ div.main {
 	color: black;
 }
 
-*{
+* {
 	font-family: "GmarketSansMedium";
 }
 
@@ -215,44 +221,49 @@ div.sell_size:hover {
 </script>
 </head>
 <body>
-    <div class="login-wrapper">
-    	<div><i id="logo">판매하기</i></div>
-    	<div class="hr"></div>
-        <div style="display: flex;">
+	<div class="login-wrapper">
+		<div>
+			<i id="logo">판매하기</i>
+		</div>
+		<div class="hr"></div>
+		<div style="display: flex;">
 
-                <img src="/img/item_image/1.png" class="sell_item_image">
+			<img src="/img/item_image/1.png" class="sell_item_image">
 
-            <div style="flex-direction: column; padding: 20px; margin-top: 30px;">
-                <span class="sell_brand">Jordan</span><br>
-                <span class="sell_title">(W) 조던 1 x 트래비스 스캇 레트로 로우 OG SP 미디움 올리브</span><br>
-            </div>
-        </div>
-        <form method="" action="" id="">
-            <div style="display:flex;">
-<%--                여성이라 사이즈는 225부터 시작, 사이즈는 5씩 증가--%>
-                <c:forEach var="size" begin="225" step="5" end="270" varStatus="i">
-                    <div class="sell_size">
-                        <span class="sell_size">${size}</span><br>
-                        <span class="sell_size" style="color: #ec0b00;">금액</span>
-                    </div>
-                <c:if test="${i.count%4==0}">
-                    </div><div style="display:flex;">
-                </c:if>
-            </c:forEach>
-            </div>
-        </form>
-       <div style="display: flex;">
-    	<button type="button" id="sell-back">뒤로가기</button> 
-        <button type="button" id="sell-next">판매 계속하기</button>
-        </div>
-    </div>
+			<div style="flex-direction: column; padding: 20px; margin-top: 30px;">
+				<span class="sell_brand">Jordan</span>
+				<br>
+				<span class="sell_title">(W) 조던 1 x 트래비스 스캇 레트로 로우 OG SP 미디움 올리브</span>
+				<br>
+			</div>
+		</div>
+		<form method="" action="" id="">
+			<div style="display: flex;">
+				<%--                여성이라 사이즈는 225부터 시작, 사이즈는 5씩 증가--%>
+				<c:forEach var="size" begin="225" step="5" end="270" varStatus="i">
+					<div class="sell_size">
+						<span class="sell_size">${size}</span>
+						<br>
+						<span class="sell_size" style="color: #ec0b00;">금액</span>
+					</div>
+					<c:if test="${i.count%4==0}">
+			</div>
+			<div style="display: flex;">
+				</c:if>
+				</c:forEach>
+			</div>
+		</form>
+		<div style="display: flex;">
+			<button type="button" id="sell-back">뒤로가기</button>
+			<button type="button" id="sell-next" onclick="location.href='/sell/sellAgree'">판매 계속하기</button>
+		</div>
+	</div>
 
-<script type="text/javascript">
-//일단은 걍 뒤로가기
-$("#sell-back").click(function(){
-	history.back();
-});
-</script>    
+	<script type="text/javascript">
+		//일단은 걍 뒤로가기
+		$("#sell-back").click(function() {
+			history.back();
+		});
+	</script>
 </body>
 </html>
-    

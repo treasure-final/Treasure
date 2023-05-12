@@ -19,4 +19,9 @@ public class ItemController {
 	@Autowired
 	ItemService service;
 
+	
+	@GetMapping("/item/insert")
+	public String insert() {
+		return "/item/iteminsert";
+	}
 }

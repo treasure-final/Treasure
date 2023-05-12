@@ -4,44 +4,30 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
-
 <head>
-
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
 <link
 	href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;890;900&display=swap"
 	rel="stylesheet"
 >
-
 <title>Treasure</title>
-
 <!-- Bootstrap core CSS -->
 <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <!-- Additional CSS Files -->
 <link rel="stylesheet" href="../assets/css/fontawesome.css">
 <link rel="stylesheet" href="../assets/css/template.css">
 <link rel="stylesheet" href="../assets/css/owl.css">
-<link rel="stylesheet" href="../assets/css/animate.css">
+<link rel="stylesheet" href="assets/css/animate.css">
 <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
-
-<link rel="stylesheet" href="../assets/css/detail.css">
-
+<!-- <link rel="stylesheet" href="../assets/css/detail.css"> -->
 <!--chart.js  -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0"></script>
-<script src="Chart.bundle.js"></script>
-<script src="Chart.bundle.min.js"></script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script src="Chart.js"></script>
-<script src="Chart.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"
 ></script>
-
 <style>
 @font-face {
 	font-family: "GmarketSansMedium";
@@ -59,7 +45,7 @@ div.main {
 	color: black;
 }
 
-*{
+* {
 	font-family: "GmarketSansMedium";
 }
 
@@ -85,7 +71,6 @@ div.main {
 	--bs-btn-disabled-bg: #747f55;
 	--bs-btn-disabled-border-color: #747f55;
 	border-radius: 25px;
-	;
 }
 
 .btn-outline-detail {
@@ -123,7 +108,6 @@ div.main {
 	background-color: #fff;
 	padding: 30px;
 }
-
 </style>
 </head>
 <body>
@@ -131,13 +115,10 @@ div.main {
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="page-content" style="padding: 1rem; height: 89vh;">
-
 					<div class="row">
 						<div class="col-lg-6" style="padding: 0; padding-left: 0.7rem; height: 89vh;">
-
-
 							<div class="featured-games header-text" style="width: 100%; height: 85vh;">
-								<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel" >
+								<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
 									<div class="carousel-indicators" style="margin-bottom: 100px">
 										<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0"
 											class="active" aria-current="true" aria-label="Slide 1"
@@ -154,7 +135,6 @@ div.main {
 											<img src="/assets/images/1.png" class="d-block w-100" alt="..."
 												style="position: relative; bottom: 50px"
 											>
-
 										</div>
 										<div class="carousel-item" data-bs-interval="4000" data-bs-pause="hover">
 											<img src="/assets/images/1.png" class="d-block w-100" alt="..."
@@ -172,7 +152,7 @@ div.main {
 									<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
 										data-bs-slide="prev"
 									>
-										<span class="carousel-control-prev-icon" aria-hidden="true" style=""></span>
+										<span class="carousel-control-prev-icon" aria-hidden="true"></span>
 										<span class="visually-hidden">Previous</span>
 									</button>
 									<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
@@ -182,10 +162,8 @@ div.main {
 										<span class="visually-hidden">Next</span>
 									</button>
 								</div>
-
 							</div>
 						</div>
-
 						<div class="col-lg-6" style="height: 85vh;">
 							<div style="height: 85vh;">
 								<div class="item-detail detail-box"
@@ -202,9 +180,7 @@ div.main {
 										<br>
 										<span style="font-size: 1.1em; color: #666;">나이키 x 피스마이너스원 퀀도1 블랙 앤 화이트</span>
 									</div>
-
 									<hr>
-
 									<!-- 모델 번호, 출시일 ... -->
 									<div class="d-flex pe-2">
 										<div class="heading-section col-5">
@@ -212,27 +188,25 @@ div.main {
 												<span style="font-size: 1.1em; color: #666;">모델 번호</span>
 												<span style="font-size: 1.2em; font-weight: 600;">DH2482-101</span>
 											</div>
-
 											<div class="row mb-4">
 												<span style="font-size: 1.1em; color: #666;">출시일</span>
 												<span style="font-size: 1.2em; font-weight: 500;">23/04/11</span>
 											</div>
-
 											<div class="row mb-4">
 												<span style="font-size: 1.1em; color: #666;">컬러</span>
 												<span style="font-size: 1.2em; font-weight: 500;">WHITE/BLACK</span>
 											</div>
-
 											<div class="row">
 												<span style="font-size: 1.1em; color: #666;">발매가</span>
 												<span style="font-size: 1.2em; font-weight: 500;">229,000원</span>
 											</div>
 										</div>
-
 										<div class="col-7">
 											<div class="mb-4">
-												<button type="button" class="btn btn-detail btn-lg w-100" style="height: 7vh; margin-top: 90px"
-													onclick="location.href='/buy/select'"
+
+												<button type="button" class="btn btn-detail btn-lg w-100"
+													style="height: 7vh; margin-top: 90px" onclick="location.href='/buy/select'"
+
 												>구매</button>
 											</div>
 											<div>
@@ -242,9 +216,7 @@ div.main {
 											</div>
 										</div>
 									</div>
-
 									<hr>
-
 									<!-- 사이즈 -->
 									<div class="d-flex pe-2 mb-4">
 										<div class="heading-section col-9">
@@ -256,7 +228,6 @@ div.main {
 												&nbsp;
 												<span class="fa fa-caret-down" data-bs-toggle="modal" data-bs-target="#sizeModal"></span>
 											</span>
-
 											<div class="modal" id="sizeModal" tabindex="-1">
 												<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 													<div class="modal-content">
@@ -266,7 +237,6 @@ div.main {
 														</div>
 														<div class="modal-body" style="padding-left: 2.1rem;">
 															<div class="d-flex row col-12">
-
 																<!-- 카테고리 별 사이즈 -->
 																<div class="col-4 p-2">
 																	<button type="button" class="btn btn-outline-detail btn-lg w-100"
@@ -277,7 +247,6 @@ div.main {
 																		<span style="font-size: 0.7rem;">가격</span>
 																	</button>
 																</div>
-
 																<c:forEach var="size" begin="220" end="320" step="5">
 																	<div class="col-4 p-2">
 																		<button id="sizeselect" type="button" class="btn btn-outline-detail btn-lg w-100"
@@ -290,14 +259,12 @@ div.main {
 																	</div>
 																</c:forEach>
 															</div>
-
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-
 									<!-- 최근 거래가 -->
 									<div class="d-flex pe-2 mb-5">
 										<div class="heading-section col-9">
@@ -317,15 +284,12 @@ div.main {
 											</span>
 										</div>
 									</div>
-
 									<!-- 시세 -->
 									<div class="d-flex pe-2 mb-3">
 										<div class="heading-section col-9">
 											<span style="font-size: 1.3em; font-weight: 600;">시세</span>
 											<br>
-
 										</div>
-
 										<div class="heading-section col-3">
 											<!-- 카테고리 별 사이즈 -->
 											<select class="form-select" id="exampleFormControlSelect1"
@@ -339,7 +303,6 @@ div.main {
 											</select>
 										</div>
 									</div>
-
 									<!-- 시세 그래프 -->
 									<div class="d-flex pe-2 mb-1">
 										<div class="col-xl-12">
@@ -381,7 +344,6 @@ div.main {
 														<div style="width: 100%; height: 200px; margin-left: 100px">
 															<canvas id="myChart1"></canvas>
 														</div>
-
 														<script>
 															function addZero(i) {
 																var rtn = i + 100;
@@ -445,7 +407,6 @@ div.main {
 														</script>
 													</div>
 													<div class="tab-pane fade" id="threemonth" role="tabpanel">
-
 														<div>
 															<canvas id="myChart3"></canvas>
 														</div>
@@ -510,7 +471,6 @@ div.main {
 																}
 															});
 														</script>
-
 													</div>
 													<div class="tab-pane fade" id="sixmonth" role="tabpanel">
 														<div>
@@ -714,7 +674,6 @@ div.main {
 											</div>
 										</div>
 									</div>
-
 									<!-- 체결 내역 -->
 									<div class="d-flex pe-2 mb-3">
 										<div class="col-xl-12">
@@ -753,9 +712,7 @@ div.main {
 																	<span style="font-size: 0.8em; color: #a0a0a0;">거래일</span>
 																</div>
 															</div>
-
 															<hr class="mt-0 mb-0">
-
 															<div class="d-flex">
 																<div class="col-6">
 																	<span style="font-size: 0.9em; color: #666;">265</span>
@@ -768,14 +725,12 @@ div.main {
 																</div>
 															</div>
 														</div>
-
 														<div>
 															<button type="button" class="btn btn-outline-detail w-100" data-bs-toggle="modal"
 																data-bs-target="#detailModal"
 															>체결 내역 더보기</button>
 														</div>
 													</div>
-
 													<div class="tab-pane fade" id="sellBid" role="tabpanel">
 														<div class="p-2 mb-1" style="height: 17vh;">
 															<div class="d-flex">
@@ -789,9 +744,7 @@ div.main {
 																	<span style="font-size: 0.8em; color: #a0a0a0;">수량</span>
 																</div>
 															</div>
-
 															<hr class="mt-0 mb-0">
-
 															<div class="d-flex">
 																<div class="col-6">
 																	<span style="font-size: 0.9em; color: #666;">255</span>
@@ -810,8 +763,6 @@ div.main {
 															>입찰 내역 더보기</button>
 														</div>
 													</div>
-
-
 													<div class="tab-pane fade" id="buyBid" role="tabpanel">
 														<div class="p-2 mb-1" style="height: 17vh;">
 															<div class="d-flex">
@@ -825,9 +776,7 @@ div.main {
 																	<span style="font-size: 0.8em; color: #a0a0a0;">수량</span>
 																</div>
 															</div>
-
 															<hr class="mt-0 mb-0">
-
 															<div class="d-flex">
 																<div class="col-6">
 																	<span style="font-size: 0.9em; color: #666;">265</span>
@@ -840,16 +789,13 @@ div.main {
 																</div>
 															</div>
 														</div>
-
 														<div>
 															<button type="button" class="btn btn-outline-detail w-100" data-bs-toggle="modal"
 																data-bs-target="#detailModal"
 															>입찰 내역 더보기</button>
 														</div>
 													</div>
-
 												</div>
-
 												<div class="modal" id="detailModal" tabindex="-1">
 													<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 														<div class="modal-content">
@@ -859,11 +805,9 @@ div.main {
 															</div>
 															<div class="modal-body" style="padding-left: 2.1rem;">
 																<div class="d-flex row col-12 mb-2">
-
 																	<div class="p-2" style="flex: 0 0 auto; width: 20%;">
 																		<img src="/assets/images/1.png" style="height: 8vh; border-radius: 1.3rem;">
 																	</div>
-
 																	<div class="p-2 mb-3" style="flex: 0 0 auto; width: 89%;">
 																		<div class="row">
 																			<span style="font-size: 0.7rem;">
@@ -873,21 +817,18 @@ div.main {
 																		<div class="row mb-2">
 																			<span style="font-size: 0.6rem; color: #666">나이키 x 피스마이너스원 퀀도1 블랙 앤 화이트</span>
 																		</div>
-
 																		<div class="row col-5">
-																			<select class="form-select" id="exampleFormControlSelect1"
+																			<select class="form-select" id="exampleFormControlSelect2"
 																				aria-label="Default select example"
 																				style="border: 0px; font-size: 1em; float: right; color: #666;"
 																			>
 																				<option selected>모든 사이즈</option>
-
 																				<c:forEach var="size" begin="220" end="320" step="5">
 																					<option value="${size}">${size}</option>
 																				</c:forEach>
 																			</select>
 																		</div>
 																	</div>
-
 																	<div class="nav-align-top mb-4">
 																		<ul class="nav nav-pills mb-2 nav-fill" role="tablist">
 																			<li class="nav-item">
@@ -923,9 +864,7 @@ div.main {
 																							<span style="font-size: 0.8em; color: #a0a0a0;">거래일</span>
 																						</div>
 																					</div>
-
 																					<hr class="mt-0 mb-0">
-
 																					<div class="d-flex">
 																						<div class="col-6">
 																							<span style="font-size: 0.9em; color: #666;">265</span>
@@ -939,7 +878,6 @@ div.main {
 																					</div>
 																				</div>
 																			</div>
-
 																			<div class="tab-pane fade" id="sellBidModal" role="tabpanel">
 																				<div class="p-2 mb-1" style="height: 17vh;">
 																					<div class="d-flex">
@@ -953,9 +891,7 @@ div.main {
 																							<span style="font-size: 0.8em; color: #a0a0a0;">수량</span>
 																						</div>
 																					</div>
-
 																					<hr class="mt-0 mb-0">
-
 																					<div class="d-flex">
 																						<div class="col-6">
 																							<span style="font-size: 0.9em; color: #666;">255</span>
@@ -968,9 +904,7 @@ div.main {
 																						</div>
 																					</div>
 																				</div>
-
 																			</div>
-
 																			<div class="tab-pane fade" id="buyBidModal" role="tabpanel">
 																				<div class="p-2 mb-1" style="height: 17vh;">
 																					<div class="d-flex">
@@ -984,9 +918,7 @@ div.main {
 																							<span style="font-size: 0.8em; color: #a0a0a0;">수량</span>
 																						</div>
 																					</div>
-
 																					<hr class="mt-0 mb-0">
-
 																					<div class="d-flex">
 																						<div class="col-6">
 																							<span style="font-size: 0.9em; color: #666;">265</span>
@@ -1010,21 +942,17 @@ div.main {
 											</div>
 										</div>
 									</div>
-
 									<hr>
-
 									<!-- 배송 정보 -->
 									<div class="d-flex pe-2 mt-4 mb-4">
 										<div class="heading-section col-12">
 											<div class="row mb-1">
 												<span style="font-size: 0.9em; color: #666;">배송 정보</span>
 											</div>
-
 											<div class="d-flex mb-2">
 												<div class="col-1">
 													<img src="/assets/img/fast-delivery.png">
 												</div>
-
 												<div class="col-11 ms-1">
 													<span style="font-size: 1rem;">
 														<b>빠른배송</b>
@@ -1032,23 +960,18 @@ div.main {
 													</span>
 													<br>
 													<span style="font-size: 0.8rem; color: #666;">지금 결제시</span>
-
 													<c:set var="now" value="<%=new Date(new Date().getTime() + 60 * 60 * 24 * 1000 * 1)%>" />
 													<fmt:formatDate var="sysYear" value="${now}" pattern="MM월 dd일(E)" />
 													<span style="font-size: 0.8rem; color: #8fcabb;">
 														<c:out value="${sysYear}" />
 														까지 도착예정
 													</span>
-
 												</div>
 											</div>
-
-
 											<div class="d-flex">
 												<div class="col-1">
 													<img src="/assets/img/original-delivery.png">
 												</div>
-
 												<div class="col-11 ms-1">
 													<span style="font-size: 1rem;">
 														<b>일반배송</b>
@@ -1060,17 +983,13 @@ div.main {
 											</div>
 										</div>
 									</div>
-
 									<hr>
-
 									<!-- 구매 전 확인 -->
 									<div class="d-flex pe-2 mt-4 mb-4">
 										<div class="heading-section col-12">
-
 											<div class="row">
 												<span class="mb-2" style="font-size: 1.3em; font-weight: 600;">구매 전 꼭 확인해주세요!</span>
 											</div>
-
 											<div class="accordion accordion-flush" id="accordionFlushExample">
 												<div class="accordion-item">
 													<span class="accordion-header" id="flush-headingOne">
@@ -1088,11 +1007,9 @@ div.main {
 																	속도에 따라 차이가 있습니다.</b>
 																<br>
 																<br>
-
 																[빠른배송 구매]
 																<br>
 																<br>
-
 																- 판매자가 보관 신청한 상품 중 검수에 합격한 상품을 TREASURE의 전용 창고에 보관합니다. 보관 상품에 한하여 바로 구매와 95점 구매가
 																가능합니다.
 																<br>
@@ -1101,11 +1018,9 @@ div.main {
 																변경될 수 있습니다.
 																<br>
 																<br>
-
 																[일반 구매]
 																<br>
 																<br>
-
 																- 거래가 체결된 시점부터 48시간(일요일•공휴일 제외) 내에 판매자가 상품을 발송해야 하며, 통상적으로 발송 후 1-2일 내에 TREASURE
 																검수센터에 도착합니다.
 																<br>
@@ -1116,7 +1031,6 @@ div.main {
 																있습니다.
 																<br>
 																<br>
-
 																- 검수센터 출고는 매 영업일에 진행하고 있으며, 출고 마감시간은 오후 5시입니다. 출고 마감시간 이후 검수 완료건은 운송장번호는 입력되지만 다음
 																영업일에 출고됩니다.
 															</span>
@@ -1138,23 +1052,18 @@ div.main {
 																<b>판매자의 상품이 검수센터에 도착하면 전담 검수팀이 철저한 분석과 검사로 정가품 확인을 진행합니다.</b>
 																<br>
 																<br>
-
 																- 검수센터에서는 정가품 여부를 확인하기 위하여, 지속적으로 데이터를 쌓고 분석하여 기록하고 있습니다.
 																<br>
 																- 업계 전문가로 구성된 검수팀은 박스와 상품의 라벨에서 바느질, 접착, 소재 등 모든 것을 검수합니다.
 																<br>
 																<br>
-
 																<b>검수 결과는 불합격•검수 보류•합격의 세가지 상태로 결과가 변경됩니다.</b>
 																<br>
 																<br>
-
 																* 검수 합격: TREASURE 검수택(Tag)이 부착되어 배송을 준비함
 																<br>
-
 																* 검수 보류: 앱에서 사진으로 상품의 상태 확인 및 구매 여부를 선택. (24시간 이후 자동 검수 합격)
 																<br>
-
 																* 검수 불합격: 즉시 거래가 취소되고 구매하신 금액을 환불 처리함.(환불 수단은 결제 수단과 동일)
 															</span>
 														</div>
@@ -1175,7 +1084,6 @@ div.main {
 																<b>TREASURE은 익명 거래를 기반으로 판매자가 판매하는 상품을 구매자가 실시간으로 구매하여 거래를 체결합니다.</b>
 																<br>
 																<br>
-
 																- 단순 변심이나 실수에 의한 취소/교환/반품이 불가능합니다. 상품을 원하지 않으시는 경우 언제든지 TREASURE에서 재판매를 하실 수 있습니다.
 																<br>
 																- 상품 수령 후, 이상이 있는 경우 TREASURE 고객센터로 문의해주시기 바랍니다.
@@ -1184,12 +1092,9 @@ div.main {
 													</div>
 												</div>
 											</div>
-
 										</div>
 									</div>
-
 									<hr>
-
 									<!-- 정품 -->
 									<div class="d-flex pe-2 mt-4 mb-4">
 										<div class="heading-section col-12">
@@ -1197,7 +1102,6 @@ div.main {
 												<div class="col-1">
 													<img src="/assets/img/img-guide-item-01.svg">
 												</div>
-
 												<div class="col-11 ms-1">
 													<span style="font-size: 1rem;">
 														<b>100% 정품 보증</b>
@@ -1207,13 +1111,10 @@ div.main {
 														3배를 보상합니다.</span>
 												</div>
 											</div>
-
-
 											<div class="d-flex">
 												<div class="col-1">
 													<img src="/assets/img/img-guide-item-02.svg">
 												</div>
-
 												<div class="col-11 ms-1">
 													<span style="font-size: 1rem;">
 														<b>엄격한 다중 검수</b>
@@ -1223,12 +1124,10 @@ div.main {
 														체계적인 시스템을 거쳐 검수를 진행합니다.</span>
 												</div>
 											</div>
-
 											<div class="d-flex">
 												<div class="col-1">
 													<img src="/assets/img/img-guide-item-03.svg">
 												</div>
-
 												<div class="col-11 ms-1">
 													<span style="font-size: 1rem;">
 														<b>정품 인증 패키지</b>
@@ -1240,16 +1139,13 @@ div.main {
 											</div>
 										</div>
 									</div>
-
 									<hr>
-
 									<!-- 책임 -->
 									<div class="d-flex pe-2 mt-4 mb-4">
 										<span style="font-size: 0.7rem; color: #666;">TREASURE(주)는 통신판매 중개자로서 통신판매의 당사자가
 											아닙니다. 본 상품은 개별판매자가 등록한 상품으로 상품, 상품정보, 거래에 관한 의무와 책임은 각 판매자에게 있습니다. 단, 이용약관 및 정책, 기타 거래 체결
 											과정에서 고지하는 내용 등에 따라 검수하고 보증하는 내용에 대한 책임은 TREASURE(주)에 있습니다.</span>
 									</div>
-
 								</div>
 							</div>
 						</div>
@@ -1257,9 +1153,7 @@ div.main {
 				</div>
 			</div>
 		</div>
-
 		<hr class="mb-5 mt-5">
-
 		<div class="d-flex">
 			<div class="col-11 align-self-center">
 				<span class="fs-4">
@@ -1274,7 +1168,6 @@ div.main {
 				</span>
 			</div>
 		</div>
-
 		<div class="mt-4 mb-lg-5" style="height: 40vh;">
 			<a href=''>
 				<img alt="" src="/assets/images/2.png"
@@ -1307,9 +1200,7 @@ div.main {
 				>
 			</a>
 		</div>
-
 		<hr>
-
 		<div class="d-flex mt-5">
 			<div class="col-12 align-self-center">
 				<span class="fs-4">
@@ -1317,7 +1208,6 @@ div.main {
 				</span>
 			</div>
 		</div>
-
 		<div class="mt-4 mb-lg-5" style="border: 1px solid gray; height: 89vh;">
 			<a href=''>
 				<img alt="" src="/assets/images/8.png"
@@ -1350,29 +1240,18 @@ div.main {
 				>
 			</a>
 		</div>
-
 		<div class="col-lg-12 text-center">
 			<button type="button" class="btn btn-outline-detail" style="width: 10%; height: 5vh;">더보기</button>
 		</div>
 	</div>
-
-	<script type="text/javascript">
-		$("#sizeselect").on('click', function() {
-			alert("쨘");
-		})
-	</script>
-
 	<!-- Scripts -->
 	<!-- Bootstrap core JavaScript -->
 	<script src="../vendor/jquery/jquery.min.js"></script>
 	<script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
-
 	<script src="../assets/js/isotope.min.js"></script>
 	<script src="../assets/js/owl-carousel.js"></script>
 	<script src="../assets/js/tabs.js"></script>
 	<script src="../assets/js/popup.js"></script>
 	<script src="../assets/js/custom.js"></script>
-
 </body>
-
 </html>

@@ -12,7 +12,7 @@
 	<select id="SellgetList" parameterType="Map" resultType="SellBidDto">
 	select * from sell_bid where item_num=#{item_num} and buy_num=#{sell_num}
 	</select>
-	
+	<!-- 카테고리에 대한 다른 상품 나열 -->
 	<select id="ItemgetImage" parameterType="String" resultType="String">
 	select item_image from item where item_category=#{item_category}
 	</select>

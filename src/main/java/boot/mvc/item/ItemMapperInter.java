@@ -3,9 +3,10 @@ package boot.mvc.item;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 
 @Mapper
 public interface ItemMapperInter {
-    public List<ItemDto> getItemKorName();
+
 }

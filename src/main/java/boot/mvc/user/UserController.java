@@ -14,10 +14,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
@@ -105,7 +110,8 @@ public class UserController {
 
         return "redirect:/";
     }
-
+   
+    
     @RequestMapping(value = "/callbackKakao.do", method = {RequestMethod.GET, RequestMethod.POST})
     public String callbackKakao(Model model, @RequestParam String code, @RequestParam String state, HttpSession session) throws Exception {
 
@@ -128,13 +134,56 @@ public class UserController {
         session.setAttribute("email", email);
         session.setAttribute("nickname", nickname);
         session.setAttribute("loginOk", "loginOk");
-
+        
         UserDto userDto = new UserDto();
         userDto.setUser_email(email);
-        userDto.setUser_nickname(nickname);
+        userDto.setUser_name(nickname);
+        
+        
+        if (service.userSearchEmail(email) != 1) {
+        	
+        	service.insertJoinUser(userDto);
+        	 	
+        	model.addAttribute("user_num", service.findEmailUserNum(email));
 
-        return "redirect:/";
+        	return "redirect:/user/kakaoUserForm?user_num="+model.getAttribute("user_num");
+        }else {
+        	
+        	return "redirect:/";
+        }
+        
     }
+    
+    
+   @GetMapping("/user/kakaoUserForm")
+   public ModelAndView kakaoUserForm(String user_num) {
+      
+      ModelAndView mview=new ModelAndView();
+      
+      UserDto dto=service.getUserNumData(user_num);
+      String email=dto.getUser_email();
+      
+      mview.addObject("dto", dto);
+      mview.addObject("user_num", service.findEmailUserNum(email));
+      mview.setViewName("/user/kakaoUserForm");
+      
+      return mview;
+   }
+    
+    @PostMapping("/user/updateKaKaoUser")
+    public String updateKakaoUser(@ModelAttribute UserDto dto, String addr1, String addr2, String addr3) {
+    	
+    	String user_addr = addr1 + " " + addr2 + " " + addr3;
+        dto.setUser_addr(user_addr);
+        
+        System.out.println(dto.getUser_num());
+    	service.kakaoUserInfoUpdate(dto);
+    	
+    	return "redirect:/";
+    	
+    }
+    
+    
 
     @PostMapping("/user/loginProc")
     public String loginProc(String email, String password,
@@ -147,7 +196,7 @@ public class UserController {
             session.setAttribute("saveOk", saveOk);
             return "redirect:/";
         } else {
-            return "redirect:loginForm";
+            return "redirect:/user/loginForm";
         }
     }
 
@@ -190,7 +239,7 @@ public class UserController {
         System.out.println(addr1 + " " + addr2 + " " + addr3);
 
         service.insertJoinUser(dto);
-        return "redirect:/loginForm";
+        return "redirect:/user/loginForm";
     }
 
     //닉네임 중복 체크
@@ -237,4 +286,89 @@ public class UserController {
         }
         return map2;
     }
+    
+
+    @GetMapping("/user/myPage")
+    public String myinfo(Model model, HttpSession session) {
+    	
+    	String loginEmail=(String)session.getAttribute("loginEmail");
+    	//System.out.println(loginEmail);
+    	
+    	String user_num=service.findEmailUserNum(loginEmail);
+    	//System.out.println(user_num);
+    		
+    	UserDto dto=service.getUserNumData(user_num);
+  
+		model.addAttribute("dto", dto);
+		model.addAttribute("user_num", user_num);
+    	
+    	return "/user/myPage";
+    }
+    
+    @GetMapping("/user/myProfile")
+    public String myProfile(Model model, HttpSession session) {
+    	
+    	String loginEmail=(String)session.getAttribute("loginEmail");
+    	//System.out.println(loginEmail);
+    	
+    	String user_num=service.findEmailUserNum(loginEmail);
+    	//System.out.println(user_num);
+    		
+    	UserDto dto=service.getUserNumData(user_num);
+    	
+    	  // 주소 분리
+        String user_addr = dto.getUser_addr();
+        String[] addressParts = user_addr.split(" ");
+        String addr1 = addressParts[0];
+        String addr2 = addressParts[1];
+        String addr3 = addressParts[2];
+
+        // 분리된 주소를 DTO에 저장
+        dto.setAddr1(addr1);
+        dto.setAddr2(addr2);
+        dto.setAddr3(addr3);
+  
+		model.addAttribute("dto", dto);
+		model.addAttribute("user_num", user_num);
+    	
+    	return "/user/myProfile";
+    }
+    
+    @PostMapping("/user/updateProfile")
+    public String updateProfile(UserDto dto, String addr1, String addr2, String addr3, HttpSession session, MultipartFile upload) {
+    	
+    	 String user_addr = addr1 + " " + addr2 + " " + addr3;
+         dto.setUser_addr(user_addr);
+    	
+    	String path=session.getServletContext().getRealPath("/save");
+    	
+    	String fileName = UUID.randomUUID().toString() + "_" + upload.getOriginalFilename();
+    	
+    	if(upload.isEmpty()) {
+    		dto.setUser_photo(null);
+    	}else {
+    		  		
+    		dto.setUser_photo(fileName);
+	    	
+	    	try {
+	    		upload.transferTo(new File(path+"\\"+fileName));
+				
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	      	
+    	}
+    	service.userProfileUpdate(dto);
+    	
+    	return "redirect:/user/myPage";
+    }
+
+
+
+    
+    
 }

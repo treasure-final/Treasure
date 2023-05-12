@@ -24,4 +24,9 @@ public class SellBidController {
 	public String sellTypeForm() {
 		return "/sell/sellType";
 	}
+	
+	@GetMapping("/sell/sellCalculate")
+	public String sellCalculateForm() {
+		return "/sell/sellCalculate";
+	}
 }

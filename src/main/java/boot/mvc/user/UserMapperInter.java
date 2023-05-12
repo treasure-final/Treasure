@@ -20,4 +20,16 @@ public interface UserMapperInter {
     public int checkEmailByUserInfo(Map<String, String> map);
 
     public String findEmailByUserInfo(String hp);
+    
+    //카카오 정보 추가 입력
+    public void kakaoUserInfoUpdate(UserDto dto);
+    
+    //getData
+    public UserDto getUserNumData(String user_num);
+    
+    //이메일로 num 찾기
+    public String findEmailUserNum(String user_email);
+    
+    //프로필 수정
+    public void userProfileUpdate(UserDto dto);
 }

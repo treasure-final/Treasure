@@ -104,7 +104,8 @@
 
         .btn-submit {
             width: 100%;
-            padding: 17px 0;
+            height: 55px;
+            padding: 14px 0;
             border-radius: 15px;
             background-color: #747f55;
             color: #ffffff;
@@ -146,9 +147,8 @@
     </style>
     <script>
         $(function () {
-            buyWay="";
-
             $("#result-bid").hide();
+
             $("#buy-bid").css("background-color", "#e3e3e3")
                 .css("color", "black");
             $("#buy-bid").click(function () {
@@ -172,7 +172,7 @@
             $(".deadline").click(function () {
 
                 let day = $(this).text();
-                let intDay = $(this).attr("day");
+                intDay = $(this).attr("day");
 
                 let today = new Date();
 
@@ -187,7 +187,44 @@
                 $("#deadline-day").text(day);
                 $("#deadline-date").text(deadDay);
             });
+
+            /*$("#bid-btn").click(function () {
+                // 구매 희망가
+                price = $("#hopePrice").val();
+                // 구매 사이즈
+                size = $("#size").val();
+                // 구매 마감일
+                deadline = intDay;
+                // 배송 방법
+                deliveryWay = $("#deliveryWay").val();
+
+                $.ajax({
+                    type: "get",
+                    url: "order",
+                    data: {"price" : price,
+                            "size" : size,
+                            "deadline" : deadline,
+                            "deliveryWay" : deliveryWay
+                    },
+                    success: function (res) {
+                        location.href = "order?price="+res.price;
+                    }
+                });
+            /*});*/
+
+            $('#hopePrice').on('change', function() {
+                var n = uncomma($(this).val());
+                n = Math.floor(n/1000) * 1000;
+                comma($(this).val(n));
+            });
         });
+
+        function moveOrderPage() {
+            price = $("#hopePrice").val();
+            deadline = new Date.parse(intDay);
+
+            location.href='order?size=${size}&price='+price+'&deadline='+deadline+'&deliveryWay=${deliveryWay}'
+        }
 
         function inputNumberFormat(obj) {
             obj.value = comma(uncomma(obj.value));
@@ -232,7 +269,7 @@
                 <div style="opacity: 0.7; font-size: 14px;">즉시 판매가</div>
                 -
             </div>
-            <div id="typeBtn" style="margin-left: 7px; background-color: #e3e3e3; height: 48px; margin-top: 100px; margin-right: 10px; border-radius: 25px;">
+            <div id="typeBtn" style="margin-left: 7px; background-color: #e3e3e3; height: 54px; margin-top: 100px; margin-right: 10px; border-radius: 25px;">
                 <input type="button" value="구매 입찰" class="btn-buyType" id="buy-bid"
                        style="float: left; margin-right: 23px; margin-left: 2px;">
                 <input type="button" value="즉시 구매" class="btn-buyType" id="buy-immediate" style="float: left">
@@ -290,7 +327,11 @@
         </div>
         <div class="result-bottom">
             총 결제금액<span style="font-size: 14px; opacity: 0.4; margin-left: 450px;">다음 화면에서 확인</span>
-            <input type="button" value="구매 입찰 계속" class="btn-submit" onclick="location.href='order'"></div>
+            <input type="hidden" id="size" value="${size}">
+            <input type="hidden" id="deliveryWay" value="${deliveryWay}">
+            <input type="button" value="구매 입찰 계속" class="btn-submit" id="bid-btn"
+                   onclick="moveOrderPage()">
+        </div>
     </div>
 </div>
 </body>

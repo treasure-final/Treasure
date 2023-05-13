@@ -164,8 +164,8 @@
                         "deadline" : "${deadline}",
                         "addr" : addr
                     },
-                    success: function () {
-                        alert("성공")
+                    success: function (res) {
+                        alert(res+"님 구매입찰이 완료되었습니다.")
                         location.reload();
                     }
                 });

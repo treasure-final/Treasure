@@ -25,10 +25,6 @@
 
         * {
             font-family: "GmarketSansMedium";
-            font-size: 10px;
-            padding: 0;
-            margin: 0;
-            border: none;
         }
 
         .container {
@@ -92,10 +88,11 @@
 
         .deadline {
             border: 1px solid darkgray;
-            padding: 15px 50px;
+            padding: 15px 45px;
             border-radius: 15px;
             margin-right: 7px;
             cursor: pointer;
+            font-size: 14px;
         }
 
         .deadline:hover {
@@ -188,30 +185,6 @@
                 $("#deadline-date").text(deadDay);
             });
 
-            /*$("#bid-btn").click(function () {
-                // 구매 희망가
-                price = $("#hopePrice").val();
-                // 구매 사이즈
-                size = $("#size").val();
-                // 구매 마감일
-                deadline = intDay;
-                // 배송 방법
-                deliveryWay = $("#deliveryWay").val();
-
-                $.ajax({
-                    type: "get",
-                    url: "order",
-                    data: {"price" : price,
-                            "size" : size,
-                            "deadline" : deadline,
-                            "deliveryWay" : deliveryWay
-                    },
-                    success: function (res) {
-                        location.href = "order?price="+res.price;
-                    }
-                });
-            /*});*/
-
             $('#hopePrice').on('change', function() {
                 var n = uncomma($(this).val());
                 n = Math.floor(n/1000) * 1000;
@@ -221,8 +194,7 @@
 
         function moveOrderPage() {
             price = $("#hopePrice").val();
-            deadline = new Date.parse(intDay);
-
+            deadline = parseInt(intDay);
             location.href='order?size=${size}&price='+price+'&deadline='+deadline+'&deliveryWay=${deliveryWay}'
         }
 
@@ -251,10 +223,10 @@
              style="width: 110px; float: left; margin-right: 20px; border-radius: 10px;">
         <div id="left-info"
              style="width: 70%; float: left; height: 40%; margin-right: 20px; margin-bottom: 10px; line-height: 20px; margin-top: 15px">
-            <div id="content" style="font-size: 14px;">
+            <div id="content" style="font-size: 14px; line-height: 22px;">
                 <b style="font-size: 14px">DR0148-102</b><br>
                 (W) Nike Air Force 1 '07 LX Summit White Gorge Green<br>
-                <p style="opacity: 0.6; font-size: 14px;">(W) 나이키 에어포스 1 '07 LX 서밋 화이트 골지 그린</p>
+                <div style="opacity: 0.6; font-size: 14px;">(W) 나이키 에어포스 1 '07 LX 서밋 화이트 골지 그린</div>
                 ${size}
             </div>
         </div>

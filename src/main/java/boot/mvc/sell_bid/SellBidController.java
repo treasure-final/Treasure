@@ -5,11 +5,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import boot.mvc.user.UserDto;
+import boot.mvc.user.UserService;
+
 @Controller
 public class SellBidController {
 
 	@Autowired
 	SellBidService service;
+	
+	@Autowired
+	UserService userService;
 	
 	@GetMapping("/sell/sellSize")
 	public String sellSizeForm() {

@@ -326,6 +326,8 @@ div.main {
             </div>
         </div>
     </div>
+    
+    <!-- 즉시 판매  -->
     <div id="result-immediate" style="margin-left: 40px">
         <div style="font-size: 13px;">즉시 판매가</div>
         <div align="right" style="font-size: 20px; margin-right: 35px; margin-top: 10px" id="immediatePrice">177,000원</div>
@@ -349,7 +351,8 @@ div.main {
             </div>
         </div>
     </div>
-
+	
+	<!-- 판매 입찰  -->
     <div id="result-bid" style="margin-left: 40px">
         <div style="font-size: 13px;">판매 희망가</div>
         <div align="right" style="font-size: 20px; margin-right: 35px;" id="sell-form">

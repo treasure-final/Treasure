@@ -66,10 +66,4 @@ public class ItemController {
 			sview.setViewName("/item/itemlist");
 			return sview;
 		}
-	
-	@GetMapping("/item/insert")
-	public String insert() {
-		return "/item/iteminsert";
-	}
-
 }

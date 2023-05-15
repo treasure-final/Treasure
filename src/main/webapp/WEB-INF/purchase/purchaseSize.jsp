@@ -34,10 +34,6 @@
 
 * {
 	font-family: "GmarketSansMedium";
-	font-size: 10px;
-	padding: 0;
-	margin: 0;
-	border: none;
 }
 
 .login-wrapper {
@@ -108,6 +104,7 @@
 	margin: 5px;
 	width: 50%;
 	text-align: center;
+	border: none;
 }
 
 .btn-login:hover {

@@ -1,11 +1,8 @@
 package boot.mvc.item;
 
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,10 +16,6 @@ public class ItemController {
 	@Autowired
 	ItemMapperInter mapper;
 	
-	
-	
-	
-	
 		@GetMapping("/item/itemlist")
 		public ModelAndView list()
 		{
@@ -32,10 +25,7 @@ public class ItemController {
 			
 			List<ItemDto> list = mapper.getAllData();
 			
-			
-			
 			iview.addObject("list", list);
-			
 			iview.addObject("totitem", totitem);
 			iview.setViewName("/item/itemlist");
 			return iview;
@@ -58,11 +48,8 @@ public class ItemController {
 			
 			List<ItemDto> list=mapper.getSearhAllData(map);
 			
-			model.addObject("list", list);
-
-					
+			model.addObject("list", list);				
 			model.addObject("stotitem", stotitem);
-			
 			model.setViewName("/item/itemlist");
 			
 			return model;
@@ -79,17 +66,10 @@ public class ItemController {
 			sview.setViewName("/item/itemlist");
 			return sview;
 		}
-		
-		@GetMapping("/item/detail")
-		   public String detail() {
-		      return "/item/detail";
-		   }
-		
-		
-		
-		
-		
-		
-		
 	
+	@GetMapping("/item/insert")
+	public String insert() {
+		return "/item/iteminsert";
+	}
+
 }

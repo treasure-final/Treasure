@@ -26,21 +26,15 @@
 	text-align: center;
 }
 
-
-
-
-
-
 li {
 	float: left;
-	 padding: 0;
-  margin: 0;
-  list-style: none;
+	padding: 0;
+	margin: 0;
+	list-style: none;
 }
 
 ul {
 	list-style: none;
-	
 }
 
 input {
@@ -52,19 +46,15 @@ input {
 	font-size: 14px;
 	padding: 0px 15px 0px 45px;
 }
+
 a {
-  color: #747f55;
-  text-decoration: none !important;
+	color: #747f55;
+	text-decoration: none !important;
 }
+
 a:hover {
-color: black;
-
+	color: black;
 }
-
- 
-
-
- 
 </style>
 
 </head>
@@ -79,36 +69,22 @@ color: black;
 			<a href="#"> <img src="assets/images/mainlogo.png"
 				style="width: 200px; margin-top: 20px; margin-right: 120px;">
 			</a>
-
-
-
-
 			<div style="float: right; width: 200px;" id="login">
 				<a href="#">로그인</a> &nbsp; <a href="#" style="margin-right: 20px;">고객센터</a>
 			</div>
 
-
-
-
 			<div style="margin-top: 40px; font-size: 20px; float: left;">
 				<ul>
-					<li style="margin-right: 40px;"><a href="#"><b>전체</b></a></li>
-					<li style="margin-right: 40px;"><a href="#">상의</a></li>
-					<li style="margin-right: 40px;"><a href="#">하의</a></li>
-					<li style="margin-right: 40px;"><a href="#">신발</a></li>
-				    <li style="margin-right: 40px;"><a href="#">잡화</a></li>
-					
+					<li style="margin-right: 40px;"><a href="#"><b>Home</b></a></li>
+					<li style="margin-right: 40px;"><a href="#">Style</a></li>
+					<li style="margin-right: 40px;"><a href="#">Sangsae</a></li>
+					<li style="margin-right: 40px;"><a href="#">Shop</a></li>
+					<li style="margin-right: 40px;"><a href="#">My</a></li>
 				</ul>
 			</div>
-
-			<div style="margin-top: 50px; float: right; width: 60px;  ">
+			<div style="margin-top: 50px; float: right; width: 60px;">
 				<input type="text" placeholder="상품 검색" onkeypress="handle">
-				
 			</div>
-			
-
-
-
 		</div>
 	</div>
 </body>

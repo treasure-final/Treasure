@@ -9,4 +9,8 @@ public class BuyBidService implements BuyBidServiceInter {
 	@Autowired
 	BuyBidMapperInter mapper;
 
+	@Override
+	public void insertBuyBid(BuyBidDto buyBidDto) {
+		mapper.insertBuyBid(buyBidDto);
+	}
 }

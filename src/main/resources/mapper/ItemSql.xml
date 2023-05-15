@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="boot.mvc.item.ItemMapperInter">
 
 	<select id="getTotalCount" resultType="int">
@@ -84,6 +83,4 @@
 	<select id="getItemSort" resultType="ItemDto">
 	select * from item  order by item_brandname asc
 	</select>
-	
-	 
 </mapper>

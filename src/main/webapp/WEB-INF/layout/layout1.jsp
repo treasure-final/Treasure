@@ -26,6 +26,7 @@ div.layout div.layout {
 }
 
 div.layout div.header {
+<<<<<<< HEAD
    position: fixed;
    top: 0;
    left: 0;
@@ -37,6 +38,19 @@ div.layout div.header {
    z-index: 100;
    background: white;
    width: 100%;
+=======
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 15%;
+	padding: 1rem;
+	display: flex;
+	justify-content: space-between;
+	z-index: 100;
+	background: white;
+	width: 100%;
+>>>>>>> 2012e390e14f3a497ad7eb0c16b4ac306d0993b6
 }
 
 /* div.layout div.menu{
@@ -48,6 +62,7 @@ div.layout div.header {
    } 
       */
 div.layout div.main {
+<<<<<<< HEAD
    position: relative;
    top: 115px;
    width: 100%;
@@ -59,6 +74,19 @@ div.layout div.footer {
    top: 600px;
    height: 550px;
    width: 100%;
+=======
+	position: relative;
+	top: 110px;
+	width: 100%;
+}
+
+div.layout div.footer {
+	position: relative;
+	border: 0px solid green;
+	top: 600px;
+	height: 550px;
+	width: 100%;
+>>>>>>> 2012e390e14f3a497ad7eb0c16b4ac306d0993b6
 }
 
 /* 화면 스크롤 버튼*/
@@ -70,6 +98,7 @@ div.layout div.footer {
 }
 
 .btns>div {
+<<<<<<< HEAD
    padding: .6rem 1.5rem;
    background: #111;
    display: flex;
@@ -80,6 +109,18 @@ div.layout div.footer {
    transition: .2s;
    color: #fff;
    margin-right: .4rem;
+=======
+	padding: .6rem 1.5rem;
+	background: #111;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	border-radius: 5px;
+	transition: .2s;
+	color: #fff;
+	margin-right: .4rem;
+>>>>>>> 2012e390e14f3a497ad7eb0c16b4ac306d0993b6
 }
 
 .moveTopBtn:hover {
@@ -89,6 +130,7 @@ div.layout div.footer {
 
 /* 글꼴 적용*/
 @font-face {
+<<<<<<< HEAD
    font-family: 'GmarketSansMedium';
    src:
       url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
@@ -99,6 +141,18 @@ div.layout div.footer {
 
 body {
    font-family: 'GmarketSansMedium';
+=======
+	font-family: 'GmarketSansMedium';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body {
+	font-family: 'GmarketSansMedium';
+>>>>>>> 2012e390e14f3a497ad7eb0c16b4ac306d0993b6
 }
 </style>
 </head>
@@ -115,6 +169,7 @@ body {
          <tiles:insertAttribute name="main" />
       </div>
 
+<<<<<<< HEAD
       <div class="footer">
          <tiles:insertAttribute name="footer" />
       </div>
@@ -129,6 +184,22 @@ body {
    
    <script>
    const $topBtn = document.querySelector(".moveTopBtn");
+=======
+		<div class="footer">
+			<tiles:insertAttribute name="footer" />
+		</div>
+		
+		<div class="btns">
+			<div class="moveTopBtn">
+				<span class="glyphicon glyphicon-triangle-top"></span>top
+			</div>
+		</div>
+		
+	</div>
+	
+	<script>
+	const $topBtn = document.querySelector(".moveTopBtn");
+>>>>>>> 2012e390e14f3a497ad7eb0c16b4ac306d0993b6
 
    //버튼 클릭 시 맨 위로 이동
    $topBtn.onclick = () => {

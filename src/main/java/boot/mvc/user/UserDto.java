@@ -20,4 +20,8 @@ public class UserDto {
     private Date user_birth;
     private String user_addr;
     private Timestamp user_joinday;
+    
+    private String addr1;
+    private String addr2;
+    private String addr3;
 }

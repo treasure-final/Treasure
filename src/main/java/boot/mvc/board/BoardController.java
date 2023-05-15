@@ -11,7 +11,6 @@ public class BoardController {
 	@Autowired
 	BoardService service;
 	
-	
 	@GetMapping("/style/stylelist")
 	public String list()
 	{

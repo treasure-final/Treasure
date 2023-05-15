@@ -130,7 +130,7 @@ a:hover {
 					<li style="margin-right: 40px;"><a href="/item/insert">Insert</a></li>
 					<li style="margin-right: 40px;"><a href="/sell/sellSize">Shop</a></li>
 					<li style="margin-right: 40px;"><a href="/user/myPage">My</a></li>
-					</c:if>
+				
 					
 					<c:if test="${empty loginOk}">
 					<li style="margin-right: 40px;"><a id="noLoginMy">My</a></li>

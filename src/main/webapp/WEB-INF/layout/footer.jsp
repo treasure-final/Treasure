@@ -55,7 +55,7 @@ h6{
  <hr>
 
  <div style="margin-bottom: 110px; " >
-	<div style="width:115px; font-size: 13px; display: inline-block; margin-left: 10px; float: left;" >
+	<div style="width:115px; font-size: 13px; display: inline-block; margin-left: 10px; float: left;" class="first">
 		<ul>
 			<li style="line-height: 50px;"><a href="#"><b>이용안내</b></a></li>
 			<li style="line-height: 30px;"><a href="#">검수기준</a></li>
@@ -64,7 +64,7 @@ h6{
 		</ul>
 	</div>
 		
-		<div style="width:110px; font-size: 13px; display: inline-block; margin-left: 150px;">
+		<div style="width:140px; font-size: 13px; display: inline-block; margin-left: 150px;"class="second">
 		<ul>
 			<li style="line-height: 50px;"><a href="#" ><b>고객지원</b></a></li>
 			 
@@ -75,7 +75,7 @@ h6{
 	</div>
 	
 	
-	<div style="width:260px; font-size: 13px; display: inline-block; float: right;">
+	<div style="width:260px; font-size: 13px; display: inline-block; float: right;"class="third">
 		<ul>
 			<li style="line-height: 50px;"><a href="#"><b>고객센터 1588-XXXX</b></a></li>
 			<li style="line-height: 30px;"><a href="#">운영시간 평일 11:00-18:00 </a></li>
@@ -92,7 +92,7 @@ h6{
 
 <hr>
 
-<div style="margin-left: 10px; font-size: 13px;  margin-top: 30px;">
+<div style="margin-left: 10px; font-size: 13px;  margin-top: 30px;" class="fourth">
 		<ul>
 			<li style="margin-right: 40px; "><a href="#"><b>회사소개</b></a></li>
 			<li style="margin-right: 40px;"><a href="#">인사채용</a></li>
@@ -102,7 +102,7 @@ h6{
 			
 		</ul>
 		
-		<div style=" width: 210px;  float: right; ">
+		<div style=" width: 210px;  float: right; " class="fifth">
 		<a href="#">
 		<img src="../assets/images/footerlogo1.png" style="width: 30px; height: 30px; margin-left: 50px;">
 		</a>

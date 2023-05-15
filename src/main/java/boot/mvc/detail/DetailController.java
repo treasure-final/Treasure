@@ -11,17 +11,17 @@ import boot.mvc.item.ItemDto;
 public class DetailController {
 	
 	@Autowired
-	DetailMapperInter Dmapper;
+	DetailService Dservice;
 
 	@GetMapping("/item/detail")
 	public String detail() {
-		return "/3/item/detail";
+		return "/item/detail";
 	}
 	@GetMapping("/item/DetailgetData")
 	public ModelAndView DetailgetData(String Item_num) {
 		ModelAndView mview = new ModelAndView();
 		
-		ItemDto dto = Dmapper.DetailgetData(Item_num);
+		ItemDto dto = Dservice.DetailgetData(Item_num);
 		
 		mview.addObject("Ddto", dto);
 		

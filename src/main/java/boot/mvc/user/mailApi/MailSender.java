@@ -1,15 +1,12 @@
 package boot.mvc.user.mailApi;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
-@ComponentScan
 public class MailSender {
 
     static String randompass="";

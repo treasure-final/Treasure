@@ -39,7 +39,16 @@ public class SellBidController {
 	}
 	
 	@GetMapping("/sell/sellCalculate")
-	public String sellCalculateForm() {
-		return "/sell/sellCalculate";
+	public ModelAndView sellCalculateForm(String price, String size, String deadline) {
+		
+		ModelAndView mview=new ModelAndView();
+		
+		mview.addObject("price", price);
+		mview.addObject("size", size);
+		mview.addObject("deadline", deadline);
+		
+		mview.setViewName("/sell/sellCalculate");
+		
+		return mview;
 	}
 }

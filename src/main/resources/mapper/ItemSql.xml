@@ -8,18 +8,14 @@
 	</select>
 	
 	<select id="getAllData" resultType="ItemDto" >
-
 	select * from item order by item_num
-
 	</select>
 	
 	<select id="getCategory" parameterType="Map" resultType="ItemDto">
   		select * from item  where
-  		
   		<if test="brand!=null" > 
   		 item_brandname=#{brand} 
   		</if>
-  		
   	<if test="ck!=null and brand!=null">
   			and
   		</if>
@@ -35,14 +31,12 @@
 	  		OR item_category= SUBSTRING_INDEX(SUBSTRING_INDEX(#{ck}, ',', -1),',',1))
   		</if>
   	</select>
-  	
-  	
+
   	<select id="getSearchTotalCount" resultType="int" parameterType="Map">
-  			select  count(*) from item where 
+  			select count(*) from item where
   		<if test="brand!=null" >
   		 item_brandname=#{brand} 
   		</if>
-  		
   	<if test="ck!=null and brand!=null">
   			and
   		</if>
@@ -54,10 +48,8 @@
 	  		OR item_category= SUBSTRING_INDEX(SUBSTRING_INDEX(#{ck}, ',', -1),',',1))
   		</if>
   	</select>
-  	
-  	
-  	 <select id="getSearhAllData" resultType="ItemDto" parameterType="Map">
 
+  	 <select id="getSearhAllData" resultType="ItemDto" parameterType="Map">
 		select * from item where
 		<if test="brand!=null" >
   		 item_brandname=#{brand} 
@@ -74,13 +66,14 @@
 	  		OR item_category= SUBSTRING_INDEX(SUBSTRING_INDEX(#{ck}, ',', -1),',',1))
   		</if>
 		order by item_num
+	</select>
 
-	</select> 
-	
-	
 	<!--사이드 체크박스 end  -->
-	
 	<select id="getItemSort" resultType="ItemDto">
-	select * from item  order by item_brandname asc
+	select * from item order by item_brandname asc
+	</select>
+
+	<select id="getItemData" parameterType="String" resultType="ItemDto">
+	select * from item where item_num=#{item_num}
 	</select>
 </mapper>

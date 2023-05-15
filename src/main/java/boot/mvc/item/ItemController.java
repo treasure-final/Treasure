@@ -14,16 +14,16 @@ import org.springframework.web.servlet.ModelAndView;
 public class ItemController {
 
 	@Autowired
-	ItemMapperInter mapper;
+	ItemService service;
 	
 		@GetMapping("/item/itemlist")
 		public ModelAndView list()
 		{
 			ModelAndView iview =new ModelAndView();
 			//전체 상품갯수 
-			int totitem= mapper.getTotalCount();
+			int totitem= service.getTotalCount();
 			
-			List<ItemDto> list = mapper.getAllData();
+			List<ItemDto> list = service.getAllData();
 			
 			iview.addObject("list", list);
 			iview.addObject("totitem", totitem);
@@ -38,15 +38,9 @@ public class ItemController {
 			  System.out.println(brand);
 			 
 			ModelAndView model=new ModelAndView();
-			Map<String, String> map=new HashMap<>();
-			
-			
-			map.put("ck", ck);
-			map.put("brand", brand);
-			
-			int stotitem =mapper.getSearchTotalCount(map);
-			
-			List<ItemDto> list=mapper.getSearhAllData(map);
+
+			int stotitem =service.getSearchTotalCount(ck,brand);
+			List<ItemDto> list=service.getSearhAllData(ck,brand);
 			
 			model.addObject("list", list);				
 			model.addObject("stotitem", stotitem);
@@ -58,8 +52,8 @@ public class ItemController {
 		@GetMapping("/item/itemsort")
 		public ModelAndView sortlist()
 		{ ModelAndView sview = new ModelAndView();
-		int soritem = mapper.getTotalCount();
-		List<ItemDto> list = mapper.getItemSort();
+		int soritem = service.getTotalCount();
+		List<ItemDto> list = service.getItemSort();
 			
 		sview.addObject("list", list);
 		sview.addObject("soritem",soritem);

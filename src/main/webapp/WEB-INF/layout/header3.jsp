@@ -89,9 +89,8 @@ a:hover {
 						</a>
 					</li>
 					<li style="margin-right: 40px;">
-						<a href="#">Style</a>
+						<a href="/style/styleDetail">Style</a>
 					</li>
-					<li style="margin-right: 40px;">
 						<a href="/item/itemlist">Shop</a>
 					</li>
 					<li style="margin-right: 40px;">

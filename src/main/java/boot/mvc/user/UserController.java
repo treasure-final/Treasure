@@ -386,7 +386,6 @@ public class UserController {
             MailSender.mailSend(email);
             String randompass=MailSender.getRandompass();
 //            System.out.println(randompass);
-            Map<String,String> map=new HashMap<>();
             service.updateTemporarilyPass(randompass,email);
         }
         return checkEmail;

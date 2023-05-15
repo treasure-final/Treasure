@@ -53,7 +53,7 @@ div.main {
 }
 
 .login-wrapper {
-	width: 800px;
+	width: 830px;
 	padding: 40px;
 	box-sizing: border-box;
 	margin-top: 20px !important;
@@ -214,30 +214,32 @@ div.sell_size:hover {
 		
 		$("#sell-next").click(function(){
 			
-			 location.href = "/sell/sellAgree?size=" + size;
+			 location.href = "/sell/sellAgree?item_num=${itemDto.item_num}&size=" + size;
             
 		});
 	});
 </script>
 </head>
 <body>
+		<form>
 	<div class="login-wrapper">
+	<input type="hidden" name="item_num" value="${itemDto.item_num }">
 		<div>
 			<i id="logo">판매하기</i>
 		</div>
 		<div class="hr"></div>
 		<div style="display: flex;">
 
-			<img src="/img/item_image/1.png" class="sell_item_image">
+			<img src="../img/item_image/${itemDto.item_image }" class="sell_item_image">
 
 			<div style="flex-direction: column; padding: 20px; margin-top: 30px;">
-				<span class="sell_brand">Jordan</span>
+				<span class="sell_brand">${itemDto.item_brandname }</span>
 				<br>
-				<span class="sell_title">(W) 조던 1 x 트래비스 스캇 레트로 로우 OG SP 미디움 올리브</span>
+				<span class="sell_title">${itemDto.item_engname }</span><br>
+				<span class="sell_title">${itemDto.item_korname }</span>
 				<br>
 			</div>
 		</div>
-		<form method="" action="" id="">
 			<div style="display: flex;">
 				<%--                여성이라 사이즈는 225부터 시작, 사이즈는 5씩 증가--%>
 				<c:forEach var="size" begin="225" step="5" end="270" varStatus="i">

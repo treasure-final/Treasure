@@ -40,7 +40,7 @@ div.main {
 }
 
 .container {
-	width: 800px;
+	width: 820px;
 	height: 1200px;
 	padding: 40px;
 	box-sizing: border-box;
@@ -290,21 +290,23 @@ div.main {
 		$(".totalPrice").text(comma(totalPrice) + "원");
 			 
 	}
+	
 </script>
 </head>
 <body>
 <div class="container">
+<input type="hidden" name="item_num" value="${item_num }">
 <div><i id="logo">판매하기</i></div>
  <div class="hr"></div>
     <div id="info" style="width: 100%; height: 30%; margin-bottom: 10px; margin-left: 40px;">
-        <img src="../../img/화면%20캡처%202023-05-04%20140755.png"
+        <img src="../img/item_image/${itemDto.item_image }"
              style="width: 110px; float: left; margin-right: 20px; border-radius: 10px;">
         <div id="left-info"
              style="width: 70%; float: left; height: 40%; margin-right: 20px; margin-bottom: 10px; line-height: 20px; margin-top: 15px">
             <div id="content" style="font-size: 14px;">
-                <b style="font-size: 14px">DR0148-102</b><br>
-                (W) Nike Air Force 1 '07 LX Summit White Gorge Green<br>
-                <p style="opacity: 0.6; font-size: 14px;">(W) 나이키 에어포스 1 '07 LX 서밋 화이트 골지 그린</p>
+                <b style="font-size: 14px">${itemDto.item_modelnum }</b><br>
+                ${itemDto.item_engname }<br>
+                <p style="opacity: 0.6; font-size: 14px;">${itemDto.item_korname }</p>
                 ${size }
             </div>
         </div>
@@ -391,10 +393,10 @@ div.main {
             </span>
         </div>
         <div class="result-bottom">
-            총 정산금액<span class="totalPrice" style="font-size: 14px; margin-left: 500px;">-원</span>
+            총 정산금액<span class="totalPrice" id="totalPrice" style="font-size: 14px; margin-left: 500px;">-원</span>
             <div style="display: flex;">
             <button type="button" id="sell-back" class="sell-back">뒤로가기</button> 
-            <button type="button" id="sell-next" onclick="location.href='/sell/sellCalculate'">판매 입찰 계속하기</button>
+            <button type="button" id="sell-next" onclick="moveOrderPage()">판매 입찰 계속하기</button>
             </div>
     </div>
 </div>
@@ -405,7 +407,29 @@ div.main {
 //일단은 걍 뒤로가기
 $(".sell-back").click(function(){
 	history.back();
+	
 });
+	 function moveOrderPage() {
+         var hopePrice = $("#hopePrice").val();
+         var selectedDeadline = $(".deadline.selected");
+         var deadline = parseInt(selectedDeadline.attr("day"));      
+
+         
+
+         if (isNaN(deadline)) {
+             alert("마감 기한을 선택해주세요.");
+             return;
+         }
+         
+         location.href = '/sell/sellCalculate?item_num=${item_num}&size=${size}&hopePrice='+hopePrice+'&deadline='+deadline;
+         
+         
+     }
+	 
+	 $(".deadline").click(function() {
+	        $(".deadline").removeClass("selected");
+	        $(this).addClass("selected");
+	    });
 </script>
 </body>
 </html>

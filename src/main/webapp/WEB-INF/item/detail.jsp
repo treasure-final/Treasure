@@ -210,6 +210,7 @@ div.main {
 												>구매</button>
 											</div>
 											<div>
+																				
 												<button type="button" class="btn btn-outline-detail btn-lg w-100" style="height: 7vh;"
 													onclick="location.href='/sell/sellSize'"
 												>판매</button>

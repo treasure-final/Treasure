@@ -228,18 +228,25 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
 </head>
 <body>
 <div class="container">
+
+<input type="hidden" name="item_num" value="${item_num }">
+<input type="hidden" name="hopePrice" value="${hopePrice }">
+<input type="hidden" name="size" value="${size }">
+<input type="hidden" name="deadline" value="${deadline }">
+
+
     <div><i id="logo">판매/정산</i></div>
     <div class="hr"></div>
     <!-- 주소 -->
     <div id="info" style="width: 100%; height: 30%; margin-bottom: 10px; margin-left: 40px;">
-        <img src="../../img/화면%20캡처%202023-05-04%20140755.png"
+        <img src="../img/item_image/${itemDto.item_image }"
              style="width: 110px; float: left; margin-right: 20px; border-radius: 10px;">
         <div id="left-info"
              style="width: 70%; float: left; height: 40%; margin-right: 20px; margin-bottom: 10px; line-height: 20px; margin-top: 15px">
             <div id="content" style="font-size: 14px;">
-                <b style="font-size: 14px">DR0148-102</b><br>
-                (W) Nike Air Force 1 '07 LX Summit White Gorge Green
-                <div style="opacity: 0.6; font-size: 14px;">(W) 나이키 에어포스 1 '07 LX 서밋 화이트 골지 그린</div>
+                <b style="font-size: 14px">${itemDto.item_modelnum }</b><br>
+                ${itemDto.item_engname }
+                <div style="opacity: 0.6; font-size: 14px;">${itemDto.item_korname }</div>
                 ${size }
             </div>
         </div>
@@ -336,8 +343,7 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
     	</div>    
     </div>
     
-    
-        
+       
 </div>
 
 <script type="text/javascript">

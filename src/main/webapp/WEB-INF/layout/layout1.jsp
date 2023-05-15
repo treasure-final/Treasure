@@ -122,7 +122,7 @@ div.layout div.footer {
 	margin-right: .4rem;
 >>>>>>> 2012e390e14f3a497ad7eb0c16b4ac306d0993b6
 }
-
+d
 .moveTopBtn:hover {
    color: white;
    background: #747f55;

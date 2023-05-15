@@ -126,8 +126,8 @@
       <div id="menulist">
          <ul class="tul">
             <li style="margin-right: 40px;"><a href="/"><b>Home</b></a></li>
-            <li style="margin-right: 40px;"><a href="#">Style</a></li>
-            <li style="margin-right: 40px;"><a href="/item/detail">Shop</a></li>
+            <li style="margin-right: 40px;"><a href="/style/stylelist">Style</a></li>
+            <li style="margin-right: 40px;"><a href="/item/itemlist">Shop</a></li>
 
             <c:if test="${not empty loginOk}">
                <li style="margin-right: 40px;"><a href="/user/myPage">My</a></li>

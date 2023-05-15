@@ -72,7 +72,7 @@ color: black;
 <body>
 	<c:set var="root" value="<%=request.getContextPath()%>" />
 
-	<div class="header">
+	<div class="header2">
 
 
 		<div id="title">
@@ -92,10 +92,12 @@ color: black;
 
 			<div style="margin-top: 40px; font-size: 20px; float: left;">
 				<ul>
-					<li style="margin-right: 40px;"><a href="#"><b>Home</b></a></li>
-					<li style="margin-right: 40px;"><a href="#">Style</a></li>
-					<li style="margin-right: 40px;"><a href="#">Shop</a></li>
-					<li style="margin-right: 40px;"><a href="#">My</a></li>
+					<li style="margin-right: 40px;"><a href="#"><b>전체</b></a></li>
+					<li style="margin-right: 40px;"><a href="#">상의</a></li>
+					<li style="margin-right: 40px;"><a href="#">하의</a></li>
+					<li style="margin-right: 40px;"><a href="#">신발</a></li>
+				    <li style="margin-right: 40px;"><a href="#">잡화</a></li>
+					
 				</ul>
 			</div>
 

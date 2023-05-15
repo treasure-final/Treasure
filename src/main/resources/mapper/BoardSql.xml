@@ -4,4 +4,11 @@
 
 <mapper namespace="boot.mvc.board.BoardMapperInter">
 	
+	
+	
+	<insert id="insertStyle" parameterType="BoardDto">
+	
+	insert into board (board_id,user_num,board_content,board_image,board_like_count,board_comment_count,board_writeday)
+	</insert>
+	
 </mapper>

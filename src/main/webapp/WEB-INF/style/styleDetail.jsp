@@ -72,7 +72,7 @@ img {
 .slideshow-container {
 	max-width: 1000px;
 	position: relative;
-	margin: auto;
+	margin: 250px;
 }
 
 /* Next & previous buttons */
@@ -81,7 +81,8 @@ img {
 	position: absolute;
 	top: 50%;
 	width: auto;
-	padding: 20px;
+	padding-right: 200px;
+	padding-left: 50px;
 	margin-top: -22px;
 	color: black;
 	font-weight: bold;
@@ -197,9 +198,9 @@ to {
 			<div class="mySlides fade" align="center">
 				<img src="../assets/images/3.png" style="width: 100%">
 			</div>
+			<a class="prev" onclick="plusSlides(-1)">❮</a>
+			<a class="next" onclick="plusSlides(1)">❯</a>
 		</div>
-		<a class="prev" onclick="plusSlides(-1)">❮</a>
-		<a class="next" onclick="plusSlides(1)">❯</a>
 	</div>
 	<br>
 	<div style="text-align: center">

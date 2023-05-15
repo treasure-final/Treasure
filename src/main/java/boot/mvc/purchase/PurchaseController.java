@@ -51,15 +51,6 @@ public class PurchaseController {
         mv.addObject("size", size);
         mv.addObject("deliveryWay", deliveryWay);
         mv.setViewName("/purchase/purchaseOrder");
-
-        /*Map<String, String> map = new HashMap<>();
-
-        map.put("price", price);
-        map.put("deadline", deadline);
-        map.put("size",size);
-        map.put("deliveryWay", deliveryWay);
-        model.addAttribute("map", map);*/
-
         return mv;
     }
 }

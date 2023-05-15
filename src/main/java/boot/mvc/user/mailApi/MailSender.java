@@ -1,4 +1,3 @@
-/*
 package boot.mvc.user.mailApi;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -10,12 +9,13 @@ import java.util.Properties;
 
 public class MailSender {
 
+    static String randompass="";
     public static String getRamdomPassword(int size) {
         String randomPw=RandomStringUtils.randomAlphanumeric(size);
         return randomPw;
     }
 
-    public static void main(String[] args) {
+    public static void mailSend(String email) {
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
@@ -30,10 +30,11 @@ public class MailSender {
             }
         });
 
-        String randomPw=getRamdomPassword(10);
-        String receiver = "wn089@naver.com"; // 메일 받을 주소
+        randompass=getRamdomPassword(10);
+        String receiver = email; // 메일 받을 주소
         String title = "TREASURE 임시 비밀번호 발급";
-        String content = "<h2 style='color:blue'>"+randomPw+"</h2><br>임시 비밀번호입니다.<br>이후 꼭 비밀번호를 변경해주세요.";
+        String content = "<h2 style='color:blue'>"+randompass+"</h2><br>임시 비밀번호입니다.<br>이후 꼭 비밀번호를 변경해주세요.<br>";
+        content+="TREASURE 바로가기 : <a href='http://localhost:8080/user/loginForm'></a>";
         Message message = new MimeMessage(session);
         try {
             message.setFrom(new InternetAddress("treasure2hy@gmail.com", "관리자", "utf-8"));
@@ -46,4 +47,9 @@ public class MailSender {
             e.printStackTrace();
         }
     }
-}*/
+
+    public static String getRandompass() {
+        return randompass;
+    }
+
+}

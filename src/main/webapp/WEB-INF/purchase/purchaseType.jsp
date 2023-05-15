@@ -11,7 +11,7 @@
           rel="stylesheet">
     <title>Treasure</title>
     <!-- Bootstrap core CSS -->
-<%--    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">--%>
+    <%--    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">--%>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="application/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js"
             charset="utf-8"></script>
@@ -25,10 +25,6 @@
 
         * {
             font-family: "GmarketSansMedium";
-            font-size: 10px;
-            padding: 0;
-            margin: 0;
-            border: none;
         }
 
         .container {
@@ -92,10 +88,11 @@
 
         .deadline {
             border: 1px solid darkgray;
-            padding: 15px 50px;
+            padding: 15px 45px;
             border-radius: 15px;
             margin-right: 7px;
             cursor: pointer;
+            font-size: 14px;
         }
 
         .deadline:hover {
@@ -104,7 +101,8 @@
 
         .btn-submit {
             width: 100%;
-            padding: 17px 0;
+            height: 55px;
+            padding: 14px 0;
             border-radius: 15px;
             background-color: #747f55;
             color: #ffffff;
@@ -146,13 +144,12 @@
     </style>
     <script>
         $(function () {
-            buyWay="";
-
             $("#result-bid").hide();
+
             $("#buy-bid").css("background-color", "#e3e3e3")
                 .css("color", "black");
             $("#buy-bid").click(function () {
-                buyWay="bid";
+                buyWay = "bid";
                 $("#result-immediate").hide();
                 $("#result-bid").show();
                 $("#buy-immediate").css("background-color", "#e3e3e3")
@@ -161,7 +158,7 @@
                     .css("color", "#fff");
             });
             $("#buy-immediate").click(function () {
-                buyWay="immediate";
+                buyWay = "immediate";
                 $("#result-bid").hide();
                 $("#result-immediate").show();
                 $("#buy-bid").css("background-color", "#e3e3e3")
@@ -172,7 +169,7 @@
             $(".deadline").click(function () {
 
                 let day = $(this).text();
-                let intDay = $(this).attr("day");
+                intDay = $(this).attr("day");
 
                 let today = new Date();
 
@@ -187,7 +184,28 @@
                 $("#deadline-day").text(day);
                 $("#deadline-date").text(deadDay);
             });
+
+            // 금액 입력 후 엔터 누르면 1000 단위로 콤마 추가
+            $('#hopePrice').on('change', function() {
+                n = uncomma($(this).val());
+                n = Math.floor(n/1000) * 1000;
+                comma($(this).val(n));
+            });
         });
+
+        // 금액 입력 후 화면 클릭 시 1000 단위로 콤마 추가
+        window.onclick = function change() {
+            let n = uncomma($("#hopePrice").val());
+            n = Math.floor(n / 1000) * 1000;
+            let m = comma(n);
+            $("#hopePrice").val(m);
+        }
+
+        function moveOrderPage() {
+            price = $("#hopePrice").val();
+            deadline = parseInt(intDay);
+            location.href = 'order?size=${size}&price=' + uncomma(price) + '&deadline=' + deadline + '&deliveryWay=${deliveryWay}'
+        }
 
         function inputNumberFormat(obj) {
             obj.value = comma(uncomma(obj.value));
@@ -197,7 +215,7 @@
             str = String(str);
             return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
         }
-        
+
 
         function uncomma(str) {
             str = String(str);
@@ -214,10 +232,10 @@
              style="width: 110px; float: left; margin-right: 20px; border-radius: 10px;">
         <div id="left-info"
              style="width: 70%; float: left; height: 40%; margin-right: 20px; margin-bottom: 10px; line-height: 20px; margin-top: 15px">
-            <div id="content" style="font-size: 14px;">
+            <div id="content" style="font-size: 14px; line-height: 22px;">
                 <b style="font-size: 14px">DR0148-102</b><br>
                 (W) Nike Air Force 1 '07 LX Summit White Gorge Green<br>
-                <p style="opacity: 0.6; font-size: 14px;">(W) 나이키 에어포스 1 '07 LX 서밋 화이트 골지 그린</p>
+                <div style="opacity: 0.6; font-size: 14px;">(W) 나이키 에어포스 1 '07 LX 서밋 화이트 골지 그린</div>
                 ${size}
             </div>
         </div>
@@ -232,7 +250,8 @@
                 <div style="opacity: 0.7; font-size: 14px;">즉시 판매가</div>
                 -
             </div>
-            <div id="typeBtn" style="margin-left: 7px; background-color: #e3e3e3; height: 48px; margin-top: 100px; margin-right: 10px; border-radius: 25px;">
+            <div id="typeBtn"
+                 style="margin-left: 7px; background-color: #e3e3e3; height: 54px; margin-top: 100px; margin-right: 10px; border-radius: 25px;">
                 <input type="button" value="구매 입찰" class="btn-buyType" id="buy-bid"
                        style="float: left; margin-right: 23px; margin-left: 2px;">
                 <input type="button" value="즉시 구매" class="btn-buyType" id="buy-immediate" style="float: left">
@@ -259,7 +278,7 @@
         <div style="font-size: 13px;">구매 희망가</div>
         <div align="right" style="font-size: 20px; margin-right: 35px;" id="buy-form">
             <input type="text" id="hopePrice" placeholder="희망가 입력" onkeyup="inputNumberFormat(this)"
-            style="color: black; font-size: 20px; font-weight: normal">원
+                   style="color: black; font-size: 20px; font-weight: normal">원
         </div>
 
         <div class="result-content" style="border-top: 1px solid #b9b9b9; width: 95%; height: 10%; margin-top: 15px;">
@@ -290,7 +309,11 @@
         </div>
         <div class="result-bottom">
             총 결제금액<span style="font-size: 14px; opacity: 0.4; margin-left: 450px;">다음 화면에서 확인</span>
-            <input type="button" value="구매 입찰 계속" class="btn-submit" onclick="location.href='order'"></div>
+            <input type="hidden" id="size" value="${size}">
+            <input type="hidden" id="deliveryWay" value="${deliveryWay}">
+            <input type="button" value="구매 입찰 계속" class="btn-submit" id="bid-btn"
+                   onclick="moveOrderPage()">
+        </div>
     </div>
 </div>
 </body>

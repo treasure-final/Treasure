@@ -203,8 +203,10 @@ div.main {
 										</div>
 										<div class="col-7">
 											<div class="mb-4">
+
 												<button type="button" class="btn btn-detail btn-lg w-100"
 													style="height: 7vh; margin-top: 90px" onclick="location.href='/buy/select'"
+
 												>구매</button>
 											</div>
 											<div>

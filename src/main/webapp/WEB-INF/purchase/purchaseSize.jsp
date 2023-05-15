@@ -32,12 +32,25 @@
 	font-style: normal;
 }
 
-* {
+div.main {
 	font-family: "GmarketSansMedium";
-	font-size: 10px;
+	font-size: 13px;
 	padding: 0;
 	margin: 0;
 	border: none;
+	color: black;
+}
+
+* {
+	font-family: "GmarketSansMedium";
+}
+
+#logo {
+	font-size: 25px;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .login-wrapper {
@@ -51,12 +64,12 @@
 	position: relative;
 }
 
-.login-wrapper>h2 {
-	font-size: 24px;
-	color: black;
-	margin-bottom: 40px;
-	text-align: center;
-}
+/*.login-wrapper>h2 {*/
+/*	font-size: 24px;*/
+/*	color: black;*/
+/*	margin-bottom: 40px;*/
+/*	text-align: center;*/
+/*}*/
 
 #login-form>input:not(#btn-login) {
 	width: 100%;
@@ -108,6 +121,7 @@
 	margin: 5px;
 	width: 50%;
 	text-align: center;
+	border: none;
 }
 
 .btn-login:hover {

@@ -27,5 +27,13 @@ public interface UserServiceInter {
    
  //이메일로 num 찾기
    public String findEmailUserNum(String user_email);
+   
+ //프로필 수정
+   public void userProfileUpdate(UserDto dto);
 
+    //임시 비밀번호 발급 전 이메일 존재 여부 확인
+    public int isUserEmail(String user_email);
+
+    //임시 비밀번호로 비밀번호 변경
+    public void updateTemporarilyPass(String user_pass,String user_email);
 }

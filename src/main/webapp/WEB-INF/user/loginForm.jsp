@@ -173,16 +173,16 @@ div.main {
         비밀번호
         <input type="password" name="password" id="password" placeholder="Password" required="required">
         <label for="remember-check">
-            <input type="checkbox" id="remember-check" name="saveOk"
+            <input type="checkbox" id="remember-check" name="saveOk" style="float: left"
                    name="${sessionScope.saveOk==null?"":"checked"}">
         </label>
-        <span>아이디 저장하기</span>
+        <div style="margin-top: 13px; float: left">아이디 저장하기</div>
 
         <input type="submit" value="Login" id="btn-login" class="submitBtn">
         <div id="sub-menu">
             <span onclick="location.href='joinForm'">회원 가입</span><span class="bar">|</span>
             <span onclick="location.href='emailSearchForm'">이메일 찾기</span><span class="bar">|</span>
-            <span>비밀번호 찾기</span>
+            <span onclick="location.href='passSearchForm'">비밀번호 찾기</span>
         </div>
         <div id="btn-api" style="margin-top: 30px;">
             <button type="button" class="btn" onclick="location.href='${urlNaver}'" style="border: none; background-color: #fff;">

@@ -95,6 +95,9 @@ a:hover {
 						<a href="/item/detail">Sangsae</a>
 					</li>
 					<li style="margin-right: 40px;">
+						<a href="/style/styleDetail">Style</a>
+					</li>
+					<li style="margin-right: 40px;">
 						<a href="/sell/sellSize">Shop</a>
 					</li>
 					<li style="margin-right: 40px;">

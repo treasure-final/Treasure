@@ -68,4 +68,25 @@ public class UserService implements UserServiceInter {
 		// TODO Auto-generated method stub
 		return mapper.findEmailUserNum(user_email);
 	}
+
+	@Override
+	public void userProfileUpdate(UserDto dto) {
+		// TODO Auto-generated method stub
+		mapper.userProfileUpdate(dto);
+		
+	}
+
+    @Override
+    public int isUserEmail(String user_email) {
+        return mapper.isUserEmail(user_email);
+    }
+
+    @Override
+    public void updateTemporarilyPass(String user_pass,String user_email) {
+        Map<String,String> map=new HashMap<>();
+        map.put("user_pass",user_pass);
+        map.put("user_email",user_email);
+        mapper.updateTemporarilyPass(map);
+    }
+
 }

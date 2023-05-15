@@ -223,7 +223,7 @@
 </head>
 <body>
 <div class="agree-wrapper">
-	<div><i id="logo">판매동의</i></div>
+	<div><i id="logo">구매동의</i></div>
 	<div class="hr"></div>
     	<div class="item">
     		<img alt="" src="../../img/최고심3.jpg" class="item-photo">   		   		

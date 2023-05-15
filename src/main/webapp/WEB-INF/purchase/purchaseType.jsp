@@ -11,7 +11,7 @@
           rel="stylesheet">
     <title>Treasure</title>
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<%--    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">--%>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="application/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js"
             charset="utf-8"></script>
@@ -104,7 +104,8 @@
 
         .btn-submit {
             width: 100%;
-            padding: 17px 0;
+            height: 55px;
+            padding: 14px 0;
             border-radius: 15px;
             background-color: #747f55;
             color: #ffffff;
@@ -127,13 +128,31 @@
             font-size: 14px;
             padding-top: 20px;
         }
+
+        .hr {
+            border: none;
+            height: 2px;
+            background: black;
+            margin-bottom: 50px;
+        }
+
+        #logo {
+            font-size: 25px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
     </style>
     <script>
         $(function () {
             $("#result-bid").hide();
+
             $("#buy-bid").css("background-color", "#e3e3e3")
                 .css("color", "black");
             $("#buy-bid").click(function () {
+                buyWay="bid";
                 $("#result-immediate").hide();
                 $("#result-bid").show();
                 $("#buy-immediate").css("background-color", "#e3e3e3")
@@ -142,6 +161,7 @@
                     .css("color", "#fff");
             });
             $("#buy-immediate").click(function () {
+                buyWay="immediate";
                 $("#result-bid").hide();
                 $("#result-immediate").show();
                 $("#buy-bid").css("background-color", "#e3e3e3")
@@ -152,7 +172,7 @@
             $(".deadline").click(function () {
 
                 let day = $(this).text();
-                let intDay = $(this).attr("day");
+                intDay = $(this).attr("day");
 
                 let today = new Date();
 
@@ -167,7 +187,44 @@
                 $("#deadline-day").text(day);
                 $("#deadline-date").text(deadDay);
             });
+
+            /*$("#bid-btn").click(function () {
+                // 구매 희망가
+                price = $("#hopePrice").val();
+                // 구매 사이즈
+                size = $("#size").val();
+                // 구매 마감일
+                deadline = intDay;
+                // 배송 방법
+                deliveryWay = $("#deliveryWay").val();
+
+                $.ajax({
+                    type: "get",
+                    url: "order",
+                    data: {"price" : price,
+                            "size" : size,
+                            "deadline" : deadline,
+                            "deliveryWay" : deliveryWay
+                    },
+                    success: function (res) {
+                        location.href = "order?price="+res.price;
+                    }
+                });
+            /*});*/
+
+            $('#hopePrice').on('change', function() {
+                var n = uncomma($(this).val());
+                n = Math.floor(n/1000) * 1000;
+                comma($(this).val(n));
+            });
         });
+
+        function moveOrderPage() {
+            price = $("#hopePrice").val();
+            deadline = new Date.parse(intDay);
+
+            location.href='order?size=${size}&price='+price+'&deadline='+deadline+'&deliveryWay=${deliveryWay}'
+        }
 
         function inputNumberFormat(obj) {
             obj.value = comma(uncomma(obj.value));
@@ -178,6 +235,7 @@
             return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
         }
 
+
         function uncomma(str) {
             str = String(str);
             return str.replace(/[^\d]+/g, '');
@@ -186,6 +244,8 @@
 </head>
 <body>
 <div class="container">
+    <div><i id="logo">구매하기</i></div>
+    <div class="hr"></div>
     <div id="info" style="width: 100%; height: 30%; margin-bottom: 10px; margin-left: 40px;">
         <img src="../../img/화면%20캡처%202023-05-04%20140755.png"
              style="width: 110px; float: left; margin-right: 20px; border-radius: 10px;">
@@ -195,9 +255,10 @@
                 <b style="font-size: 14px">DR0148-102</b><br>
                 (W) Nike Air Force 1 '07 LX Summit White Gorge Green<br>
                 <p style="opacity: 0.6; font-size: 14px;">(W) 나이키 에어포스 1 '07 LX 서밋 화이트 골지 그린</p>
-                240
+                ${size}
             </div>
         </div>
+
         <div id="right-info"
              style="border-top: 1px solid #b9b9b9; width: 90%; float: left; height: 40%;">
             <div class="price-info" align="center">
@@ -208,8 +269,7 @@
                 <div style="opacity: 0.7; font-size: 14px;">즉시 판매가</div>
                 -
             </div>
-            <div id="typeBtn"
-                 style="margin-left: 7px; background-color: #e3e3e3; height: 50px; margin-top: 100px; margin-right: 10px; border-radius: 25px">
+            <div id="typeBtn" style="margin-left: 7px; background-color: #e3e3e3; height: 54px; margin-top: 100px; margin-right: 10px; border-radius: 25px;">
                 <input type="button" value="구매 입찰" class="btn-buyType" id="buy-bid"
                        style="float: left; margin-right: 23px; margin-left: 2px;">
                 <input type="button" value="즉시 구매" class="btn-buyType" id="buy-immediate" style="float: left">
@@ -218,7 +278,7 @@
     </div>
     <div id="result-immediate" style="margin-left: 40px">
         <div style="font-size: 13px;">즉시 구매가</div>
-        <div align="right" style="font-size: 20px; margin-right: 35px; margin-top: 10px">177,000원</div>
+        <div align="right" style="font-size: 20px; margin-right: 35px; margin-top: 10px">123333원</div>
 
         <div class="result-content"
              style="border-top: 1px solid #b9b9b9; width: 95%; height: 10%; margin-top: 39px;">
@@ -228,18 +288,18 @@
         </div>
         <div class="result-bottom">
             총 결제금액<span style="font-size: 14px; opacity: 0.4; margin-left: 450px;">다음 화면에서 확인</span>
-            <input type="button" value="즉시 구매 계속" class="btn-submit">
+            <input type="button" value="즉시 구매 계속" class="btn-submit" onclick="location.href='order'">
         </div>
     </div>
 
     <div id="result-bid" style="margin-left: 40px">
         <div style="font-size: 13px;">구매 희망가</div>
         <div align="right" style="font-size: 20px; margin-right: 35px;" id="buy-form">
-            <input type="text" id="hopePrice" placeholder="희망가 입력" onkeyup="inputNumberFormat(this)">원
+            <input type="text" id="hopePrice" placeholder="희망가 입력" onkeyup="inputNumberFormat(this)"
+            style="color: black; font-size: 20px; font-weight: normal">원
         </div>
 
-        <div class="result-content"
-             style="border-top: 1px solid #b9b9b9; width: 95%; height: 10%; margin-top: 15px;">
+        <div class="result-content" style="border-top: 1px solid #b9b9b9; width: 95%; height: 10%; margin-top: 15px;">
         </div>
         <div style="padding-top: 20px; padding-bottom: 10px; font-size: 14px; opacity: 0.4">총 결제금액은
             다음 화면에서 계산됩니다.
@@ -267,7 +327,11 @@
         </div>
         <div class="result-bottom">
             총 결제금액<span style="font-size: 14px; opacity: 0.4; margin-left: 450px;">다음 화면에서 확인</span>
-            <input type="button" value="구매 입찰 계속" class="btn-submit"></div>
+            <input type="hidden" id="size" value="${size}">
+            <input type="hidden" id="deliveryWay" value="${deliveryWay}">
+            <input type="button" value="구매 입찰 계속" class="btn-submit" id="bid-btn"
+                   onclick="moveOrderPage()">
+        </div>
     </div>
 </div>
 </body>

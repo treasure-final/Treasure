@@ -94,6 +94,7 @@ color: black;
 				<ul>
 					<li style="margin-right: 40px;"><a href="#"><b>Home</b></a></li>
 					<li style="margin-right: 40px;"><a href="#">Style</a></li>
+					<li style="margin-right: 40px;"><a href="#">Sangsae</a></li>
 					<li style="margin-right: 40px;"><a href="#">Shop</a></li>
 					<li style="margin-right: 40px;"><a href="#">My</a></li>
 				</ul>

@@ -30,7 +30,7 @@ div.layout div.header {
 	top: 0;
 	left: 0;
 	right: 0;
-	height: 100px;
+	height: 15%;
 	padding: 1rem;
 	display: flex;
 	justify-content: space-between;
@@ -48,19 +48,17 @@ div.layout div.header {
 	} 
 		*/
 div.layout div.main {
-	position: absolute;
+	position: relative;
 	top: 110px;
-	height: 5100px;
 	width: 100%;
 }
 
 div.layout div.footer {
-	position: absolute;
+	position: relative;
 	border: 0px solid green;
-	top: 5300px;
+	top: 600px;
 	height: 550px;
-	left: 160px;
-	width: 1200px;
+	width: 100%;
 }
 
 /* 화면 스크롤 버튼*/
@@ -123,7 +121,7 @@ body {
 		
 		<div class="btns">
 			<div class="moveTopBtn">
-				<span class="glyphicon glyphicon-triangle-top"></span>up
+				<span class="glyphicon glyphicon-triangle-top"></span>top
 			</div>
 		</div>
 		

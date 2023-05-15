@@ -25,6 +25,10 @@
 	font-style: normal;
 }
 
+*{
+	font-family: "GmarketSansMedium";
+}
+
 div.main {
 	font-family: "GmarketSansMedium";
 	font-size: 13px;
@@ -301,7 +305,7 @@ div.main {
                 <b style="font-size: 14px">DR0148-102</b><br>
                 (W) Nike Air Force 1 '07 LX Summit White Gorge Green<br>
                 <p style="opacity: 0.6; font-size: 14px;">(W) 나이키 에어포스 1 '07 LX 서밋 화이트 골지 그린</p>
-                240
+                ${size }
             </div>
         </div>
         <div id="right-info"
@@ -340,8 +344,8 @@ div.main {
         <div class="result-bottom">
             총 정산금액<span class="totalPrice" style="font-size: 14px; margin-left: 500px;">-원</span>
             <div style="display: flex;">
-            <button type="button" id="sell-back">뒤로가기</button> 
-            <button type="button" id="sell-next" onclick="location.href=''">판매 계속하기</button>
+            <button type="button" class="sell-back" id="sell-back">뒤로가기</button> 
+            <button type="button" id="sell-next" onclick="location.href='/sell/sellCalculate'">판매 계속하기</button>
             </div>
         </div>
     </div>
@@ -386,10 +390,19 @@ div.main {
         <div class="result-bottom">
             총 정산금액<span class="totalPrice" style="font-size: 14px; margin-left: 500px;">-원</span>
             <div style="display: flex;">
-            <button type="button" id="sell-back">뒤로가기</button> 
-            <button type="button" id="sell-next" onclick="location.href=''">판매 입찰 계속하기</button>
+            <button type="button" id="sell-back" class="sell-back">뒤로가기</button> 
+            <button type="button" id="sell-next" onclick="location.href='/sell/sellCalculate'">판매 입찰 계속하기</button>
             </div>
     </div>
 </div>
+
+</div>
+
+<script type="text/javascript">
+//일단은 걍 뒤로가기
+$(".sell-back").click(function(){
+	history.back();
+});
+</script>
 </body>
 </html>

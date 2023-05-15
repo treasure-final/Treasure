@@ -111,59 +111,59 @@
 
 </head>
 <body>
-<c:set var="root" value="<%=request.getContextPath()%>" />
+	<c:set var="root" value="<%=request.getContextPath()%>" />
 
-<div class="header">
+	<div class="header">
 
-	<div id="title">
+		<div id="title">
 
-		<div id="logoimg">
-			<a href="/"> <img src="../assets/images/mainlogo.png"
-							  style="width: 200px;" >
-			</a>
-		</div>
+			<div id="logoimg">
+				<a href="/"> <img src="../assets/images/mainlogo.png"
+								  style="width: 200px;" >
+				</a>
+			</div>
 
-		<div id="menulist">
-			<ul class="tul">
-				<li style="margin-right: 40px;"><a href="/"><b>Home</b></a></li>
-				<li style="margin-right: 40px;"><a href="#">Style</a></li>
-				<li style="margin-right: 40px;"><a href="/item/detail">Shop</a></li>
+			<div id="menulist">
+				<ul class="tul">
+					<li style="margin-right: 40px;"><a href="/"><b>Home</b></a></li>
+					<li style="margin-right: 40px;"><a href="#">Style</a></li>
+					<li style="margin-right: 40px;"><a href="/item/detail">Shop</a></li>
 
-				<c:if test="${not empty loginOk}">
-					<li style="margin-right: 40px;"><a href="/user/myPage">My</a></li>
-				</c:if>
+					<c:if test="${not empty loginOk}">
+						<li style="margin-right: 40px;"><a href="/user/myPage">My</a></li>
+					</c:if>
 
+					<c:if test="${empty loginOk}">
+						<li style="margin-right: 40px;"><a id="noLoginMy">My</a></li>
+					</c:if>
+				</ul>
+			</div>
+
+			<div id="infostate">
+				<c:set var="loginOk" value="${sessionScope.loginOk}"></c:set>
 				<c:if test="${empty loginOk}">
-					<li style="margin-right: 40px;"><a id="noLoginMy">My</a></li>
+					<a href="/user/loginForm">로그인</a>
 				</c:if>
-			</ul>
-		</div>
+				<c:if test="${not empty loginOk}">
+					<a href="/user/logout">로그아웃</a>
+				</c:if>
+				&nbsp; <a href="#">고객센터</a>
+			</div>
 
-		<div id="infostate">
-			<c:set var="loginOk" value="${sessionScope.loginOk}"></c:set>
-			<c:if test="${empty loginOk}">
-				<a href="/user/loginForm">로그인</a>
-			</c:if>
-			<c:if test="${not empty loginOk}">
-				<a href="/user/logout">로그아웃</a>
-			</c:if>
-			&nbsp; <a href="#">고객센터</a>
-		</div>
+			<div id="searchinput" >
+				<img alt="" src="../assets/images/searchicon.png" style="width:  25px; z-index: 3; margin-left: 10px; position: absolute; margin-top: 10px;">
+				<input type="text" id="search" autocomplete="off" placeholder="상품 검색"  style=" z-index: 4; ">
+			</div>
 
-		<div id="searchinput" >
-			<img alt="" src="../assets/images/searchicon.png" style="width:  25px; z-index: 3; margin-left: 10px; position: absolute; margin-top: 10px;">
-			<input type="text" id="search" autocomplete="off" placeholder="상품 검색"  style=" z-index: 4; ">
 		</div>
-
 	</div>
-</div>
 
-<script type="text/javascript">
-	document.getElementById("noLoginMy").addEventListener("click", function() {
-		alert("로그인 후 이용 가능합니다");
-		window.location.href = "/user/loginForm";
-	});
-</script>
+	<script type="text/javascript">
+		document.getElementById("noLoginMy").addEventListener("click", function() {
+			alert("로그인 후 이용 가능합니다");
+			window.location.href = "/user/loginForm";
+		});
+	</script>
 </body>
 
 </html>

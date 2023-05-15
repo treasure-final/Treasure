@@ -173,10 +173,10 @@ div.main {
         비밀번호
         <input type="password" name="password" id="password" placeholder="Password" required="required">
         <label for="remember-check">
-            <input type="checkbox" id="remember-check" name="saveOk"
+            <input type="checkbox" id="remember-check" name="saveOk" style="float: left"
                    name="${sessionScope.saveOk==null?"":"checked"}">
         </label>
-        <span>아이디 저장하기</span>
+        <div style="margin-top: 13px; float: left">아이디 저장하기</div>
 
         <input type="submit" value="Login" id="btn-login" class="submitBtn">
         <div id="sub-menu">

@@ -28,6 +28,11 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"
 ></script>
+<script type="text/javascript">
+	function test() {
+
+	}
+</script>
 <style>
 @font-face {
 	font-family: "GmarketSansMedium";
@@ -172,11 +177,10 @@ div.main {
 									<!-- 상품명 -->
 									<div class="heading-section mt-sm-3">
 										<div style="margin-bottom: 0.5rem;">
-											<span style="font-size: 1.5em; font-weight: 600;">Nike</span>
-											<span style="font-size: 1em; font-weight: 500; margin-left: 1rem; color: #666">|&nbsp;&nbsp;&nbsp;카테고리</span>
+											<span id="brandname" style="font-size: 1.5em; font-weight: 600;">${Ddto.item_brandname }</span>
+											<span style="font-size: 1em; font-weight: 500; margin-left: 1rem; color: #666">|&nbsp;&nbsp;&nbsp;${Ddto.item_category }</span>
 										</div>
-										<span style="font-size: 1.2em; font-weight: 600;">Nike x Peaceminusone Kwondo 1
-											Black and White</span>
+										<span style="font-size: 1.2em; font-weight: 600;">${Ddto.item_engname }</span>
 										<br>
 										<span style="font-size: 1.1em; color: #666;">나이키 x 피스마이너스원 퀀도1 블랙 앤 화이트</span>
 									</div>
@@ -203,10 +207,8 @@ div.main {
 										</div>
 										<div class="col-7">
 											<div class="mb-4">
-
 												<button type="button" class="btn btn-detail btn-lg w-100"
 													style="height: 7vh; margin-top: 90px" onclick="location.href='/buy/select'"
-
 												>구매</button>
 											</div>
 											<div>

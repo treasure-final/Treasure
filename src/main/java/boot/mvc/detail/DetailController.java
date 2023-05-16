@@ -2,6 +2,7 @@ package boot.mvc.detail;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -9,24 +10,26 @@ import boot.mvc.item.ItemDto;
 
 @Controller
 public class DetailController {
-	
+
 	@Autowired
-	DetailService Dservice;
+	DetailMapperInter Dmapper;
 
 	@GetMapping("/item/detail")
-	public String detail() {
+	public String detail(String item_num,Model model) {
+		model.addAttribute("item_num",item_num);
 		return "/item/detail";
 	}
+
 	@GetMapping("/item/DetailgetData")
 	public ModelAndView DetailgetData(String Item_num) {
 		ModelAndView mview = new ModelAndView();
-		
-		ItemDto dto = Dservice.DetailgetData(Item_num);
-		
+
+		ItemDto dto = Dmapper.DetailgetData(Item_num);
+
 		mview.addObject("Ddto", dto);
-		
+
 		mview.setViewName("/item/detail");
-		
+
 		return mview;
 	}
 }

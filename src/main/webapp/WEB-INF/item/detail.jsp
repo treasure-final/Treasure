@@ -28,11 +28,6 @@
 <script
 	src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"
 ></script>
-<script type="text/javascript">
-	function test() {
-
-	}
-</script>
 <style>
 @font-face {
 	font-family: "GmarketSansMedium";
@@ -116,6 +111,7 @@ div.main {
 </style>
 <script type="text/javascript">
 	$(function() {
+		var item_num = $(".item_num").val();
 
 		// 모달창에서 사이즈 선택
 		$(".sizeselect").click(function() {
@@ -124,14 +120,31 @@ div.main {
 			$(".size-text").text(size);
 			$(".size-select").val(size);
 			$("#sizeModal").modal("hide");
-
 		});
 
+		/* $.ajax({
+		  url: "/item/DetailgetData",
+		  type: "get",
+		  dataType: "json",
+		  data: {
+		    "item_num": item_num
+		  },
+		  success: function(res) {
+			  
+		    $("#brandname").text(res.item_brandname);
+		    $("#category").text();
+		  },
+		  error: function(xhr, status, error) {
+		    // 오류 처리 로직을 추가합니다.
+		    console.log("AJAX 오류:", status, error);
+		  }
+		}); */
 	});
 </script>
 </head>
 <body>
 	<div class="container mb-5">
+		<input type="hidden" class="item_num" value=${item_num }>
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="page-content" style="padding: 1rem; height: 89vh;">
@@ -143,31 +156,31 @@ div.main {
 										<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0"
 											class="active" aria-current="true" aria-label="Slide 1"
 										></button>
-										<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
+										<!-- <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
 											aria-label="Slide 2"
 										></button>
 										<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
 											aria-label="Slide 3"
-										></button>
+										></button> -->
 									</div>
 									<div class="carousel-inner">
 										<div class="carousel-item active" data-bs-interval="4000" data-bs-pause="hover">
-											<img src="/assets/images/1.png" class="d-block w-100" alt="..."
+											<img src="/assets/images/${Ddto.item_image }" class="d-block w-100" alt="..."
 												style="position: relative; bottom: 50px"
 											>
+										</div>
+										<%-- <div class="carousel-item" data-bs-interval="4000" data-bs-pause="hover">
+											<img src="/assets/images/${Ddto.item_image }" class="d-block w-100" alt="..."
+												style="position: relative; bottom: 50px"
+											>
+											<div class="carousel-caption d-none d-md-block"></div>
 										</div>
 										<div class="carousel-item" data-bs-interval="4000" data-bs-pause="hover">
 											<img src="/assets/images/1.png" class="d-block w-100" alt="..."
 												style="position: relative; bottom: 50px"
 											>
 											<div class="carousel-caption d-none d-md-block"></div>
-										</div>
-										<div class="carousel-item" data-bs-interval="4000" data-bs-pause="hover">
-											<img src="/assets/images/1.png" class="d-block w-100" alt="..."
-												style="position: relative; bottom: 50px"
-											>
-											<div class="carousel-caption d-none d-md-block"></div>
-										</div>
+										</div> --%>
 									</div>
 									<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
 										data-bs-slide="prev"
@@ -193,11 +206,13 @@ div.main {
 									<div class="heading-section mt-sm-3">
 										<div style="margin-bottom: 0.5rem;">
 											<span id="brandname" style="font-size: 1.5em; font-weight: 600;">${Ddto.item_brandname }</span>
-											<span style="font-size: 1em; font-weight: 500; margin-left: 1rem; color: #666">|&nbsp;&nbsp;&nbsp;${Ddto.item_category }</span>
+											<span id="category"
+												style="font-size: 1em; font-weight: 500; margin-left: 1rem; color: #666"
+											>|&nbsp;&nbsp;&nbsp;${Ddto.item_category}</span>
 										</div>
-										<span style="font-size: 1.2em; font-weight: 600;">${Ddto.item_engname }</span>
+										<span id="engname" style="font-size: 1.2em; font-weight: 600;">${Ddto.item_engname }</span>
 										<br>
-										<span style="font-size: 1.1em; color: #666;">나이키 x 피스마이너스원 퀀도1 블랙 앤 화이트</span>
+										<span id="korname" style="font-size: 1.1em; color: #666;">${Ddto.item_korname }</span>
 									</div>
 									<hr>
 									<!-- 모델 번호, 출시일 ... -->
@@ -205,31 +220,32 @@ div.main {
 										<div class="heading-section col-5">
 											<div class="row mb-4">
 												<span style="font-size: 1.1em; color: #666;">모델 번호</span>
-												<span style="font-size: 1.2em; font-weight: 600;">DH2482-101</span>
+												<span style="font-size: 1.2em; font-weight: 600;">${Ddto.item_modelnum }</span>
 											</div>
 											<div class="row mb-4">
 												<span style="font-size: 1.1em; color: #666;">출시일</span>
-												<span style="font-size: 1.2em; font-weight: 500;">23/04/11</span>
+												<span style="font-size: 1.2em; font-weight: 500;">${Ddto.item_releaseday} </span>
 											</div>
 											<div class="row mb-4">
 												<span style="font-size: 1.1em; color: #666;">컬러</span>
-												<span style="font-size: 1.2em; font-weight: 500;">WHITE/BLACK</span>
+												<span style="font-size: 1.2em; font-weight: 500;">${Ddto.item_color }</span>
 											</div>
 											<div class="row">
 												<span style="font-size: 1.1em; color: #666;">발매가</span>
-												<span style="font-size: 1.2em; font-weight: 500;">229,000원</span>
+												<span style="font-size: 1.2em; font-weight: 500;">${Ddto.item_releaseprice }</span>
 											</div>
 										</div>
 										<div class="col-7">
 											<div class="mb-4">
 												<button type="button" class="btn btn-detail btn-lg w-100"
-													style="height: 7vh; margin-top: 90px" onclick="location.href='/buy/select'"
-													style="height: 7vh; margin-top: 90px"
+													style="width: 290px; height: 7vh; margin-top: 70px; margin-left: 40px"
+													onclick="location.href='/buy/select'"
 													onclick="location.href='/buy/select?item_num=${item_num}'"
 												>구매</button>
 											</div>
 											<div>
-												<button type="button" class="btn btn-outline-detail btn-lg w-100" style="height: 7vh;"
+												<button type="button" class="btn btn-outline-detail btn-lg w-100"
+													style="height: 7vh; width: 290px; margin-left: 40px;"
 													onclick="location.href='/sell/sellSize'"
 												>판매</button>
 											</div>
@@ -824,16 +840,18 @@ div.main {
 															<div class="modal-body" style="padding-left: 2.1rem;">
 																<div class="d-flex row col-12 mb-2">
 																	<div class="p-2" style="flex: 0 0 auto; width: 20%;">
-																		<img src="/assets/images/1.png" style="height: 8vh; border-radius: 1.3rem;">
+																		<img src="/assets/images/${Ddto.item_image }"
+																			style="height: 8vh; border-radius: 1.3rem;"
+																		>
 																	</div>
 																	<div class="p-2 mb-3" style="flex: 0 0 auto; width: 89%;">
 																		<div class="row">
 																			<span style="font-size: 0.7rem;">
-																				<b>Nike x Peaceminusone Kwondo 1 Black and White</b>
+																				<b>${Ddto.item_engname }</b>
 																			</span>
 																		</div>
 																		<div class="row mb-2">
-																			<span style="font-size: 0.6rem; color: #666">나이키 x 피스마이너스원 퀀도1 블랙 앤 화이트</span>
+																			<span style="font-size: 0.6rem; color: #666">${Ddto.item_korname }</span>
 																		</div>
 																		<div class="row col-5">
 																			<select class="form-select size-select" aria-label="size-select"
@@ -1174,7 +1192,7 @@ div.main {
 		<div class="d-flex">
 			<div class="col-11 align-self-center">
 				<span class="fs-4">
-					<b>Nike</b>
+					<b>${Ddto.item_brandname }</b>
 					의 다른 상품
 				</span>
 			</div>
@@ -1186,42 +1204,21 @@ div.main {
 			</div>
 		</div>
 		<div class="mt-4 mb-lg-5" style="height: 40vh;">
-			<a href=''>
-				<img alt="" src="/assets/images/2.png"
-					style="border: 1px solid gray; height: 200px; width: 212px;"
-				>
-			</a>
-			<a href=''>
-				<img alt="" src="/assets/images/3.png"
-					style="border: 1px solid gray; height: 200px; width: 212px;"
-				>
-			</a>
-			<a href=''>
-				<img alt="" src="/assets/images/4.png"
-					style="border: 1px solid gray; height: 200px; width: 212px;"
-				>
-			</a>
-			<a href=''>
-				<img alt="" src="/assets/images/5.png"
-					style="border: 1px solid gray; height: 200px; width: 212px;"
-				>
-			</a>
-			<a href=''>
-				<img alt="" src="/assets/images/6.png"
-					style="border: 1px solid gray; height: 200px; width: 212px;"
-				>
-			</a>
-			<a href=''>
-				<img alt="" src="/assets/images/7.png"
-					style="border: 1px solid gray; height: 200px; width: 212px;"
-				>
-			</a>
+			<c:forEach items="${list }" var="a">
+				<c:if test="${a.item_brandname==Ddto.item_brandname && a.item_category==Ddto.item_category && a.item_num!=Ddto.item_num}">
+					<a href=''>
+						<img alt="" src="/assets/images/${a.item_image }"
+							style="border: 1px solid gray; height: 200px; width: 212px;"
+						>
+					</a>
+				</c:if>
+			</c:forEach>
 		</div>
 		<hr>
 		<div class="d-flex mt-5">
 			<div class="col-12 align-self-center">
 				<span class="fs-4">
-					<b>스타일 12</b>
+					<b>스타일</b>
 				</span>
 			</div>
 		</div>

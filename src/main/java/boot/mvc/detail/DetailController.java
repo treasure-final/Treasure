@@ -1,5 +1,7 @@
 package boot.mvc.detail;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,24 +14,33 @@ import boot.mvc.item.ItemDto;
 public class DetailController {
 
 	@Autowired
-	DetailMapperInter Dmapper;
+	DetailService Dservice;
 
 	@GetMapping("/item/detail")
-	public String detail(String item_num,Model model) {
-		model.addAttribute("item_num",item_num);
-		return "/item/detail";
-	}
-
-	@GetMapping("/item/DetailgetData")
-	public ModelAndView DetailgetData(String Item_num) {
+	public ModelAndView detail(String item_num, Model model) {
 		ModelAndView mview = new ModelAndView();
+		List<ItemDto> list = Dservice.getAllData();
 
-		ItemDto dto = Dmapper.DetailgetData(Item_num);
+		ItemDto dto = Dservice.DetailgetData(item_num);
 
+		mview.addObject("list", list);
 		mview.addObject("Ddto", dto);
+		mview.setViewName("/3/item/detail");
 
-		mview.setViewName("/item/detail");
-
+		model.addAttribute("item_num", item_num);
 		return mview;
 	}
+
+//	@GetMapping("/item/detail")
+//	public ModelAndView DetailgetData(@RequestParam String item_num) {
+//		ModelAndView mview = new ModelAndView();
+//
+//		ItemDto dto = Dservice.DetailgetData(item_num);
+//
+//		mview.addObject("Ddto", dto);
+//
+//		mview.setViewName("/item/detail");
+//
+//		return mview;
+//	}
 }

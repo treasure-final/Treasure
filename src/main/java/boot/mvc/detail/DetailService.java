@@ -1,5 +1,7 @@
 package boot.mvc.detail;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +18,12 @@ public class DetailService implements DetailServiceInter {
 		// TODO Auto-generated method stub
 		return mapper.DetailgetData(item_num);
 	}
+
+	@Override
+	public List<ItemDto> getAllData() {
+		// TODO Auto-generated method stub
+		return mapper.getAllData();
+	}
+	
 
 }

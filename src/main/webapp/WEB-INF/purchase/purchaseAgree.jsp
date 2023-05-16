@@ -205,7 +205,7 @@
 			}
 
 			//사이즈와 배송 방법 같이 넘겨주기
-			location.href="/buy/type?size=${size}&deliveryWay=${deliveryWay}";
+			location.href="/buy/type?item_num=${dto.item_num}&size=${size}&deliveryWay=${deliveryWay}";
 		}
 
 		function checkAllAgreements() {
@@ -226,12 +226,12 @@
 	<div><i id="logo">구매동의</i></div>
 	<div class="hr"></div>
     	<div class="item">
-    		<img alt="" src="../../img/최고심3.jpg" class="item-photo">   		   		
+    		<img alt="" src="/img/item_image/${dto.item_image}" class="item-photo">
     		<ul class="item-info">
-    			<li>품번</li>
-    			<li>상품명(영)</li>
-    			<li>일단상품명(한)</li>
-    			<li>사이즈</li>
+    			<li>${dto.item_modelnum}</li>
+    			<li>${dto.item_engname}</li>
+    			<li>${dto.item_korname}</li>
+    			<li>${size}</li>
     		</ul>   		
     	</div>
     	
@@ -260,7 +260,7 @@
     	</div>
     	 
     	<div style="display: flex;">
-    	<button type="button" id="agree-back" onclick="location.href='select?size=${size}&deliveryWay=${deliveryWay}'">뒤로가기</button>
+    	<button type="button" id="agree-back" onclick="location.href='select?item_num=${dto.item_num}&size=${size}&deliveryWay=${deliveryWay}'">뒤로가기</button>
         <button type="button" id="agree-next" onclick="checkAgreement()">구매계속</button>
         </div>
 </div>

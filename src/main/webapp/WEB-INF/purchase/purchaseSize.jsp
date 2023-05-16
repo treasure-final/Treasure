@@ -225,7 +225,7 @@ div.buy_size:hover {
 					deliveryWay = "nomal"; //일반배송
 				}
 				//구매동의로 이동
-				var data = "size=" + size + "&deliveryWay=" + deliveryWay;
+				var data = "item_num=${item_num}&size=" + size + "&deliveryWay=" + deliveryWay;
 				location.href = "check?" + data;
 			}
 		});
@@ -240,18 +240,20 @@ div.buy_size:hover {
 		<div class="hr"></div>
 		<div style="display: flex;">
 			<%--            <div style="background-color: white; width: 200px; height: 200px;">--%>
-			<img src="/img/item_image/1.png" class="buy_item_image">
+			<img src="/img/item_image/${dto.item_image}" class="buy_item_image">
 			<%--            </div>--%>
 			<div style="flex-direction: column; padding: 20px; margin-top: 30px;">
-				<span class="buy_brand">Jordan</span>
+				<span class="buy_brand">${dto.item_brandname}</span>
 				<br>
-				<span class="buy_title">(W) 조던 1 x 트래비스 스캇 레트로 로우 OG SP 미디움 올리브</span>
+				<span class="buy_title">${dto.item_korname}</span>
 				<br>
 			</div>
 		</div>
 		<div style="display: flex;">
+			<c:choose>
 			<%--                여성이라 사이즈는 225부터 시작, 사이즈는 5씩 증가--%>
-			<c:forEach var="size" begin="225" step="5" end="270" varStatus="i">
+			<c:when test="${dto.item_category eq 'shoes'}">
+				<c:forEach var="size" begin="225" step="5" end="270" varStatus="i">
 				<div class="buy_size">
 					<span class="buy_size selectSize">${size}</span>
 					<br>
@@ -262,6 +264,60 @@ div.buy_size:hover {
 		<div style="display: flex;">
 			</c:if>
 			</c:forEach>
+			</c:when>
+
+			<c:when test="${dto.item_category eq 'bag'}">
+				<div style="margin-top: 30px;">
+				<div class="buy_size">
+					<span class="buy_size selectSize">ONE SIZE</span>
+					<br>
+					<span class="buy_size" style="color: #ec0b00;">139,000</span>
+				</div>
+				</div>
+			</c:when>
+
+			<c:otherwise>
+				<div style="margin-top: 30px; display: flex;">
+				<div class="buy_size">
+					<span class="buy_size selectSize">XS</span>
+					<br>
+					<span class="buy_size" style="color: #ec0b00;">139,000</span>
+				</div>
+				<div class="buy_size">
+					<span class="buy_size selectSize">S</span>
+					<br>
+					<span class="buy_size" style="color: #ec0b00;">139,000</span>
+				</div>
+				<div class="buy_size">
+					<span class="buy_size selectSize">M</span>
+					<br>
+					<span class="buy_size" style="color: #ec0b00;">139,000</span>
+				</div>
+				<div class="buy_size">
+					<span class="buy_size selectSize">L</span>
+					<br>
+					<span class="buy_size" style="color: #ec0b00;">139,000</span>
+				</div>
+				</div>
+			</div>
+		<div style="display: flex;">
+				<div class="buy_size">
+					<span class="buy_size selectSize">XL</span>
+					<br>
+					<span class="buy_size" style="color: #ec0b00;">139,000</span>
+				</div>
+				<div class="buy_size">
+					<span class="buy_size selectSize">XXL</span>
+					<br>
+					<span class="buy_size" style="color: #ec0b00;">139,000</span>
+				</div>
+				<div class="buy_size">
+					<span class="buy_size selectSize">XXXL</span>
+					<br>
+					<span class="buy_size" style="color: #ec0b00;">139,000</span>
+				</div>
+			</c:otherwise>
+			</c:choose>
 		</div>
 		<div style="display: flex; margin-top: 25px;">
 			<button type="button" class="btn-login fastbox">

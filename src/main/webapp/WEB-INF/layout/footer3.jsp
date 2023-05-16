@@ -43,7 +43,7 @@ h6 {
 	<hr style="margin: 8px; border: 0.8px solid black">
 	<c:set var="root" value="<%=request.getContextPath()%>" />
 	<div style="margin-bottom: 110px; height: 190.2px">
-		<div
+		<div class="first"
 			style="width: 100px; font-size: 13px; display: inline-block; margin-left: 58px; margin-top: 12.5px; float: left; height: 153px"
 		>
 			<ul>
@@ -63,7 +63,7 @@ h6 {
 				</li>
 			</ul>
 		</div>
-		<div
+		<div class="second"
 			style="width: 100px; font-size: 13px; display: inline-block; margin-left: 165px; height: 183px; margin-top: 12.5px;"
 		>
 			<ul>
@@ -83,7 +83,7 @@ h6 {
 				</li>
 			</ul>
 		</div>
-		<div
+		<div class="third"
 			style="width: 227px; font-size: 13px; display: inline-block; float: right; height: 280px; margin-top: 12.5px"
 		>
 			<ul>
@@ -109,7 +109,7 @@ h6 {
 		</div>
 	</div>
 	<hr style="margin: 8px; border: 0.8px solid black">
-	<div style="margin-left: 58px; font-size: 13px; margin-top: 28px;">
+	<div style="margin-left: 58px; font-size: 13px; margin-top: 28px;" class="fourth">
 		<ul>
 			<li style="margin-right: 40px;">
 				<a href="#">
@@ -147,8 +147,8 @@ h6 {
 			</a>
 		</div>
 		<br>
-		<h6 style="font-size: 10px;margin-top: 22px">트레져 주식회사 · 대표 XXX사업자등록번호 : 570-88-XXXXX 사업자정보확인통신판매업 : 사업장소재지 :
-			서울특별시 강남구 테헤란로 132 8층 쌍용교육센터</h6>
+		<h6 style="font-size: 10px; margin-top: 22px">트레져 주식회사 · 대표 XXX사업자등록번호 : 570-88-XXXXX
+			사업자정보확인통신판매업 : 사업장소재지 : 서울특별시 강남구 테헤란로 132 8층 쌍용교육센터</h6>
 		<br>
 		<b style="font-size: 12px;">XX은행 채무지급보증 안내</b>
 		<div style="font-size: 9px; color: gray;">

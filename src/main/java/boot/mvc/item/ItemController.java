@@ -48,7 +48,6 @@ public class ItemController {
 			
 			return model;
 		}
-		
 		@GetMapping("/item/itemsort")
 		public ModelAndView sortlist()
 		{ ModelAndView sview = new ModelAndView();

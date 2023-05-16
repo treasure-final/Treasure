@@ -34,7 +34,7 @@ body {
 	margin: 0 auto; border : 1px solid black;
 	margin-top: 2%;
 	height: 800px;
-	
+
 }
 
 #btns {
@@ -43,7 +43,7 @@ body {
 	border: 0px solid black;
 	text-align: center;
 	margin-top: 10%;
-	
+
 }
 #stylecontent{
 margin: 0 auto;
@@ -51,7 +51,7 @@ width: 200px;
 border: 0px solid black;
 text-align: center;
 margin-top: 5%;
-	
+
 }
 #stylecontent>button{ font-size: 13px;
    color: #747f55;
@@ -94,15 +94,15 @@ margin-top: 5%;
 			height: 400px;
 	 		margin-left: 30%;
 	 		border-radius: 10%;
-			
+
 		}
 #viewimg{
 width: 100%;
-	
+
 }
 
 #subject{
-  
+
 }
 </style>
 
@@ -110,14 +110,14 @@ width: 100%;
 $(function(){
 	 //버튼클릭시 사진불러오는 이벤트 추가
 	  $("#btnphoto").click(function(){
-		  
+
 		  $("#mystyle").trigger("click");
 	  });
-	  
-	
+
+
 	//사진 불러오면 미리보기하기
 		$("#mystyle").change(function(){
-			
+
 			 if($(this)[0].files[0]){
 			  var reader=new FileReader();
 			  reader.onload=function(e){
@@ -126,8 +126,8 @@ $(function(){
 			  reader.readAsDataURL($(this)[0].files[0]);
 			 }
 		});
-	
-	
+
+
 });
 
 </script>
@@ -141,21 +141,21 @@ $(function(){
 			<div style="margin: 0 auto; width: 200px;   text-align: center;">
 				<h2 style="width: 200px;">스타일 올리기</h2><br>
 			</div>
-			
+
 			<div id="viewimg">
 			<img id="showimg">
 			</div>
 			<div id="stylecontent">
-				
-				
+
+
 				<input type="file" id="mystyle" name="mystyle" required="required" style="display: none;">
 				<button type="button" id="btnphoto" class="btn btn-success">사진선택</button>
-				
-		
+
+
 			 <br>
-			
+
 			<input  type="text" name="subject" class="form-control"
-				required="required" placeholder="제목입력하세요"><br> 
+				required="required" placeholder="제목입력하세요"><br>
 			</div>
 
 			<div id="btns">

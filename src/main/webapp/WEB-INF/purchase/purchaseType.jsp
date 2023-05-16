@@ -204,7 +204,7 @@
         function moveOrderPage() {
             price = $("#hopePrice").val();
             deadline = parseInt(intDay);
-            location.href = 'order?size=${size}&price=' + uncomma(price) + '&deadline=' + deadline + '&deliveryWay=${deliveryWay}'
+            location.href = 'order?item_num=${dto.item_num}&size=${size}&price=' + uncomma(price) + '&deadline=' + deadline + '&deliveryWay=${deliveryWay}'
         }
 
         function inputNumberFormat(obj) {

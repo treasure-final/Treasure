@@ -15,6 +15,10 @@
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <!-- iamport.payment.js -->
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.8.js"></script>
     <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"
@@ -79,16 +83,6 @@
             opacity: 0.7;
         }
 
-        #required-btn {
-            width: 95%;
-            border-radius: 15px;
-            background-color: #ffffff;
-            text-align: left;
-            padding: 5px 15px;
-            margin: 10px 0;
-            border: 1px solid #e3e3e3;
-        }
-
         .select-box {
             padding: 0px 0;
             width: 95%;
@@ -143,12 +137,6 @@
             font-size: 14px;
             cursor: pointer;
             height: 50px;
-        }
-
-        .btn-submit:hover {
-            background-color: #fff;
-            color: #747f55;
-            border: 1px solid #747f55;
         }
 
         #addr-btn {
@@ -206,6 +194,53 @@
             font-weight: bold;
             color: black;
         }
+
+        .agree-sub {
+            border-bottom: 1px solid #e3e3e3;
+            line-height: 22px;
+            font-size: 14px;
+            padding: 16px 0;
+            margin: 10px 0;
+            font-weight: normal;
+        }
+
+        .agree-sub > span {
+            font-size: 11px;
+            opacity: 0.6;
+        }
+
+        .chk {
+            width: 25px;
+        }
+
+        input[type="checkbox"] {
+            display: none;
+            float: right;
+        }
+
+        input[type="checkbox"] + label {
+            width: 23px;
+            height: 23px;
+            border: 2px solid #747f55;
+            position: relative;
+            margin-right: 5px;
+            float: right;
+        }
+
+        input[id="check1"]:checked + label::after, input[id="check2"]:checked + label::after,
+        input[id="check3"]:checked + label::after, input[id="check4"]:checked + label::after {
+            content: '✔';
+            color: #fff;
+            background: #747f55;
+            font-size: 18px;
+            width: 23px;
+            height: 23px;
+            text-align: center;
+            left: 0;
+            top: 0;
+            float: right;
+            padding-top: 0;
+        }
     </style>
     <script>
         $(function () {
@@ -253,6 +288,26 @@
                 $("#buy-phone").text(phone);
                 $("#buy-addr").text(addr);
             });
+            let day = ['일', '월', '화', '수', '목', '금', '토'];
+            let today = new Date();
+            let tomorrow = new Date(today.setDate(today.getDate() + 1));
+            $("#tomorrow").text((tomorrow.getMonth() + 1) + "/" + tomorrow.getDate() + "(" + day[tomorrow.getDay()] + ")");
+
+            $("#btn-submit").attr("disabled", true);
+            $("#btn-submit").css("background-color", "#e3e3e3");
+            $("#btn-submit").css("cursor", "unset");
+
+            $(".chk").change(function() {
+                if($('input:checkbox[class=chk]:checked').length===4) {
+                    $("#btn-submit").attr("disabled", false);
+                    $("#btn-submit").css("background-color", "#747f55");
+                    $("#btn-submit").css("cursor", "pointer");
+                } else {
+                    $("#btn-submit").attr("disabled", true);
+                    $("#btn-submit").css("background-color", "#e3e3e3");
+                    $("#btn-submit").css("cursor", "unset");
+                }
+            });
         });
     </script>
 </head>
@@ -260,16 +315,16 @@
 <div class="container">
     <div><i id="logo">구매/결제</i></div>
     <div class="hr"></div>
-    <div id="info" style="width: 100%; height: 30%; margin-bottom: 10px; margin-left: 40px;">
-        <img src="../../img/화면%20캡처%202023-05-04%20140755.png"
+    <div id="info" style="width: 100%; height: 20%; margin-left: 40px; margin-bottom: 20px;">
+        <img src="/img/item_image/${dto.item_image}"
              style="width: 110px; float: left; margin-right: 20px; border-radius: 10px;">
         <div id="left-info"
              style="width: 70%; float: left; height: 40%; margin-right: 20px; margin-bottom: 10px; line-height: 20px; margin-top: 15px">
             <div id="content" style="font-size: 14px;">
-                <b style="font-size: 14px">DR0148-102</b><br>
-                (W) Nike Air Force 1 '07 LX Summit White Gorge Green
-                <div style="opacity: 0.6; font-size: 14px;">(W) 나이키 에어포스 1 '07 LX 서밋 화이트 골지 그린</div>
-                240
+                <b style="font-size: 14px">${dto.item_modelnum}</b><br>
+                ${dto.item_engname}
+                <div style="opacity: 0.6; font-size: 14px;">${dto.item_korname}</div>
+                ${size}
             </div>
         </div>
         <div id="right-info"
@@ -290,22 +345,38 @@
                     <td class="right-td" id="buy-addr">경기 성남시 분당구 경부고속도로 409 (삼평동) 111</td>
                 </tr>
             </table>
-            <input type="text" id="required-btn" placeholder="배송 시 요청사항을 입력해주세요">
         </div>
     </div>
     <div id="result-immediate" style="margin-left: 40px">
-
         <div class="result-content"
-             style="border-top: 1px solid #e3e3e3; width: 95%; height: 10%; margin-top: 60px;">
+             style="border-top: 1px solid #e3e3e3; width: 95%; margin-top: 10px;">
         </div>
-        <div style="padding-top: 20px; padding-bottom: 10px; font-size: 14px; opacity: 0.4">
+        <div style="padding-bottom: 30px; font-size: 14px; opacity: 0.4">
         </div>
-        <div style="font-size: 18px;">배송 방법</div>
+        <div style="font-size: 18px; margin-top: 5px">배송 방법</div>
         <div class="select-box" id="basic-box">
-            <img src="../../img/iconmonstr-shipping-box-3-240 (2).png" class="typeImg" style="float: left;">
+            <c:if test="${deliveryWay eq 'nomal'}">
+                <img src="../../img/iconmonstr-shipping-box-3-240 (2).png" class="typeImg" style="float: left;">
+            </c:if>
+            <c:if test="${deliveryWay eq 'fast'}">
+                <img src="../../img/iconmonstr-weather-76-240 (1).png" class="typeImg" style="float: left;">
+            </c:if>
             <div style="margin-top: 18px; margin-left: 65px; width: 300px; height: 55px; line-height: 20px">
-                일반배송 3,000원
-                <br><span style="opacity: 0.6;">검수 후 배송 ・ 5-7일 내 도착 예정</span></div>
+                <c:if test="${deliveryWay eq 'nomal'}">
+                    일반배송 3,000원
+                </c:if>
+                <c:if test="${deliveryWay eq 'fast'}">
+                    빠른배송 5,000원
+                </c:if>
+                <br><span>
+                <c:if test="${deliveryWay eq 'nomal'}">
+                    검수 후 배송 ・ 5-7일 내 도착 예정
+                </c:if>
+                <c:if test="${deliveryWay eq 'fast'}">
+                    <span style="opacity: 0.6">지금 결제시</span> <span style="color: #297DCB;">내일 <span
+                        id="tomorrow"></span> 도착 예정</span>
+                </c:if>
+            </span></div>
         </div>
         <div class="select-box">
             <img src="../../img/iconmonstr-building-5-240.png" class="typeImg" style="float: left">
@@ -314,8 +385,8 @@
                 <br><span style="opacity: 0.6;">배송 없이 창고에 보관 ・ 빠르게 판매 가능</span></div>
         </div>
     </div>
-    <div id="totalOrderInfo" style="border-top: 1px solid #e3e3e3; width: 90%; height: 10%; margin-top: 60px; margin-left: 40px;
-    padding-top: 50px">
+    <div id="totalOrderInfo" style="border-top: 1px solid #e3e3e3; width: 90%; height: 10%; margin-top: 40px; margin-left: 40px;
+    padding-top: 35px">
         <div style="font-size: 18px; margin-bottom: 10px">최종 주문 정보</div>
         <div style="font-size: 14px">총 결제금액</div>
         <div style="color: red; margin-left: 550px; font-size: 18px"><b>173,500원</b></div>
@@ -338,11 +409,38 @@
                     <td class="td2" align="right">3,000원</td>
                 </tr>
             </table>
-
+        </div>
+        <div class="agree-box">
+            <div class="agree-sub">
+                <input type="checkbox" required="required" class="chk" name="chkBox" id="check1" style="width: 25px;">
+                <label for="check1" style="margin-top: 8px"></label>
+                판매자의 판매거부, 배송지연, 미입고 등의 사유가 발생할 경우, 거래가 취소될 수 있습니다.<br>
+                <span>앱 알림 해제, 알림톡 차단, 전화번호 변경 후 미등록 시에는 거래 진행 상태 알림을 받을 수 없습니다.</span>
+            </div>
+            <div class="agree-sub">
+                <input type="checkbox" required="required" id="check2" name="chkBox" class="chk">
+                <label for="check2" style="margin-top: 8px"></label>
+                창고 보관을 선택한 경우, 구매자에게 배송되지 않고 TREASURE 창고에 보관됩니다.<br>
+                <span>검수 합격 후 보관이 완료되면 창고 이용료(현재 첫 30일 무료)가 결제됩니다.</span>
+            </div>
+            <div class="agree-sub">
+                <input type="checkbox" required="required" id="check3" name="chkBox" class="chk">
+                <label for="check3" style="margin-top: 8px"></label>
+                구매 입찰의 거래가 체결되면, 단순 변심이나 실수에 의한 취소가 불가능합니다.<br>
+                <span>본 거래는 개인간 거래로 전자상거래법(제17조)에 따른 청약철회(환불, 교환) 규정이 적용되지 않습니다.</span>
+            </div>
+            <div class="agree-sub" style="border: none; font-weight: bold">
+                구매 조건을 모두 확인하였으며, 입찰 진행에 동의합니다.
+                <input type="checkbox" required="required" id="check4"name="chkBox" class="chk">
+                <label for="check4"></label>
+            </div>
         </div>
         <input type="hidden" id="userNum">
-        <input type="button" value="구매 입찰하기" class="btn-submit" id="btn-submit"></div>
-</div>
+        <div style="margin-top: 50px; font-size: 18px;">
+            <span><b>총 결제 금액</b></span><span style="margin-left: 455px; color: red"><b>173,500원</b></span>
+        </div>
+        <input type="button" value="구매 입찰하기" class="btn-submit" id="btn-submit" onclick="checkAgreement()"></div>
+
 </div>
 
 <!-- 주소 modal창 -->
@@ -370,7 +468,8 @@
         <div style="clear: left; margin-bottom: 20px"></div>
         <div class="modal-input">
             주소<br>
-            <input type="text" id="sample6_address" placeholder="우편 번호 입력 시 자동 입력" class="none-input" readonly="readonly">
+            <input type="text" id="sample6_address" placeholder="우편 번호 입력 시 자동 입력" class="none-input"
+                   readonly="readonly">
         </div>
         <div class="modal-input">
             상세 주소<br>
@@ -436,7 +535,6 @@
             }
         }).open();
     }
-
 </script>
 </body>
 </html>

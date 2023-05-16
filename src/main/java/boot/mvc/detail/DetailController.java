@@ -2,39 +2,34 @@ package boot.mvc.detail;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import boot.mvc.item.ItemDto;
-import boot.mvc.item.ItemService;
 
 @Controller
 public class DetailController {
-	
+
 	@Autowired
-	DetailService Dservice;
-	
-	@Autowired
-	ItemService Iservice;
+	DetailMapperInter Dmapper;
 
 	@GetMapping("/item/detail")
-	public String detail() {
+	public String detail(String item_num,Model model) {
+		model.addAttribute("item_num",item_num);
 		return "/item/detail";
 	}
+
 	@GetMapping("/item/DetailgetData")
-	public ModelAndView DetailgetData(@RequestParam String Item_num) {
-	    ModelAndView mview = new ModelAndView();
+	public ModelAndView DetailgetData(String Item_num) {
+		ModelAndView mview = new ModelAndView();
 
-	    ItemDto dto = Dservice.DetailgetData(Item_num);
+		ItemDto dto = Dmapper.DetailgetData(Item_num);
 
-	    mview.addObject("Ddto", dto);
-	    mview.setViewName("/item/detail");
+		mview.addObject("Ddto", dto);
 
-	    return mview;
+		mview.setViewName("/item/detail");
+
+		return mview;
 	}
-	
-	
-	
 }

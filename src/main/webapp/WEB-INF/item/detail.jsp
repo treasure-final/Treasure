@@ -114,24 +114,21 @@ div.main {
 	padding: 30px;
 }
 </style>
-
 <script type="text/javascript">
-	$(function () {
-		
+	$(function() {
+
 		// 모달창에서 사이즈 선택
-		$(".sizeselect").click(function () {
+		$(".sizeselect").click(function() {
 			var size = $(this).find(".size").text();
-			
+
 			$(".size-text").text(size);
 			$(".size-select").val(size);
 			$("#sizeModal").modal("hide");
-			
+
 		});
-		
-		
+
 	});
 </script>
-
 </head>
 <body>
 	<div class="container mb-5">
@@ -227,6 +224,8 @@ div.main {
 											<div class="mb-4">
 												<button type="button" class="btn btn-detail btn-lg w-100"
 													style="height: 7vh; margin-top: 90px" onclick="location.href='/buy/select'"
+													style="height: 7vh; margin-top: 90px"
+													onclick="location.href='/buy/select?item_num=${item_num}'"
 												>구매</button>
 											</div>
 											<div>
@@ -312,8 +311,7 @@ div.main {
 										</div>
 										<div class="heading-section col-3">
 											<!-- 카테고리 별 사이즈 -->
-											<select class="form-select size-select"
-												aria-label="size-select"
+											<select class="form-select size-select" aria-label="size-select"
 												style="border: 0px; font-size: 1em; float: right; color: #666;"
 											>
 												<option>모든 사이즈</option>
@@ -838,8 +836,7 @@ div.main {
 																			<span style="font-size: 0.6rem; color: #666">나이키 x 피스마이너스원 퀀도1 블랙 앤 화이트</span>
 																		</div>
 																		<div class="row col-5">
-																			<select class="form-select size-select"
-																				aria-label="size-select"
+																			<select class="form-select size-select" aria-label="size-select"
 																				style="border: 0px; font-size: 1em; float: right; color: #666;"
 																			>
 																				<option selected>모든 사이즈</option>

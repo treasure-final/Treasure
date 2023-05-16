@@ -14,7 +14,7 @@ public class SellBidDto {
 	private String sell_num;
 	private String user_num;
 	private String item_num;
-	private String sell_acount;
+	private String sell_account;
 	private String sell_penaltypay; 
 	private int sell_wishprice;
 	private int sell_totalprice;

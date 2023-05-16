@@ -198,6 +198,33 @@ div.sell_size:hover {
 	background: black;
 	margin-bottom: 50px;
 }
+
+span.sell_size {
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+div.sell_size {
+	margin: 3px;
+	padding: 18px;
+	flex-direction: column;
+	border: 1px solid #ebebeb;
+	border-radius: 20px;
+	background-color: white;
+	width: 110px;
+	vertical-align: middle;
+	text-align: center;
+	cursor: pointer;
+	line-height: 13px;
+}
+
+div.size_active {
+	border: 2px solid #747f55;
+}
+
+div.sell_size:hover {
+	background-color: #f3f3f3;
+}
 </style>
 <script>
 	$(function() {
@@ -205,8 +232,8 @@ div.sell_size:hover {
 	
 		//사이즈 선택했을 때 적용 사항
 		$(".sell_size").click(function() {
-			$(".sell_size").removeClass("sell_active");
-			$(this).addClass("sell_active");
+			$(".sell_size").removeClass("size_active");
+			$(this).addClass("size_active");
 			
 			size=$(this).find(':nth-child(1)').text();
 			
@@ -241,19 +268,75 @@ div.sell_size:hover {
 			</div>
 		</div>
 			<div style="display: flex;">
-				<%--                여성이라 사이즈는 225부터 시작, 사이즈는 5씩 증가--%>
+			<c:choose>
+			<%--                여성이라 사이즈는 225부터 시작, 사이즈는 5씩 증가--%>
+			<c:when test="${itemDto.item_category eq 'shoes'}">
 				<c:forEach var="size" begin="225" step="5" end="270" varStatus="i">
-					<div class="sell_size">
-						<span class="sell_size">${size}</span>
-						<br>
-						<span class="sell_size" style="color: #ec0b00;">금액</span>
-					</div>
-					<c:if test="${i.count%4==0}">
+				<div class="sell_size">
+					<span class="sell_size selectSize">${size}</span>
+					<br>
+					<span class="sell_size" style="color: #ec0b00;">139,000</span>
+				</div>
+				<c:if test="${i.count%4==0}">
+		</div>
+		<div style="display: flex;">
+			</c:if>
+			</c:forEach>
+			</c:when>
+
+			<c:when test="${itemDto.item_category eq 'bag'}">
+				<div style="margin-top: 30px;">
+				<div class="sell_size">
+					<span class="sell_size selectSize">ONE SIZE</span>
+					<br>
+					<span class="sell_size" style="color: #ec0b00;">139,000</span>
+				</div>
+				</div>
+			</c:when>
+
+			<c:otherwise>
+				<div style="margin-top: 30px; display: flex;">
+				<div class="sell_size">
+					<span class="sell_size selectSize">XS</span>
+					<br>
+					<span class="sell_size" style="color: #ec0b00;">139,000</span>
+				</div>
+				<div class="sell_size">
+					<span class="sell_size selectSize">S</span>
+					<br>
+					<span class="sell_size" style="color: #ec0b00;">139,000</span>
+				</div>
+				<div class="sell_size">
+					<span class="sell_size selectSize">M</span>
+					<br>
+					<span class="sell_size" style="color: #ec0b00;">139,000</span>
+				</div>
+				<div class="sell_size">
+					<span class="sell_size selectSize">L</span>
+					<br>
+					<span class="sell_size" style="color: #ec0b00;">139,000</span>
+				</div>
+				</div>
 			</div>
-			<div style="display: flex;">
-				</c:if>
-				</c:forEach>
-			</div>
+		<div style="display: flex;">
+				<div class="sell_size">
+					<span class="sell_size selectSize">XL</span>
+					<br>
+					<span class="sell_size" style="color: #ec0b00;">139,000</span>
+				</div>
+				<div class="sell_size">
+					<span class="sell_size selectSize">XXL</span>
+					<br>
+					<span class="sell_size" style="color: #ec0b00;">139,000</span>
+				</div>
+				<div class="sell_size">
+					<span class="sell_size selectSize">XXXL</span>
+					<br>
+					<span class="sell_size" style="color: #ec0b00;">139,000</span>
+				</div>
+			</c:otherwise>
+			</c:choose>
+		</div>
 		</form>
 		<div style="display: flex;">
 			<button type="button" id="sell-back">뒤로가기</button>

@@ -6,13 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import boot.mvc.detail.DetailService;
 import boot.mvc.item.ItemDto;
 import boot.mvc.item.ItemService;
 import boot.mvc.item.ItemServiceInter;
+import boot.mvc.test.TestDto;
+import boot.mvc.test.TestService;
 import boot.mvc.user.UserDto;
 import boot.mvc.user.UserService;
 
@@ -27,6 +31,9 @@ public class SellBidController {
 	
 	@Autowired
 	ItemService itemService;
+	
+	@Autowired
+	TestService testService;
 	
 	
 	
@@ -76,16 +83,23 @@ public class SellBidController {
 	}
 	
 	@GetMapping("/sell/sellCalculate")
-	public ModelAndView sellCalculateForm(String hopePrice, String size, String deadline, @RequestParam("item_num") String item_num, Model model) {
+	public ModelAndView sellCalculateForm(HttpSession session,int hopePrice, int totalPrice, String size, String deadline, @RequestParam("item_num") String item_num, Model model) {
 		
 		ModelAndView mview=new ModelAndView();
 		
 		ItemDto itemDto=itemService.getItemData(item_num);
 		
+		String loginEmail = (String) session.getAttribute("loginEmail");
+		String user_num = userService.findEmailUserNum(loginEmail);
+	    UserDto userDto= userService.getUserNumData(user_num);
+		
 		model.addAttribute("itemDto", itemDto);
 		model.addAttribute("item_num", item_num);
+		model.addAttribute("userDto", userDto);
+	    model.addAttribute("user_num", user_num);
 		
 		mview.addObject("hopePrice", hopePrice);
+		mview.addObject("totalPrice", totalPrice);
 		mview.addObject("size", size);
 		mview.addObject("deadline", deadline);
 		
@@ -94,4 +108,40 @@ public class SellBidController {
 		
 		return mview;
 	}
+	
+	@PostMapping("/sell/insertSellBid")
+	@ResponseBody
+	public String insertSellBid(HttpSession session, int hopePrice, int totalPrice, String size, String deadline, String addr, String name, String hp, 
+			String account1, String account2, String penaltypay1, String penaltypay2,  @RequestParam("item_num") String item_num, Model model) {
+		
+		String account=account1+" "+account2;
+		String penaltypay=penaltypay1+" "+penaltypay2;
+		String sellAddr=name+","+hp+","+addr;
+		
+		String loginEmail = (String) session.getAttribute("loginEmail");
+		
+        String user_num = userService.findEmailUserNum(loginEmail);
+        userService.getUserNumData(user_num);
+        
+        SellBidDto sellBidDto=new SellBidDto();
+        sellBidDto.setItem_num(item_num);
+        sellBidDto.setUser_num(user_num);
+        sellBidDto.setSell_account(account);
+        sellBidDto.setSell_penaltypay(penaltypay);
+        sellBidDto.setSell_addr(sellAddr);
+        sellBidDto.setSell_deadline(Integer.parseInt(deadline));
+        sellBidDto.setSell_wishprice(hopePrice);
+        sellBidDto.setSell_totalprice(totalPrice);
+        sellBidDto.setSell_size(size);
+        
+        service.insertSellBid(sellBidDto);
+        //testService.TestInfoInsert(testDto);
+        
+       
+        
+        return loginEmail;
+		
+	}
+	
+	
 }

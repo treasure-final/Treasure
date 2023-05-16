@@ -206,6 +206,8 @@ div.main {
 </style>
 <script>
 	$(function() {
+		var totalPrice;
+		
 		calculatePrice("sell-immediate", $("#immediatePrice").text());
 		
 		$("#result-bid").hide();
@@ -284,11 +286,11 @@ div.main {
 		} 
 		
 		var fee = Math.round((price * 0.2) / 1000) * 1000;
-		var totalPrice = (price - (fee + 3000));
+		totalPrice = (price - (fee + 3000));
 		
 		$(".feeResult").text(comma(fee) + "원");
 		$(".totalPrice").text(comma(totalPrice) + "원");
-			 
+		$("#totalPrice_").val(totalPrice);	 
 	}
 	
 </script>
@@ -296,6 +298,7 @@ div.main {
 <body>
 <div class="container">
 <input type="hidden" name="item_num" value="${item_num }">
+<input type="hidden"id="totalPrice_" value="${totalPrice }">
 <div><i id="logo">판매하기</i></div>
  <div class="hr"></div>
     <div id="info" style="width: 100%; height: 30%; margin-bottom: 10px; margin-left: 40px;">
@@ -409,19 +412,20 @@ $(".sell-back").click(function(){
 	history.back();
 	
 });
-	 function moveOrderPage() {
-         var hopePrice = $("#hopePrice").val();
-         var selectedDeadline = $(".deadline.selected");
-         var deadline = parseInt(selectedDeadline.attr("day"));      
 
-         
+
+	 function moveOrderPage() {
+         var hopePrice = uncomma($("#hopePrice").val());
+         var selectedDeadline = $(".deadline.selected");
+         var deadline = parseInt(selectedDeadline.attr("day"));
+         totalPrice = $("#totalPrice_").val();
 
          if (isNaN(deadline)) {
              alert("마감 기한을 선택해주세요.");
              return;
          }
          
-         location.href = '/sell/sellCalculate?item_num=${item_num}&size=${size}&hopePrice='+hopePrice+'&deadline='+deadline;
+         location.href = '/sell/sellCalculate?item_num=${item_num}&size=${size}&hopePrice='+hopePrice+'&deadline='+deadline+"&totalPrice="+totalPrice;
          
          
      }

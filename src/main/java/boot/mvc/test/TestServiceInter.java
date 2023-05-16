@@ -2,6 +2,6 @@ package boot.mvc.test;
 
 public interface TestServiceInter {
 
-	public int getTotalCount();
+	public void TestInfoInsert(TestDto testDto);
 	
 }

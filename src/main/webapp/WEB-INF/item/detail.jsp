@@ -114,6 +114,24 @@ div.main {
 	padding: 30px;
 }
 </style>
+
+<script type="text/javascript">
+	$(function () {
+		
+		// 모달창에서 사이즈 선택
+		$(".sizeselect").click(function () {
+			var size = $(this).find(".size").text();
+			
+			$(".size-text").text(size);
+			$(".size-select").val(size);
+			$("#sizeModal").modal("hide");
+			
+		});
+		
+		
+	});
+</script>
+
 </head>
 <body>
 	<div class="container mb-5">
@@ -226,7 +244,7 @@ div.main {
 										</div>
 										<div class="heading-section col-3">
 											<span style="font-size: 1.1em; float: right;">
-												<b>모든 사이즈</b>
+												<b class="size-text">모든 사이즈</b>
 												&nbsp;
 												<span class="fa fa-caret-down" data-bs-toggle="modal" data-bs-target="#sizeModal"></span>
 											</span>
@@ -241,20 +259,20 @@ div.main {
 															<div class="d-flex row col-12">
 																<!-- 카테고리 별 사이즈 -->
 																<div class="col-4 p-2">
-																	<button type="button" class="btn btn-outline-detail btn-lg w-100"
+																	<button type="button" class="btn btn-outline-detail btn-lg w-100 sizeselect"
 																		style="height: 10vh;"
 																	>
-																		<span style="font-size: 0.9rem;">모든 사이즈</span>
+																		<span class="size" style="font-size: 0.9rem;">모든 사이즈</span>
 																		<br>
 																		<span style="font-size: 0.7rem;">가격</span>
 																	</button>
 																</div>
 																<c:forEach var="size" begin="220" end="320" step="5">
 																	<div class="col-4 p-2">
-																		<button id="sizeselect" type="button" class="btn btn-outline-detail btn-lg w-100"
+																		<button type="button" class="btn btn-outline-detail btn-lg w-100 sizeselect"
 																			style="height: 10vh;"
 																		>
-																			<span style="font-size: 0.9rem; margin-bottom: 1rem;">${size}</span>
+																			<span class="size" style="font-size: 0.9rem; margin-bottom: 1rem;">${size}</span>
 																			<br>
 																			<span style="font-size: 0.7rem;">가격</span>
 																		</button>
@@ -294,11 +312,11 @@ div.main {
 										</div>
 										<div class="heading-section col-3">
 											<!-- 카테고리 별 사이즈 -->
-											<select class="form-select" id="exampleFormControlSelect1"
-												aria-label="Default select example"
+											<select class="form-select size-select"
+												aria-label="size-select"
 												style="border: 0px; font-size: 1em; float: right; color: #666;"
 											>
-												<option selected>모든 사이즈</option>
+												<option>모든 사이즈</option>
 												<c:forEach var="size" begin="220" end="320" step="5">
 													<option value="${size}">${size}</option>
 												</c:forEach>
@@ -820,8 +838,8 @@ div.main {
 																			<span style="font-size: 0.6rem; color: #666">나이키 x 피스마이너스원 퀀도1 블랙 앤 화이트</span>
 																		</div>
 																		<div class="row col-5">
-																			<select class="form-select" id="exampleFormControlSelect2"
-																				aria-label="Default select example"
+																			<select class="form-select size-select"
+																				aria-label="size-select"
 																				style="border: 0px; font-size: 1em; float: right; color: #666;"
 																			>
 																				<option selected>모든 사이즈</option>

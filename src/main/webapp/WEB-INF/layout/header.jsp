@@ -112,8 +112,29 @@
 <c:set var="root" value="<%=request.getContextPath()%>" />
 
 <div class="header">
-
-   <div id="title">
+		<div id="title">
+		
+		<div id="logoimg">
+			<a href="#"> <img src="../assets/images/mainlogo.png" style="width: 200px;" >
+			</a>
+		</div>
+		
+		<div id="menulist">
+				<ul class="tul">
+					<li style="margin-right: 40px;"><a href="/"><b>Home</b></a></li>
+					<li style="margin-right: 40px;"><a href="#">Style</a></li>
+					<li style="margin-right: 40px;"><a href="/item/detail">Sangsae</a></li>
+					<li style="margin-right: 40px;"><a href="/item/insert">Insert</a></li>
+					<li style="margin-right: 40px;"><a href="/sell/sellSize">Shop</a></li>
+					<li style="margin-right: 40px;"><a href="/user/myPage">My</a></li>
+				
+					
+					<c:if test="${empty loginOk}">
+					<li style="margin-right: 40px;"><a id="noLoginMy">My</a></li>
+					</c:if>
+				</ul>
+			</div>
+>>>>>>> a5e57aaaf378bc5ec80e139cd52be6f4cb5c8faa
 
       <div id="logoimg">
          <a href="/"> <img src="../assets/images/mainlogo.png"

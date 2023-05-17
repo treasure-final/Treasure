@@ -735,7 +735,7 @@ div.main {
 												<div class="tab-content">
 													<div class="tab-pane fade show active" id="deal" role="tabpanel">
 														<div class="p-2 mb-1" style="height: 17vh;">
-															<div class="d-flex">
+															<div class="d-flex" style="padding: 5px">
 																<div class="col-6">
 																	<span style="font-size: 0.8em; color: #a0a0a0;">사이즈</span>
 																</div>
@@ -747,7 +747,7 @@ div.main {
 																</div>
 															</div>
 															<hr class="mt-0 mb-0">
-															<div class="d-flex">
+															<div class="d-flex" style="padding: 5px">
 																<div class="col-6">
 																	<span style="font-size: 0.9em; color: #666;">265</span>
 																</div>
@@ -759,7 +759,7 @@ div.main {
 																</div>
 															</div>
 														</div>
-														<div>
+														<div style="padding-top: 20px">
 															<button type="button" class="btn btn-outline-detail w-100" data-bs-toggle="modal"
 																data-bs-target="#detailModal"
 															>체결 내역 더보기</button>
@@ -767,7 +767,7 @@ div.main {
 													</div>
 													<div class="tab-pane fade" id="sellBid" role="tabpanel">
 														<div class="p-2 mb-1" style="height: 17vh;">
-															<div class="d-flex">
+															<div class="d-flex" style="padding: 5px">
 																<div class="col-6">
 																	<span style="font-size: 0.8em; color: #a0a0a0;">사이즈</span>
 																</div>
@@ -779,7 +779,7 @@ div.main {
 																</div>
 															</div>
 															<hr class="mt-0 mb-0">
-															<div class="d-flex">
+															<div class="d-flex" style="padding: 5px">
 																<div class="col-6">
 																	<span style="font-size: 0.9em; color: #666;">255</span>
 																</div>
@@ -791,7 +791,7 @@ div.main {
 																</div>
 															</div>
 														</div>
-														<div>
+														<div style="padding-top: 20px">
 															<button type="button" class="btn btn-outline-detail w-100" data-bs-toggle="modal"
 																data-bs-target="#detailModal"
 															>입찰 내역 더보기</button>
@@ -799,7 +799,7 @@ div.main {
 													</div>
 													<div class="tab-pane fade" id="buyBid" role="tabpanel">
 														<div class="p-2 mb-1" style="height: 17vh;">
-															<div class="d-flex">
+															<div class="d-flex" style="padding: 5px">
 																<div class="col-6">
 																	<span style="font-size: 0.8em; color: #a0a0a0;">사이즈</span>
 																</div>
@@ -811,19 +811,22 @@ div.main {
 																</div>
 															</div>
 															<hr class="mt-0 mb-0">
-															<div class="d-flex">
+															<div class="d-flex" style="padding: 5px">
 																<div class="col-6">
-																	<span style="font-size: 0.9em; color: #666;">265</span>
+																	<span style="font-size: 0.9em; color: #666;"></span>
+																	<br>
 																</div>
 																<div class="col-4">
-																	<span style="font-size: 0.9em; color: #666;">153,000원</span>
+																	<span style="font-size: 0.9em; color: #666;"></span>
+																	<br>
 																</div>
 																<div class="col-2">
-																	<span style="font-size: 0.9em; color: #666;">1</span>
+																	<span style="font-size: 0.9em; color: #666;"></span>
+																	<br>
 																</div>
 															</div>
 														</div>
-														<div>
+														<div style="padding-top: 20px">
 															<button type="button" class="btn btn-outline-detail w-100" data-bs-toggle="modal"
 																data-bs-target="#detailModal"
 															>입찰 내역 더보기</button>
@@ -1205,7 +1208,9 @@ div.main {
 		</div>
 		<div class="mt-4 mb-lg-5" style="height: 40vh;">
 			<c:forEach items="${list }" var="a">
-				<c:if test="${a.item_brandname==Ddto.item_brandname && a.item_category==Ddto.item_category && a.item_num!=Ddto.item_num}">
+				<c:if
+					test="${a.item_brandname==Ddto.item_brandname && a.item_category==Ddto.item_category && a.item_num!=Ddto.item_num}"
+				>
 					<a href=''>
 						<img alt="" src="/assets/images/${a.item_image }"
 							style="border: 1px solid gray; height: 200px; width: 212px;"

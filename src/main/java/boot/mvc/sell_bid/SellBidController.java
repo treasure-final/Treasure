@@ -17,8 +17,6 @@ import boot.mvc.detail.DetailService;
 import boot.mvc.item.ItemDto;
 import boot.mvc.item.ItemService;
 import boot.mvc.item.ItemServiceInter;
-import boot.mvc.test.TestDto;
-import boot.mvc.test.TestService;
 import boot.mvc.user.UserDto;
 import boot.mvc.user.UserService;
 
@@ -33,9 +31,6 @@ public class SellBidController {
    
    @Autowired
    ItemService itemService;
-   
-   @Autowired
-   TestService testService;
    
    
    
@@ -144,16 +139,16 @@ public class SellBidController {
         double testResult = random.nextDouble(); 
 
         if (testResult <= 0.05) {
-        	test_result = "불합격";  // 5% 확률로 불합격
+           test_result = "불합격";  // 5% 확률로 불합격
         } else {
-        	test_result = "합격";  // 95% 확률로 합격
+           test_result = "합격";  // 95% 확률로 합격
         }
         
         // test_result 불합격이면 sell_status 판매불가
         if(test_result.equals("불합격"))
-        	sellBidDto.setSell_status("판매불가");        
+           sellBidDto.setSell_status("판매불가");        
         else
-        	sellBidDto.setSell_status("판매대기"); 
+           sellBidDto.setSell_status("판매대기"); 
         
         sellBidDto.setTest_result(test_result);
         
@@ -162,5 +157,4 @@ public class SellBidController {
         return loginEmail;
       
    }
-   
-}
+}  

@@ -245,7 +245,6 @@
     <script>
         $(function () {
             $("#addr-modal").hide();
-
             $("#basic-box").css("border", "1px solid black");
 
             if ("${deliveryWay}" !== "nomal") {
@@ -257,6 +256,9 @@
 
             $("#btn-submit").click(function () {
                 let addr = $("#buy-addr").text();
+                let name = $("#buy-name").text();
+                let phone = $("#buy-phone").text();
+                let addr_info = name+","+phone+","+addr;
 
                 $.ajax({
                     type: "post",
@@ -265,7 +267,7 @@
                         "price": "${price}",
                         "size": "${size}",
                         "deadline": "${deadline}",
-                        "addr": addr
+                        "addr": addr_info
                     },
                     success: function (res) {
                         alert(res + "님 구매입찰이 완료되었습니다.")
@@ -297,6 +299,9 @@
             $("#btn-submit").css("background-color", "#e3e3e3");
             $("#btn-submit").css("cursor", "unset");
 
+            $("#price").text(comma(${price})+"원")
+            $("#totalPrice").text(comma(${price}+5500)+"원")
+
             $(".chk").change(function() {
                 if($('input:checkbox[class=chk]:checked').length===4) {
                     $("#btn-submit").attr("disabled", false);
@@ -309,6 +314,15 @@
                 }
             });
         });
+        function comma(str) {
+            str = String(str);
+            return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+        }
+
+        function uncomma(str) {
+            str = String(str);
+            return str.replace(/[^\d]+/g, '');
+        }
     </script>
 </head>
 <body>
@@ -389,12 +403,12 @@
     padding-top: 35px">
         <div style="font-size: 18px; margin-bottom: 10px">최종 주문 정보</div>
         <div style="font-size: 14px">총 결제금액</div>
-        <div style="color: red; margin-left: 550px; font-size: 18px"><b>173,500원</b></div>
+        <div style="color: red; margin-left: 550px; font-size: 18px"><b id="totalPrice">173,500원</b></div>
         <div id="sub-info" style="border-top: 2px solid #e3e3e3; padding-bottom: 50px; margin-top: 30px">
             <table style="padding-top: 20px">
                 <tr>
                     <td>즉시 구매가</td>
-                    <td class="td2" align="right"><b>168,000원</b></td>
+                    <td class="td2" align="right"><b id="price"></b></td>
                 </tr>
                 <tr>
                     <td style="opacity: 0.8">검수비</td>
@@ -439,7 +453,7 @@
         <div style="margin-top: 50px; font-size: 18px;">
             <span><b>총 결제 금액</b></span><span style="margin-left: 455px; color: red"><b>173,500원</b></span>
         </div>
-        <input type="button" value="구매 입찰하기" class="btn-submit" id="btn-submit" onclick="checkAgreement()"></div>
+        <input type="button" value="구매 입찰하기" class="btn-submit" id="btn-submit"></div>
 
 </div>
 

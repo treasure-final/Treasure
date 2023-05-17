@@ -283,37 +283,72 @@ $(function(){
 	$("#addr-modal").hide();
 	
 	$("#sell-next").click(function(){
+		var type = '${type}';
 		
-		var name=$("#name").text();
-		var phone=$("#phone").text();
-		var addr=$("#addr").text();
-		var account1=$("#account1").val();
-		var account2=$("#account2").val();
-		var penaltypay1=$("#penaltypay1").val();
-		var penaltypay2=$("#penaltypay2").val();
+		name = $("#name").text();
+		phone = $("#phone").text();
+		addr = $("#addr").text();
+		account1 = $("#account1").val();
+		account2 = $("#account2").val();
+		penaltypay1 = $("#penaltypay1").val();
+		penaltypay2 = $("#penaltypay2").val();
+		totalPrice = '${totalPrice}';
+		size = '${size}';
+		item_num : '${item_num}';
 		
-		$.ajax({
-			type:"post",
-			url:"/sell/insertSellBid",
-			data:{
-				"item_num": "${item_num}", // item_num 값을 포함시킴
-			    "size": "${size}",
-			    "totalPrice": "${totalPrice}",
-			    "hopePrice": "${hopePrice}",
-			    "deadline": "${deadline}",
-			    "name": name,
-			    "phone": phone,
-			    "addr": addr,
-			    "account1": account1,
-			    "account2": account2,
-			    "penaltypay1": penaltypay1,
-			    "penaltypay2": penaltypay2	
-			},
-			success:function(res){
-				alert(res+"님 판매 접수가 완료 되었습니다");
-				location.href="/user/myPage";
-			}
-		});
+		// 판매 입찰
+		if(type == "bid") {
+			
+			$.ajax({
+				type:"post",
+				url:"/sell/insertSellBid",
+				data:{
+					"item_num": item_num, // item_num 값을 포함시킴
+				    "size": size,
+				    "totalPrice": totalPrice,
+				    "hopePrice": "${hopePrice}",
+				    "deadline": "${deadline}",
+				    "name": name,
+				    "phone": phone,
+				    "addr": addr,
+				    "account1": account1,
+				    "account2": account2,
+				    "penaltypay1": penaltypay1,
+				    "penaltypay2": penaltypay2	
+				},
+				success:function(res){
+					alert(res+"님 판매 접수가 완료 되었습니다");
+					location.href="/user/myPage";
+				}
+			});
+		} 
+		// 즉시 판매
+		else {
+
+			$.ajax({
+				type:"post",
+				url:"/sell/insertSellNow",
+				data:{
+					"item_num": item_num, 
+					"buy_num" : '${buy_num}',
+				    "totalPrice": totalPrice,
+				    "name": name,
+				    "phone": phone,
+				    "addr": addr,
+				    "account1": account1,
+				    "account2": account2,
+				    "penaltypay1": penaltypay1,
+				    "penaltypay2": penaltypay2	
+				},
+				success:function(res){
+					alert(res+"님 판매 접수가 완료 되었습니다");
+					location.href="/user/myPage";
+				}
+			});
+			
+		}
+		
+		
 	});
 	
 	 $(".modal-input > input:not(.btn-modal)").click(function () {
@@ -439,7 +474,7 @@ $(function(){
     <div style="border-top: 1px solid #e3e3e3; width: 93%; height: 10%; margin:auto; margin-top: 30px; margin-left: 40px; padding-top: 50px">
         <div style="display: flex; margin: auto; ">
 	        <div style="font-size: 18px;">최종 정산 금액</div>
-	        <div style="color: red; margin-left: 460px; font-size: 18px" id="totalPrice"><b>${totalPrice }원</b></div>
+	        <div style="color: red; margin-left: 460px; font-size: 18px" id="totalPrice"><b><fmt:formatNumber value="${totalPrice }" type="number"/>원</b></div>
         </div>
         
         <div style="display: flex; margin-top: 15px;">

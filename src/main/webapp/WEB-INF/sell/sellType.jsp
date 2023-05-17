@@ -321,7 +321,7 @@ div.main {
             </div>
             <div class="price-info" align="center" style="border-left: 1px solid #b9b9b9">
                 <div style="opacity: 0.7; font-size: 14px;">즉시 판매가</div>
-                177,000원
+                <fmt:formatNumber value="${sellNowPrice }" type="number"/>원
             </div>
             <div id="typeBtn"
                  style="margin-left: 7px; background-color: #e3e3e3; height: 55px; margin-top: 100px; margin-right: 10px; border-radius: 25px">
@@ -335,7 +335,7 @@ div.main {
     <!-- 즉시 판매  -->
     <div id="result-immediate" style="margin-left: 40px">
         <div style="font-size: 13px;">즉시 판매가</div>
-        <div align="right" style="font-size: 20px; margin-right: 35px; margin-top: 10px" id="immediatePrice">177,000원</div>
+        <div align="right" style="font-size: 20px; margin-right: 35px; margin-top: 10px" id="immediatePrice"><fmt:formatNumber value="${sellNowPrice }" type="number"/>원</div>
 
         <div class="result-content"
              style="border-top: 1px solid #b9b9b9; width: 95%; height: 10%; margin-top: 39px;">
@@ -352,7 +352,7 @@ div.main {
             총 정산금액<span class="totalPrice" style="font-size: 14px; margin-left: 500px;">-원</span>
             <div style="display: flex;">
             <button type="button" class="sell-back" id="sell-back">뒤로가기</button> 
-            <button type="button" id="sell-next" onclick="location.href='/sell/sellCalculate'">판매 계속하기</button>
+            <button type="button" id="sell-next" onclick="moveOrderPage('now')">판매 계속하기</button>
             </div>
         </div>
     </div>
@@ -399,7 +399,7 @@ div.main {
             총 정산금액<span class="totalPrice" id="totalPrice" style="font-size: 14px; margin-left: 500px;">-원</span>
             <div style="display: flex;">
             <button type="button" id="sell-back" class="sell-back">뒤로가기</button> 
-            <button type="button" id="sell-next" onclick="moveOrderPage()">판매 입찰 계속하기</button>
+            <button type="button" id="sell-next" onclick="moveOrderPage('bid')">판매 입찰 계속하기</button>
             </div>
     </div>
 </div>
@@ -414,19 +414,24 @@ $(".sell-back").click(function(){
 });
 
 
-	 function moveOrderPage() {
-         var hopePrice = uncomma($("#hopePrice").val());
-         var selectedDeadline = $(".deadline.selected");
-         var deadline = parseInt(selectedDeadline.attr("day"));
+	 function moveOrderPage(type) {
          totalPrice = $("#totalPrice_").val();
-
-         if (isNaN(deadline)) {
-             alert("마감 기한을 선택해주세요.");
-             return;
-         }
+         buy_num = '${buy_num}';
          
-         location.href = '/sell/sellCalculate?item_num=${item_num}&size=${size}&hopePrice='+hopePrice+'&deadline='+deadline+"&totalPrice="+totalPrice;
-         
+         if(type == "bid") {
+	         var hopePrice = uncomma($("#hopePrice").val());
+	         var selectedDeadline = $(".deadline.selected");
+	         var deadline = parseInt(selectedDeadline.attr("day"));
+	         
+	         if (isNaN(deadline)) {
+	             alert("마감 기한을 선택해주세요.");
+	             return;
+	         }
+	         
+	         location.href = '/sell/sellCalculate?type=' + type + '&item_num=${item_num}&size=${size}&hopePrice='+hopePrice+'&deadline='+deadline+"&totalPrice="+totalPrice;
+	         
+         } else 
+        	 location.href = '/sell/sellCalculate?type=' + type + '&item_num=${item_num}&size=${size}&buy_num=' + buy_num + '&totalPrice=' + totalPrice;
          
      }
 	 

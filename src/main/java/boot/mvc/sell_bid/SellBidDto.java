@@ -20,6 +20,6 @@ public class SellBidDto {
 	private String sell_size;
 	private String sell_addr;
 	private String sell_status;
-	private Date sell_deadline;
+	private int sell_deadline;
 	private Timestamp sell_inputday;
 }

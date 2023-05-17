@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <!DOCTYPE html>
 <html>
@@ -54,7 +55,7 @@ div.main {
 }
 
 .login-wrapper {
-	width: 50%;
+	width: 800px;
 	padding: 40px;
 	box-sizing: border-box;
 	margin-top: 100px !important;
@@ -62,14 +63,8 @@ div.main {
 	/*background-color: #ced4da;*/
 	margin: auto;
 	position: relative;
-}
 
-/*.login-wrapper>h2 {*/
-/*	font-size: 24px;*/
-/*	color: black;*/
-/*	margin-bottom: 40px;*/
-/*	text-align: center;*/
-/*}*/
+}
 
 #login-form>input:not(#btn-login) {
 	width: 100%;
@@ -239,9 +234,7 @@ div.buy_size:hover {
 		</div>
 		<div class="hr"></div>
 		<div style="display: flex;">
-			<%--            <div style="background-color: white; width: 200px; height: 200px;">--%>
 			<img src="/img/item_image/${dto.item_image}" class="buy_item_image">
-			<%--            </div>--%>
 			<div style="flex-direction: column; padding: 20px; margin-top: 30px;">
 				<span class="buy_brand">${dto.item_brandname}</span>
 				<br>
@@ -249,76 +242,80 @@ div.buy_size:hover {
 				<br>
 			</div>
 		</div>
-		<div style="display: flex;">
-			<c:choose>
-			<%--                여성이라 사이즈는 225부터 시작, 사이즈는 5씩 증가--%>
-			<c:when test="${dto.item_category eq 'shoes'}">
+		<c:choose>
+			<%--  여성이라 사이즈는 225부터 시작, 사이즈는 5씩 증가--%>
+			<c:when test='${dto.item_category eq "shoes"}'>
+				<div style="display: inline-flex;">
 				<c:forEach var="size" begin="225" step="5" end="270" varStatus="i">
 				<div class="buy_size">
 					<span class="buy_size selectSize">${size}</span>
 					<br>
-					<span class="buy_size" style="color: #ec0b00;">139,000</span>
+					<c:if test="${fn:length(buyNowPriceDto) ne 0}">
+						<c:forEach items="${buyNowPriceDto}" var="buyPrice">
+							<c:if test="${buyPrice.sell_size eq size}">
+							<span class="buy_size" style="color: #ec0b00;"><fmt:formatNumber value="${buyPrice.sell_wishprice}" pattern="###,###,###"/></span>
+							</c:if>
+							<c:if test="${buyPrice.sell_size ne size}">
+								<span class="buy_size" style="color: black;">구매입찰</span>
+							</c:if>
+						</c:forEach>
+					</c:if>
+					<c:if test="${fn:length(buyNowPriceDto) eq 0}">
+						<span class="buy_size" style="color: black;">구매입찰</span>
+					</c:if>
 				</div>
 				<c:if test="${i.count%4==0}">
 		</div>
-		<div style="display: flex;">
-			</c:if>
-			</c:forEach>
+		<div style="display: inline-flex; margin: auto;">
+				</c:if>
+				</c:forEach>
+		</div>
 			</c:when>
 
-			<c:when test="${dto.item_category eq 'bag'}">
+			<c:when test='${dto.item_category eq "bag"}'>
 				<div style="margin-top: 30px;">
 				<div class="buy_size">
 					<span class="buy_size selectSize">ONE SIZE</span>
 					<br>
-					<span class="buy_size" style="color: #ec0b00;">139,000</span>
+					<c:if test="${fn:length(buyNowPriceDto) ne 0}">
+						<span class="buy_size" style="color: #ec0b00;"><fmt:formatNumber value="${buyNowPriceDto.sell_wishprice}" pattern="###,###,###"/></span>
+					</c:if>
+					<c:if test="${fn:length(buyNowPriceDto) eq 0}">
+						<span class="buy_size" style="color: black;">구매입찰</span>
+					</c:if>
 				</div>
 				</div>
 			</c:when>
 
 			<c:otherwise>
-				<div style="margin-top: 30px; display: flex;">
-				<div class="buy_size">
-					<span class="buy_size selectSize">XS</span>
-					<br>
-					<span class="buy_size" style="color: #ec0b00;">139,000</span>
+				<c:set var="otherSize">XS,S,M,L,XL,XXL,XXXL</c:set>
+				<div style="margin-top: 30px; display: inline-flex;">
+					<c:forEach var="key" items="${otherSize}" varStatus="j">
+					<div class="buy_size">
+						<span class="buy_size selectSize">${key}</span>
+						<br>
+						<c:if test="${fn:length(buyNowPriceDto) ne 0}">
+							<c:forEach items="${buyNowPriceDto}" var="buyPrice">
+								<c:if test="${buyPrice.sell_size eq key}">
+									<span class="buy_size" style="color: #ec0b00;"><fmt:formatNumber value="${buyPrice.sell_wishprice}" pattern="###,###,###"/></span>
+								</c:if>
+								<c:if test="${buyPrice.sell_size ne key}">
+									<span class="buy_size" style="color: black;">구매입찰</span>
+								</c:if>
+							</c:forEach>
+						</c:if>
+						<c:if test="${fn:length(buyNowPriceDto) eq 0}">
+							<span class="buy_size" style="color: black;">구매입찰</span>
+						</c:if>
+					</div>
+					<c:if test="${j.count%4==0}">
 				</div>
-				<div class="buy_size">
-					<span class="buy_size selectSize">S</span>
-					<br>
-					<span class="buy_size" style="color: #ec0b00;">139,000</span>
-				</div>
-				<div class="buy_size">
-					<span class="buy_size selectSize">M</span>
-					<br>
-					<span class="buy_size" style="color: #ec0b00;">139,000</span>
-				</div>
-				<div class="buy_size">
-					<span class="buy_size selectSize">L</span>
-					<br>
-					<span class="buy_size" style="color: #ec0b00;">139,000</span>
-				</div>
-				</div>
-			</div>
-		<div style="display: flex;">
-				<div class="buy_size">
-					<span class="buy_size selectSize">XL</span>
-					<br>
-					<span class="buy_size" style="color: #ec0b00;">139,000</span>
-				</div>
-				<div class="buy_size">
-					<span class="buy_size selectSize">XXL</span>
-					<br>
-					<span class="buy_size" style="color: #ec0b00;">139,000</span>
-				</div>
-				<div class="buy_size">
-					<span class="buy_size selectSize">XXXL</span>
-					<br>
-					<span class="buy_size" style="color: #ec0b00;">139,000</span>
+				<div style="display: inline-flex;">
+					</c:if>
+					</c:forEach>
 				</div>
 			</c:otherwise>
 			</c:choose>
-		</div>
 		<div style="display: flex; margin-top: 25px;">
 			<button type="button" class="btn-login fastbox">
 				<i class="fa-solid fa-paper-plane fa-xs" style="color: #ffffff;"></i>&nbsp;빠른배송

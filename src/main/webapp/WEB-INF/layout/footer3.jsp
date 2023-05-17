@@ -40,7 +40,7 @@ h6 {
 </style>
 </head>
 <body>
-	<hr style="margin: 8px; border: 0.8px solid black">
+	<hr style="margin: 8px; opacity: 2">
 	<c:set var="root" value="<%=request.getContextPath()%>" />
 	<div style="margin-bottom: 110px; height: 190.2px">
 		<div class="first"
@@ -64,7 +64,7 @@ h6 {
 			</ul>
 		</div>
 		<div class="second"
-			style="width: 100px; font-size: 13px; display: inline-block; margin-left: 165px; height: 183px; margin-top: 12.5px;"
+			style="width: 110px; font-size: 13px; display: inline-block; margin-left: 165px; height: 183px; margin-top: 12.5px;"
 		>
 			<ul>
 				<li style="line-height: 50px;">
@@ -108,7 +108,7 @@ h6 {
 			<button type="button" id="footquestion" onclick="#">자주묻는 질문</button>
 		</div>
 	</div>
-	<hr style="margin: 8px; border: 0.8px solid black">
+	<hr style="margin: 8px;opacity: 2">
 	<div style="margin-left: 58px; font-size: 13px; margin-top: 28px;" class="fourth">
 		<ul>
 			<li style="margin-right: 40px;">

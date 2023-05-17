@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="boot.mvc.item.DetailMapperInter">
+<mapper namespace="boot.mvc.detail.DetailMapperInter">
 	<select id="DetailgetData" parameterType="String" resultType="ItemDto">
 		select * from item where item_num=#{item_num}
 	</select>
 
 	<select id="BuygetList" parameterType="Map" resultType="BuyBidDto">
-	select * from buy_bid where item_num=#{item_num} and buy_num=#{buy_num}
+		select * from buy_bid where item_num=#{item_num} and buy_num=#{buy_num}
 	</select>
-	
+
 	<select id="SellgetList" parameterType="Map" resultType="SellBidDto">
-	select * from sell_bid where item_num=#{item_num} and buy_num=#{sell_num}
+		select * from sell_bid where item_num=#{item_num} and buy_num=#{sell_num}
 	</select>
-	<!-- 카테고리에 대한 다른 상품 나열 -->
-	<select id="ItemgetImage" parameterType="String" resultType="String">
-	select item_image from item where item_category=#{item_category}
+
+	<select id="getAllData" resultType="ItemDto">
+		select * from item order by item_num
 	</select>
+
 </mapper>

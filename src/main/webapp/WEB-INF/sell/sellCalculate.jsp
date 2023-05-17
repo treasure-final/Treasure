@@ -23,94 +23,94 @@
             charset="utf-8"></script>
 <style>
 @font-face {
-	font-family: "GmarketSansMedium";
-	src:
-		url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
-		format("woff");
-	font-weight: normal;
-	font-style: normal;
+   font-family: "GmarketSansMedium";
+   src:
+      url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+      format("woff");
+   font-weight: normal;
+   font-style: normal;
 }
 
 *{
-	font-family: "GmarketSansMedium";
+   font-family: "GmarketSansMedium";
 }
 
 div.main {
-	font-family: "GmarketSansMedium";
-	font-size: 13px;
-	padding: 0;
-	margin: 0;
-	border: none;
-	color: black;
+   font-family: "GmarketSansMedium";
+   font-size: 13px;
+   padding: 0;
+   margin: 0;
+   border: none;
+   color: black;
 }
 
 .container {
-	width: 820px;
-	height: 1300px;
-	padding: 40px;
-	box-sizing: border-box;
-	margin: 50px auto;
-	line-height: 30px;
-	background-color: #ffffff;
+   width: 820px;
+   height: 1300px;
+   padding: 40px;
+   box-sizing: border-box;
+   margin: 50px auto;
+   line-height: 30px;
+   background-color: #ffffff;
 }
 
 .right-td {
-	font-size: 14px;
-	padding-left: 20px;
+   font-size: 14px;
+   padding-left: 20px;
 }
 
 .left-td {
-	font-size: 14px;
-	opacity: 0.7;
+   font-size: 14px;
+   opacity: 0.7;
 }
 
 .td2 {
-	padding-left: 490px;
+   padding-left: 490px;
 }
 
 td {
-	font-size: 14px;
+   font-size: 14px;
 }
 
 .hr {
-	border: none;
-	height: 2px;
-	background: black;
-	margin-bottom: 50px;
+   border: none;
+   height: 2px;
+   background: black;
+   margin-bottom: 50px;
 }
 
 #logo {
-	font-size: 25px;
-	font-weight: bold;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-bottom: 20px;
+   font-size: 25px;
+   font-weight: bold;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-bottom: 20px;
 }
 
 select {
-	width: 120px;
-	height: 53px;
-	border-radius: 15px;
-	background-color: #ffffff;
-	padding: 5px 15px;
-	margin: 10px 0;
-	border: 1px solid #e3e3e3;
+   width: 120px;
+   height: 53px;
+   border-radius: 15px;
+   background-color: #ffffff;
+   padding: 5px 15px;
+   margin: 10px 0;
+   border: 1px solid #e3e3e3;
 }
 
 .bank-number {
-	width: 480px;
-	border-radius: 15px;
-	background-color: #ffffff;
-	text-align: left;
-	padding: 5px 15px;
-	margin: 10px 0;
-	border: 1px solid #e3e3e3;
+   width: 480px;
+   border-radius: 15px;
+   background-color: #ffffff;
+   text-align: left;
+   padding: 5px 15px;
+   margin: 10px 0;
+   border: 1px solid #e3e3e3;
 }
 
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
+   -webkit-appearance: none;
+   margin: 0;
 }
 
 .agree-ment {
@@ -279,44 +279,44 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
 
 <script type="text/javascript">
 $(function(){
-	
-	$("#addr-modal").hide();
-	
-	$("#sell-next").click(function(){
-		
-		var name=$("#name").text();
-		var hp=$("#hp").text();
-		var addr=$("#addr").text();
-		var account1=$("#account1").val();
-		var account2=$("#account2").val();
-		var penaltypay1=$("#penaltypay1").val();
-		var penaltypay2=$("#penaltypay2").val();
-		
-		$.ajax({
-			type:"post",
-			url:"/sell/insertSellBid",
-			data:{
-				"item_num": "${item_num}", // item_num 값을 포함시킴
-			    "size": "${size}",
-			    "totalPrice": "${totalPrice}",
-			    "hopePrice": "${hopePrice}",
-			    "deadline": "${deadline}",
-			    "name": name,
-			    "hp": hp,
-			    "addr": addr,
-			    "account1": account1,
-			    "account2": account2,
-			    "penaltypay1": penaltypay1,
-			    "penaltypay2": penaltypay2	
-			},
-			success:function(res){
-				alert(res+"님 판매 접수가 완료 되었습니다");
-				location.href="/user/myPage";
-			}
-		});
-	});
-	
-	 $(".modal-input > input:not(.btn-modal)").click(function () {
+   
+   $("#addr-modal").hide();
+   
+   $("#sell-next").click(function(){
+      
+      var name=$("#name").text();
+      var phone=$("#phone").text();
+      var addr=$("#addr").text();
+      var account1=$("#account1").val();
+      var account2=$("#account2").val();
+      var penaltypay1=$("#penaltypay1").val();
+      var penaltypay2=$("#penaltypay2").val();
+      
+      $.ajax({
+         type:"post",
+         url:"/sell/insertSellBid",
+         data:{
+            "item_num": "${item_num}", // item_num 값을 포함시킴
+             "size": "${size}",
+             "totalPrice": "${totalPrice}",
+             "hopePrice": "${hopePrice}",
+             "deadline": "${deadline}",
+             "name": name,
+             "phone": phone,
+             "addr": addr,
+             "account1": account1,
+             "account2": account2,
+             "penaltypay1": penaltypay1,
+             "penaltypay2": penaltypay2   
+         },
+         success:function(res){
+            alert(res+"님 판매 접수가 완료 되었습니다");
+            location.href="/user/myPage";
+         }
+      });
+   });
+   
+    $(".modal-input > input:not(.btn-modal)").click(function () {
          $(".modal-input > input").css("border-bottom", "1px solid #e3e3e3");
          $(this).css("border-bottom", "2px solid #747f55");
          $(".none-input").css("border-bottom", "1px solid #e3e3e3");
@@ -331,7 +331,7 @@ $(function(){
          $("#phone").text(mphone);
          $("#addr").text(maddr);
      });
-	
+   
 });
 </script>
 
@@ -365,7 +365,7 @@ $(function(){
                 </tr>
                 <tr>
                     <td class="left-td">연락처</td>
-                    <td class="right-td" id="hp">${userDto.user_hp }</td>
+                    <td class="right-td" id="phone">${userDto.user_hp }</td>
                 </tr>
                 <tr>
                     <td class="left-td">배송 주소</td>
@@ -383,69 +383,69 @@ $(function(){
         
         <div style="font-size: 18px;">정산 계좌 정보</div>
         <div>
-       		<select name="account1" id="account1">
-	       		<option value="국민">국민</option>
-	       		<option value="농협">농협</option>
-	       		<option value="신한">신한</option>
-	       		<option value="새마을금고">새마을금고</option>
-	       		<option value="카카오뱅크">카카오뱅크</option>
-	       		<option value="토스">토스</option>
-       		</select>
+             <select name="account1" id="account1">
+                <option value="국민">국민</option>
+                <option value="농협">농협</option>
+                <option value="신한">신한</option>
+                <option value="새마을금고">새마을금고</option>
+                <option value="카카오뱅크">카카오뱅크</option>
+                <option value="토스">토스</option>
+             </select>
             <input type="number"  name="account2" id="account2" class="bank-number" placeholder="- 제외 계좌번호를 입력해주세요" required="required"> 
         </div>   
-	
-	<!-- 패널티 카드정보  -->       
+   
+   <!-- 패널티 카드정보  -->       
         <div style="font-size: 18px; margin-top: 30px; ">패널티 결제 정보</div>
         <div>
-       		<select name="penaltypay1" id="penaltypay1">
-	       		<option value="BC">BC</option>
-	       		<option value="현대">현대</option>
-	       		<option value="카카오뱅크">카카오뱅크</option>
-	       		<option value="농협">농협</option>
-	       		<option value="신한">신한</option>
-	       		<option value="토스">토스</option>
-       		</select>
+             <select name="penaltypay1" id="penaltypay1">
+                <option value="BC">BC</option>
+                <option value="현대">현대</option>
+                <option value="카카오뱅크">카카오뱅크</option>
+                <option value="농협">농협</option>
+                <option value="신한">신한</option>
+                <option value="토스">토스</option>
+             </select>
             <input type="number" name="penaltypay2" id="penaltypay2" class="bank-number" placeholder="신용카드 번호를 입력해주세요" required="required">
         </div>   
     </div>
-    	
-    	<!-- 동의 -->
-    	<div style="margin-left: 40px; margin-bottom: 30px;">
-	    	<div style="border-top: 1px solid #e3e3e3; width: 95%; height: 10%; margin-top: 30px; margin-bottom: 15px;"></div>
-	        <div style="padding-top: 20px;  font-size: 14px; opacity: 0.4;"></div>
+       
+       <!-- 동의 -->
+       <div style="margin-left: 40px; margin-bottom: 30px;">
+          <div style="border-top: 1px solid #e3e3e3; width: 95%; height: 10%; margin-top: 30px; margin-bottom: 15px;"></div>
+           <div style="padding-top: 20px;  font-size: 14px; opacity: 0.4;"></div>
         
-    		<div  style="font-size: 18px; margin-bottom: 15px;">이용방침과 최종 정산 금액을 꼭 확인 해주세요</div>
+          <div  style="font-size: 18px; margin-bottom: 15px;">이용방침과 최종 정산 금액을 꼭 확인 해주세요</div>
    
-	        <div class="agree-check" id="agree-check">
-		          <div>
-		          <span>접수 후 48시간 이내에 발송하여 송장번호를 기재하겠습니다</span><input type="checkbox" required="required" id="check1" class="chk"><label for="check1"></label>
-		          </div>
-		          
-		          <div>
-		          <span>허위정보 작성 및 발송기한 초과시 패널티요금이 결제 됩니다</span><input type="checkbox" required="required" id="check2" class="chk"><label for="check2"></label>
-		          </div>
-		          
-		          <div>
-		          <span>접수 내역을 꼼꼼하게 확인했습니다</span><input type="checkbox" required="required" id="check3" class="chk"><label for="check3"></label>
-		          </div>
-		          
-		          <div>
-		          <span>위 사항을 모두 확인 하였으며 판매 접수에 최종 동의 합니다</span><input type="checkbox" id="check4" required="required"><label for="check4"></label>
-		          </div>
-	       </div>
+           <div class="agree-check" id="agree-check">
+                <div>
+                <span>접수 후 48시간 이내에 발송하여 송장번호를 기재하겠습니다</span><input type="checkbox" required="required" id="check1" class="chk"><label for="check1"></label>
+                </div>
+                
+                <div>
+                <span>허위정보 작성 및 발송기한 초과시 패널티요금이 결제 됩니다</span><input type="checkbox" required="required" id="check2" class="chk"><label for="check2"></label>
+                </div>
+                
+                <div>
+                <span>접수 내역을 꼼꼼하게 확인했습니다</span><input type="checkbox" required="required" id="check3" class="chk"><label for="check3"></label>
+                </div>
+                
+                <div>
+                <span>위 사항을 모두 확인 하였으며 판매 접수에 최종 동의 합니다</span><input type="checkbox" id="check4" required="required"><label for="check4"></label>
+                </div>
+          </div>
        </div>
 
     <!-- 최종 정산 정보  -->
     <div style="border-top: 1px solid #e3e3e3; width: 93%; height: 10%; margin:auto; margin-top: 30px; margin-left: 40px; padding-top: 50px">
         <div style="display: flex; margin: auto; ">
-	        <div style="font-size: 18px;">최종 정산 금액</div>
-	        <div style="color: red; margin-left: 460px; font-size: 18px" id="totalPrice"><b>${totalPrice }원</b></div>
+           <div style="font-size: 18px;">최종 정산 금액</div>
+           <div style="color: red; margin-left: 460px; font-size: 18px" id="totalPrice"><b>${totalPrice }원</b></div>
         </div>
         
         <div style="display: flex; margin-top: 15px;">
-	       <button type="button" id="sell-back">뒤로가기</button> 
-	       <button type="button" id="sell-next">판매 접수</button>
-    	</div>    
+          <button type="button" id="sell-back">뒤로가기</button> 
+          <button type="button" id="sell-next">판매 접수</button>
+       </div>    
     </div>         
 </div>
 
@@ -502,17 +502,17 @@ $("#check4").click(function(){
 });
 
 $(".chk").click(function() {
-	if($('input:checkbox[class=chk]:checked').length===3) {
-		$("input[type='checkbox']").prop("checked", true);
-		$('.chk').prop("checked",true);
-		} else {
-		$("#check4").prop("checked", false);
-	}
+   if($('input:checkbox[class=chk]:checked').length===3) {
+      $("input[type='checkbox']").prop("checked", true);
+      $('.chk').prop("checked",true);
+      } else {
+      $("#check4").prop("checked", false);
+   }
 });
 
 //일단은 걍 뒤로가기
 $("#sell-back").click(function(){
-	history.back();
+   history.back();
 });
 </script>
 
@@ -566,5 +566,3 @@ $("#sell-back").click(function(){
     }
 
 </script>
-</body>
-</html>

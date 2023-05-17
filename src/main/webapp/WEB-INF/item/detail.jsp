@@ -1197,9 +1197,9 @@ div.main {
 				</span>
 			</div>
 			<div class="col-1 align-self-center">
-				<span class="fs-5" style="float: right;">
+				<span class="fs-5" style="float: right;" onclick="location.href='/item/itemlist'">
 					더보기
-					<a class="fa fa-chevron-right fs-5 ms-2" href=""></a>
+					<a class="fa fa-chevron-right fs-5 ms-2" href="/item/itemlist"></a>
 				</span>
 			</div>
 		</div>

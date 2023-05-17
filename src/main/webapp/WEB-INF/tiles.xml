@@ -10,14 +10,6 @@
 		<put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
 		<put-attribute name="main" value="/WEB-INF/layout/main.jsp" />
 		<put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />
-
-	</definition>
-
-	<!-- 레이아웃2 설정 -->
-	<definition name="layout2" template="/WEB-INF/layout/layout2.jsp">
-		<put-attribute name="header" value="/WEB-INF/layout/header2.jsp" />
-		<put-attribute name="main" value="/WEB-INF/layout/main.jsp" />
-		<put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />
 	</definition>
 
 	<!-- 레이아웃3 설정 -->
@@ -29,11 +21,6 @@
 
 	<!-- wild card macro 설정 기본 -->
 	<definition name="/*/*" extends="layout1">
-		<put-attribute name="main" value="/WEB-INF/{1}/{2}.jsp" />
-	</definition>
-
-	<!-- 레이아웃2 설정 기본 -->
-	<definition name="/sub/*/*" extends="layout2">
 		<put-attribute name="main" value="/WEB-INF/{1}/{2}.jsp" />
 	</definition>
 	

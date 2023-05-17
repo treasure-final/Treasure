@@ -1,0 +1,129 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<!DOCTYPE html>
+<html>
+
+	<head>
+	
+	  <meta charset="utf-8">
+	  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+	    rel="stylesheet">
+	
+	  <title></title>
+	<style type="text/css">
+
+
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+body {
+	    font-family: 'GmarketSansMedium';
+	
+}
+#wrtiemystyle{
+float: left;
+background-color: green;
+}
+#wrtiemystyle>a>b{
+cursor: pointer;
+}
+#sortstyle>a>b{
+cursor: pointer;
+}
+#sortstyle{
+float: right;
+background-color: yellow;
+}
+.styleview{
+margin-top: 2%;
+width: 100%;
+}
+.stylemain{
+border: 1px solid black;
+width: 80%;
+margin: 0 auto; 
+height: 2000px;
+
+}
+
+#stylepho {
+	width: 220px;
+	height: 200px;
+	position: relative;
+}
+
+#styledata {
+	width: 200px;;
+	height: 180px;
+	margin-top:10%;
+	position: absolute;
+	margin-left: 10px;
+	font-size: 5px;
+}
+
+.stylebox{margin-top: 45px;
+	border: 1px solid green;
+	width: 190px;
+	height: 250px;
+	display: inline-flex;
+	margin-right: 45px; /*아이템별 간격  */
+	margin-left: 5%;
+}
+
+
+	</style>
+	 
+
+	</head>
+	
+	<body>
+	
+	<div class="styleview">
+		
+		<div id="wrtiemystyle">
+			<a><b>인기순</b></a> 
+			<a><b>최신순</b></a>
+		</div>
+		
+		<div id="sortstyle">
+			<a href="/style/writestyleform"><b>글쓰기</b></a>
+		</div>
+		
+		
+		<br>
+		
+		<div class="stylemain">
+		
+		<div class="stylebox" >
+		<div id="stylepho">
+		<img alt="스타일사진 나오는곳" src="../img/item_image/1.png" style="width: 200px; height: 150px;">
+		</div>
+		
+		<span id="styledata">
+		<img alt="회원프로필사진" src=""><br>
+		
+		회원닉네임
+		
+		<img alt="좋아요 하트 " src=""> 
+		</span>
+		</div>
+		
+		
+		</div>
+	
+	</div>
+	
+	
+	
+	
+	
+	
+	</body>
+
+</html>

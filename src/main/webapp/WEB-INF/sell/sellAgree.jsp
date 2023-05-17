@@ -200,7 +200,7 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
                return;
            }
        }
-       location.href='/sell/sellType?size=${size}';
+       location.href='/sell/sellType?item_num=${itemDto.item_num}&size=${size}';
    }
    
    function checkAllAgreements() {
@@ -218,14 +218,15 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
 </head>
 <body>
 <div class="agree-wrapper">
+<input type="hidden" name="item_num" value="${item_num }">
     <div><i id="logo">판매동의</i></div>
      <div class="hr"></div>
        <div class="item">
-          <img alt="" src="../../img/화면%20캡처%202023-05-04%20140755.png" class="item-photo">                  
+          <img alt="" src="../img/item_image/${itemDto.item_image }" class="item-photo">                  
           <ul class="item-info">
-             <li>DR0148-102</li>
-             <li>(W) Nike Air Force 1 '07 LX Summit White Gorge Green</li>
-             <li>(W) 나이키 에어포스 1 '07 LX 서밋 화이트 골지 그린</li>
+             <li>${itemDto.item_modelnum }</li>
+             <li>${itemDto.item_engname }</li>
+             <li>${itemDto.item_korname }</li>
              <li>${size }</li>
           </ul>         
        </div>

@@ -4,6 +4,7 @@ import boot.mvc.user.kakaoApi.KakaoLoginBO;
 import boot.mvc.user.mailApi.MailSender;
 import boot.mvc.user.naverApi.NaverLoginBO;
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpSession;
 
 @Controller
+@RequiredArgsConstructor
 public class UserController {
 
     @Autowired
@@ -38,6 +40,7 @@ public class UserController {
 
     @Autowired
     private KakaoLoginBO kakaoLoginBO;
+
 
     @Autowired
     private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
@@ -111,7 +114,6 @@ public class UserController {
 
         return "redirect:/";
     }
-   
     
     @RequestMapping(value = "/callbackKakao.do", method = {RequestMethod.GET, RequestMethod.POST})
     public String callbackKakao(Model model, @RequestParam String code, @RequestParam String state, HttpSession session) throws Exception {
@@ -305,7 +307,6 @@ public class UserController {
 
         return "/user/myPage";
     }
-    
     @GetMapping("/user/myProfile")
     public String myProfile(Model model, HttpSession session) {
 
@@ -378,13 +379,13 @@ public class UserController {
     @ResponseBody
     public int passSearchMailSender(@RequestParam String email) {
 //        System.out.println(email);
+
         int checkEmail=service.isUserEmail(email);
 //        System.out.println(checkEmail);
         if(checkEmail==1) {
             MailSender.mailSend(email);
             String randompass=MailSender.getRandompass();
 //            System.out.println(randompass);
-            Map<String,String> map=new HashMap<>();
             service.updateTemporarilyPass(randompass,email);
         }
         return checkEmail;

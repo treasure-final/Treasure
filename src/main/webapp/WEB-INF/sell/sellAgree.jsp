@@ -202,7 +202,7 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
        }
        location.href='/sell/sellType?item_num=${itemDto.item_num}&size=${size}';
    }
-   
+
    function checkAllAgreements() {
        var checkboxes = document.querySelectorAll('#agree-check input[type="checkbox"]');
        var allChecked = true;
@@ -228,39 +228,39 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
              <li>${itemDto.item_engname }</li>
              <li>${itemDto.item_korname }</li>
              <li>${size }</li>
-          </ul>         
+          </ul>
        </div>
-       
+
        <div class="agree-ment"><b style="font-size: 1.1em; color: #747f55;">판매</b> 전 꼭 확인 해주세요</div>
-          
+
        <div class="agree-check" id="agree-check">
           <div>
           <span>판매하려는 상품과 일치 합니다</span><input type="checkbox" required="required" id="check1" class="chk" onchange="checkAllAgreements()"><label for="check1"></label>
           </div>
-          
+
           <div>
           <span>국내/해외에서 발매한 정품 및 새상품 입니다</span><input type="checkbox" required="required" id="check2" class="chk" onchange="checkAllAgreements()"><label for="check2"></label>
           </div>
-          
+
           <div>
           <span>패키지 상태를 확인하였으며 문제가 없습니다</span><input type="checkbox" required="required" id="check3" class="chk" onchange="checkAllAgreements()"><label for="check3"></label>
           </div>
-          
+
           <div>
           <span>이중 포장하여 발송 합니다</span><input type="checkbox" required="required" id="check4" class="chk" onchange="checkAllAgreements()"><label for="check4"></label>
           </div>
-          
+
           <div>
           <span>TREASURE의 이용정책을 확인 하였습니다</span><input type="checkbox" required="required" id="check5" class="chk" onchange="checkAllAgreements()"><label for="check5"></label>
           </div>
-          
+
           <div>
           <span>위 사항을 모두 숙지 하였으며 전체 동의 합니다</span><input type="checkbox" id="check6" required="required"><label for="check6"></label>
           </div>
        </div>
-        
+
        <div style="display: flex;">
-       <button type="button" id="agree-back">뒤로가기</button> 
+       <button type="button" id="agree-back">뒤로가기</button>
         <button type="button" id="agree-next" onclick="checkAgreement()">판매 계속하기</button>
         </div>
 </div>
@@ -268,11 +268,11 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
 <script type="text/javascript">
 
 $("#check6").click(function(){
-   
+
    var allchk=$(this).is(":checked");
-   
+
    $(".chk").prop("checked", allchk);
-   
+
 });
 
 //일단은 걍 뒤로가기

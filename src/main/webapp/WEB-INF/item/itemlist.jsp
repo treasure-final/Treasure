@@ -200,7 +200,7 @@
             <li style="margin-right: 40px;"><a class="bag" href="itemck?ck=bag">잡화</a></li>
         </ul>
     </div>
-    <div class="Kategorie" style=" width: 200px; float: left; ">
+    <div class="Kategorie" style=" width: 200px; float: left;">
         <form action="itemck" method="get">
 
 

@@ -200,7 +200,7 @@
             <li style="margin-right: 40px;"><a class="bag" href="itemck?ck=bag">잡화</a></li>
         </ul>
     </div>
-    <div class="Kategorie" style=" width: 200px; float: left; ">
+    <div class="Kategorie" style=" width: 200px; float: left;">
         <form action="itemck" method="get">
 
 
@@ -306,85 +306,6 @@
         </form>
     </div>
 
-            <label><input type="radio" name="brand" value="Arc'teryx">
-                <span
-                        style="vertical-align: top;">Arc'teryx</span></label>
-            <br>
-
-            <label><input type="radio" name="brand" value="COS">
-                <span style="vertical-align: top;">COS</span></label>
-            <br>
-
-            <label><input type="radio" name="brand" value="Porter">
-                <span
-                        style="vertical-align: top;">Porter</span></label>
-            <br>
-
-            <label><input type="radio" name="brand" value="Our Legacy">
-                <span style="vertical-align: top;">Our Legacy</span></label>
-            <br>
-
-            <label><input type="radio" name="brand" value="Stussy">
-                <span style="vertical-align: top;">Stussy</span></label>
-            <br>
-
-            <label><input type="radio" name="brand" value="Stone Island">
-                <span style="vertical-align: top;">Stone Island</span></label>
-            <br>
-
-            <label><input type="radio" name="brand" value="IAB Studio</">
-                <span style="vertical-align: top;">IAB Studio</span></label>
-            <br>
-
-            <label><input type="radio" name="brand" value="AMI">
-                <span style="vertical-align: top;">AMI</span></label>
-            <br>
-
-            <label><input type="radio" name="brand" value="Essentials">
-                <span style="vertical-align: top;">Essentials</span></label>
-            <br>
-
-            <label><input type="radio" name="brand" value="Diesel">
-                <span style="vertical-align: top;">Diesel</span></label>
-            <br>
-
-            <label><input type="radio" name="brand" value="Wooyoungmi">
-                <span style="vertical-align: top;">Wooyoungmi</span></label>
-            <br>
-
-            <label><input type="radio" name="brand" value="Porter"><span
-                    style="vertical-align: top;">Porter</span></label>
-
-
-            <br><br>
-
-
-            <b style="font-size: 20px;">카테고리</b>
-            <br>
-            <br>
-            <label><input type="checkbox" name="ck" value="shoes">
-                <span style="vertical-align: top;">신발</span></label><br>
-
-            <label><input type="checkbox" name="ck" value="outer">
-                <span style="vertical-align: top;">아우터</span></label><br>
-
-            <label><input type="checkbox" name="ck" value="top">
-                <span style="vertical-align: top;">상의</span></label><br>
-
-            <label><input type="checkbox" name="ck" value="bottom">
-                <span style="vertical-align: top;">하의</span></label><br>
-
-            <label><input type="checkbox" name="ck" value="bag">
-                <span style="vertical-align: top;">잡화</span></label><br>
-
-
-            <label>
-                <button type="submit" id="findbtn">
-                    <span style="vertical-align: top;">찾아보기</span></button>
-            </label>
-            <br>
-        </form>
-    </div>
 
     <div style="width:1000px; height: 5100px; margin-left: 20%; padding-left: 0px;">
         <div>
@@ -406,10 +327,10 @@
 
                     <span class="p"> <b id="brandcolor"
                                         style="color: black; font-size: 2em;">${a.item_brandname }</b><br>
-						<br>${a.item_engname }<br> <b> ${a.item_korname }</b> <br>
-					<br>
-					<b style="color: black; font-size: 13px;">${a.item_releaseprice}</b>
-					</span><br>
+                  <br>${a.item_engname }<br> <b> ${a.item_korname }</b> <br>
+               <br>
+               <b style="color: black; font-size: 13px;">${a.item_releaseprice}</b>
+               </span><br>
                 </div>
             </c:forEach>
         </div>

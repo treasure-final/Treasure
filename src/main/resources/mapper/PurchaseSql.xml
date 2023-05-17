@@ -3,4 +3,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="boot.mvc.purchase.PurchaseMapperInter">
+
+	<insert id="insertPurchase" parameterType="PurchaseDto">
+		insert into purchase values(null, #{item_num}, #{purchase_buy}, #{purchase_sell}, #{buybid_num}, #{purchase_addr}, #{purchase_price}, #{purchase_delivery}, #{purchase_total_price}, now())
+	</insert>
+	
 </mapper>

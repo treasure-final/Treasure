@@ -114,6 +114,7 @@ public class SellBidController {
       mview.addObject("user_num", user_num);
       
       mview.addObject("type", type);
+      mview.addObject("buy_num", buy_num);
       mview.addObject("hopePrice", hopePrice);
       mview.addObject("totalPrice", totalPrice);
       mview.addObject("size", size);

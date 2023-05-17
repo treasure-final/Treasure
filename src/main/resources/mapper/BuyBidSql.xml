@@ -13,4 +13,8 @@
 		select * from buy_bid where item_num=#{item_num} and buy_size=#{buy_size} order by buy_wishprice desc limit 1
 	</select>
 
+	<select id="getDataOfBuyBid" resultType="BuyBidDto" parameterType="String">
+		select * from buy_bid where buy_num=#{buy_num}
+	</select>
+
 </mapper>

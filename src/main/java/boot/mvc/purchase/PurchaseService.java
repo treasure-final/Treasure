@@ -8,5 +8,10 @@ public class PurchaseService implements PurchaseServiceInter {
 
 	@Autowired
 	PurchaseMapperInter mapper;
+
+	@Override
+	public void insertPurchase(PurchaseDto purchaseDto) {
+		mapper.insertPurchase(purchaseDto);
+	}
 	
 }

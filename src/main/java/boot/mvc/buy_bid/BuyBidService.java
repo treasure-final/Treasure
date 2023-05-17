@@ -26,4 +26,9 @@ public class BuyBidService implements BuyBidServiceInter {
 		return mapper.getBuyBidForSellNow(map);
 	}
 
+	@Override
+	public BuyBidDto getDataOfBuyBid(String buy_num) {
+		return mapper.getDataOfBuyBid(buy_num);
+	}
+
 }

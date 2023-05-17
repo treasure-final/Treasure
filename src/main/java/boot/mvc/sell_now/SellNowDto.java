@@ -12,7 +12,7 @@ public class SellNowDto {
 	private String user_num;
 	private String item_num;
 	private String buy_num;
-	private String sellnow_totalprice;
+	private int sellnow_totalprice;
 	private String sellnow_account;
 	private String sellnow_penaltypay;
 	private String sellnow_addr;

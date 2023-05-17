@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import boot.mvc.buy_bid.BuyBidDto;
+import boot.mvc.buy_bid.BuyBidService;
+import boot.mvc.purchase.PurchaseDto;
 import boot.mvc.purchase.PurchaseService;
 import boot.mvc.user.UserService;
 
@@ -24,11 +27,17 @@ public class SellNowController {
 	@Autowired
 	PurchaseService purchaseService;
 	
+	@Autowired 
+	BuyBidService buyBidService;
+	
+	@Autowired
+	SellNowService sellNowService;
+	
 	@PostMapping("/sell/insertSellNow")
 	@ResponseBody
 	public String sellNow(@RequestParam String item_num,
 			@RequestParam String buy_num,
-			@RequestParam String totalPrice,
+			@RequestParam int totalPrice,
 			@RequestParam String name, 
 			@RequestParam String phone, 
 			@RequestParam String addr, 
@@ -70,19 +79,35 @@ public class SellNowController {
         }
         
         // test_result 불합격이면 sell_status 판매불가
-        if(test_result.equals("불합격"))
-        	sellNowDto.setSell_status("판매불가");        
+        if(test_result.equals("불합격")) {
+        	sellNowDto.setSell_status("판매불가");      
+        	sellNowDto.setTest_result(test_result);
+        	
+        	sellNowService.insertSellNow(sellNowDto);
+        }
         else {
         	// 검수 결과가 합격이면 판매 상태 -> 판매 완료
         	sellNowDto.setSell_status("판매완료");    
-        
+        	sellNowDto.setTest_result(test_result);
+        	
+        	sellNowService.insertSellNow(sellNowDto);
+
         	// purchase insert하기
-        	purchaseService;
+        	PurchaseDto purchaseDto = new PurchaseDto();
+        	
+        	BuyBidDto buyBidDto = buyBidService.getDataOfBuyBid(buy_num);
+        	
+        	purchaseDto.setItem_num(item_num);
+        	purchaseDto.setPurchase_buy(buyBidDto.getBuy_num());
+        	purchaseDto.setPurchase_sell(user_num);
+        	purchaseDto.setBuybid_num(buy_num);
+        	purchaseDto.setPurchase_addr(purchaseDto.getPurchase_addr());
+        	purchaseDto.setPurchase_price(Integer.parseInt(buyBidDto.getBuy_wishprice()));
+        	purchaseDto.setPurchase_delivery("빠른배송");
+        	purchaseDto.setPurchase_total_price(totalPrice);
+        	
+        	purchaseService.insertPurchase(purchaseDto);
         }
-        
-        sellNowDto.setTest_result(test_result);
-        
-        
         
 		return loginEmail;
 	}

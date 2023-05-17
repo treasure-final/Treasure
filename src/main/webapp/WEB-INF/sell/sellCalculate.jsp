@@ -285,6 +285,7 @@ $(function(){
 	$("#sell-next").click(function(){
 		var type = '${type}';
 		
+		item_num = '${item_num}';
 		name = $("#name").text();
 		phone = $("#phone").text();
 		addr = $("#addr").text();
@@ -294,8 +295,8 @@ $(function(){
 		penaltypay2 = $("#penaltypay2").val();
 		totalPrice = '${totalPrice}';
 		size = '${size}';
-		item_num : '${item_num}';
-		
+		buy_num = '${buy_num}';
+
 		// 판매 입찰
 		if(type == "bid") {
 			
@@ -324,13 +325,13 @@ $(function(){
 		} 
 		// 즉시 판매
 		else {
-
+			
 			$.ajax({
 				type:"post",
 				url:"/sell/insertSellNow",
 				data:{
 					"item_num": item_num, 
-					"buy_num" : '${buy_num}',
+					"buy_num" : buy_num,
 				    "totalPrice": totalPrice,
 				    "name": name,
 				    "phone": phone,
@@ -343,7 +344,12 @@ $(function(){
 				success:function(res){
 					alert(res+"님 판매 접수가 완료 되었습니다");
 					location.href="/user/myPage";
-				}
+				}, 
+				error: function (request, status, error) {
+                    console.log("code: " + request.status)
+                    console.log("message: " + request.responseText)
+                    console.log("error: " + error);
+                }
 			});
 			
 		}

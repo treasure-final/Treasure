@@ -20,7 +20,13 @@ public class DetailController {
 	DetailService Dservice;
 
 	@GetMapping("/item/detail")
-	public ModelAndView detail(String item_num, String item_wishprice,Model model) {
+	public String detail(String item_num,Model model) {
+		model.addAttribute("item_num",item_num);
+		return "/3/item/detail";
+	}
+
+	@GetMapping("/item/DetailgetData")
+	public ModelAndView DetailgetData(String Item_num) {
 		ModelAndView mview = new ModelAndView();
 
 		List<ItemDto> list = Dservice.getAllData();

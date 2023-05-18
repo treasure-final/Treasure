@@ -285,7 +285,7 @@ $(function(){
 	$("#sell-next").click(function(){
 		
 		var name=$("#name").text();
-		var hp=$("#hp").text();
+		var phone=$("#phone").text();
 		var addr=$("#addr").text();
 		var account1=$("#account1").val();
 		var account2=$("#account2").val();
@@ -302,7 +302,7 @@ $(function(){
 			    "hopePrice": "${hopePrice}",
 			    "deadline": "${deadline}",
 			    "name": name,
-			    "hp": hp,
+			    "phone": phone,
 			    "addr": addr,
 			    "account1": account1,
 			    "account2": account2,
@@ -365,7 +365,7 @@ $(function(){
                 </tr>
                 <tr>
                     <td class="left-td">연락처</td>
-                    <td class="right-td" id="hp">${userDto.user_hp }</td>
+                    <td class="right-td" id="phone">${userDto.user_hp }</td>
                 </tr>
                 <tr>
                     <td class="left-td">배송 주소</td>

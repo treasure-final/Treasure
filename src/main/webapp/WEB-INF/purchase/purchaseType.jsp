@@ -144,7 +144,6 @@
                 .css("color", "black");
 
             $("#buy-bid").click(function () {
-                buyWay = "bid";
                 $("#result-immediate").hide();
                 $("#result-bid").show();
                 $("#buy-immediate").css("background-color", "#e3e3e3")
@@ -154,7 +153,6 @@
             });
 
             $("#buy-immediate").click(function () {
-                buyWay = "immediate";
                 $("#result-bid").hide();
                 $("#result-immediate").show();
                 $("#buy-bid").css("background-color", "#e3e3e3")
@@ -259,7 +257,6 @@
         }
 
         function changePage() {
-            buyWay = "immediate";
             $("#result-bid").hide();
             $("#result-immediate").show();
             $("#buy-bid").css("background-color", "#e3e3e3")

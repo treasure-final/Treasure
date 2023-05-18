@@ -138,16 +138,30 @@
     </style>
     <script>
         $(function () {
-            $("#result-bid").hide();
+            if("${price}"=="구매입찰") {
+                $("#buy-immediate").attr("disabled", true);
+                $("#buy-immediate").css("background-color", "#e3e3e3");
+                $("#buy-immediate").css("cursor", "unset");
+            }else {
+                $("#buy-bid").css("background-color", "#e3e3e3")
+                    .css("color", "black");
+            }
+            if("${price}"=="구매입찰") {
+                $("#result-immediate").hide();
+                $("#result-bid").show();
+            }else {
+                $("#result-bid").hide();
+            }
             $("#inputError").hide();
-            $("#buy-bid").css("background-color", "#e3e3e3")
-                .css("color", "black");
+
 
             $("#buy-bid").click(function () {
                 $("#result-immediate").hide();
                 $("#result-bid").show();
-                $("#buy-immediate").css("background-color", "#e3e3e3")
-                    .css("color", "black");
+                if("${price}"!="구매입찰") {
+                    $("#buy-immediate").css("background-color", "#e3e3e3")
+                        .css("color", "black");
+                }
                 $("#buy-bid").css("background-color", " #ef6253")
                     .css("color", "#fff");
             });

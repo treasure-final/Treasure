@@ -16,6 +16,7 @@ import boot.mvc.item.ItemDto;
 @Controller
 public class DetailController {
 
+
    @Autowired
    DetailService Dservice;
 

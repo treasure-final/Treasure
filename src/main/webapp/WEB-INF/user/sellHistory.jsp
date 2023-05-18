@@ -119,7 +119,8 @@ div.main {
 
 
 .sellTable tr {
-  height: 120px;
+  height: 150px;
+  border-bottom: 1px solid #D2D2D2;
 }
 
 .sellImg{
@@ -174,12 +175,31 @@ div.main {
     <div class="hr"></div>
     
     <table class="sellTable">
-	    <tr style="height: 30px; text-align: left; opacity: 0.4; font-size: 15px;">
-	    	<th style="width: 700px;"><span style="margin-left: 15px;">상품</span></th>
-	    	<th style="width: 200px;"><span style="margin-left: 15px;">판매일</span></th>
-	    	<th style="width: 150px;"><span style="margin-left: 15px;">검수현황</span></th>
-	    	<th style="width: 150px;"><span style="margin-left: 15px;">상태</span></th>
+	    <tr style="height: 30px; text-align: left; opacity: 0.4; font-size: 14px; border-bottom: 0px;">
+	    	<th style="width: 700px; font-weight: normal;"><span style="margin-left: 15px;"><i></i></span></th>
+	    	<th style="width: 200px; font-weight: normal;"><span style="margin-left: 15px;"><i>판매일</i></span></th>
+	    	<th style="width: 150px; font-weight: normal;"><span style="margin-left: 15px;"><i>검수현황</i></span></th>
+	    	<th style="width: 150px; font-weight: normal;"><span style="margin-left: 15px;"><i>상태</i></span></th>
 	    </tr>
+	    
+	    <tr>
+	    	<td>
+		    	<div style="display: flex; font-size: 15px;">
+		    		<img class="sellImg" src="../img/item_image/16.png">
+		    		<div class="sellDescription">
+			    		<div>Arc'teryx Atom LT Hoody Black</div>
+			    		<div>아크테릭스 아톰 LT 후디 블랙</div>
+			    		<div>XL</div>
+		    		</div>
+		    	</div>
+	    	</td>
+	   
+	    	<td style="font-size: 16px;"><div>2023.05.17</div> </td>
+	   
+	    	<td style="font-size: 16px;"><div>합격</div></td>
+	         
+	    	<td style="font-size: 16px;"><div>판매대기</div></td>
+	    </tr>   
 	    
 	    <tr>
 	    	<td>

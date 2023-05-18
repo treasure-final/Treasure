@@ -17,7 +17,7 @@ public class DetailController {
 	@GetMapping("/item/detail")
 	public String detail(String item_num,Model model) {
 		model.addAttribute("item_num",item_num);
-		return "/item/detail";
+		return "/3/item/detail";
 	}
 
 	@GetMapping("/item/DetailgetData")
@@ -28,7 +28,7 @@ public class DetailController {
 
 		mview.addObject("Ddto", dto);
 
-		mview.setViewName("/item/detail");
+		mview.setViewName("/3/item/detail");
 
 		return mview;
 	}

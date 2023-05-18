@@ -390,4 +390,11 @@ public class UserController {
         }
         return checkEmail;
     }
+    
+    @GetMapping("/user/sellHistory")
+    public String sellHistory(Model model, HttpSession session) {
+    	
+    	return "/user/sellHistory";
+    	
+    }
 }

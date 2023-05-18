@@ -15,4 +15,9 @@
 		select LAST_INSERT_ID()
 	</select>
 
+	<!-- 판매 입찰 가격 조회 -->
+	<select id="getSellPriceListByitemNum" parameterType="String" resultType="SellBidDto">
+		select * from sell_bid where item_num=#{item_num}
+	</select>
+
 </mapper>

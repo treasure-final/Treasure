@@ -1,5 +1,6 @@
 package boot.mvc.sell_bid;
 
+import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpSession;
@@ -43,14 +44,20 @@ public class SellBidController {
    @Autowired
    SellTotalService sellTotalService;
    
+   @Autowired
+   SellBidService sellBidService;
+   
    @GetMapping("/sell/sellSize")
    public String sellSizeForm(Model model, @RequestParam("item_num") String item_num) {
       
       ItemDto itemDto=itemService.getItemData(item_num);
       
+      List<SellBidDto> list = sellBidService.getSellPriceListByitemNum(item_num);
+      
+      model.addAttribute("list", list);
       model.addAttribute("itemDto", itemDto);
       model.addAttribute("item_num", item_num);
-      System.out.println(item_num);
+      // System.out.println(item_num);
             
       return "/sell/sellSize";
    }

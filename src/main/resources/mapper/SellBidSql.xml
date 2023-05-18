@@ -10,4 +10,10 @@
       values (#{user_num},#{item_num},#{sell_account},#{sell_penaltypay},#{sell_wishprice},#{sell_totalprice},#{sell_size},#{sell_deadline},#{sell_addr},#{sell_status},#{test_result},now())
    </insert>
    
+   	<!-- 방금 insert된 sell_num 가져오기 -->
+	<select id="getNowinsertSellBidNum" resultType="String">
+		select LAST_INSERT_ID()
+	</select>
+   
+   
 </mapper>

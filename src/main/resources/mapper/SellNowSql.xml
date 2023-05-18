@@ -6,7 +6,7 @@
 
 	<!-- 즉시판매 insert -->
 	<insert id="insertSellNow" parameterType="SellNowDto">
-		insert into sell_now values(null, #{user_num}, #{item_num}, #{buy_num}, #{sellnow_totalprice}, #{sellnow_account}, #{sellnow_penaltypay}, #{sellnow_addr}, #{sell_status}, #{test_result})
+		insert into sell_now values(null, #{user_num}, #{item_num}, #{buy_num}, #{sellnow_totalprice}, #{sellnow_account}, #{sellnow_penaltypay}, #{sellnow_addr}, #{sell_status}, #{test_result}, now())
 	</insert>
 
 	<!-- 방금 insert된 sellNow_num 가져오기 -->

@@ -208,10 +208,21 @@ div.main {
 	$(function() {
 		var totalPrice;
 		
+		sellNowPrice = '${sellNowPrice }';
+		
+		if(sellNowPrice == 0) {
+			$("#result-immediate").hide();
+			$("#result-bid").show();
+			$("#sell-immediate").attr("disabled", "disabled");
+			$("#sell-immediate").css("background-color", "#e3e3e3").css("color", "black");
+			
+		} else {
+			$("#sell-bid").css("background-color", "#e3e3e3").css("color", "black");
+			$("#result-bid").hide();
+		}
+		
 		calculatePrice("sell-immediate", $("#immediatePrice").text());
 		
-		$("#result-bid").hide();
-		$("#sell-bid").css("background-color", "#e3e3e3").css("color", "black");
 		$("#sell-bid").click(
 				function() {
 					$("#result-immediate").hide();
@@ -223,6 +234,7 @@ div.main {
 					
 					$("#hopePrice").val("");
 					$(".feeResult").text("-원");
+					$(".totalPrice").text("-원");
 				});
 		$("#sell-immediate").click(
 				function() {
@@ -233,7 +245,7 @@ div.main {
 					$("#sell-immediate").css("background-color", " #ef6253")
 							.css("color", "#fff");
 					
-					$(".feeResult").text("-원");					
+					$(".totalPrice").text("-원");					
 					calculatePrice("sell-immediate", $("#immediatePrice").text());
 				});
 		$(".deadline").click(function() {
@@ -254,9 +266,7 @@ div.main {
 			$("#deadline-day").text(day);
 			$("#deadline-date").text(deadDay);
 		});
-		
-		
-		
+
 	});
 
 	function inputNumberFormat(obj) {
@@ -274,13 +284,14 @@ div.main {
 	}
 		
 	function calculatePrice(type, obj) {
-	
+
 		if(type == "sell-bid") {
 			price = parseFloat(obj.value.replace(/[^0-9]/g, ''));
-			
+				
 			if(isNaN(price)) {	      
 		        return;
 		    }
+			
 		} else if(type == "sell-immediate"){
 			price = parseFloat(obj.replace(/[^0-9]/g, ''));
 		} 
@@ -321,7 +332,15 @@ div.main {
             </div>
             <div class="price-info" align="center" style="border-left: 1px solid #b9b9b9">
                 <div style="opacity: 0.7; font-size: 14px;">즉시 판매가</div>
-                <fmt:formatNumber value="${sellNowPrice }" type="number"/>원
+                
+                <c:if test="${sellNowPrice == 0}">
+                	-원
+                </c:if>
+                
+                <c:if test="${sellNowPrice != 0}">
+                	<fmt:formatNumber value="${sellNowPrice }" type="number"/>원
+                </c:if>
+                
             </div>
             <div id="typeBtn"
                  style="margin-left: 7px; background-color: #e3e3e3; height: 55px; margin-top: 100px; margin-right: 10px; border-radius: 25px">
@@ -417,17 +436,21 @@ $(".sell-back").click(function(){
 	 function moveOrderPage(type) {
          totalPrice = $("#totalPrice_").val();
          buy_num = '${buy_num}';
-         
+         item_num = '${item_num}';
          if(type == "bid") {
 	         var hopePrice = uncomma($("#hopePrice").val());
 	         var selectedDeadline = $(".deadline.selected");
 	         var deadline = parseInt(selectedDeadline.attr("day"));
 	         
+	         if(hopePrice==null || hopePrice==""){
+	             alert("희망가를 입력해주세요");
+	             return;
+	          }
+	         
 	         if (isNaN(deadline)) {
 	             alert("마감 기한을 선택해주세요.");
 	             return;
 	         }
-	         
 	         location.href = '/sell/sellCalculate?type=' + type + '&item_num=${item_num}&size=${size}&hopePrice='+hopePrice+'&deadline='+deadline+"&totalPrice="+totalPrice;
 	         
          } else 

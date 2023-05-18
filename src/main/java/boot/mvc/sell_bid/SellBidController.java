@@ -20,6 +20,8 @@ import boot.mvc.item.ItemDto;
 import boot.mvc.item.ItemService;
 import boot.mvc.item.ItemServiceInter;
 import boot.mvc.sell_now.SellNowService;
+import boot.mvc.sell_total.SellTotalDto;
+import boot.mvc.sell_total.SellTotalService;
 import boot.mvc.user.UserDto;
 import boot.mvc.user.UserService;
 
@@ -37,6 +39,9 @@ public class SellBidController {
    
    @Autowired
    BuyBidService buyBidService;
+   
+   @Autowired
+   SellTotalService sellTotalService;
    
    @GetMapping("/sell/sellSize")
    public String sellSizeForm(Model model, @RequestParam("item_num") String item_num) {
@@ -67,7 +72,7 @@ public class SellBidController {
    }
    
    @GetMapping("/sell/sellType")
-   public ModelAndView sellTypeForm(String size, Model model, @RequestParam("item_num") String item_num) {
+   public ModelAndView sellTypeForm(String size, @RequestParam String item_num) {
 
       ModelAndView mview=new ModelAndView();
       
@@ -75,14 +80,21 @@ public class SellBidController {
       
       // 즉시 판매 시 필요한 buyBidDto
       BuyBidDto buyBidDto = buyBidService.getBuyBidForSellNow(item_num, size);
-      String buy_num = buyBidDto.getBuy_num();
-      int sellNowPrice = Integer.parseInt(buyBidDto.getBuy_wishprice());
+      int sellNowPrice = 0;
       
-      model.addAttribute("itemDto", itemDto);
-      model.addAttribute("item_num", item_num);
+      if(buyBidDto != null) {
+	      
+	      String buy_num = buyBidDto.getBuy_num();
+	      sellNowPrice = Integer.parseInt(buyBidDto.getBuy_wishprice());
+	      
+	      mview.addObject("buy_num", buy_num);
+	      
+	      mview.addObject("itemDto", itemDto);
+	      
+	  }
       
-      mview.addObject("buy_num", buy_num);
-      mview.addObject("sellNowPrice", sellNowPrice);
+      mview.addObject("item_num", item_num); 
+	  mview.addObject("sellNowPrice", sellNowPrice);
       mview.addObject("size", size);
       
       mview.setViewName("/sell/sellType");
@@ -98,7 +110,7 @@ public class SellBidController {
 		   @RequestParam(required = false) String buy_num,
 		   @RequestParam String size, 
 		   @RequestParam(required = false)String deadline, 
-		   @RequestParam("item_num") String item_num) {
+		   @RequestParam String item_num) {
       
       ModelAndView mview=new ModelAndView();
       
@@ -172,7 +184,16 @@ public class SellBidController {
         sellBidDto.setTest_result(test_result);
         
         service.insertSellBid(sellBidDto);
-
+        String sell_num = service.getNowinsertSellBidNum();
+        
+        // 전체 판매 insert
+        SellTotalDto sellTotalDto = new SellTotalDto();
+        
+        sellTotalDto.setUser_num(user_num);
+        sellTotalDto.setSell_num(sell_num);        
+        
+        sellTotalService.insertSellNow(sellTotalDto);
+        
         return loginEmail;
       
    }

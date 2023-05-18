@@ -5,7 +5,7 @@
 <mapper namespace="boot.mvc.purchase.PurchaseMapperInter">
 
 	<insert id="insertPurchase" parameterType="PurchaseDto">
-		insert into purchase values(null, #{item_num}, #{purchase_buy}, #{purchase_sell}, #{buybid_num}, #{purchase_addr}, #{purchase_price}, #{purchase_delivery}, #{purchase_total_price}, now())
+		insert into purchase values(null, #{item_num}, #{buy_bid_num}, #{selltotal_num}, #{purchase_addr}, #{purchase_wishprice}, #{purchase_delivery}, #{purchase_total_price}, ${purchase_status}, now())
 	</insert>
 	
 </mapper>

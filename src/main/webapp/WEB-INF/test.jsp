@@ -67,7 +67,7 @@
                     <!-- ***** Menu Start ***** -->
                     <ul class="nav">
                         <li><a href="index.html" class="active">Home</a></li>
-                        <li><a href="browse.html">Browse</a></li>
+                        <li><a href="agreeForm">동의폼~</a></li>
                         <li><a href="details.html">Details</a></li>
                         <c:set var="loginOk" value="${sessionScope.loginOk}"></c:set>
                         <c:if test="${empty loginOk}">

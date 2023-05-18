@@ -13,24 +13,38 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- Remember to include jQuery :) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+
+<!-- jQuery Modal -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+
+
 
 
 <title>Treasure</title>
 
 <style type="text/css">
 @font-face {
-  font-family: "GmarketSansMedium";
-
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
-    format("woff");
-  font-weight: normal;
-  font-style: normal;
+	font-family: "GmarketSansMedium";
+	src:
+		url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+		format("woff");
+	font-weight: normal;
 }
 
 *{
+font-family: "GmarketSansMedium";
+}
+
+div.main {
+	font-family: "GmarketSansMedium";
+	font-size: 13px;
 	padding: 0;
 	margin: 0;
 	border: none;
+	color: black;
 }
 
 body {
@@ -45,6 +59,7 @@ body {
 	box-sizing: border-box;
 	justify-content: center;
 	margin: auto;
+	margin-top: 20px;
 }
 
 .join-wrapper>h2{
@@ -64,7 +79,7 @@ body {
 	opacity: 0.5;
 }
 
-#join-form>input{
+#join-form>input {
 	width: 100%;
 	height: 48px;
 	padding: 0 10px;
@@ -74,12 +89,11 @@ body {
 	background-color: #F8F8F8;
 }
 
-
-#join-form > input::placeholder{
+#join-form>input::placeholder {
 	color: #D2D2D2;
 }
 
-#join-form > input[type="submit"]{
+#join-form>input[type="submit"] {
 	color: #fff;
 	font-size: 16px;
 	background-color: #999999;
@@ -141,10 +155,9 @@ input[id="agree1"]:checked + label::after,input[id="agree2"]:checked + label::af
 	border: 1px solid #747f55;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
 }
 
 .addrnumber{
@@ -178,7 +191,7 @@ input::-webkit-inner-spin-button {
 	border: 1px solid #747f55;
 }
 
-.kakaoaddr>input{
+.kakaoaddr>input {
 	width: 100%;
 	height: 48px;
 	box-sizing: border-box;
@@ -208,13 +221,11 @@ input::-webkit-inner-spin-button {
 }
 </style>
 
-
-
 </head>
 <body>
 	<div class="join-wrapper">
-	<h2>TREASURE</h2>
-	<h3>회원가입</h3>
+	<h2><i>회원가입</i></h2>
+	
 	<form action="joinInsert" method="post" id="join-form">
 		이메일 주소
 		<input type="email" name="user_email" id="user_email" placeholder="로그인시 사용 할 이메일 입력해주세요" required="required" autofocus="autofocus" onkeyup="keyevent()">
@@ -414,6 +425,7 @@ input::-webkit-inner-spin-button {
          }
      }).open();
  }
+
 </script>
 
 <!--개인정보 이용약관 모달  -->

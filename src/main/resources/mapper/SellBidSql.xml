@@ -3,5 +3,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="boot.mvc.sell_bid.SellBidMapperInter">
-	
+
+   <!-- 판매입찰 insert -->
+   <insert id="insertSellBid" parameterType="SellBidDto">
+      insert into sell_bid (user_num, item_num, sell_account, sell_penaltypay, sell_wishprice, sell_totalprice, sell_size, sell_deadline, sell_addr, sell_status, test_result, sell_inputday)
+      values (#{user_num},#{item_num},#{sell_account},#{sell_penaltypay},#{sell_wishprice},#{sell_totalprice},#{sell_size},#{sell_deadline},#{sell_addr},#{sell_status},#{test_result},now())
+   </insert>
+   
 </mapper>

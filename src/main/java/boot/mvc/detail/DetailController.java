@@ -27,11 +27,16 @@ public class DetailController {
 		ItemDto dto = Dservice.DetailgetData(item_num);
 		List<Map<String, Object>> groupedBuyData = Dservice.getBuyBidGroupedData(item_num);
 		List<Map<String, Object>> groupedSellData = Dservice.getSellBidGroupedData(item_num);
+		List<Map<String, Object>> getPurchaseData = Dservice.getPurchaseData();
+		String getPurchaseRecentPriceAll = Dservice.getPurchaseRecentPriceAll(item_num);
+		
 
 		mview.addObject("list", list);
 		mview.addObject("Ddto", dto);
 		mview.addObject("groupedBuyData", groupedBuyData);
 		mview.addObject("groupedSellData", groupedSellData);
+		mview.addObject("getPurchaseData", getPurchaseData);
+		mview.addObject("getPurchaseRecentPriceAll", getPurchaseRecentPriceAll);
 
 		mview.setViewName("/3/item/detail");
 

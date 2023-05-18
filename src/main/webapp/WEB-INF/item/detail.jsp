@@ -2,6 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page import="java.time.LocalDateTime"%>
+<%@ page import="java.time.format.DateTimeFormatter"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -307,7 +309,7 @@ div.main {
 										</div>
 										<div class="heading-section col-3">
 											<span style="font-size: 1.1em; float: right;">
-												<b>224,000</b>
+												<b>${getPurchaseRecentPriceAll }</b>
 												<b>원</b>
 											</span>
 											<span style="font-size: 0.8em; float: right; color: green">
@@ -375,8 +377,8 @@ div.main {
 												</ul>
 												<div class="tab-content">
 													<div class="tab-pane fade show active" id="onemonth" role="tabpanel">
-														<div style="width: 100%; height: 200px; margin-left: 100px">
-															<canvas id="myChart1"></canvas>
+														<div style="width: 550px; margin-left: 0px">
+															<canvas id="myChart1" height="100"></canvas>
 														</div>
 														<script>
 															function addZero(i) {
@@ -410,6 +412,7 @@ div.main {
 																},
 
 																options : {
+																	responsive : false,
 																	scales : {
 																		x : {
 																			ticks : {
@@ -441,8 +444,8 @@ div.main {
 														</script>
 													</div>
 													<div class="tab-pane fade" id="threemonth" role="tabpanel">
-														<div>
-															<canvas id="myChart3"></canvas>
+														<div style="width: 550px; margin-left: 0px">
+															<canvas id="myChart3" height="100"></canvas>
 														</div>
 														<script>
 															function addZero(i) {
@@ -476,6 +479,7 @@ div.main {
 																},
 
 																options : {
+																	responsive : false,
 																	scales : {
 																		x : {
 																			ticks : {
@@ -507,8 +511,8 @@ div.main {
 														</script>
 													</div>
 													<div class="tab-pane fade" id="sixmonth" role="tabpanel">
-														<div>
-															<canvas id="myChart6"></canvas>
+														<div style="width: 550px; margin-left: 0px">
+															<canvas id="myChart6" height="100"></canvas>
 														</div>
 														<script>
 															function addZero(i) {
@@ -542,6 +546,7 @@ div.main {
 																},
 
 																options : {
+																	responsive : false,
 																	scales : {
 																		x : {
 																			ticks : {
@@ -573,8 +578,8 @@ div.main {
 														</script>
 													</div>
 													<div class="tab-pane fade" id="oneyear" role="tabpanel">
-														<div>
-															<canvas id="myChart12"></canvas>
+														<div style="width: 550px; margin-left: 0px">
+															<canvas id="myChart12" height="100"></canvas>
 														</div>
 														<script>
 															function addZero(i) {
@@ -608,6 +613,7 @@ div.main {
 																},
 
 																options : {
+																	responsive : false,
 																	scales : {
 																		x : {
 																			ticks : {
@@ -639,8 +645,8 @@ div.main {
 														</script>
 													</div>
 													<div class="tab-pane fade" id="all" role="tabpanel">
-														<div>
-															<canvas id="myChartAll"></canvas>
+														<div style="width: 550px; margin-left: 0px">
+															<canvas id="myChartAll" height="100"></canvas>
 														</div>
 														<script>
 															function addZero(i) {
@@ -674,6 +680,7 @@ div.main {
 																},
 
 																options : {
+																	responsive : false,
 																	scales : {
 																		x : {
 																			ticks : {
@@ -735,27 +742,48 @@ div.main {
 												<div class="tab-content">
 													<div class="tab-pane fade show active" id="deal" role="tabpanel">
 														<div class="p-2 mb-1" style="height: 17vh;">
-															<div class="d-flex" style="padding: 5px">
+															<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
 																<div class="col-6">
-																	<span style="font-size: 0.8em; color: #a0a0a0;">사이즈</span>
+																	<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 20px">사이즈</span>
 																</div>
 																<div class="col-3">
-																	<span style="font-size: 0.8em; color: #a0a0a0;">거래가</span>
+																	<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 35px">거래가</span>
 																</div>
 																<div class="col-3">
-																	<span style="font-size: 0.8em; color: #a0a0a0;">거래일</span>
+																	<span style="font-size: 0.8em; color: #a0a0a0; margin-left: 30px">거래일</span>
 																</div>
 															</div>
 															<hr class="mt-0 mb-0">
-															<div class="d-flex" style="padding: 5px">
+															<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
 																<div class="col-6">
-																	<span style="font-size: 0.9em; color: #666;">265</span>
+																	<c:forEach items="${getPurchaseData }" var="p" end="4">
+																		<span style="font-size: 0.9em; color: #666; margin-right: 25px">${p.buy_size }</span>
+																		<br>
+																	</c:forEach>
+																	<br>
 																</div>
-																<div class="col-3">
-																	<span style="font-size: 0.9em; color: #666;">174,000원</span>
+																<div class="col-4">
+																	<c:forEach items="${getPurchaseData }" var="p" end="4">
+																		<span style="font-size: 0.9em; color: #666; float: right; margin-right: 80px">
+																			<fmt:formatNumber value="${p.purchase_total_price }">
+																			</fmt:formatNumber>
+																			원
+																		</span>
+																		<br>
+																	</c:forEach>
+																	<br>
 																</div>
-																<div class="col-3">
-																	<span style="font-size: 0.9em; color: #666;">23/05/02</span>
+																<div class="col-2">
+																	<c:forEach items="${getPurchaseData }" var="p" end="4">
+																		<span style="font-size: 0.9em; color: #666; margin-right: 30px">
+																			<fmt:parseDate var="dateFormatter" value="${p.purchase_date}"
+																				pattern="yyyy-MM-dd'T'HH:mm:ss"
+																			/>
+																			<fmt:formatDate value="${dateFormatter }" pattern="yyyy/MM/dd" />
+																		</span>
+																		<br>
+																	</c:forEach>
+																	<br>
 																</div>
 															</div>
 														</div>
@@ -767,36 +795,42 @@ div.main {
 													</div>
 													<div class="tab-pane fade" id="sellBid" role="tabpanel">
 														<div class="p-2 mb-1" style="height: 17vh;">
-															<div class="d-flex" style="padding: 5px">
+															<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
 																<div class="col-6">
-																	<span style="font-size: 0.8em; color: #a0a0a0;">사이즈</span>
+																	<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 20px">사이즈</span>
 																</div>
 																<div class="col-4">
-																	<span style="font-size: 0.8em; color: #a0a0a0;">판매 희망가</span>
+																	<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 60px">판매 희망가</span>
 																</div>
 																<div class="col-2">
 																	<span style="font-size: 0.8em; color: #a0a0a0;">수량</span>
 																</div>
 															</div>
 															<hr class="mt-0 mb-0">
-															<div class="d-flex" style="padding: 5px;">
+															<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
 																<div class="col-6">
-																<c:forEach items="${groupedSellData }" var="s" end="4">
-																		<span style="font-size: 0.9em; color: #666;">${s.sell_size }</span><br>
-																</c:forEach>
-																	
+																	<c:forEach items="${groupedSellData }" var="s" end="4">
+																		<span style="font-size: 0.9em; color: #666; margin-right: 25px">${s.sell_size }</span>
+																		<br>
+																	</c:forEach>
 																	<br>
 																</div>
 																<div class="col-4">
 																	<c:forEach items="${groupedSellData }" var="s" end="4">
-																		<span style="font-size: 0.9em; color: #666;">${s.sell_wishprice }</span><br>
-																</c:forEach>
+																		<span style="font-size: 0.9em; color: #666; float: right; margin-right: 80px">
+																			<fmt:formatNumber value="${s.sell_wishprice }">
+																			</fmt:formatNumber>
+																			원
+																		</span>
+																		<br>
+																	</c:forEach>
 																	<br>
 																</div>
 																<div class="col-2">
 																	<c:forEach items="${groupedSellData }" var="s" end="4">
-																		<span style="font-size: 0.9em; color: #666;">${s.count }</span><br>
-																</c:forEach>
+																		<span style="font-size: 0.9em; color: #666; margin-right: 0px">${s.count }</span>
+																		<br>
+																	</c:forEach>
 																	<br>
 																</div>
 															</div>
@@ -809,36 +843,42 @@ div.main {
 													</div>
 													<div class="tab-pane fade" id="buyBid" role="tabpanel">
 														<div class="p-2 mb-1" style="height: 17vh;">
-															<div class="d-flex" style="padding: 5px">
+															<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
 																<div class="col-6">
-																	<span style="font-size: 0.8em; color: #a0a0a0;">사이즈</span>
+																	<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 20px">사이즈</span>
 																</div>
 																<div class="col-4">
-																	<span style="font-size: 0.8em; color: #a0a0a0;">구매 희망가</span>
+																	<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 60px">구매 희망가</span>
 																</div>
 																<div class="col-2">
 																	<span style="font-size: 0.8em; color: #a0a0a0;">수량</span>
 																</div>
 															</div>
 															<hr class="mt-0 mb-0">
-															<div class="d-flex" style="padding: 5px;">
+															<div class="d-flex" style="padding: 5px; text-align: center;">
 																<div class="col-6">
-																<c:forEach items="${groupedBuyData }" var="g" end="4">
-																		<span style="font-size: 0.9em; color: #666;">${g.buy_size }</span><br>
-																</c:forEach>
-																	
+																	<c:forEach items="${groupedBuyData }" var="g" end="4">
+																		<span style="font-size: 0.9em; color: #666; margin-right: 30px">${g.buy_size }</span>
+																		<br>
+																	</c:forEach>
 																	<br>
 																</div>
 																<div class="col-4">
 																	<c:forEach items="${groupedBuyData }" var="g" end="4">
-																		<span style="font-size: 0.9em; color: #666;">${g.buy_wishprice }</span><br>
-																</c:forEach>
+																		<span style="font-size: 0.9em; color: #666; float: right; margin-right: 100px">
+																			<fmt:formatNumber value="${g.buy_wishprice }">
+																			</fmt:formatNumber>
+																			원
+																		</span>
+																		<br>
+																	</c:forEach>
 																	<br>
 																</div>
 																<div class="col-2">
 																	<c:forEach items="${groupedBuyData }" var="g" end="4">
-																		<span style="font-size: 0.9em; color: #666;">${g.count }</span><br>
-																</c:forEach>
+																		<span style="font-size: 0.9em; color: #666; margin-right: 30px">${g.count }</span>
+																		<br>
+																	</c:forEach>
 																	<br>
 																</div>
 															</div>
@@ -1230,7 +1270,7 @@ div.main {
 				>
 					<a href=''>
 						<img alt="" src="/assets/images/${a.item_image }"
-							style="border: 1px solid gray; height: 200px; width: 212px;"
+							style="border: 1px solid gray; border-radius: 10px; height: 200px; width: 212px;"
 						>
 					</a>
 				</c:if>
@@ -1244,35 +1284,35 @@ div.main {
 				</span>
 			</div>
 		</div>
-		<div class="mt-4 mb-lg-5" style="border: 1px solid gray; height: 89vh;">
+		<div class="mt-4 mb-lg-5" style="height: 89vh;">
 			<a href=''>
 				<img alt="" src="/assets/images/8.png"
-					style="border: 1px solid gray; height: 200px; width: 212px;"
+					style="border: 1px solid gray; border-radius: 10px; height: 200px; width: 212px;"
 				>
 			</a>
 			<a href=''>
 				<img alt="" src="/assets/images/9.png"
-					style="border: 1px solid gray; height: 200px; width: 212px;"
+					style="border: 1px solid gray; border-radius: 10px; height: 200px; width: 212px;"
 				>
 			</a>
 			<a href=''>
 				<img alt="" src="/assets/images/10.png"
-					style="border: 1px solid gray; height: 200px; width: 212px;"
+					style="border: 1px solid gray; border-radius: 10px; height: 200px; width: 212px;"
 				>
 			</a>
 			<a href=''>
 				<img alt="" src="/assets/images/11.png"
-					style="border: 1px solid gray; height: 200px; width: 212px;"
+					style="border: 1px solid gray; border-radius: 10px; height: 200px; width: 212px;"
 				>
 			</a>
 			<a href=''>
 				<img alt="" src="/assets/images/12.png"
-					style="border: 1px solid gray; height: 200px; width: 212px;"
+					style="border: 1px solid gray; border-radius: 10px; height: 200px; width: 212px;"
 				>
 			</a>
 			<a href=''>
 				<img alt="" src="/assets/images/13.png"
-					style="border: 1px solid gray; height: 200px; width: 212px;"
+					style="border: 1px solid gray; border-radius: 10px; height: 200px; width: 212px;"
 				>
 			</a>
 		</div>

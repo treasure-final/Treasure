@@ -29,7 +29,7 @@ public class PurchaseController {
         ItemDto dto=itemService.getItemData(item_num);
         List<SellBidDto> buyNowPrice=service.getBuyNowPrice(item_num);
         System.out.println(buyNowPrice.size());
-//        System.out.println(item_num);
+//      System.out.println(item_num);
 
         mv.addObject("item_num",item_num);
         mv.addObject("dto",dto);
@@ -41,13 +41,14 @@ public class PurchaseController {
 
     //구매 동의
     @GetMapping("/buy/check")
-    public ModelAndView buyAgree(String item_num, String size, String deliveryWay) {
+    public ModelAndView buyAgree(String item_num, String size, String deliveryWay, String price) {
         ModelAndView mv = new ModelAndView();
 
         ItemDto dto=itemService.getItemData(item_num);
         mv.addObject("dto", dto);
         mv.addObject("size", size);
         mv.addObject("deliveryWay", deliveryWay);
+        mv.addObject("price", price.substring(3, price.length()));
 //        System.out.println(size);
 
         mv.setViewName("/purchase/purchaseAgree");
@@ -56,13 +57,14 @@ public class PurchaseController {
 
     //구매입찰/즉시구매 선택
     @GetMapping("/buy/type")
-    public ModelAndView selectType(String item_num, String size, String deliveryWay) {
+    public ModelAndView selectType(String item_num, String size, String deliveryWay,String price) {
         ModelAndView mv = new ModelAndView();
 
         ItemDto dto=itemService.getItemData(item_num);
         mv.addObject("dto", dto);
         mv.addObject("size", size);
         mv.addObject("deliveryWay", deliveryWay);
+        mv.addObject("price", price);
 
         mv.setViewName("/purchase/purchaseType");
         return mv;

@@ -147,12 +147,12 @@ img.buy_item_image {
 }
 
 span.buy_brand {
-	font-size: 15px;
+	font-size: 14px;
 	font-weight: bold;
 }
 
 span.buy_title {
-	font-size: 15px;
+	font-size: 14px;
 }
 
 span.buy_size {
@@ -167,7 +167,7 @@ div.buy_size {
 	border: 1px solid #ebebeb;
 	border-radius: 20px;
 	background-color: white;
-	width: 110px;
+	width: 140px;
 	vertical-align: middle;
 	text-align: center;
 	cursor: pointer;
@@ -202,7 +202,7 @@ div.buy_size:hover {
 		$(".buy_size").click(function() {
 			$(".buy_size").removeClass("size_active");
 			$(this).addClass("size_active");
-
+			price = $(this).text();
 			//사이즈 값 받아오기
 			size = $(this).find(':nth-child(1)').text();
 		});
@@ -220,7 +220,7 @@ div.buy_size:hover {
 					deliveryWay = "nomal"; //일반배송
 				}
 				//구매동의로 이동
-				var data = "item_num=${item_num}&size=" + size + "&deliveryWay=" + deliveryWay;
+				var data = "item_num=${item_num}&size=" + size + "&deliveryWay=" + deliveryWay + "&price=" + price;
 				location.href = "check?" + data;
 			}
 		});
@@ -235,10 +235,10 @@ div.buy_size:hover {
 		<div class="hr"></div>
 		<div style="display: flex;">
 			<img src="/img/item_image/${dto.item_image}" class="buy_item_image">
-			<div style="flex-direction: column; padding: 20px; margin-top: 30px;">
-				<span class="buy_brand">${dto.item_brandname}</span>
-				<br>
-				<span class="buy_title">${dto.item_korname}</span>
+			<div style="flex-direction: column; padding: 20px; margin-top: 55px; line-height: 22px;">
+				<span class="buy_brand">${dto.item_modelnum}</span><br>
+				<span style="font-size: 14px;">${dto.item_engname}</span><br>
+				<span class="buy_title" style="opacity: 0.6;">${dto.item_korname}</span>
 				<br>
 			</div>
 		</div>
@@ -253,7 +253,7 @@ div.buy_size:hover {
 					<c:if test="${fn:length(buyNowPriceDto) ne 0}">
 						<c:forEach items="${buyNowPriceDto}" var="buyPrice">
 							<c:if test="${buyPrice.sell_size eq size}">
-							<span class="buy_size" style="color: #ec0b00;"><fmt:formatNumber value="${buyPrice.sell_wishprice}" pattern="###,###,###"/></span>
+								<span class="buy_size" style="color: #ec0b00;"><fmt:formatNumber value="${buyPrice.sell_wishprice}" pattern="###,###,###"/></span>
 							</c:if>
 							<c:if test="${buyPrice.sell_size ne size}">
 								<span class="buy_size" style="color: black;">구매입찰</span>

@@ -13,6 +13,11 @@ public class PurchaseService implements PurchaseServiceInter {
 	PurchaseMapperInter mapper;
 
 	@Override
+	public void insertPurchase(PurchaseDto purchaseDto) {
+		mapper.insertPurchase(purchaseDto);
+	}
+	
+  @Override
 	public List<SellBidDto> getBuyNowPrice(String item_num) {
 		return mapper.getBuyNowPrice(item_num);
 	}

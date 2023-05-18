@@ -7,5 +7,8 @@ import java.util.List;
 
 @Mapper
 public interface PurchaseMapperInter {
-    public List<SellBidDto> getBuyNowPrice(String item_num);
+  
+	public void insertPurchase(PurchaseDto purchaseDto);
+  public List<SellBidDto> getBuyNowPrice(String item_num);
+
 }

@@ -13,10 +13,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import boot.mvc.buy_bid.BuyBidDto;
+import boot.mvc.buy_bid.BuyBidService;
 import boot.mvc.detail.DetailService;
 import boot.mvc.item.ItemDto;
 import boot.mvc.item.ItemService;
 import boot.mvc.item.ItemServiceInter;
+import boot.mvc.sell_now.SellNowService;
+import boot.mvc.sell_total.SellTotalDto;
+import boot.mvc.sell_total.SellTotalService;
 import boot.mvc.user.UserDto;
 import boot.mvc.user.UserService;
 
@@ -32,7 +37,11 @@ public class SellBidController {
    @Autowired
    ItemService itemService;
    
+   @Autowired
+   BuyBidService buyBidService;
    
+   @Autowired
+   SellTotalService sellTotalService;
    
    @GetMapping("/sell/sellSize")
    public String sellSizeForm(Model model, @RequestParam("item_num") String item_num) {
@@ -63,15 +72,29 @@ public class SellBidController {
    }
    
    @GetMapping("/sell/sellType")
-   public ModelAndView sellTypeForm(String size, Model model, @RequestParam("item_num") String item_num) {
+   public ModelAndView sellTypeForm(String size, @RequestParam String item_num) {
 
       ModelAndView mview=new ModelAndView();
       
       ItemDto itemDto=itemService.getItemData(item_num);
       
-      model.addAttribute("itemDto", itemDto);
-      model.addAttribute("item_num", item_num);
+      // 즉시 판매 시 필요한 buyBidDto
+      BuyBidDto buyBidDto = buyBidService.getBuyBidForSellNow(item_num, size);
+      int sellNowPrice = 0;
       
+      if(buyBidDto != null) {
+	      
+	      String buy_num = buyBidDto.getBuy_num();
+	      sellNowPrice = Integer.parseInt(buyBidDto.getBuy_wishprice());
+	      
+	      mview.addObject("buy_num", buy_num);
+	      
+	      mview.addObject("itemDto", itemDto);
+	      
+	  }
+      
+      mview.addObject("item_num", item_num); 
+	    mview.addObject("sellNowPrice", sellNowPrice);
       mview.addObject("size", size);
       
       mview.setViewName("/sell/sellType");
@@ -80,7 +103,14 @@ public class SellBidController {
    }
    
    @GetMapping("/sell/sellCalculate")
-   public ModelAndView sellCalculateForm(HttpSession session,int hopePrice, int totalPrice, String size, String deadline, @RequestParam("item_num") String item_num, Model model) {
+   public ModelAndView sellCalculateForm(HttpSession session,
+		   @RequestParam String type,
+		   @RequestParam(required = false) String hopePrice, 
+		   @RequestParam(required = false) int totalPrice, 
+		   @RequestParam(required = false) String buy_num,
+		   @RequestParam String size, 
+		   @RequestParam(required = false)String deadline, 
+		   @RequestParam String item_num) {
       
       ModelAndView mview=new ModelAndView();
       
@@ -88,19 +118,20 @@ public class SellBidController {
       
       String loginEmail = (String) session.getAttribute("loginEmail");
       String user_num = userService.findEmailUserNum(loginEmail);
-       UserDto userDto= userService.getUserNumData(user_num);
+
+      UserDto userDto= userService.getUserNumData(user_num);
       
-      model.addAttribute("itemDto", itemDto);
-      model.addAttribute("item_num", item_num);
-      model.addAttribute("userDto", userDto);
-       model.addAttribute("user_num", user_num);
+      mview.addObject("itemDto", itemDto);
+      mview.addObject("item_num", item_num);
+      mview.addObject("userDto", userDto);
+      mview.addObject("user_num", user_num);
       
+      mview.addObject("type", type);
+      mview.addObject("buy_num", buy_num);
       mview.addObject("hopePrice", hopePrice);
       mview.addObject("totalPrice", totalPrice);
       mview.addObject("size", size);
       mview.addObject("deadline", deadline);
-      
-      
       mview.setViewName("/sell/sellCalculate");
       
       return mview;
@@ -130,7 +161,7 @@ public class SellBidController {
         sellBidDto.setSell_wishprice(hopePrice);
         sellBidDto.setSell_totalprice(totalPrice);
         sellBidDto.setSell_size(size);
-        
+       
         
         // test_result 합격, 불합격 랜덤 부여
         String test_result = "";
@@ -152,6 +183,16 @@ public class SellBidController {
         
         sellBidDto.setTest_result(test_result);
         
+        service.insertSellBid(sellBidDto);
+        String sell_num = service.getNowinsertSellBidNum();
+        
+        // 전체 판매 insert
+        SellTotalDto sellTotalDto = new SellTotalDto();
+        
+        sellTotalDto.setUser_num(user_num);
+        sellTotalDto.setSell_num(sell_num);        
+        
+        sellTotalService.insertSellNow(sellTotalDto);
         service.insertSellBid(sellBidDto);
 
         return loginEmail;

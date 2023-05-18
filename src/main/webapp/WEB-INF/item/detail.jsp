@@ -309,7 +309,9 @@ div.main {
 										</div>
 										<div class="heading-section col-3">
 											<span style="font-size: 1.1em; float: right;">
-												<b>${getPurchaseRecentPriceAll }</b>
+												<b>
+													<fmt:formatNumber value="${getPurchaseRecentPriceAll }" />
+												</b>
 												<b>원</b>
 											</span>
 											<span style="font-size: 0.8em; float: right; color: green">

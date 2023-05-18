@@ -3,11 +3,15 @@ package boot.mvc.purchase;
 import boot.mvc.buy_bid.BuyBidDto;
 import boot.mvc.item.ItemDto;
 import boot.mvc.item.ItemService;
+import boot.mvc.sell_bid.SellBidDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Controller
@@ -20,11 +24,19 @@ public class PurchaseController {
 
     //구매 사이즈 선택
     @GetMapping("/buy/select")
-    public String selectSize(@RequestParam String item_num, Model model) {
+    public ModelAndView selectSize(@RequestParam String item_num) {
+        ModelAndView mv=new ModelAndView();
         ItemDto dto=itemService.getItemData(item_num);
-        model.addAttribute("item_num",item_num);
-        model.addAttribute("dto",dto);
-        return "/purchase/purchaseSize";
+        List<SellBidDto> buyNowPrice=service.getBuyNowPrice(item_num);
+        System.out.println(buyNowPrice.size());
+//        System.out.println(item_num);
+
+        mv.addObject("item_num",item_num);
+        mv.addObject("dto",dto);
+        mv.addObject("buyNowPriceDto",buyNowPrice);
+
+        mv.setViewName("/purchase/purchaseSize");
+        return mv;
     }
 
     //구매 동의

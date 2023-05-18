@@ -130,6 +130,7 @@ div.main {
 </head>
 <body>
 	<div class="container mb-5">
+		<input type="hidden" class="item_num" value=${item_num }>
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="page-content" style="padding: 1rem; height: 89vh;">
@@ -150,22 +151,22 @@ div.main {
 									</div>
 									<div class="carousel-inner">
 										<div class="carousel-item active" data-bs-interval="4000" data-bs-pause="hover">
+											<img src="/assets/images/${Ddto.item_image }" class="d-block w-100" alt="..."
+												style="position: relative; bottom: 50px"
+											>
+										</div>
+										<!-- <div class="carousel-item" data-bs-interval="4000" data-bs-pause="hover">
 											<img src="/assets/images/1.png" class="d-block w-100" alt="..."
 												style="position: relative; bottom: 50px"
 											>
+											<div class="carousel-caption d-none d-md-block"></div>
 										</div>
 										<div class="carousel-item" data-bs-interval="4000" data-bs-pause="hover">
 											<img src="/assets/images/1.png" class="d-block w-100" alt="..."
 												style="position: relative; bottom: 50px"
 											>
 											<div class="carousel-caption d-none d-md-block"></div>
-										</div>
-										<div class="carousel-item" data-bs-interval="4000" data-bs-pause="hover">
-											<img src="/assets/images/1.png" class="d-block w-100" alt="..."
-												style="position: relative; bottom: 50px"
-											>
-											<div class="carousel-caption d-none d-md-block"></div>
-										</div>
+										</div> -->
 									</div>
 									<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
 										data-bs-slide="prev"
@@ -190,13 +191,12 @@ div.main {
 									<!-- 상품명 -->
 									<div class="heading-section mt-sm-3">
 										<div style="margin-bottom: 0.5rem;">
-											<span style="font-size: 1.5em; font-weight: 600;">Nike</span>
-											<span style="font-size: 1em; font-weight: 500; margin-left: 1rem; color: #666">|&nbsp;&nbsp;&nbsp;카테고리</span>
+											<span style="font-size: 1.5em; font-weight: 600;">${Ddto.item_brandname }</span>
+											<span style="font-size: 1em; font-weight: 500; margin-left: 1rem; color: #666">|&nbsp;&nbsp;&nbsp;${Ddto.item_category}</span>
 										</div>
-										<span style="font-size: 1.2em; font-weight: 600;">Nike x Peaceminusone Kwondo 1
-											Black and White</span>
+										<span style="font-size: 1.2em; font-weight: 600;">${Ddto.item_engname }</span>
 										<br>
-										<span style="font-size: 1.1em; color: #666;">나이키 x 피스마이너스원 퀀도1 블랙 앤 화이트</span>
+										<span style="font-size: 1.1em; color: #666;">${Ddto.item_korname }</span>
 									</div>
 									<hr>
 									<!-- 모델 번호, 출시일 ... -->
@@ -204,19 +204,19 @@ div.main {
 										<div class="heading-section col-5">
 											<div class="row mb-4">
 												<span style="font-size: 1.1em; color: #666;">모델 번호</span>
-												<span style="font-size: 1.2em; font-weight: 600;">DH2482-101</span>
+												<span style="font-size: 1.2em; font-weight: 600;">${Ddto.item_modelnum }</span>
 											</div>
 											<div class="row mb-4">
 												<span style="font-size: 1.1em; color: #666;">출시일</span>
-												<span style="font-size: 1.2em; font-weight: 500;">23/04/11</span>
+												<span style="font-size: 1.2em; font-weight: 500;">${Ddto.item_releaseday}</span>
 											</div>
 											<div class="row mb-4">
 												<span style="font-size: 1.1em; color: #666;">컬러</span>
-												<span style="font-size: 1.2em; font-weight: 500;">WHITE/BLACK</span>
+												<span style="font-size: 1.2em; font-weight: 500;">${Ddto.item_color }</span>
 											</div>
 											<div class="row">
 												<span style="font-size: 1.1em; color: #666;">발매가</span>
-												<span style="font-size: 1.2em; font-weight: 500;">229,000원</span>
+												<span style="font-size: 1.2em; font-weight: 500;">${Ddto.item_releaseprice }</span>
 											</div>
 										</div>
 										<div class="col-7">
@@ -425,8 +425,8 @@ div.main {
 														</script>
 													</div>
 													<div class="tab-pane fade" id="threemonth" role="tabpanel">
-														<div>
-															<canvas id="myChart3"></canvas>
+														<div style="width: 550px; margin-left: 0px">
+															<canvas id="myChart3" height="100"></canvas>
 														</div>
 														<script>
 															function addZero(i) {
@@ -491,8 +491,8 @@ div.main {
 														</script>
 													</div>
 													<div class="tab-pane fade" id="sixmonth" role="tabpanel">
-														<div>
-															<canvas id="myChart6"></canvas>
+														<div style="width: 550px; margin-left: 0px">
+															<canvas id="myChart6" height="100"></canvas>
 														</div>
 														<script>
 															function addZero(i) {
@@ -557,8 +557,8 @@ div.main {
 														</script>
 													</div>
 													<div class="tab-pane fade" id="oneyear" role="tabpanel">
-														<div>
-															<canvas id="myChart12"></canvas>
+														<div style="width: 550px; margin-left: 0px">
+															<canvas id="myChart12" height="100"></canvas>
 														</div>
 														<script>
 															function addZero(i) {
@@ -623,8 +623,8 @@ div.main {
 														</script>
 													</div>
 													<div class="tab-pane fade" id="all" role="tabpanel">
-														<div>
-															<canvas id="myChartAll"></canvas>
+														<div style="width: 550px; margin-left: 0px">
+															<canvas id="myChartAll" height="100"></canvas>
 														</div>
 														<script>
 															function addZero(i) {
@@ -719,26 +719,26 @@ div.main {
 												<div class="tab-content">
 													<div class="tab-pane fade show active" id="deal" role="tabpanel">
 														<div class="p-2 mb-1" style="height: 17vh;">
-															<div class="d-flex">
+															<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
 																<div class="col-6">
-																	<span style="font-size: 0.8em; color: #a0a0a0;">사이즈</span>
+																	<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 20px">사이즈</span>
 																</div>
 																<div class="col-3">
-																	<span style="font-size: 0.8em; color: #a0a0a0;">거래가</span>
+																	<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 35px">거래가</span>
 																</div>
 																<div class="col-3">
-																	<span style="font-size: 0.8em; color: #a0a0a0;">거래일</span>
+																	<span style="font-size: 0.8em; color: #a0a0a0; margin-left: 30px">거래일</span>
 																</div>
 															</div>
 															<hr class="mt-0 mb-0">
-															<div class="d-flex">
+															<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
 																<div class="col-6">
 																	<span style="font-size: 0.9em; color: #666;">265</span>
 																</div>
-																<div class="col-3">
+																<div class="col-4">
 																	<span style="font-size: 0.9em; color: #666;">174,000원</span>
 																</div>
-																<div class="col-3">
+																<div class="col-2">
 																	<span style="font-size: 0.9em; color: #666;">23/05/02</span>
 																</div>
 															</div>
@@ -751,19 +751,19 @@ div.main {
 													</div>
 													<div class="tab-pane fade" id="sellBid" role="tabpanel">
 														<div class="p-2 mb-1" style="height: 17vh;">
-															<div class="d-flex">
+															<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
 																<div class="col-6">
-																	<span style="font-size: 0.8em; color: #a0a0a0;">사이즈</span>
+																	<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 20px">사이즈</span>
 																</div>
 																<div class="col-4">
-																	<span style="font-size: 0.8em; color: #a0a0a0;">판매 희망가</span>
+																	<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 60px">판매 희망가</span>
 																</div>
 																<div class="col-2">
 																	<span style="font-size: 0.8em; color: #a0a0a0;">수량</span>
 																</div>
 															</div>
 															<hr class="mt-0 mb-0">
-															<div class="d-flex">
+															<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
 																<div class="col-6">
 																	<span style="font-size: 0.9em; color: #666;">255</span>
 																</div>
@@ -775,7 +775,7 @@ div.main {
 																</div>
 															</div>
 														</div>
-														<div>
+														<div style="padding-top: 20px">
 															<button type="button" class="btn btn-outline-detail w-100" data-bs-toggle="modal"
 																data-bs-target="#detailModal"
 															>입찰 내역 더보기</button>
@@ -783,19 +783,19 @@ div.main {
 													</div>
 													<div class="tab-pane fade" id="buyBid" role="tabpanel">
 														<div class="p-2 mb-1" style="height: 17vh;">
-															<div class="d-flex">
+															<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
 																<div class="col-6">
-																	<span style="font-size: 0.8em; color: #a0a0a0;">사이즈</span>
+																	<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 20px">사이즈</span>
 																</div>
 																<div class="col-4">
-																	<span style="font-size: 0.8em; color: #a0a0a0;">구매 희망가</span>
+																	<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 60px">구매 희망가</span>
 																</div>
 																<div class="col-2">
 																	<span style="font-size: 0.8em; color: #a0a0a0;">수량</span>
 																</div>
 															</div>
 															<hr class="mt-0 mb-0">
-															<div class="d-flex">
+															<div class="d-flex" style="padding: 5px; text-align: center;">
 																<div class="col-6">
 																	<span style="font-size: 0.9em; color: #666;">265</span>
 																</div>
@@ -807,7 +807,7 @@ div.main {
 																</div>
 															</div>
 														</div>
-														<div>
+														<div style="padding-top: 20px">
 															<button type="button" class="btn btn-outline-detail w-100" data-bs-toggle="modal"
 																data-bs-target="#detailModal"
 															>입찰 내역 더보기</button>
@@ -824,16 +824,16 @@ div.main {
 															<div class="modal-body" style="padding-left: 2.1rem;">
 																<div class="d-flex row col-12 mb-2">
 																	<div class="p-2" style="flex: 0 0 auto; width: 20%;">
-																		<img src="/assets/images/1.png" style="height: 8vh; border-radius: 1.3rem;">
+																		<img src="/assets/images/${Ddto.item_image }" style="height: 8vh; border-radius: 1.3rem;">
 																	</div>
 																	<div class="p-2 mb-3" style="flex: 0 0 auto; width: 89%;">
 																		<div class="row">
 																			<span style="font-size: 0.7rem;">
-																				<b>Nike x Peaceminusone Kwondo 1 Black and White</b>
+																				<b>${Ddto.item_engname }</b>
 																			</span>
 																		</div>
 																		<div class="row mb-2">
-																			<span style="font-size: 0.6rem; color: #666">나이키 x 피스마이너스원 퀀도1 블랙 앤 화이트</span>
+																			<span style="font-size: 0.6rem; color: #666">${Ddto.item_korname }</span>
 																		</div>
 																		<div class="row col-5">
 																			<select class="form-select size-select"

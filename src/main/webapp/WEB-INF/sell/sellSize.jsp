@@ -271,13 +271,23 @@ div.sell_size:hover {
 			<c:choose>
 			<%--                여성이라 사이즈는 225부터 시작, 사이즈는 5씩 증가--%>
 			<c:when test="${itemDto.item_category eq 'shoes'}">
-				<c:forEach var="size" begin="225" step="5" end="270" varStatus="i">
-				<div class="sell_size">
-					<span class="sell_size selectSize">${size}</span>
+				<c:forEach var="dto" items="${list}" varStatus="i">
+				<div class="sell_size">			 	
+				     <span class="sell_size selectSize">${dto.buy_size}</span>
+				                 		           		
 					<br>
-					<span class="sell_size" style="color: #ec0b00;">139,000</span>
+					
+					<c:if test="${dto.buy_wishprice != 'null'}">
+						<span class="sell_size" style="color: #ec0b00;"><fmt:formatNumber value="${dto.buy_wishprice}" type="number"/></span>
+					</c:if>
+					
+					<c:if test="${dto.buy_wishprice == 'null'}">
+						<span class="sell_size" style="color: gray;">판매 입찰</span>
+					</c:if>
+					
+					
 				</div>
-				<c:if test="${i.count%4==0}">
+				 <c:if test="${i.count % 4 == 0}">
 		</div>
 		<div style="display: flex;">
 			</c:if>

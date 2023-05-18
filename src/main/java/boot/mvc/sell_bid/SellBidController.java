@@ -1,5 +1,7 @@
 package boot.mvc.sell_bid;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -52,13 +54,62 @@ public class SellBidController {
       
       ItemDto itemDto=itemService.getItemData(item_num);
       
-      List<SellBidDto> list = sellBidService.getSellPriceListByitemNum(item_num);
+      String category = itemDto.getItem_category();
       
+      //HashMap<String, String> map = new HashMap<>();
+
+      List<BuyBidDto> list = new ArrayList<>();
+      BuyBidDto buyBidDto = new BuyBidDto();
+      
+      // category == shoes
+      if(category.equals("shoes")) {
+    	  
+    	  for (int size = 225; size <= 270; size += 5) {
+    		  buyBidDto = buyBidService.getBuyBidForSellNow(item_num, String.valueOf(size)); 
+    		  
+    		  if(buyBidDto == null) {
+    			  BuyBidDto newBuyBidDto = new BuyBidDto();
+    			  
+    			  newBuyBidDto.setBuy_size(String.valueOf(size));
+    			  newBuyBidDto.setBuy_wishprice("null");
+    			  
+    			  list.add(newBuyBidDto);
+    		  } else
+    			  list.add(buyBidDto);
+          }
+   
+      } 
+      // category == bag
+      else if(category.equals("bag")) {
+  
+    	  buyBidDto = buyBidService.getBuyBidForSellNow(item_num, "ONE SIZE"); 
+    	  list.add(buyBidDto);
+    	  
+      }
+      // category 옷
+      else {
+    	  String[] sizes = {"XS", "S", "M", "L", "XL", "XXL", "XXXL"};
+
+    	  for (String size : sizes) {
+    		  buyBidDto = buyBidService.getBuyBidForSellNow(item_num, size); 
+    		  
+    		  if(buyBidDto == null) {
+    			  BuyBidDto newBuyBidDto = new BuyBidDto();
+    			  
+    			  newBuyBidDto.setBuy_size(size);
+    			  newBuyBidDto.setBuy_wishprice("null");
+    			  
+    			  list.add(newBuyBidDto);
+    		  } else
+    			  list.add(buyBidDto);
+    		 
+    	  }
+      }
+            
       model.addAttribute("list", list);
       model.addAttribute("itemDto", itemDto);
       model.addAttribute("item_num", item_num);
-      // System.out.println(item_num);
-            
+    
       return "/sell/sellSize";
    }
    
@@ -95,13 +146,12 @@ public class SellBidController {
 	      sellNowPrice = Integer.parseInt(buyBidDto.getBuy_wishprice());
 	      
 	      mview.addObject("buy_num", buy_num);
-	      
-	      mview.addObject("itemDto", itemDto);
-	      
-	  }
+	            
+	  } 
       
+      mview.addObject("itemDto", itemDto); 
       mview.addObject("item_num", item_num); 
-	    mview.addObject("sellNowPrice", sellNowPrice);
+	  mview.addObject("sellNowPrice", sellNowPrice);
       mview.addObject("size", size);
       
       mview.setViewName("/sell/sellType");

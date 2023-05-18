@@ -16,20 +16,22 @@ public class DetailController {
 
 	@GetMapping("/item/detail")
 	public String detail(String item_num,Model model) {
+System.out.println(item_num);
+		ItemDto dto = Dmapper.DetailgetData(item_num);
+
+		model.addAttribute("Ddto", dto);
 		model.addAttribute("item_num",item_num);
+	
 		return "/3/item/detail";
 	}
 
-	@GetMapping("/item/DetailgetData")
-	public ModelAndView DetailgetData(String Item_num) {
-		ModelAndView mview = new ModelAndView();
-
-		ItemDto dto = Dmapper.DetailgetData(Item_num);
-
-		mview.addObject("Ddto", dto);
-
+	@GetMapping("/item/DetailgetData") 
+	public ModelAndView DetailgetData(String Item_num) { 
+		ModelAndView mview = new ModelAndView(); 
+		ItemDto dto = Dmapper.DetailgetData(Item_num); 
+		mview.addObject("Ddto", dto); 
 		mview.setViewName("/3/item/detail");
-
-		return mview;
+		
+		return mview; 
 	}
 }

@@ -5,5 +5,5 @@ public interface SellNowServiceInter {
 	public void insertSellNow(SellNowDto sellNowDto);
 	public String getNowinsertSellNowNum();
 	public void updateSellStatusSoldOut(String sellnow_num);	
-	
+
 }

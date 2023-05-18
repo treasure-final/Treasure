@@ -24,5 +24,4 @@ public class SellBidDto {
 	private String sell_addr;
 	private String sell_status;
 	private String test_result;
-	
 }

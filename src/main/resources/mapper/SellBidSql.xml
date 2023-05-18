@@ -14,6 +14,5 @@
 	<select id="getNowinsertSellBidNum" resultType="String">
 		select LAST_INSERT_ID()
 	</select>
-   
-   
+
 </mapper>

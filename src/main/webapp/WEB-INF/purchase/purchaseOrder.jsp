@@ -241,9 +241,142 @@
             float: right;
             padding-top: 0;
         }
+
+        .pay-box {
+            width: 220px;
+            border-radius: 15px;
+            border: 1px solid #e3e3e3;
+            float: left;
+            font-size: 14px;
+            padding: 20px 0 20px 20px;
+            margin-top: 15px;
+        }
+
+        #purchaseForm {
+            margin-top: 15px;
+            margin-bottom: 60px;
+        }
     </style>
     <script>
         $(function () {
+            $("#card").click(function () {
+                var IMP = window.IMP;
+                IMP.init('imp01454568');
+                IMP.request_pay({
+                    //pg: 'uplus', // version 1.1.0부터 지원.
+                    /*
+                        'kakao':카카오페이,
+                        html5_inicis':이니시스(웹표준결제) 2
+                            'nice':나이스페이 2
+                            'payco':페이코
+                            'syrup':시럽페이
+                            'paypal':페이팔
+                        */
+                    pay_method: 'card',
+                    /*
+                        'samsung':삼성페이,
+                        'card':신용카드,
+                        'trans':실시간계좌이체,
+                        'vbank':가상계좌,
+                        'phone':휴대폰소액결제
+                    */
+                    merchant_uid: 'merchant_' + new Date().getTime(),
+                    /*
+                        merchant_uid에 경우
+                        https://docs.iamport.kr/implementation/payment
+                        위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
+                        참고하세요.
+                        나중에 포스팅 해볼게요.
+                     */
+                    name: '주문명:결제테스트',
+                    //결제창에서 보여질 이름
+                    amount: 1000,
+                    //가격
+                    buyer_email: 'iamport@siot.do',
+                    buyer_name: '구매자이름',
+                    buyer_tel: '010-1234-5678',
+                    buyer_addr: '서울특별시 강남구 삼성동',
+                    buyer_postcode: '123-456',
+                    m_redirect_url: 'https://www.yourdomain.com/payments/complete'
+                    /*
+                        모바일 결제시,
+                        결제가 끝나고 랜딩되는 URL을 지정
+                        (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
+                        */
+                }, function (rsp) {
+                    console.log(rsp);
+                    if (rsp.success) {
+                        var msg = '결제가 완료되었습니다.';
+                        msg += '고유ID : ' + rsp.imp_uid;
+                        msg += '상점 거래ID : ' + rsp.merchant_uid;
+                        msg += '결제 금액 : ' + rsp.paid_amount;
+                        msg += '카드 승인번호 : ' + rsp.apply_num;
+                    } else {
+                        var msg = '결제에 실패하였습니다.';
+                        msg += '에러내용 : ' + rsp.error_msg;
+                    }
+                    alert(msg);
+                });
+            });
+            $("#kakaopay").click(function () {
+                var IMP = window.IMP;
+                IMP.init('imp01454568');
+                IMP.request_pay({
+                    //pg: 'kakaopay', // version 1.1.0부터 지원.
+                    /*
+                        'kakao':카카오페이,
+                        html5_inicis':이니시스(웹표준결제) 2
+                            'nice':나이스페이 2
+                            'payco':페이코
+                            'syrup':시럽페이
+                            'paypal':페이팔
+                        */
+                    pay_method: 'card',
+                    /*
+                        'samsung':삼성페이,
+                        'card':신용카드,
+                        'trans':실시간계좌이체,
+                        'vbank':가상계좌,
+                        'phone':휴대폰소액결제
+                    */
+                    merchant_uid: 'merchant_' + new Date().getTime(),
+                    /*
+                        merchant_uid에 경우
+                        https://docs.iamport.kr/implementation/payment
+                        위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
+                        참고하세요.
+                        나중에 포스팅 해볼게요.
+                     */
+                    name: '주문명:결제테스트',
+                    //결제창에서 보여질 이름
+                    amount: 1000,
+                    //가격
+                    buyer_email: 'iamport@siot.do',
+                    buyer_name: '구매자이름',
+                    buyer_tel: '010-1234-5678',
+                    buyer_addr: '서울특별시 강남구 삼성동',
+                    buyer_postcode: '123-456',
+                    m_redirect_url: 'https://www.yourdomain.com/payments/complete'
+                    /*
+                        모바일 결제시,
+                        결제가 끝나고 랜딩되는 URL을 지정
+                        (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
+                        */
+                }, function (rsp) {
+                    console.log(rsp);
+                    if (rsp.success) {
+                        var msg = '결제가 완료되었습니다.';
+                        msg += '고유ID : ' + rsp.imp_uid;
+                        msg += '상점 거래ID : ' + rsp.merchant_uid;
+                        msg += '결제 금액 : ' + rsp.paid_amount;
+                        msg += '카드 승인번호 : ' + rsp.apply_num;
+                    } else {
+                        var msg = '결제에 실패하였습니다.';
+                        msg += '에러내용 : ' + rsp.error_msg;
+                    }
+                    alert(msg);
+                });
+            });
             $("#addr-modal").hide();
             $("#basic-box").css("border", "1px solid black");
 
@@ -258,7 +391,7 @@
                 let addr = $("#buy-addr").text();
                 let name = $("#buy-name").text();
                 let phone = $("#buy-phone").text();
-                let addr_info = name+","+phone+","+addr;
+                let addr_info = name + "," + phone + "," + addr;
 
                 $.ajax({
                     type: "post",
@@ -299,11 +432,11 @@
             $("#btn-submit").css("background-color", "#e3e3e3");
             $("#btn-submit").css("cursor", "unset");
 
-            $("#price").text(comma(${price})+"원")
-            $("#totalPrice").text(comma(${price}+5500)+"원")
+            $("#price").text(comma(${price}) + "원")
+            $("#totalPrice").text(comma(${price}+5500) + "원")
 
-            $(".chk").change(function() {
-                if($('input:checkbox[class=chk]:checked').length===4) {
+            $(".chk").change(function () {
+                if ($('input:checkbox[class=chk]:checked').length === 4) {
                     $("#btn-submit").attr("disabled", false);
                     $("#btn-submit").css("background-color", "#747f55");
                     $("#btn-submit").css("cursor", "pointer");
@@ -313,7 +446,13 @@
                     $("#btn-submit").css("cursor", "unset");
                 }
             });
+
+            $(".pay-box").click(function () {
+                $(".pay-box").css("border", "1px solid #e3e3e3");
+                $(this).css("border", "1px solid black");
+            })
         });
+
         function comma(str) {
             str = String(str);
             return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
@@ -424,6 +563,20 @@
                 </tr>
             </table>
         </div>
+        <div id="purchaseForm" style="border-top: 1px solid #e3e3e3; padding-top: 35px">
+            <div style="font-size: 18px; margin-bottom: 10px">결제 방법</div>
+            <div style="font-size: 15px;">일반 결제 <span style="opacity: 0.6; font-size: 12px;">일시불・할부</span></div>
+            <div id="perchase-selectBox">
+                <div class="pay-box" id="card" style="margin-right: 10px; cursor: pointer">
+                    신용카드
+                </div>
+                    <div class="pay-box" style="cursor: pointer">
+                        카카오페이
+                        <img src="../../img/kakaopay.png" id="kakaopay" style="width: 50px; margin-left: 90px;">
+                    </div>
+                <div style="clear: left"></div>
+            </div>
+        </div>
         <div class="agree-box">
             <div class="agree-sub">
                 <input type="checkbox" required="required" class="chk" name="chkBox" id="check1" style="width: 25px;">
@@ -445,7 +598,7 @@
             </div>
             <div class="agree-sub" style="border: none; font-weight: bold">
                 구매 조건을 모두 확인하였으며, 입찰 진행에 동의합니다.
-                <input type="checkbox" required="required" id="check4"name="chkBox" class="chk">
+                <input type="checkbox" required="required" id="check4" name="chkBox" class="chk">
                 <label for="check4"></label>
             </div>
         </div>
@@ -453,8 +606,9 @@
         <div style="margin-top: 50px; font-size: 18px;">
             <span><b>총 결제 금액</b></span><span style="margin-left: 455px; color: red"><b>173,500원</b></span>
         </div>
-        <input type="button" value="구매 입찰하기" class="btn-submit" id="btn-submit"></div>
-
+        <input type="button" value="구매 입찰하기" class="btn-submit" id="btn-submit"><br><br>
+        <input type="button" value="결제" class="btn-submit" id="btn_payment">
+    </div>
 </div>
 
 <!-- 주소 modal창 -->

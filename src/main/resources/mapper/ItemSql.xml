@@ -76,4 +76,12 @@
 	<select id="getItemData" parameterType="String" resultType="ItemDto">
 	select * from item where item_num=#{item_num}
 	</select>
+
+	<select id="searchItems" parameterType="String" resultType="ItemDto">
+		SELECT *
+		FROM item
+		WHERE item_engname LIKE CONCAT('%', #{searchText}, '%')
+		   OR item_korname LIKE CONCAT('%', #{searchText}, '%')
+		   OR item_brandname LIKE CONCAT('%', #{searchText}, '%')
+	</select>
 </mapper>

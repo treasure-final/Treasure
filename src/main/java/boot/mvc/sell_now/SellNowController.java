@@ -133,6 +133,4 @@ public class SellNowController {
         
 		return loginEmail;
 	}
-	
-	
 }

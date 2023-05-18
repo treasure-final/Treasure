@@ -354,7 +354,6 @@ $(function(){
 			
 		}
 		
-		
 	});
 	
 	 $(".modal-input > input:not(.btn-modal)").click(function () {

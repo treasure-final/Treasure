@@ -94,7 +94,7 @@ public class SellBidController {
 	  }
       
       mview.addObject("item_num", item_num); 
-	  mview.addObject("sellNowPrice", sellNowPrice);
+	    mview.addObject("sellNowPrice", sellNowPrice);
       mview.addObject("size", size);
       
       mview.setViewName("/sell/sellType");
@@ -118,6 +118,7 @@ public class SellBidController {
       
       String loginEmail = (String) session.getAttribute("loginEmail");
       String user_num = userService.findEmailUserNum(loginEmail);
+
       UserDto userDto= userService.getUserNumData(user_num);
       
       mview.addObject("itemDto", itemDto);
@@ -131,7 +132,6 @@ public class SellBidController {
       mview.addObject("totalPrice", totalPrice);
       mview.addObject("size", size);
       mview.addObject("deadline", deadline);
-      
       mview.setViewName("/sell/sellCalculate");
       
       return mview;
@@ -161,7 +161,7 @@ public class SellBidController {
         sellBidDto.setSell_wishprice(hopePrice);
         sellBidDto.setSell_totalprice(totalPrice);
         sellBidDto.setSell_size(size);
-        
+       
         
         // test_result 합격, 불합격 랜덤 부여
         String test_result = "";
@@ -193,7 +193,8 @@ public class SellBidController {
         sellTotalDto.setSell_num(sell_num);        
         
         sellTotalService.insertSellNow(sellTotalDto);
-        
+        service.insertSellBid(sellBidDto);
+
         return loginEmail;
       
    }

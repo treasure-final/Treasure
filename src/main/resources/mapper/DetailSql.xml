@@ -17,4 +17,19 @@
 		select * from item order by item_num
 	</select>
 
+	<!-- 판매 입찰 리스트(사이즈, 판매희망가, 수량) -->
+	<select id="getBuyBidGroupedData" resultType="Map">
+		select buy_size, buy_wishprice, count(*) as count
+		from buy_bid
+		where item_num = #{item_num}
+		group by buy_size, buy_wishprice
+	</select>
+	<!-- 구매 입찰 리스트(사이즈, 판매희망가, 수량) -->
+	<select id="getSellBidGroupedData" resultType="Map">
+		select sell_size, sell_wishprice, count(*) as count
+		from sell_bid
+		where item_num = #{item_num}
+		group by sell_size, sell_wishprice
+	</select>
+
 </mapper>

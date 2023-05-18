@@ -28,6 +28,19 @@ public class DetailService implements DetailServiceInter {
 		return mapper.getAllData();
 	}
 
+	@Override
+	public List<Map<String, Object>> getBuyBidGroupedData(String item_num) {
+		// TODO Auto-generated method stub
+		return mapper.getBuyBidGroupedData(item_num);
+	}
+	@Override
+	public List<Map<String, Object>> getSellBidGroupedData(String item_num) {
+		// TODO Auto-generated method stub
+		return mapper.getSellBidGroupedData(item_num);
+	}
+
+	
+
 
 
 	

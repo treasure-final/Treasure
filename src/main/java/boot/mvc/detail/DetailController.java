@@ -20,14 +20,18 @@ public class DetailController {
 	DetailService Dservice;
 
 	@GetMapping("/item/detail")
-	public ModelAndView detail(String item_num, String item_wishprice,Model model) {
+	public ModelAndView detail(String item_num, String buy_size, Model model) {
 		ModelAndView mview = new ModelAndView();
 
 		List<ItemDto> list = Dservice.getAllData();
 		ItemDto dto = Dservice.DetailgetData(item_num);
+		List<Map<String, Object>> groupedBuyData = Dservice.getBuyBidGroupedData(item_num);
+		List<Map<String, Object>> groupedSellData = Dservice.getSellBidGroupedData(item_num);
 
 		mview.addObject("list", list);
 		mview.addObject("Ddto", dto);
+		mview.addObject("groupedBuyData", groupedBuyData);
+		mview.addObject("groupedSellData", groupedSellData);
 
 		mview.setViewName("/3/item/detail");
 

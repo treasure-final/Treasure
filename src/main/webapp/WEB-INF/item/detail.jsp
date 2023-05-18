@@ -779,15 +779,25 @@ div.main {
 																</div>
 															</div>
 															<hr class="mt-0 mb-0">
-															<div class="d-flex" style="padding: 5px">
+															<div class="d-flex" style="padding: 5px;">
 																<div class="col-6">
-																	<span style="font-size: 0.9em; color: #666;">255</span>
+																<c:forEach items="${groupedSellData }" var="s" end="4">
+																		<span style="font-size: 0.9em; color: #666;">${s.sell_size }</span><br>
+																</c:forEach>
+																	
+																	<br>
 																</div>
 																<div class="col-4">
-																	<span style="font-size: 0.9em; color: #666;">154,000원</span>
+																	<c:forEach items="${groupedSellData }" var="s" end="4">
+																		<span style="font-size: 0.9em; color: #666;">${s.sell_wishprice }</span><br>
+																</c:forEach>
+																	<br>
 																</div>
 																<div class="col-2">
-																	<span style="font-size: 0.9em; color: #666;">1</span>
+																	<c:forEach items="${groupedSellData }" var="s" end="4">
+																		<span style="font-size: 0.9em; color: #666;">${s.count }</span><br>
+																</c:forEach>
+																	<br>
 																</div>
 															</div>
 														</div>
@@ -811,17 +821,24 @@ div.main {
 																</div>
 															</div>
 															<hr class="mt-0 mb-0">
-															<div class="d-flex" style="padding: 5px">
+															<div class="d-flex" style="padding: 5px;">
 																<div class="col-6">
-																	<span style="font-size: 0.9em; color: #666;"></span>
+																<c:forEach items="${groupedBuyData }" var="g" end="4">
+																		<span style="font-size: 0.9em; color: #666;">${g.buy_size }</span><br>
+																</c:forEach>
+																	
 																	<br>
 																</div>
 																<div class="col-4">
-																	<span style="font-size: 0.9em; color: #666;"></span>
+																	<c:forEach items="${groupedBuyData }" var="g" end="4">
+																		<span style="font-size: 0.9em; color: #666;">${g.buy_wishprice }</span><br>
+																</c:forEach>
 																	<br>
 																</div>
 																<div class="col-2">
-																	<span style="font-size: 0.9em; color: #666;"></span>
+																	<c:forEach items="${groupedBuyData }" var="g" end="4">
+																		<span style="font-size: 0.9em; color: #666;">${g.count }</span><br>
+																</c:forEach>
 																	<br>
 																</div>
 															</div>

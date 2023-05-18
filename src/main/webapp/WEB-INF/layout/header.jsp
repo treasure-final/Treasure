@@ -151,7 +151,7 @@
          var link = document.location.href;
          console.log(link);
 
-         if(link=="http://localhost:9010/" || link=="http://localhost:9010/item/itemlist") {
+         if(link=="http://localhost:8080/" || link=="http://localhost:8080/item/itemlist") {
             var s="<img alt='' src='../assets/images/searchicon.png' style='width: 25px; z-index: 3; margin-left: 10px; position: absolute; margin-top: 10px;'>";
                   s+="<input type='text' id='search' autocomplete='off' placeholder='상품 검색' style='z-index: 4;'>";
             $("#searchinput").append(s);

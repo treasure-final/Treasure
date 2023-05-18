@@ -20,7 +20,7 @@
    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-   <script src="hangul.js" type="text/javascript"></script>
+   <script src="../hangul.js" type="text/javascript"></script>
    <!-- or from CDN -->
    <script src="https://unpkg.com/hangul-js" type="text/javascript"></script>
    <script src="/assets/js/data.js"></script>
@@ -106,7 +106,6 @@
          border:none;
       }
    </style>
-
 </head>
 <body>
 <c:set var="root" value="<%=request.getContextPath()%>" />
@@ -147,10 +146,17 @@
          </c:if>
          &nbsp; <a href="#">고객센터</a>
       </div>
+      <div id="searchinput">
+      <script>
+         var link = document.location.href;
+         console.log(link);
 
-      <div id="searchinput" >
-         <img alt="" src="../assets/images/searchicon.png" style="width:  25px; z-index: 3; margin-left: 10px; position: absolute; margin-top: 10px;">
-         <input type="text" id="search" autocomplete="off" placeholder="상품 검색"  style=" z-index: 4; ">
+         if(link=="http://localhost:9010/" || link=="http://localhost:9010/item/itemlist") {
+            var s="<img alt='' src='../assets/images/searchicon.png' style='width: 25px; z-index: 3; margin-left: 10px; position: absolute; margin-top: 10px;'>";
+                  s+="<input type='text' id='search' autocomplete='off' placeholder='상품 검색' style='z-index: 4;'>";
+            $("#searchinput").append(s);
+         }
+      </script>
       </div>
 
    </div>
@@ -161,6 +167,8 @@
       alert("로그인 후 이용 가능합니다");
       window.location.href = "/user/loginForm";
    });
+
+
 </script>
 </body>
 </html>

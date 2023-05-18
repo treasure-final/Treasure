@@ -1,5 +1,7 @@
 package boot.mvc.test;
 
+import java.sql.Date;
+
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
@@ -13,6 +15,6 @@ public class TestDto {
 	private String user_num;
 	private String test_status;
 	private String test_success;
-	private String test_passday;
+	private Date test_passday;
 	
 }

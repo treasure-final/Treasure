@@ -8,5 +8,12 @@ public class SellBidService implements SellBidServiceInter {
 
 	@Autowired
 	SellBidMapperInter mapper;
+
+	@Override
+	public void insertSellBid(SellBidDto SellBidDto) {
+		// TODO Auto-generated method stub
+		mapper.insertSellBid(SellBidDto);
+		
+	}
 	
 }

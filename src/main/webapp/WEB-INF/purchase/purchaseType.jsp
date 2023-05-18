@@ -80,12 +80,6 @@
             cursor: pointer;
         }
 
-        .btn-submit:hover {
-            background-color: #fff;
-            color: #747f55;
-            border: 1px solid #747f55;
-        }
-
         .deadline {
             border: 1px solid darkgray;
             padding: 15px 45px;
@@ -145,9 +139,10 @@
     <script>
         $(function () {
             $("#result-bid").hide();
-
+            $("#inputError").hide();
             $("#buy-bid").css("background-color", "#e3e3e3")
                 .css("color", "black");
+
             $("#buy-bid").click(function () {
                 buyWay = "bid";
                 $("#result-immediate").hide();
@@ -157,6 +152,7 @@
                 $("#buy-bid").css("background-color", " #ef6253")
                     .css("color", "#fff");
             });
+
             $("#buy-immediate").click(function () {
                 buyWay = "immediate";
                 $("#result-bid").hide();
@@ -166,17 +162,27 @@
                 $("#buy-immediate").css("background-color", " #ef6253")
                     .css("color", "#fff");
             })
+
+            intDay = 30;
+            // 마감 날짜 계산
             $(".deadline").click(function () {
 
                 let day = $(this).text();
                 intDay = $(this).attr("day");
-
+                let deadline = intDay;
                 let today = new Date();
-
                 let year = today.getFullYear();
-
                 let month = today.getMonth() + 1
-                let date = today.getDate() + parseInt(intDay);
+                if(deadline==30) {
+                    month+=1;
+                    deadline-=31;
+                }
+                if (deadline==60) {
+                    month+=2;
+                    deadline-=61;
+                }
+                let date = today.getDate() + parseInt(deadline);
+                defaultDate = today.getDate() + 30;
                 let deadDay = year + "/" + month + "/" + date;
 
                 $(".deadline").css("border", "1px solid darkgray");
@@ -185,26 +191,92 @@
                 $("#deadline-date").text(deadDay);
             });
 
-            // 금액 입력 후 엔터 누르면 1000 단위로 콤마 추가
-            $('#hopePrice').on('change', function() {
+            <!-- default 마감날짜 설정 start -->
+            let today = new Date();
+            let year = today.getFullYear();
+            let month = today.getMonth() + 1
+            let date = today.getDate() + 30;
+            let deadDay = year + "/" + (month+1) + "/" + (date-31);
+            $("#deadline-day").text("30일 ");
+            $("#deadline-date").text(deadDay);
+            <!-- default 마감날짜 설정 end -->
+
+            <!-- 금액 입력 후 엔터 누르면 1000 단위로 콤마 추가 -->
+            $('#hopePrice').on('change', function () {
+                let immediatePrice = $("#immediatePrice").text();
                 n = uncomma($(this).val());
-                n = Math.floor(n/1000) * 1000;
+                if(parseInt(n)>parseInt(uncomma(immediatePrice))) {
+                    changePage();
+                    n = 0;
+                }
+                if(parseInt(n) < 50000) {
+                    n = 0;
+                }
+                n = Math.floor(n / 1000) * 1000;
                 comma($(this).val(n));
+            });
+
+            $("#bid-btn").attr("disabled", true);
+            $("#bid-btn").css("background-color", "#e3e3e3");
+            $("#bid-btn").css("cursor", "unset");
+
+            $("#hopePrice").change(function () {
+                let immediatePrice = $("#immediatePrice").text();
+                if($(this).val()>=50000) {
+                    $("#bid-btn").attr("disabled", false);
+                    $("#bid-btn").css("background-color", "#747f55");
+                    $("#bid-btn").css("cursor", "pointer");
+                    $("#inputError").hide();
+                    $("#hopePriceForm").css("color", "black");
+                    $("#hopePrice").css("border", "none");
+                }
+                else {
+                    $("#bid-btn").attr("disabled", true);
+                    $("#bid-btn").css("background-color", "#e3e3e3");
+                    $("#bid-btn").css("cursor", "unset");
+                    $("#inputError").show();
+                    $("#hopePriceForm").css("color", "red");
+                    $("#hopePrice").css("border", "2px solid red");
+                }
             });
         });
 
-        // 금액 입력 후 화면 클릭 시 1000 단위로 콤마 추가
+        <!-- 금액 입력 후 화면 클릭 시 1000 단위로 콤마 추가 -->
         window.onclick = function change() {
+            let immediatePrice = $("#immediatePrice").text();
             let n = uncomma($("#hopePrice").val());
+            // 즉시 구매가 가격 보다 높을 시 즉시 구매 페이지로 이동
+            if(parseInt(n)>parseInt(uncomma(immediatePrice))) {
+                changePage();
+                n = 0;
+            }
+            if(parseInt(n) < 50000) {
+                n = 0;
+            }
             n = Math.floor(n / 1000) * 1000;
             let m = comma(n);
             $("#hopePrice").val(m);
         }
 
-        function moveOrderPage() {
-            price = $("#hopePrice").val();
-            deadline = parseInt(intDay);
-            location.href = 'order?size=${size}&price=' + uncomma(price) + '&deadline=' + deadline + '&deliveryWay=${deliveryWay}'
+        function changePage() {
+            buyWay = "immediate";
+            $("#result-bid").hide();
+            $("#result-immediate").show();
+            $("#buy-bid").css("background-color", "#e3e3e3")
+                .css("color", "black");
+            $("#buy-immediate").css("background-color", " #ef6253")
+                .css("color", "#fff");
+        }
+
+        function moveBidPage() {
+            let hopePrice = $("#hopePrice").val();
+            let deadline = parseInt(intDay);
+            location.href = 'order?item_num=${dto.item_num}&size=${size}&price=' + uncomma(hopePrice) + '&deadline=' + deadline + '&deliveryWay=${deliveryWay}'
+        }
+
+        function moveImmediatePage() {
+            let immediatePrice = $("#immediatePrice").text();
+            location.href = 'order?item_num=${dto.item_num}&size=${size}&price=' + uncomma(immediatePrice) + '&deliveryWay=${deliveryWay}'
         }
 
         function inputNumberFormat(obj) {
@@ -213,9 +285,11 @@
 
         function comma(str) {
             str = String(str);
+            if(str==0) {
+                return "";
+            }
             return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
         }
-
 
         function uncomma(str) {
             str = String(str);
@@ -239,7 +313,6 @@
                 ${size}
             </div>
         </div>
-
         <div id="right-info"
              style="border-top: 1px solid #b9b9b9; width: 90%; float: left; height: 40%;">
             <div class="price-info" align="center">
@@ -260,7 +333,9 @@
     </div>
     <div id="result-immediate" style="margin-left: 40px">
         <div style="font-size: 13px;">즉시 구매가</div>
-        <div align="right" style="font-size: 20px; margin-right: 35px; margin-top: 10px">123333원</div>
+        <div align="right" id="immediatePrice"
+             style="font-size: 20px; margin-right: 35px; margin-top: 10px; font-weight: bold">
+            169,000<span>원</span></div>
 
         <div class="result-content"
              style="border-top: 1px solid #b9b9b9; width: 95%; height: 10%; margin-top: 39px;">
@@ -270,17 +345,19 @@
         </div>
         <div class="result-bottom">
             총 결제금액<span style="font-size: 14px; opacity: 0.4; margin-left: 450px;">다음 화면에서 확인</span>
-            <input type="button" value="즉시 구매 계속" class="btn-submit" onclick="location.href='order'">
+            <input type="button" value="즉시 구매 계속" class="btn-submit"
+                   onclick="moveImmediatePage()">
         </div>
     </div>
 
     <div id="result-bid" style="margin-left: 40px">
-        <div style="font-size: 13px;">구매 희망가</div>
+        <div style="font-size: 13px;" id="hopePriceForm">구매 희망가
+            <span style="color: red; font-size: 13px; margin-left: 375px" id="inputError">5만원 부터 천원단위로 입력하세요.</span>
+        </div>
         <div align="right" style="font-size: 20px; margin-right: 35px;" id="buy-form">
             <input type="text" id="hopePrice" placeholder="희망가 입력" onkeyup="inputNumberFormat(this)"
                    style="color: black; font-size: 20px; font-weight: normal">원
         </div>
-
         <div class="result-content" style="border-top: 1px solid #b9b9b9; width: 95%; height: 10%; margin-top: 15px;">
         </div>
         <div style="padding-top: 20px; padding-bottom: 10px; font-size: 14px; opacity: 0.4">총 결제금액은
@@ -300,7 +377,8 @@
             <span class="deadline" day="7">
                 7일
             </span>
-            <span class="deadline" day="30">
+            <span class="deadline" day="30"
+            style="border: 1px solid black">
                 30일
             </span>
             <span class="deadline" day="60">
@@ -312,7 +390,7 @@
             <input type="hidden" id="size" value="${size}">
             <input type="hidden" id="deliveryWay" value="${deliveryWay}">
             <input type="button" value="구매 입찰 계속" class="btn-submit" id="bid-btn"
-                   onclick="moveOrderPage()">
+                   onclick="moveBidPage()">
         </div>
     </div>
 </div>

@@ -8,10 +8,13 @@ public class TestService implements TestServiceInter {
 
 	@Autowired
 	TestMapperInter mapper;
-	
+
 	@Override
-	public int getTotalCount() {
-		return mapper.getTotalCount();
+	public void TestInfoInsert(TestDto testDto) {
+		// TODO Auto-generated method stub
+		mapper.TestInfoInsert(testDto);
 	}
+	
+	
 
 }

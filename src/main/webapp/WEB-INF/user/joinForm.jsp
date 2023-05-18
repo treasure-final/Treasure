@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -47,14 +47,9 @@ div.main {
 	color: black;
 }
 
-body {
-	font-size: 13px;
-	font-family: 'GmarketSansMedium';
-}
-
-.join-wrapper{
-	width: 500px;
-	height: 350px;
+.join-wrapper {
+	width: 480px;
+	height: 800px;
 	padding: 40px;
 	box-sizing: border-box;
 	justify-content: center;
@@ -62,22 +57,14 @@ body {
 	margin-top: 20px;
 }
 
-.join-wrapper>h2{
+.join-wrapper>h2 {
 	font-size: 25px;
-	color: black;
 	margin-bottom: 20px;
 	text-align: center;
-	font-weight: bold;
-	margin-top: 10%;
+	margin-top: 30px;
+	margin-bottom: 50px;
 }
 
-.join-wrapper>h3{
-	font-size: 20px;
-	color: black;
-	margin-bottom: 20px;
-	text-align: center;
-	opacity: 0.5;
-}
 
 #join-form>input {
 	width: 100%;
@@ -100,38 +87,39 @@ body {
 	margin-top: 20px;
 }
 
-.agree > input[type="checkbox"]{
+.agree>input[type="checkbox"] {
 	display: none;
 }
 
-input[type="checkbox"] + label{
-        display: inline-block;
-        width: 20px;
-        height: 20px;
-        border:2px solid #747f55;
-        position: relative;
-        margin-right: 5px;
-      }
-      
-input[id="agree1"]:checked + label::after,input[id="agree2"]:checked + label::after{
-        content:'✔';
-        color: #747f55;
-        font-size: 15px;
-        width: 20px;
-        height: 20px;
-        text-align: center;
-        position: absolute;
-        left: 0;
-        top: 0;
-      }
-
-.agree{
-	margin-bottom: 3px;
-	display: flex;
-  	align-items: center; 
+input[type="checkbox"]+label {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	border: 2px solid #747f55;
+	position: relative;
+	margin-right: 5px;
 }
 
-#join-button{
+input[id="agree1"]:checked+label::after, input[id="agree2"]:checked+label::after
+	{
+	content: '✔';
+	color: #747f55;
+	font-size: 15px;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+.agree {
+	margin-bottom: 3px;
+	display: flex;
+	align-items: center;
+}
+
+#join-button {
 	font-size: 13px;
 	color: #fff;
 	background-color: #747f55;
@@ -147,6 +135,7 @@ input[id="agree1"]:checked + label::after,input[id="agree2"]:checked + label::af
 	width: 100%;
 	text-align: center;
 	margin-bottom: 50px;
+	border: 1px solid #747f55;
 }
 
 #join-button:hover {
@@ -160,7 +149,8 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	margin: 0;
 }
 
-.addrnumber{
+
+.addrnumber {
 	height: 48px;
 	padding: 0 10px;
 	box-sizing: border-box;
@@ -169,20 +159,21 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	background-color: #F8F8F8;
 }
 
-.addrsearch{
+.addrsearch {
 	font-size: 11px;
 	color: #fff;
 	background-color: #747f55;
 	border-radius: 25px;
 	font-weight: 300;
 	transition: all 0.3s;
-	position: relative;
-	overflow: hidden;
-	margin: auto;
-	width: 80px;
+	position: absolute;
+	width: 70px;
 	height: 35px;
 	text-align: center;
 	margin-bottom: 10px;
+	padding-left: 15px;
+	padding-top: 3px;
+	margin: 10px 0;
 }
 
 .addrsearch:hover {
@@ -201,23 +192,20 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	padding: 0 10px;
 }
 
-.kakaoaddr>input::placeholder{
+.kakaoaddr>input::placeholder {
 	color: #D2D2D2;
 }
 
-.agreemore{
+.agreemore {
 	font-size: 12px;
 	background-color: #fff;
 	color: gray;
 }
 
-.agreebutton{
+.agreebutton {
 	font-size: 15px;
 	background-color: #fff;
-}
-
-.agreecontent{
-	font-size: 12px;
+	border: 1px solid #fff;
 }
 </style>
 
@@ -263,7 +251,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
       	</div><br>
         
         <div class="agree">
-       <input type="checkbox" required="required" id="agree1"><label for="agree1"></label><div class="agree-info">개인정보 활용 동의 (필수)</div>&nbsp;<input type="button" class="agreemore" data-toggle="modal" data-target="#agreeModal" value="더보기">
+       <input type="checkbox" required="required" id="agree1"><label for="agree1"></label><div class="agree-info">개인정보 활용 동의 (필수)</div>&nbsp;<p><a  style="font-size: 11px; color: gray;" href="#ex1" rel="modal:open">더보기</a></p>
         </div><br>
         <div class="agree">
         <input type="checkbox" id="agree2"><label for="agree2"></label><div class="agree-adv">광고성 정보 수신 동의 (선택)</div>
@@ -428,20 +416,24 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 </script>
 
-<!--개인정보 이용약관 모달  -->
-<div class="modal fade" id="agreeModal" role="dialog">
-		 <div class="modal-dialog">
+<script>
+$(document).ready1(function() {
+  // 모달창 열릴 때 이벤트 처리
+  $('#ex1').on($.modal.OPEN, function() {
+    // 모달창 내부의 내용 높이 계산
+    var contentHeight = $('.modal-content').outerHeight();
+    // 모달창 높이 조정
+    $(this).height(contentHeight + 60); // padding 등을 고려하여 추가 여백을 더해줌
+   
+  });
+ 
+});
 
-			<!-- Modal content-->
-			<div class="modal-content" style="margin:auto; width: 600px; height: 650px;">
+</script>
 
-				<div class="modal-header">
-					<h4 class="modal-title">개인정보 활용 동의</h4>
-				</div>
-
-				<div class="modal-body" style="padding: 20px;">
-					<div class="agreecontent" style="overflow: auto; width: 550px; margin:auto; height: 500px; border: none; outline: none; resize: none; text-align: left;">
-					<b>Treasure(주)(이하 회사)는 서비스 제공을 위하여 개인정보를 수집 ・ 이용 및 제공합니다.<br><br>
+<!-- Modal HTML embedded directly into document -->
+<div id="ex1" class="modal" style="width: 800px;  margin-top: 150px; font-size: 11px;">
+  <p><b>Treasure(주)는 서비스 제공을 위하여 개인정보를 수집 ・ 이용 및 제공합니다.<br><br>
 					회원가입 시점에 이용자로부터 수집하는 개인정보는 아래와 같습니다.</b><br><br>
 					1) 회원 가입 시에 이름, 휴대전화번호, 주소, 생년월일, 이메일(로그인ID), 비밀번호를 필수 항목으로 수집하며, 선택항목으로 닉네임, 프로필 사진, 카드 정보, 거래은행 및 계좌번호를 수집합니다.<br><br>
 					2) 네이버 및 카카오 아이디로 로그인 시에는 이용자 고유 식별자를 필수 항목으로 수집하고, 이메일 주소, 이름(별명), 프로필 사진을 선택 항목으로 수집합니다.<br><br>
@@ -462,16 +454,8 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 					이용자 및 법정대리인은 언제든지 자신의 개인정보를 조회하거나 수정할 수 있으며, 언제든지 계정 삭제를 요청할 수 있습니다.
 					이용자가 개인정보의 오류에 대한 정정을 요청하신 경우에는 정정을 완료하기 전까지 당해 개인정보를 이용 또는 제공하지 않습니다.
 					또한 잘못된 개인정보를 제3자에게 이미 제공한 경우에는 정정 처리결과를 제3자에게 지체 없이 통지하여 정정이 이루어지도록 하겠습니다.
-					회사는 이용자의 요청에 의해 해지 또는 삭제된 개인정보를 아래 "개인정보의 보유 및 이용기간"에 명시된 바에 따라 처리하고 그 외의 용도로 열람 또는 이용할 수 없도록 처리하고 있습니다.
-					</div>
-				</div>
-
-				<div class="modal-footer">
-					<button type="button" class="agreebutton" data-dismiss="modal">확인</button>
-				</div>
-			</div>
-
-		</div>
-	</div>
+					회사는 이용자의 요청에 의해 해지 또는 삭제된 개인정보를 아래 "개인정보의 보유 및 이용기간"에 명시된 바에 따라 처리하고 그 외의 용도로 열람 또는 이용할 수 없도록 처리하고 있습니다..</p>
+  <a href="#" rel="modal:close" style="font-size: 13px;"><b>Close</b></a>
+</div>
 </body>
 </html>

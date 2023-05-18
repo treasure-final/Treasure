@@ -211,6 +211,7 @@ div.main {
 		calculatePrice("sell-immediate", $("#immediatePrice").text());
 		
 		$("#result-bid").hide();
+		
 		$("#sell-bid").css("background-color", "#e3e3e3").css("color", "black");
 		$("#sell-bid").click(
 				function() {
@@ -419,6 +420,11 @@ $(".sell-back").click(function(){
          var selectedDeadline = $(".deadline.selected");
          var deadline = parseInt(selectedDeadline.attr("day"));
          totalPrice = $("#totalPrice_").val();
+         
+         if(hopePrice==null || hopePrice==""){
+        	 alert("희망가를 입력해주세요");
+        	 return;
+         }
 
          if (isNaN(deadline)) {
              alert("마감 기한을 선택해주세요.");

@@ -315,7 +315,7 @@ div.buy_size:hover {
 					</c:forEach>
 				</div>
 			</c:otherwise>
-			
+
 			</c:choose>
 		<div style="display: flex; margin-top: 25px;">
 			<button type="button" class="btn-login fastbox">

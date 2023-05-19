@@ -162,9 +162,6 @@ select {
 		// 선택된 값을 size-text 요소에 삽입
 		sizeTextElement.innerHTML = selectedValue;
 
-		// 두 번째 select 요소의 옵션을 제거
-		selectElement2.innerHTML = "";
-
 		// 선택한 값을 두 번째 select 요소에 옵션으로 추가
 		var option = document.createElement("option");
 		option.value = selectedValue;

@@ -3,4 +3,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="boot.mvc.purchase.PurchaseMapperInter">
+
+	<insert id="insertPurchase" parameterType="PurchaseDto">
+		insert into purchase values(null, #{item_num}, #{buy_bid_num}, #{selltotal_num}, #{purchase_addr}, #{purchase_wishprice}, #{purchase_delivery}, #{purchase_total_price}, ${purchase_status}, now())
+	</insert>
+	
+    <select id="getBuyNowPrice" resultType="SellBidDto" parameterType="String">
+        SELECT *
+        FROM sell_bid AS sb1
+        WHERE sb1.item_num = #{item_num} AND sb1.sell_wishprice = (
+            SELECT MIN(sb2.sell_wishprice)
+            FROM sell_bid AS sb2
+            WHERE sb2.item_num = #{item_num} AND sb2.sell_size = sb1.sell_size
+        )
+        GROUP BY sb1.sell_size
+    </select>
 </mapper>

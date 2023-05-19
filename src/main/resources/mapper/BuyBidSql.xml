@@ -7,4 +7,19 @@
         insert into buy_bid (item_num, user_num, buy_wishprice, buy_size, buy_addr, buy_deadline, buy_inputday)
         values (#{item_num}, #{user_num}, #{buy_wishprice}, #{buy_size}, #{buy_addr}, #{buy_deadline}, now())
     </insert>
+    
+	<!-- 즉시판매할 buy_num 조회 -->
+	<select id="getBuyBidForSellNow" resultType="BuyBidDto" parameterType="HashMap">
+		select * from buy_bid where item_num=#{item_num} and buy_size=#{buy_size} and buy_status!='구매완료' order by buy_wishprice desc limit 1 
+	</select>
+
+	<select id="getDataOfBuyBid" resultType="BuyBidDto" parameterType="String">
+		select * from buy_bid where buy_num=#{buy_num}
+	</select>
+	
+	<!-- buy_status 구매완료로 업데이트 -->
+	<update id="updateBuyStatus" parameterType="String">
+		update buy_bid set buy_status="구매완료" where buy_num=#{buy_num}
+	</update>
+
 </mapper>

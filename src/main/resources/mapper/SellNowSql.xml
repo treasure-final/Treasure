@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boot.mvc.sell_now.SellNowMapperInter">
+
+	<!-- 즉시판매 insert -->
+	<insert id="insertSellNow" parameterType="SellNowDto">
+		insert into sell_now values(null, #{user_num}, #{item_num}, #{buy_num}, #{sellnow_totalprice}, #{sellnow_account}, #{sellnow_penaltypay}, #{sellnow_addr}, #{sell_status}, #{test_result}, now())
+	</insert>
+
+	<!-- 방금 insert된 sellNow_num 가져오기 -->
+	<select id="getNowinsertSellNowNum" resultType="String">
+		select LAST_INSERT_ID()
+	</select>
+
+	<!-- 즉시판매 검수 합격 -> 판매 상태 : 판매완료 update -->
+	<update id="updateSellStatusSoldOut" parameterType="String">
+		update sell_now set sell_status="판매완료" where sellnow_num=#{sellnow_num}
+	</update>
+	
+	<!-- getData...... -->
+	<select id="getSellNowData" resultType="String" parameterType="SellNowDto">
+		select * from sell_now where user_num=#{user_num} and sellnow_num=#{sellnow_num}
+	</select>
+	
+</mapper>

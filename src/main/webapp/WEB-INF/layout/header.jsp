@@ -1,16 +1,12 @@
-<%@ page import="java.util.List" %>
-<%@ page import="boot.mvc.item.ItemDto" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="boot.mvc.item.ItemService" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-       pageEncoding="UTF-8"%>
+<%@ page import="java.util.List"%>
+<%@ page import="boot.mvc.item.ItemDto"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="boot.mvc.item.ItemService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
-
 <!DOCTYPE html>
 <html>
-
 <head>
    <meta charset="utf-8">
    <meta name="viewport"
@@ -22,7 +18,7 @@
    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-   <script src="hangul.js" type="text/javascript"></script>
+   <script src="../hangul.js" type="text/javascript"></script>
    <!-- or from CDN -->
    <script src="https://unpkg.com/hangul-js" type="text/javascript"></script>
    <script src="/assets/js/data.js"></script>
@@ -108,7 +104,6 @@
          border:none;
       }
    </style>
-
 </head>
 <body>
 <c:set var="root" value="<%=request.getContextPath()%>" />
@@ -149,12 +144,32 @@
          </c:if>
          &nbsp; <a href="#">고객센터</a>
       </div>
+      <div id="searchinput">
+      <script>
+         var link = document.location.href;
+         console.log(link);
 
-      <div id="searchinput" >
-         <img alt="" src="../assets/images/searchicon.png" style="width:  25px; z-index: 3; margin-left: 10px; position: absolute; margin-top: 10px;">
-         <input type="text" id="search" autocomplete="off" placeholder="상품 검색"  style=" z-index: 4; ">
+         if(link=="http://localhost:8080/" || link=="http://localhost:8080/item/itemlist" || link.indexOf("itemsearch?")) {
+            var s="<img alt='' src='../assets/images/searchicon.png' style='width: 25px; z-index: 3; margin-left: 10px; position: absolute; margin-top: 10px;'>";
+                  s+="<input type='text' id='search' autocomplete='off' placeholder='상품 검색' style='z-index: 4;'>";
+            $("#searchinput").append(s);
+         }
+
+            //만약 엔터키를 누르면(=검색하면) 검색 리스트 띄우도록
+            $(document).keydown(function(event) {
+               if(event.which==13) {
+                  //입력한 검색 값을 받아와서
+                  var searchText=$("#search").val();
+                  if(link=="http://localhost:8080/item/itemlist") {
+                     location.href="itemsearch?searchText="+searchText;
+                  } else {
+                     location.href="/item/itemsearch?searchText="+searchText;
+                  }
+               }
+            })
+
+      </script>
       </div>
-
    </div>
 </div>
 
@@ -163,7 +178,9 @@
       alert("로그인 후 이용 가능합니다");
       window.location.href = "/user/loginForm";
    });
-</script>
-</body>
 
+
+</script>
+
+</body>
 </html>

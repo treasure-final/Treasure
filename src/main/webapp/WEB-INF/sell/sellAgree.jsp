@@ -28,13 +28,14 @@
 }
 
 .agree-wrapper {
-   width: 800px;
+   width: 1100px;
    padding: 40px;
    box-sizing: border-box;
    margin-top: 20px !important;
    line-height: 30px;
    margin: auto;
    position: relative;
+   
 }
 
 input[type="checkbox"] {
@@ -49,6 +50,10 @@ input[type="checkbox"]+label {
    position: relative;
    margin-right: 5px;
    float: right;
+   overflow: hidden;
+   vertical-align: middle;
+   
+   
 }
 
 input[id="check1"]:checked+label::after, input[id="check2"]:checked+label::after,
@@ -65,6 +70,8 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
    left: 0;
    top: 0;
    float: right;
+   padding-top: 5px;
+   
 }
 
 
@@ -114,81 +121,88 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
    border: 1px solid #747f55;
 }
 
-#logo {
-   font-size: 25px;
-   font-weight: bold;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   margin-bottom: 20px;
-}
+        #logo {
+            font-size: 25px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
 
-.item {
-   width: 100%;
-   margin: auto;
-   margin-top: 30px;
-   display: flex;
-   flex-direction: row;
-   align-items: center;
-}
+        .item {
+            width: 100%;
+            margin: auto;
+            margin-top: 30px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
 
-.item-photo {
-   width: 150px;
-   object-fit: cover;
-   border-radius: 10px;
-}
+        .item-photo {
+            width: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
 
-.item-info {
-   display: flex;
-   flex-direction: column;
-   margin-left: 20px;
-}
+        .item-info {
+            display: flex;
+            flex-direction: column;
+            margin-left: 20px;
+        }
 
-.item-info>li {
-   list-style: none;
-   font-size: 14px;
-}
+        .item-info > li {
+            list-style: none;
+            font-size: 14px;
+        }
 
-.agree-ment {
-   margin-top: 30px;
-   font-size: 20px;
-}
+        .agree-ment {
+            margin-top: 30px;
+            font-size: 20px;
+        }
 
-.agree-check {
-   width: 100%;
-   height: 350px;
-   margin: auto;
-   margin-top: 10px;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   border: 1px solid #D2D2D2;
-   justify-content: center;
-   align-items: flex-start;
-   border-radius: 10px;
-}
+        .agree-sub {
+            border-bottom: 1px solid #e3e3e3;
+            line-height: 22px;
+            font-size: 16px;
+            padding: 16px 0;
+            margin: 10px 0;
+            font-weight: normal;
+        }
 
-.agree-check>div {
-   display: flex;
-   align-items: center;
-   padding: 10px;
-}
+        .agree-sub > span {
+            font-size: 13px;
+            opacity: 0.6;
+        }
 
-.agree-check>div>span {
-   display: flex;
-   align-items: center;
-   font-size: 15px;
-   padding: 3px;
-   width: 640px;
-   margin-left: 10px;
-}
+        .agree-box {
+            border: 1px solid #e3e3e3;
+            padding: 20px 50px 20px 50px;
+            margin-top: 20px;
+            border-radius: 20px;
+        }
 
-.hr {
-   border: none;
-   height: 2px;
-   background: black;
-   margin-bottom: 50px;
-}
+        .agree-check > div {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .agree-check > div > span {
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            padding: 3px;
+            width: 640px;
+            margin-left: 10px;
+        }
+
+        .hr {
+            border: none;
+            height: 2px;
+            background: black;
+            margin-bottom: 50px;
+        }
 </style>
 
 <script>
@@ -200,9 +214,9 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
                return;
            }
        }
-       location.href='/sell/sellType?size=${size}';
+       location.href='/sell/sellType?item_num=${itemDto.item_num}&size=${size}';
    }
-   
+
    function checkAllAgreements() {
        var checkboxes = document.querySelectorAll('#agree-check input[type="checkbox"]');
        var allChecked = true;
@@ -218,66 +232,82 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
 </head>
 <body>
 <div class="agree-wrapper">
+<input type="hidden" name="item_num" value="${item_num }">
     <div><i id="logo">판매동의</i></div>
      <div class="hr"></div>
        <div class="item">
-          <img alt="" src="../../img/화면%20캡처%202023-05-04%20140755.png" class="item-photo">                  
+          <img alt="" src="../img/item_image/${itemDto.item_image }" class="item-photo">                  
           <ul class="item-info">
-             <li>DR0148-102</li>
-             <li>(W) Nike Air Force 1 '07 LX Summit White Gorge Green</li>
-             <li>(W) 나이키 에어포스 1 '07 LX 서밋 화이트 골지 그린</li>
+             <li>${itemDto.item_modelnum }</li>
+             <li>${itemDto.item_engname }</li>
+             <li>${itemDto.item_korname }</li>
              <li>${size }</li>
-          </ul>         
+          </ul>
        </div>
-       
-       <div class="agree-ment"><b style="font-size: 1.1em; color: #747f55;">판매</b> 전 꼭 확인 해주세요</div>
-          
-       <div class="agree-check" id="agree-check">
-          <div>
-          <span>판매하려는 상품과 일치 합니다</span><input type="checkbox" required="required" id="check1" class="chk" onchange="checkAllAgreements()"><label for="check1"></label>
-          </div>
-          
-          <div>
-          <span>국내/해외에서 발매한 정품 및 새상품 입니다</span><input type="checkbox" required="required" id="check2" class="chk" onchange="checkAllAgreements()"><label for="check2"></label>
-          </div>
-          
-          <div>
-          <span>패키지 상태를 확인하였으며 문제가 없습니다</span><input type="checkbox" required="required" id="check3" class="chk" onchange="checkAllAgreements()"><label for="check3"></label>
-          </div>
-          
-          <div>
-          <span>이중 포장하여 발송 합니다</span><input type="checkbox" required="required" id="check4" class="chk" onchange="checkAllAgreements()"><label for="check4"></label>
-          </div>
-          
-          <div>
-          <span>TREASURE의 이용정책을 확인 하였습니다</span><input type="checkbox" required="required" id="check5" class="chk" onchange="checkAllAgreements()"><label for="check5"></label>
-          </div>
-          
-          <div>
-          <span>위 사항을 모두 숙지 하였으며 전체 동의 합니다</span><input type="checkbox" id="check6" required="required"><label for="check6"></label>
-          </div>
-       </div>
-        
-       <div style="display: flex;">
-       <button type="button" id="agree-back">뒤로가기</button> 
-        <button type="button" id="agree-next" onclick="checkAgreement()">판매 계속하기</button>
+
+  <div class="agree-ment" style="font-size: 22px;"><b style="color: #747f55;">판매</b> 전 꼭 확인 해주세요</div>
+
+    <div class="agree-box" id="agree-check">
+        <div class="agree-sub">
+            <input type="checkbox" required="required" class="chk" name="chkBox" id="check1" style="width: 25px;">
+            <label for="check1" style="margin-top: 8px"></label>
+            판매하려는 상품이 맞습니다.<br>
+            <span>상품 이미지, 모델번호, 출시일, 상품명, 사이즈를 한 번 더 확인했습니다.</span>
+        </div >
+        <div class="agree-sub">
+            <input type="checkbox" required="required" id="check2" name="chkBox" class="chk">
+            <label for="check2" style="margin-top: 3px"></label>
+            국내/해외에서 발매한 정품 · 새상품입니다.<br>
+            <span>모든 구성품이 그대로이며, 한 번도 착용하지 않은 정품・새상품입니다. 손상/오염/사용감 있는 상품은 판매가 불가능합니다.</span>
         </div>
+        <div class="agree-sub">
+            <input type="checkbox" required="required" id="check3" name="chkBox" class="chk">
+            <label for="check3" style="margin-top: 3px" ></label>
+            박스/패키지의 상태를 확인합니다.<br>
+            <span>박스/패키지 상태에 따른 검수 기준을 확인했습니다.</span>
+        </div>
+        <div class="agree-sub">
+            <input type="checkbox" required="required" id="check4" name="chkBox" class="chk">
+            <label for="check4" style="margin-top: 3px"></label>
+            이중 포장하여 선불 발송합니다.<br>
+            <span>반드시 이중 포장하여 택배 상자에 담아 선불 발송합니다. 합배송은 권장하지 않으며 이로 인한 박스/패키지 훼손은 판매자의 책임입니다.</span>
+
+        </div>
+        <div class="agree-sub" style="border: none; font-weight: bold">
+            위 사항을 모두 숙지 하였으며 전체 동의 합니다
+            <input type="checkbox" id="check6" required="required"><label for="check6"></label>
+        </div>
+    </div>
+
+    <div style="display: flex;">
+       <button type="button" id="agree-back">뒤로가기</button>
+       <button type="button" id="agree-next" onclick="checkAgreement()">판매 계속하기</button>
+    </div>
 </div>
 
 <script type="text/javascript">
 
-$("#check6").click(function(){
-   
-   var allchk=$(this).is(":checked");
-   
-   $(".chk").prop("checked", allchk);
-   
-});
+    $("#check6").click(function () {
 
-//일단은 걍 뒤로가기
-$("#agree-back").click(function(){
-	history.back();
-});
+        var allchk = $(this).is(":checked");
+
+        $(".chk").prop("checked", allchk);
+
+    });
+    //4개 이상 체크 시 모두 동의에도 체크되도록 & 하나라도 체크 안하면 모두 동의 칸은 체크 해제
+    $(".chk").click(function () {
+        if ($('input:checkbox[class=chk]:checked').length === 4) {
+            $("input[type='checkbox']").prop("checked", true);
+            $('.chk').prop("checked", true);
+        } else {
+            $("#check6").prop("checked", false);
+        }
+    });
+    
+    $("#agree-back").click(function(){
+    	history.back();
+    });
+
 </script>
 </body>
 </html>

@@ -1,9 +1,16 @@
 package boot.mvc.user;
 
+import boot.mvc.sell_bid.SellBidDto;
+import boot.mvc.sell_bid.SellBidService;
+import boot.mvc.sell_now.SellNowDto;
+import boot.mvc.sell_now.SellNowService;
+import boot.mvc.sell_total.SellTotalDto;
+import boot.mvc.sell_total.SellTotalService;
 import boot.mvc.user.kakaoApi.KakaoLoginBO;
 import boot.mvc.user.mailApi.MailSender;
 import boot.mvc.user.naverApi.NaverLoginBO;
 import com.github.scribejava.core.model.OAuth2AccessToken;
+import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,22 +29,34 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
 @Controller
+@RequiredArgsConstructor
 public class UserController {
 
     @Autowired
     UserService service;
+    
+    @Autowired
+    SellTotalService sellTotalService;
+    
+    @Autowired
+    SellBidService sellBiService;
+    
+    @Autowired
+    SellNowService sellNowService;
 
     private NaverLoginBO naverLoginBO;
     private String apiResult = null;
 
     @Autowired
     private KakaoLoginBO kakaoLoginBO;
+
 
     @Autowired
     private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
@@ -111,7 +130,6 @@ public class UserController {
 
         return "redirect:/";
     }
-   
     
     @RequestMapping(value = "/callbackKakao.do", method = {RequestMethod.GET, RequestMethod.POST})
     public String callbackKakao(Model model, @RequestParam String code, @RequestParam String state, HttpSession session) throws Exception {
@@ -305,7 +323,6 @@ public class UserController {
 
         return "/user/myPage";
     }
-    
     @GetMapping("/user/myProfile")
     public String myProfile(Model model, HttpSession session) {
 
@@ -378,15 +395,36 @@ public class UserController {
     @ResponseBody
     public int passSearchMailSender(@RequestParam String email) {
 //        System.out.println(email);
+
         int checkEmail=service.isUserEmail(email);
 //        System.out.println(checkEmail);
         if(checkEmail==1) {
             MailSender.mailSend(email);
             String randompass=MailSender.getRandompass();
 //            System.out.println(randompass);
-            Map<String,String> map=new HashMap<>();
             service.updateTemporarilyPass(randompass,email);
         }
         return checkEmail;
+    }
+    
+    @GetMapping("/user/sellHistory")
+    public String sellHistory(Model model, HttpSession session, String sell_num, String sellnow_num) {
+    	
+    	String loginEmail=(String)session.getAttribute("loginEmail");
+        String user_num=service.findEmailUserNum(loginEmail);
+     
+        List<SellTotalDto> list=sellTotalService.getListSellTotal(user_num);
+        
+        SellBidDto SBdto=sellBiService.getSellBidData(user_num, sell_num);
+        SellNowDto SNdto=sellNowService.getSellNowData(user_num, sellnow_num);
+        
+        model.addAttribute("user_num", user_num);
+        model.addAttribute("list", list);
+        model.addAttribute("SBdto", SBdto);
+        model.addAttribute("SNdto", SNdto);
+        
+        	
+    	return "/user/sellHistory";
+    	
     }
 }

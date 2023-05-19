@@ -1270,7 +1270,7 @@ div.main {
 				<c:if
 					test="${a.item_brandname==Ddto.item_brandname && a.item_category==Ddto.item_category && a.item_num!=Ddto.item_num}"
 				>
-					<a href=''>
+					<a href='/item/detail?item_num=${a.item_num }'>
 						<img alt="" src="/assets/images/${a.item_image }"
 							style="border: 1px solid gray; border-radius: 10px; height: 200px; width: 212px;"
 						>

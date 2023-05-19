@@ -45,5 +45,10 @@
 	<select id="getPurchaseRecentPriceAll" resultType="String">
 		select purchase_total_price from purchase where item_num=#{item_num} order by purchase_date desc limit 1
 	</select>
+	
+	<!-- 스타일 -->
+	<select id="getItemStyleList" resultType="BoardDto">
+	select * from board where item_num=#{item_num}
+	</select>
 
 </mapper>

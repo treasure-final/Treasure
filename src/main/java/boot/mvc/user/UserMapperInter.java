@@ -38,4 +38,7 @@ public interface UserMapperInter {
 
     //임시 비밀번호로 비밀번호 변경
     public void updateTemporarilyPass(Map<String,String> map);
+    public String getName(String user_email);
+
+    public String getUserPhoto(String user_email);
 }

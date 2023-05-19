@@ -46,14 +46,15 @@ public class DetailController {
 	}
 
 	@ResponseBody
-	@GetMapping("/item/purchaseRecentPriceSize")
+	@GetMapping("/item/getPurchaseRecentPriceSize")
 	public Map<String, Object> getPurchaseRecentPriceSize(@RequestParam("item_num") String itemNum, @RequestParam("buy_size") String buySize) {
-		Map<String, Object> response = new HashMap<>();
+		Map<String, Object> map = new HashMap<>();
 
-		String purchaseRecentPriceSize = Dservice.getPurchaseRecentPriceSize(itemNum, buySize);
-		response.put("purchaseRecentPriceSize", purchaseRecentPriceSize);
+		int getPurchaseRecentPriceSize = Dservice.getPurchaseRecentPriceSize(itemNum, buySize);
+		
+		map.put("getPurchaseRecentPriceSize", getPurchaseRecentPriceSize);
 
-		return response;
+		return map;
 	}
 //	@GetMapping("/item/detail")
 //	public ModelAndView DetailgetData(@RequestParam String item_num) {

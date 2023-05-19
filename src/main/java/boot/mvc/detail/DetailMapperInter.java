@@ -22,6 +22,6 @@ public interface DetailMapperInter {
 	
 	public String getPurchaseRecentPriceAll(String item_num);
 	
-	public String getPurchaseRecentPriceSize(Map<String, String> map);
+	public int getPurchaseRecentPriceSize(Map<String, Object> map);
 
 }

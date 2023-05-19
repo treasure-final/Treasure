@@ -121,22 +121,23 @@ select {
 
 		// 모달창에서 사이즈 선택
 		$(".sizeselect").click(function() {
-			var size = $(this).find(".size").text();
+			var buy_size = $(this).find(".size").text();
 
-			$(".size-text").text(size);
-			$(".size-select").val(size);
+			$(".size-text").text(buy_size);
+			$(".size-select").val(buy_size);
 			$("#sizeModal").modal("hide");
 
-			sendPurchaseRecentPriceSizeRequest(item_num, size);
+			sendPurchaseRecentPriceSizeRequest(item_num, buy_size);
 		});
 	});
+
 	function sendPurchaseRecentPriceSizeRequest(item_num, buy_size) {
 		$.ajax({
-			url : '/item/purchaseRecentPriceSize',
+			url : '/item/getPurchaseRecentPriceSize',
 			type : 'GET',
 			data : {
-				item_num : item_num,
-				buy_size : buy_size
+				"item_num" : item_num,
+				"buy_size" : buy_size
 			},
 			dataType : 'text',
 			success : function(response) {
@@ -144,8 +145,7 @@ select {
 				// response는 서버에서 반환하는 최근 거래 가격
 
 				// 숫자 포맷팅 및 업데이트
-				var formattedPrice = new Intl.NumberFormat().format(response);
-				$(".purchase-recent-price").text(formattedPrice);
+				$(".ChangeRecentPriceSize").text(response);
 			},
 			error : function(xhr, status, error) {
 				// 에러 처리

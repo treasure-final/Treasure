@@ -48,10 +48,16 @@
 	<select id="getPurchaseRecentPriceAll" resultType="String">
 		select purchase_total_price from purchase where item_num=#{item_num} order by purchase_date desc limit 1
 	</select>
+	
 	<!-- 최근 거래가(특정 사이즈) -->
-	<select id="getPurchaseRecentPriceSize" resultType="String">
-		select p.purchase_total_price from purchase p, buy_bid b where p.item_num=#{item_num} and b.buy_size=#{buy_size} order by p.purchase_date desc limit 1
+	<select id="getPurchaseRecentPriceSize" resultType="int">
+		select p.purchase_total_price 
+		from purchase p
+		join buy_bid b
+		on b.buy_num = p.buy_bid_num
+		where p.item_num=#{item_num} and b.buy_size=#{buy_size} order by p.purchase_date desc limit 1
 	</select>
+	
 	<!-- 스타일 -->
 	<select id="getItemStyleList" resultType="BoardDto">
 		select * from board where item_num=#{item_num}

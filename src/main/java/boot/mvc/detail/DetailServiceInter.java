@@ -19,6 +19,6 @@ public interface DetailServiceInter {
 	
 	public String getPurchaseRecentPriceAll(String item_num);
 	
-	public String getPurchaseRecentPriceSize(String item_num, String buy_size);
+	public int getPurchaseRecentPriceSize(String item_num, String buy_size);
 
 }

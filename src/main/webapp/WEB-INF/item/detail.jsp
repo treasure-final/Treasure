@@ -2,6 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page import="java.time.LocalDateTime"%>
+<%@ page import="java.time.format.DateTimeFormatter"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +21,7 @@
 <link rel="stylesheet" href="../assets/css/fontawesome.css">
 <link rel="stylesheet" href="../assets/css/template.css">
 <link rel="stylesheet" href="../assets/css/owl.css">
-<link rel="stylesheet" href="assets/css/animate.css">
+<!-- <link rel="stylesheet" href="assets/css/animate.css"> -->
 <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 <!-- <link rel="stylesheet" href="../assets/css/detail.css"> -->
 <!--chart.js  -->
@@ -111,19 +113,42 @@ div.main {
 </style>
 
 <script type="text/javascript">
-	$(function () {
-		
+	$(function() {
+		var item_num = $(".item_num").val();
+
 		// 모달창에서 사이즈 선택
-		$(".sizeselect").click(function () {
+		$(".sizeselect").click(function() {
 			var size = $(this).find(".size").text();
-			
+
 			$(".size-text").text(size);
 			$(".size-select").val(size);
 			$("#sizeModal").modal("hide");
-			
 		});
 		
-		
+		$(".size-text").select(function() {
+			var size = $(this).val();
+
+			$(".size-select").val(size);
+			$("#sizeModal").modal("hide");
+		});
+
+		/* $.ajax({
+		  url: "/item/DetailgetData",
+		  type: "get",
+		  dataType: "json",
+		  data: {
+		    "item_num": item_num
+		  },
+		  success: function(res) {
+			  
+		    $("#brandname").text(res.item_brandname);
+		    $("#category").text();
+		  },
+		  error: function(xhr, status, error) {
+		    // 오류 처리 로직을 추가합니다.
+		    console.log("AJAX 오류:", status, error);
+		  }
+		}); */
 	});
 </script>
 
@@ -157,8 +182,10 @@ div.main {
 												style="position: relative; bottom: 50px"
 											>
 										</div>
-										<!-- <div class="carousel-item" data-bs-interval="4000" data-bs-pause="hover">
-											<img src="/assets/images/1.png" class="d-block w-100" alt="..."
+
+										<%-- <div class="carousel-item" data-bs-interval="4000" data-bs-pause="hover">
+											<img src="/assets/images/${Ddto.item_image }" class="d-block w-100" alt="..."
+
 												style="position: relative; bottom: 50px"
 											>
 											<div class="carousel-caption d-none d-md-block"></div>
@@ -168,7 +195,9 @@ div.main {
 												style="position: relative; bottom: 50px"
 											>
 											<div class="carousel-caption d-none d-md-block"></div>
-										</div> -->
+
+										</div> --%>
+
 									</div>
 									<!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
 										data-bs-slide="prev"
@@ -193,12 +222,16 @@ div.main {
 									<!-- 상품명 -->
 									<div class="heading-section mt-sm-3">
 										<div style="margin-bottom: 0.5rem;">
-											<span style="font-size: 1.5em; font-weight: 600;">${Ddto.item_brandname }</span>
-											<span style="font-size: 1em; font-weight: 500; margin-left: 1rem; color: #666">|&nbsp;&nbsp;&nbsp;${Ddto.item_category}</span>
+
+											<span id="brandname" style="font-size: 1.5em; font-weight: 600;">${Ddto.item_brandname }</span>
+											<span id="category"
+												style="font-size: 1em; font-weight: 500; margin-left: 1rem; color: #666"
+											>|&nbsp;&nbsp;&nbsp;${Ddto.item_category}</span>
 										</div>
-										<span style="font-size: 1.2em; font-weight: 600;">${Ddto.item_engname }</span>
+										<span id="engname" style="font-size: 1.2em; font-weight: 600;">${Ddto.item_engname }</span>
 										<br>
-										<span style="font-size: 1.1em; color: #666;">${Ddto.item_korname }</span>
+										<span id="korname" style="font-size: 1.1em; color: #666;">${Ddto.item_korname }</span>
+
 									</div>
 									<hr>
 									<!-- 모델 번호, 출시일 ... -->
@@ -210,7 +243,9 @@ div.main {
 											</div>
 											<div class="row mb-4">
 												<span style="font-size: 1.1em; color: #666;">출시일</span>
-												<span style="font-size: 1.2em; font-weight: 500;">${Ddto.item_releaseday}</span>
+
+												<span style="font-size: 1.2em; font-weight: 500;">${Ddto.item_releaseday} </span>
+
 											</div>
 											<div class="row mb-4">
 												<span style="font-size: 1.1em; color: #666;">컬러</span>
@@ -223,14 +258,15 @@ div.main {
 										</div>
 										<div class="col-7">
 											<div class="mb-4">
-
 												<button type="button" class="btn btn-detail btn-lg w-100"
-													style="height: 7vh; margin-top: 90px" onclick="location.href='/buy/select?item_num=${item_num}'"
-
+													style="width: 290px; height: 7vh; margin-top: 70px; margin-left: 40px"
+													onclick="location.href='/buy/select?item_num=${item_num}'"
 												>구매</button>
 											</div>
 											<div>
-												<button type="button" class="btn btn-outline-detail btn-lg w-100" style="height: 7vh;"
+												<button type="button" class="btn btn-outline-detail btn-lg w-100"
+													style="height: 7vh; width: 290px; margin-left: 40px;"
+
 													onclick="location.href='/sell/sellSize?item_num=${item_num}'"
 												>판매</button>
 											</div>
@@ -298,7 +334,9 @@ div.main {
 										</div>
 										<div class="heading-section col-3">
 											<span style="font-size: 1.1em; float: right;">
-												<b>224,000</b>
+												<b>
+													<fmt:formatNumber value="${getPurchaseRecentPriceAll }" />
+												</b>
 												<b>원</b>
 											</span>
 											<span style="font-size: 0.8em; float: right; color: green">
@@ -318,8 +356,9 @@ div.main {
 										</div>
 										<div class="heading-section col-3">
 											<!-- 카테고리 별 사이즈 -->
-											<select class="form-select size-select"
-												aria-label="size-select"
+
+											<select class="form-select size-select" aria-label="size-select"
+
 												style="border: 0px; font-size: 1em; float: right; color: #666;"
 											>
 												<option>모든 사이즈</option>
@@ -367,8 +406,8 @@ div.main {
 												</ul>
 												<div class="tab-content">
 													<div class="tab-pane fade show active" id="onemonth" role="tabpanel">
-														<div style="width: 100%; height: 200px; margin-left: 100px">
-															<canvas id="myChart1"></canvas>
+														<div style="width: 550px; margin-left: 0px">
+															<canvas id="myChart1" height="100"></canvas>
 														</div>
 														<script>
 															function addZero(i) {
@@ -402,6 +441,7 @@ div.main {
 																},
 
 																options : {
+																	responsive : false,
 																	scales : {
 																		x : {
 																			ticks : {
@@ -468,6 +508,7 @@ div.main {
 																},
 
 																options : {
+																	responsive : false,
 																	scales : {
 																		x : {
 																			ticks : {
@@ -534,6 +575,7 @@ div.main {
 																},
 
 																options : {
+																	responsive : false,
 																	scales : {
 																		x : {
 																			ticks : {
@@ -600,6 +642,7 @@ div.main {
 																},
 
 																options : {
+																	responsive : false,
 																	scales : {
 																		x : {
 																			ticks : {
@@ -666,6 +709,7 @@ div.main {
 																},
 
 																options : {
+																	responsive : false,
 																	scales : {
 																		x : {
 																			ticks : {
@@ -741,17 +785,40 @@ div.main {
 															<hr class="mt-0 mb-0">
 															<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
 																<div class="col-6">
-																	<span style="font-size: 0.9em; color: #666;">265</span>
+																	<c:forEach items="${getPurchaseData }" var="p" end="4">
+																		<span style="font-size: 0.9em; color: #666; margin-right: 25px">${p.buy_size }</span>
+																		<br>
+																	</c:forEach>
+																	<br>
 																</div>
 																<div class="col-4">
-																	<span style="font-size: 0.9em; color: #666;">174,000원</span>
+
+																	<c:forEach items="${getPurchaseData }" var="p" end="4">
+																		<span style="font-size: 0.9em; color: #666; float: right; margin-right: 80px">
+																			<fmt:formatNumber value="${p.purchase_total_price }">
+																			</fmt:formatNumber>
+																			원
+																		</span>
+																		<br>
+																	</c:forEach>
+																	<br>
 																</div>
 																<div class="col-2">
-																	<span style="font-size: 0.9em; color: #666;">23/05/02</span>
+																	<c:forEach items="${getPurchaseData }" var="p" end="4">
+																		<span style="font-size: 0.9em; color: #666; margin-right: 30px">
+																			<fmt:parseDate var="dateFormatter" value="${p.purchase_date}"
+																				pattern="yyyy-MM-dd'T'HH:mm:ss"
+																			/>
+																			<fmt:formatDate value="${dateFormatter }" pattern="yyyy/MM/dd" />
+																		</span>
+																		<br>
+																	</c:forEach>
+																	<br>
+
 																</div>
 															</div>
 														</div>
-														<div>
+														<div style="padding-top: 20px">
 															<button type="button" class="btn btn-outline-detail w-100" data-bs-toggle="modal"
 																data-bs-target="#detailModal"
 															>체결 내역 더보기</button>
@@ -773,13 +840,29 @@ div.main {
 															<hr class="mt-0 mb-0">
 															<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
 																<div class="col-6">
-																	<span style="font-size: 0.9em; color: #666;">255</span>
+																	<c:forEach items="${groupedSellData }" var="s" end="4">
+																		<span style="font-size: 0.9em; color: #666; margin-right: 25px">${s.sell_size }</span>
+																		<br>
+																	</c:forEach>
+																	<br>
 																</div>
 																<div class="col-4">
-																	<span style="font-size: 0.9em; color: #666;">154,000원</span>
+																	<c:forEach items="${groupedSellData }" var="s" end="4">
+																		<span style="font-size: 0.9em; color: #666; float: right; margin-right: 80px">
+																			<fmt:formatNumber value="${s.sell_wishprice }">
+																			</fmt:formatNumber>
+																			원
+																		</span>
+																		<br>
+																	</c:forEach>
+																	<br>
 																</div>
 																<div class="col-2">
-																	<span style="font-size: 0.9em; color: #666;">1</span>
+																	<c:forEach items="${groupedSellData }" var="s" end="4">
+																		<span style="font-size: 0.9em; color: #666; margin-right: 0px">${s.count }</span>
+																		<br>
+																	</c:forEach>
+																	<br>
 																</div>
 															</div>
 														</div>
@@ -805,13 +888,29 @@ div.main {
 															<hr class="mt-0 mb-0">
 															<div class="d-flex" style="padding: 5px; text-align: center;">
 																<div class="col-6">
-																	<span style="font-size: 0.9em; color: #666;">265</span>
+																	<c:forEach items="${groupedBuyData }" var="g" end="4">
+																		<span style="font-size: 0.9em; color: #666; margin-right: 30px">${g.buy_size }</span>
+																		<br>
+																	</c:forEach>
+																	<br>
 																</div>
 																<div class="col-4">
-																	<span style="font-size: 0.9em; color: #666;">153,000원</span>
+																	<c:forEach items="${groupedBuyData }" var="g" end="4">
+																		<span style="font-size: 0.9em; color: #666; float: right; margin-right: 100px">
+																			<fmt:formatNumber value="${g.buy_wishprice }">
+																			</fmt:formatNumber>
+																			원
+																		</span>
+																		<br>
+																	</c:forEach>
+																	<br>
 																</div>
 																<div class="col-2">
-																	<span style="font-size: 0.9em; color: #666;">1</span>
+																	<c:forEach items="${groupedBuyData }" var="g" end="4">
+																		<span style="font-size: 0.9em; color: #666; margin-right: 30px">${g.count }</span>
+																		<br>
+																	</c:forEach>
+																	<br>
 																</div>
 															</div>
 														</div>
@@ -832,7 +931,11 @@ div.main {
 															<div class="modal-body" style="padding-left: 2.1rem;">
 																<div class="d-flex row col-12 mb-2">
 																	<div class="p-2" style="flex: 0 0 auto; width: 20%;">
-																		<img src="/assets/images/${Ddto.item_image }" style="height: 8vh; border-radius: 1.3rem;">
+
+																		<img src="/assets/images/${Ddto.item_image }"
+																			style="height: 8vh; border-radius: 1.3rem;"
+																		>
+
 																	</div>
 																	<div class="p-2 mb-3" style="flex: 0 0 auto; width: 89%;">
 																		<div class="row">
@@ -844,8 +947,9 @@ div.main {
 																			<span style="font-size: 0.6rem; color: #666">${Ddto.item_korname }</span>
 																		</div>
 																		<div class="row col-5">
-																			<select class="form-select size-select"
-																				aria-label="size-select"
+
+																			<select class="form-select size-select" aria-label="size-select"
+
 																				style="border: 0px; font-size: 1em; float: right; color: #666;"
 																			>
 																				<option selected>모든 사이즈</option>
@@ -1195,53 +1299,32 @@ div.main {
 			</div>
 		</div>
 		<div class="mt-4 mb-lg-5" style="height: 40vh;">
-		
-		<c:forEach var="dto" items="${brandList}" varStatus="i">
-			<a href='${root}/item/detail?item_num=${dto.item_num}'>
-				<img alt="" src="/assets/images/${dto.item_image}"
-					style="border: 1px solid gray; height: 200px; width: 212px;"
+
+			<c:forEach items="${list }" var="a">
+				<c:if
+					test="${a.item_brandname==Ddto.item_brandname && a.item_category==Ddto.item_category && a.item_num!=Ddto.item_num}"
 				>
-			</a>
-		</c:forEach>
-			
+					<a href='/item/detail?item_num=${a.item_num }'>
+						<img alt="" src="/assets/images/${a.item_image }"
+							style="border: 1px solid gray; border-radius: 10px; height: 200px; width: 212px;"
+						>
+					</a>
+				</c:if>
+			</c:forEach>
+
 		</div>
 		<hr>
 		<div class="d-flex mt-5">
 			<div class="col-12 align-self-center">
 				<span class="fs-4">
-					<b>스타일 12</b>
+					<b>스타일</b>
 				</span>
 			</div>
 		</div>
-		<div class="mt-4 mb-lg-5" style="border: 1px solid gray; height: 89vh;">
+		<div class="mt-4 mb-lg-5" style="height: 89vh;">
 			<a href=''>
 				<img alt="" src="/assets/images/8.png"
-					style="border: 1px solid gray; height: 200px; width: 212px;"
-				>
-			</a>
-			<a href=''>
-				<img alt="" src="/assets/images/9.png"
-					style="border: 1px solid gray; height: 200px; width: 212px;"
-				>
-			</a>
-			<a href=''>
-				<img alt="" src="/assets/images/10.png"
-					style="border: 1px solid gray; height: 200px; width: 212px;"
-				>
-			</a>
-			<a href=''>
-				<img alt="" src="/assets/images/11.png"
-					style="border: 1px solid gray; height: 200px; width: 212px;"
-				>
-			</a>
-			<a href=''>
-				<img alt="" src="/assets/images/12.png"
-					style="border: 1px solid gray; height: 200px; width: 212px;"
-				>
-			</a>
-			<a href=''>
-				<img alt="" src="/assets/images/13.png"
-					style="border: 1px solid gray; height: 200px; width: 212px;"
+					style="border: 1px solid gray; border-radius: 10px; height: 200px; width: 212px;"
 				>
 			</a>
 		</div>

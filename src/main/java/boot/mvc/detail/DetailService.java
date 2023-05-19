@@ -1,11 +1,13 @@
 package boot.mvc.detail;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import boot.mvc.buy_bid.BuyBidDto;
 import boot.mvc.item.ItemDto;
 
 @Service
@@ -38,20 +40,15 @@ public class DetailService implements DetailServiceInter {
 	}
 
 	@Override
-	public List<Map<String, Object>> getPurchaseData() {
+	public List<Map<String, Object>> getPurchaseData(String item_num) {
 		// TODO Auto-generated method stub
-		return mapper.getPurchaseData();
+		return mapper.getPurchaseData(item_num);
 	}
 
 	@Override
 	public String getPurchaseRecentPriceAll(String item_num) {
 		// TODO Auto-generated method stub
 		return mapper.getPurchaseRecentPriceAll(item_num);
-	}
-
-	@Override
-	public List<ItemDto> getItemsByBrandname(String item_brandname) {
-		return mapper.getItemsByBrandname(item_brandname);
 	}
 
 }

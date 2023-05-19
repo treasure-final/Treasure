@@ -16,7 +16,7 @@
     <script type="application/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js"
             charset="utf-8"></script>
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	            
+
 <style>
 @font-face {
 	font-family: "GmarketSansMedium";
@@ -103,44 +103,55 @@ div.main {
 	width: 1200px;
 }
 
-.sellTable{
-	width: 1200px;
-	align-content: center;
-	border-collapse: collapse;
+.sell-header {
+	width: 1170px;
+	font-size: 14px;
+	display: flex;
+	margin-left: 10px;
+	/* background-color: yellow; */
+	padding: 10px;
+	opacity: 0.7;
 }
 
-.sellTable td {
-  vertical-align: middle;
+.sell-content {
+	width: 1170px;
+	font-size: 15px;
+	display: flex;
+	margin-left: 10px;
+	/* background-color: #FAFAFA; */
+	border: 1px solid rgba(34, 34, 34, .05);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, .12);
+	border-radius: 20px;
+	padding: 10px;
+	margin-bottom: 25px;
+	justify-content: center;
+	align-items: center;
 }
 
-.sellTable td div {
-  margin-left: 15px;
+.sell-content:hover {
+	border: 1px solid black;
+	background-color: #FAFAFA;
 }
 
-
-.sellTable tr {
-  height: 150px;
-  border-bottom: 1px solid #D2D2D2;
-}
-
-.sellImg{
+.sellImg {
 	width: 100px;
 	height: 100px;
 	border-radius: 15px;
-	margin-left: 10px;
-	vertical-align: middle;
 }
 
 .sellDescription {
-  display: flex;
-  flex-direction: column;
-  margin-left: 10px;
-  margin-top: 20px;
-  
+	width: 500px;
+	display: flex;
+	flex-direction: column;
+	margin-left: 10px;
+	font-size: 15px;
+	margin-top: 15px;
 }
-
 </style>
 
+<script type="text/javascript">
+
+</script>
 </head>
 <body>
 <div class="wrapper">
@@ -174,59 +185,47 @@ div.main {
     <h2 id="logo"><i>판매 내역</i></h2>
     <div class="hr"></div>
     
-    <table class="sellTable">
-	    <tr style="height: 30px; text-align: left; opacity: 0.4; font-size: 14px; border-bottom: 0px;">
-	    	<th style="width: 700px; font-weight: normal;"><span style="margin-left: 15px;"><i></i></span></th>
-	    	<th style="width: 200px; font-weight: normal;"><span style="margin-left: 15px;"><i>판매일</i></span></th>
-	    	<th style="width: 150px; font-weight: normal;"><span style="margin-left: 15px;"><i>검수현황</i></span></th>
-	    	<th style="width: 150px; font-weight: normal;"><span style="margin-left: 15px;"><i>상태</i></span></th>
-	    </tr>
-	    
-	    <tr>
-	    	<td>
-		    	<div style="display: flex; font-size: 15px;">
-		    		<img class="sellImg" src="../img/item_image/16.png">
-		    		<div class="sellDescription">
-			    		<div>Arc'teryx Atom LT Hoody Black</div>
-			    		<div>아크테릭스 아톰 LT 후디 블랙</div>
-			    		<div>XL</div>
-		    		</div>
-		    	</div>
-	    	</td>
-	   
-	    	<td style="font-size: 16px;"><div>2023.05.17</div> </td>
-	   
-	    	<td style="font-size: 16px;"><div>합격</div></td>
-	         
-	    	<td style="font-size: 16px;"><div>판매대기</div></td>
-	    </tr>   
-	    
-	    <tr>
-	    	<td>
-		    	<div style="display: flex;">
-		    		<img class="sellImg" src="../img/item_image/16.png">
-		    		<div class="sellDescription">
-			    		<div>Arc'teryx Atom LT Hoody Black</div>
-			    		<div>아크테릭스 아톰 LT 후디 블랙</div>
-			    		<div>XL</div>
-		    		</div>
-		    	</div>
-	    	</td>
-	   
-	    	<td><div>2023.05.17</div> </td>
-	   
-	    	<td><div>합격</div></td>
-	         
-	    	<td><div>판매대기</div></td>
-	    </tr>   
-	    
-	    
-    </table>
     
-      
+	    <div class="sell-header">
+	    	<div style="width: 750px">전체 3개</div>
+	    	<div style="width:150px;">검수현황</div>
+	    	<div style="width:200px; ">상태</div>
+	    	<div style="width:200px;">접수일</div>
+	    </div>
+	    
+	    <div style="margin-top: 30px;"></div>
+	    
+	    <section>
+	     <div class="sell-content">
+	    	<div style="width:750px; display: flex; font-size: 15px;">
+		    		<img class="sellImg" src="../img/item_image/16.png">
+		    		<div class="sellDescription">
+			    		<div>Arc'teryx Atom LT Hoody Black</div>
+			    		<div>아크테릭스 아톰 LT 후디 블랙</div>
+			    		<div>XL</div>
+		    		</div>
+		    	</div>
+	    	<div style="width:150px; color: #f15746;">불합격</div>
+	    	<div style="width:200px;">판매대기</div>
+	    	<div style="width:200px;">23.12.25</div>
+	    </div>
+	    </section>
+	    
+	     <div class="sell-content">
+	    	<div style="width:750px; display: flex; font-size: 15px;">
+		    		<img class="sellImg" src="../img/item_image/16.png">
+		    		<div class="sellDescription">
+			    		<div>Arc'teryx Atom LT Hoody Black</div>
+			    		<div>아크테릭스 아톰 LT 후디 블랙</div>
+			    		<div>XL</div>
+		    		</div>
+		    	</div>
+	    	<div style="width:150px; color: #31b46e;">합격</div>
+	    	<div style="width:200px;">판매완료</div>
+	    	<div style="width:200px;">23.12.25</div>
+	    </div>
      
     </div>
-
     
 <div style="clear: left"></div>
 </div>

@@ -1,5 +1,7 @@
 package boot.mvc.sell_total;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,14 @@ public class SellTotalService implements SellTotalServiceInter {
 	public String getNowinsertSellTotalNum() {
 		return mapper.getNowinsertSellTotalNum();
 	}
+
+	@Override
+	public List<SellTotalDto> getListSellTotal(String user_num) {
+		// TODO Auto-generated method stub
+		return mapper.getListSellTotal(user_num);
+	}
+
+	
 	
 
 

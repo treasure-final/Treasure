@@ -24,4 +24,10 @@ public class SellNowService implements SellNowServiceInter {
 		mapper.updateSellStatusSoldOut(sellnow_num);
 	}
 
+	@Override
+	public SellNowDto getSellNowData(String user_num, String sellnow_num) {
+		// TODO Auto-generated method stub
+		return mapper.getSellNowData(user_num, sellnow_num);
+	}
+
 }

@@ -26,6 +26,7 @@
 		order by buy_inputday desc
     
 	</select>
+	
 	<!-- 구매 입찰 리스트(사이즈, 판매희망가, 수량) -->
 	<select id="getSellBidGroupedData" resultType="Map">
 		select sell_size, sell_wishprice, count(*) as count

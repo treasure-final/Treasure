@@ -113,8 +113,7 @@ public class SellNowController {
         if(test_result.equals("합격")) {
         	
         	// purchase insert하기
-        	PurchaseDto purchaseDto = new PurchaseDto();
-        	System.out.println("purchase insert : " + selltotal_num);
+        	PurchaseDto purchaseDto = new PurchaseDto();       	
         	
         	BuyBidDto buyBidDto = buyBidService.getDataOfBuyBid(buy_num);
         	
@@ -125,10 +124,19 @@ public class SellNowController {
         	purchaseDto.setPurchase_wishprice(Integer.parseInt(buyBidDto.getBuy_wishprice()));
         	purchaseDto.setPurchase_delivery("빠른배송");
         	purchaseDto.setPurchase_total_price(totalPrice);
-        	purchaseDto.setPurchase_status(0);
         	
+        	// 배송 상태 random
+        	Random random2 = new Random();
+            double statusResult = random.nextDouble(); 
+
+            if (statusResult <= 0.5) {
+            	purchaseDto.setPurchase_status(0);
+            } else {
+            	purchaseDto.setPurchase_status(1);
+            }
+ 
         	purchaseService.insertPurchase(purchaseDto);
-        	
+        	buyBidService.updateBuyStatus(buy_num);
         }
         
 		return loginEmail;

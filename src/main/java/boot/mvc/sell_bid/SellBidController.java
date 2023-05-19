@@ -83,7 +83,17 @@ public class SellBidController {
       else if(category.equals("bag")) {
   
     	  buyBidDto = buyBidService.getBuyBidForSellNow(item_num, "ONE SIZE"); 
-    	  list.add(buyBidDto);
+
+    	  if(buyBidDto == null) {
+			  BuyBidDto newBuyBidDto = new BuyBidDto();
+			  
+			  newBuyBidDto.setBuy_size("ONE SIZE");
+			  newBuyBidDto.setBuy_wishprice("null");
+			  
+			  list.add(newBuyBidDto);
+		  } else
+			  list.add(buyBidDto);
+    	  
     	  
       }
       // category 옷

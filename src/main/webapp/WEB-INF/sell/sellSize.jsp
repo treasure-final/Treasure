@@ -241,6 +241,11 @@ div.sell_size:hover {
 		
 		$("#sell-next").click(function(){
 			
+			if(size== null) {
+				alert("사이즈를 선택해주세요");
+				return;
+			}
+			
 			 location.href = "/sell/sellAgree?item_num=${itemDto.item_num}&size=" + size;
             
 		});
@@ -248,7 +253,7 @@ div.sell_size:hover {
 </script>
 </head>
 <body>
-		<form>
+		
 	<div class="login-wrapper">
 	<input type="hidden" name="item_num" value="${itemDto.item_num }">
 		<div>
@@ -267,9 +272,10 @@ div.sell_size:hover {
 				<br>
 			</div>
 		</div>
-			<div style="display: flex;">
+		
+		<div style="display: flex;">
 			<c:choose>
-			<%--                여성이라 사이즈는 225부터 시작, 사이즈는 5씩 증가--%>
+			<%-- 여성이라 사이즈는 225부터 시작, 사이즈는 5씩 증가 --%>
 			<c:when test="${itemDto.item_category eq 'shoes'}">
 				<c:forEach var="dto" items="${list}" varStatus="i">
 				<div class="sell_size">			 	
@@ -287,11 +293,13 @@ div.sell_size:hover {
 					
 					
 				</div>
+				
 				 <c:if test="${i.count % 4 == 0}">
 		</div>
+		
 		<div style="display: flex;">
-			</c:if>
-			</c:forEach>
+				</c:if>
+				</c:forEach>
 			</c:when>
 
 			<c:when test="${itemDto.item_category eq 'bag'}">
@@ -299,58 +307,52 @@ div.sell_size:hover {
 				<div class="sell_size">
 					<span class="sell_size selectSize">ONE SIZE</span>
 					<br>
-					<span class="sell_size" style="color: #ec0b00;">139,000</span>
+					
+					<c:if test="${dto.buy_wishprice != 'null'}">
+						<span class="sell_size" style="color: #ec0b00;"><fmt:formatNumber value="${dto.buy_wishprice}" type="number"/></span>
+					</c:if>
+					
+					<c:if test="${dto.buy_wishprice == 'null'}">
+						<span class="sell_size" style="color: gray;">판매 입찰</span>
+					</c:if>
+					
 				</div>
 				</div>
 			</c:when>
 
-			<c:otherwise>
-				<div style="margin-top: 30px; display: flex;">
-				<div class="sell_size">
-					<span class="sell_size selectSize">XS</span>
+			<c:otherwise>	
+				<c:forEach var="dto" items="${list}" varStatus="i">
+				<div style="margin-top: 30px;">
+				<div class="sell_size">			 	
+				     <span class="sell_size selectSize">${dto.buy_size}</span>
+				                 		           		
 					<br>
-					<span class="sell_size" style="color: #ec0b00;">139,000</span>
-				</div>
-				<div class="sell_size">
-					<span class="sell_size selectSize">S</span>
-					<br>
-					<span class="sell_size" style="color: #ec0b00;">139,000</span>
-				</div>
-				<div class="sell_size">
-					<span class="sell_size selectSize">M</span>
-					<br>
-					<span class="sell_size" style="color: #ec0b00;">139,000</span>
-				</div>
-				<div class="sell_size">
-					<span class="sell_size selectSize">L</span>
-					<br>
-					<span class="sell_size" style="color: #ec0b00;">139,000</span>
-				</div>
-				</div>
-			</div>
+					
+					<c:if test="${dto.buy_wishprice != 'null'}">
+						<span class="sell_size" style="color: #ec0b00;"><fmt:formatNumber value="${dto.buy_wishprice}" type="number"/></span>
+					</c:if>
+					
+					<c:if test="${dto.buy_wishprice == 'null'}">
+						<span class="sell_size" style="color: gray;">판매 입찰</span>
+					</c:if>
+					
+					
+				</div></div>
+				
+				 <c:if test="${i.count % 4 == 0}">
+		</div>
+		
 		<div style="display: flex;">
-				<div class="sell_size">
-					<span class="sell_size selectSize">XL</span>
-					<br>
-					<span class="sell_size" style="color: #ec0b00;">139,000</span>
-				</div>
-				<div class="sell_size">
-					<span class="sell_size selectSize">XXL</span>
-					<br>
-					<span class="sell_size" style="color: #ec0b00;">139,000</span>
-				</div>
-				<div class="sell_size">
-					<span class="sell_size selectSize">XXXL</span>
-					<br>
-					<span class="sell_size" style="color: #ec0b00;">139,000</span>
-				</div>
+				</c:if>
+				</c:forEach>
 			</c:otherwise>
+
 			</c:choose>
 		</div>
-		</form>
+	
 		<div style="display: flex;">
 			<button type="button" id="sell-back">뒤로가기</button>
-			<button type="button" id="sell-next" onclick="location.href='/sell/sellAgree'">판매 계속하기</button>
+			<button type="button" id="sell-next">판매 계속하기</button>
 		</div>
 	</div>
 

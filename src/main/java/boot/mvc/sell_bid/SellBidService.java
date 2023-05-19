@@ -20,5 +20,11 @@ public class SellBidService implements SellBidServiceInter {
 	public String getNowinsertSellBidNum() {
 		return mapper.getNowinsertSellBidNum();
 	}
+
+	@Override
+	public SellBidDto getSellBidData(String user_num, String sell_num) {
+		// TODO Auto-generated method stub
+		return mapper.getSellBidData(user_num, sell_num);
+	}
 	
 }

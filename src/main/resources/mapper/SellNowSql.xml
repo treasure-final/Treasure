@@ -19,4 +19,9 @@
 		update sell_now set sell_status="판매완료" where sellnow_num=#{sellnow_num}
 	</update>
 	
+	<!-- getData...... -->
+	<select id="getSellNowData" resultType="String" parameterType="SellNowDto">
+		select * from sell_now where user_num=#{user_num} and sellnow_num=#{sellnow_num}
+	</select>
+	
 </mapper>

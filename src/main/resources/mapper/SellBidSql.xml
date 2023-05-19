@@ -14,5 +14,10 @@
 	<select id="getNowinsertSellBidNum" resultType="String">
 		select LAST_INSERT_ID()
 	</select>
+	
+	<!-- getData...... -->
+	<select id="getSellBidData" resultType="String" parameterType="SellBidDto">
+		select * from sell_bid where user_num=#{user_num} and sell_num=#{sell_num}
+	</select>
 
 </mapper>

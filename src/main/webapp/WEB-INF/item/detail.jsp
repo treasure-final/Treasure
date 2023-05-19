@@ -129,6 +129,8 @@ div.main {
 
 </head>
 <body>
+<c:set var="root" value="<%=request.getContextPath() %>" />
+ 
 	<div class="container mb-5">
 		<input type="hidden" class="item_num" value=${item_num }>
 		<div class="row">
@@ -265,6 +267,10 @@ div.main {
 																		<span style="font-size: 0.7rem;">가격</span>
 																	</button>
 																</div>
+																
+																<c:if test="${Ddto.item_category == 'shoes'}">
+																
+																
 																<c:forEach var="size" begin="220" end="320" step="5">
 																	<div class="col-4 p-2">
 																		<button type="button" class="btn btn-outline-detail btn-lg w-100 sizeselect"
@@ -276,6 +282,8 @@ div.main {
 																		</button>
 																	</div>
 																</c:forEach>
+																
+																</c:if>
 															</div>
 														</div>
 													</div>
@@ -1175,48 +1183,27 @@ div.main {
 		<div class="d-flex">
 			<div class="col-11 align-self-center">
 				<span class="fs-4">
-					<b>Nike</b>
+					<b>${Ddto.item_brandname }</b>
 					의 다른 상품
 				</span>
 			</div>
 			<div class="col-1 align-self-center">
-				<span class="fs-5" style="float: right;">
+				<span class="fs-5" style="float: right;" onclick="location.href='/item/itemlist'">
 					더보기
-					<a class="fa fa-chevron-right fs-5 ms-2" href=""></a>
+					<a class="fa fa-chevron-right fs-5 ms-2" href="/item/itemlist"></a>
 				</span>
 			</div>
 		</div>
 		<div class="mt-4 mb-lg-5" style="height: 40vh;">
-			<a href=''>
-				<img alt="" src="/assets/images/2.png"
+		
+		<c:forEach var="dto" items="${brandList}" varStatus="i">
+			<a href='${root}/item/detail?item_num=${dto.item_num}'>
+				<img alt="" src="/assets/images/${dto.item_image}"
 					style="border: 1px solid gray; height: 200px; width: 212px;"
 				>
 			</a>
-			<a href=''>
-				<img alt="" src="/assets/images/3.png"
-					style="border: 1px solid gray; height: 200px; width: 212px;"
-				>
-			</a>
-			<a href=''>
-				<img alt="" src="/assets/images/4.png"
-					style="border: 1px solid gray; height: 200px; width: 212px;"
-				>
-			</a>
-			<a href=''>
-				<img alt="" src="/assets/images/5.png"
-					style="border: 1px solid gray; height: 200px; width: 212px;"
-				>
-			</a>
-			<a href=''>
-				<img alt="" src="/assets/images/6.png"
-					style="border: 1px solid gray; height: 200px; width: 212px;"
-				>
-			</a>
-			<a href=''>
-				<img alt="" src="/assets/images/7.png"
-					style="border: 1px solid gray; height: 200px; width: 212px;"
-				>
-			</a>
+		</c:forEach>
+			
 		</div>
 		<hr>
 		<div class="d-flex mt-5">

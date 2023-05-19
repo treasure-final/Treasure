@@ -49,4 +49,9 @@ public class DetailService implements DetailServiceInter {
 		return mapper.getPurchaseRecentPriceAll(item_num);
 	}
 
+	@Override
+	public List<ItemDto> getItemsByBrandname(String item_brandname) {
+		return mapper.getItemsByBrandname(item_brandname);
+	}
+
 }

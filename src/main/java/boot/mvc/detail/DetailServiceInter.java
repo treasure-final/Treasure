@@ -18,4 +18,6 @@ public interface DetailServiceInter {
 	
 	public String getPurchaseRecentPriceAll(String item_num);
 	
+	public List<ItemDto> getItemsByBrandname(String item_brandname);
+	
 }

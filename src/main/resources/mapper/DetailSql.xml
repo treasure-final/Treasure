@@ -45,4 +45,11 @@
 	<select id="getPurchaseRecentPriceAll" resultType="String">
 		select purchase_total_price from purchase where item_num=#{item_num} order by purchase_date desc limit 1
 	</select>
+	
+	<!-- 카테고리 상품 조회 -->
+	<select id="getItemsByBrandname" parameterType="String" resultType="ItemDto">
+		select * from item where item_brandname=#{item_brandname} order by item_num limit 6;
+	</select>
+	
+	
 </mapper>

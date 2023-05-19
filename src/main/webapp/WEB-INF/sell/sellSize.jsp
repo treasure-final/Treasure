@@ -288,7 +288,7 @@ div.sell_size:hover {
 					</c:if>
 					
 					<c:if test="${dto.buy_wishprice == 'null'}">
-						<span class="sell_size" style="color: gray;">판매 입찰</span>
+						<span class="sell_size">판매입찰</span>
 					</c:if>
 					
 					
@@ -303,9 +303,10 @@ div.sell_size:hover {
 			</c:when>
 
 			<c:when test="${itemDto.item_category eq 'bag'}">
+			<c:forEach var="dto" items="${list}" varStatus="i">
 				<div style="margin-top: 30px;">
 				<div class="sell_size">
-					<span class="sell_size selectSize">ONE SIZE</span>
+					<span class="sell_size selectSize">${dto.buy_size}</span>
 					<br>
 					
 					<c:if test="${dto.buy_wishprice != 'null'}">
@@ -313,11 +314,12 @@ div.sell_size:hover {
 					</c:if>
 					
 					<c:if test="${dto.buy_wishprice == 'null'}">
-						<span class="sell_size" style="color: gray;">판매 입찰</span>
+						<span class="sell_size">판매입찰</span>
 					</c:if>
 					
 				</div>
 				</div>
+				</c:forEach>
 			</c:when>
 
 			<c:otherwise>	
@@ -333,7 +335,7 @@ div.sell_size:hover {
 					</c:if>
 					
 					<c:if test="${dto.buy_wishprice == 'null'}">
-						<span class="sell_size" style="color: gray;">판매 입찰</span>
+						<span class="sell_size">판매입찰</span>
 					</c:if>
 					
 					

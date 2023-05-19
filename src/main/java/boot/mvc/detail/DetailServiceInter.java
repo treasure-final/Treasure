@@ -15,7 +15,7 @@ public interface DetailServiceInter {
 
 	public List<Map<String, Object>> getSellBidGroupedData(String item_num);
 	
-	public List<Map<String, Object>> getPurchaseData();
+	public List<Map<String, Object>> getPurchaseData(String item_num);
 	
 	public String getPurchaseRecentPriceAll(String item_num);
 

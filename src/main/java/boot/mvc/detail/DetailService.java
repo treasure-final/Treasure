@@ -40,9 +40,9 @@ public class DetailService implements DetailServiceInter {
 	}
 
 	@Override
-	public List<Map<String, Object>> getPurchaseData() {
+	public List<Map<String, Object>> getPurchaseData(String item_num) {
 		// TODO Auto-generated method stub
-		return mapper.getPurchaseData();
+		return mapper.getPurchaseData(item_num);
 	}
 
 	@Override

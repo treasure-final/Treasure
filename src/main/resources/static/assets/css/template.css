@@ -235,6 +235,9 @@ li {
 ul {
 	list-style: none;
 }
+ul.tul{
+	margin-left: 32px
+}
 
 input {
 	background-color: #dfebda;

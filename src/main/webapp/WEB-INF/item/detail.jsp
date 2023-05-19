@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="../assets/css/fontawesome.css">
 <link rel="stylesheet" href="../assets/css/template.css">
 <link rel="stylesheet" href="../assets/css/owl.css">
-<link rel="stylesheet" href="assets/css/animate.css">
+<!-- <link rel="stylesheet" href="assets/css/animate.css"> -->
 <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
 <!-- <link rel="stylesheet" href="../assets/css/detail.css"> -->
 <!--chart.js  -->
@@ -120,6 +120,13 @@ div.main {
 			var size = $(this).find(".size").text();
 
 			$(".size-text").text(size);
+			$(".size-select").val(size);
+			$("#sizeModal").modal("hide");
+		});
+		
+		$(".size-text").select(function() {
+			var size = $(this).val();
+
 			$(".size-select").val(size);
 			$("#sizeModal").modal("hide");
 		});
@@ -241,14 +248,13 @@ div.main {
 											<div class="mb-4">
 												<button type="button" class="btn btn-detail btn-lg w-100"
 													style="width: 290px; height: 7vh; margin-top: 70px; margin-left: 40px"
-													onclick="location.href='/buy/select'"
 													onclick="location.href='/buy/select?item_num=${item_num}'"
 												>구매</button>
 											</div>
 											<div>
 												<button type="button" class="btn btn-outline-detail btn-lg w-100"
 													style="height: 7vh; width: 290px; margin-left: 40px;"
-													onclick="location.href='/sell/sellSize'"
+													onclick="location.href='/sell/sellSize?item_num=${item_num}'"
 												>판매</button>
 											</div>
 										</div>
@@ -1289,31 +1295,6 @@ div.main {
 		<div class="mt-4 mb-lg-5" style="height: 89vh;">
 			<a href=''>
 				<img alt="" src="/assets/images/8.png"
-					style="border: 1px solid gray; border-radius: 10px; height: 200px; width: 212px;"
-				>
-			</a>
-			<a href=''>
-				<img alt="" src="/assets/images/9.png"
-					style="border: 1px solid gray; border-radius: 10px; height: 200px; width: 212px;"
-				>
-			</a>
-			<a href=''>
-				<img alt="" src="/assets/images/10.png"
-					style="border: 1px solid gray; border-radius: 10px; height: 200px; width: 212px;"
-				>
-			</a>
-			<a href=''>
-				<img alt="" src="/assets/images/11.png"
-					style="border: 1px solid gray; border-radius: 10px; height: 200px; width: 212px;"
-				>
-			</a>
-			<a href=''>
-				<img alt="" src="/assets/images/12.png"
-					style="border: 1px solid gray; border-radius: 10px; height: 200px; width: 212px;"
-				>
-			</a>
-			<a href=''>
-				<img alt="" src="/assets/images/13.png"
 					style="border: 1px solid gray; border-radius: 10px; height: 200px; width: 212px;"
 				>
 			</a>

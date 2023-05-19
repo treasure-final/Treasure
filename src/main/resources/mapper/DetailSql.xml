@@ -34,11 +34,12 @@
 		order by sell_inputday desc
 	</select>
 	<!-- 체결 거래 리스트(사이즈, 거래가, 거래일) -->
-	<select id="getPurchaseData" resultType="Map">
+	<select id="getPurchaseData" resultType="Map" parameterType="String">
 		select b.buy_size, p.purchase_total_price, p.purchase_date
 		from purchase p
 		join buy_bid b
 		on b.buy_num = p.buy_bid_num
+		where p.item_num=#{item_num}
 	</select>
 
 	<!-- 최근 거래가(사이즈 상관없이) -->

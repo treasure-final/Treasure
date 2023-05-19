@@ -27,7 +27,7 @@ public class DetailController {
 		ItemDto dto = Dservice.DetailgetData(item_num);
 		List<Map<String, Object>> groupedBuyData = Dservice.getBuyBidGroupedData(item_num);
 		List<Map<String, Object>> groupedSellData = Dservice.getSellBidGroupedData(item_num);
-		List<Map<String, Object>> getPurchaseData = Dservice.getPurchaseData();
+		List<Map<String, Object>> getPurchaseData = Dservice.getPurchaseData(item_num);
 		String getPurchaseRecentPriceAll = Dservice.getPurchaseRecentPriceAll(item_num);
 		
 

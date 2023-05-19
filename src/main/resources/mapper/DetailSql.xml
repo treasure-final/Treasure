@@ -24,6 +24,7 @@
 		where item_num = #{item_num}
 		group by buy_size, buy_wishprice
 		order by buy_inputday desc
+    
 	</select>
 	<!-- 구매 입찰 리스트(사이즈, 판매희망가, 수량) -->
 	<select id="getSellBidGroupedData" resultType="Map">
@@ -33,6 +34,7 @@
 		group by sell_size, sell_wishprice
 		order by sell_inputday desc
 	</select>
+  
 	<!-- 체결 거래 리스트(사이즈, 거래가, 거래일) -->
 	<select id="getPurchaseData" resultType="Map" parameterType="String">
 		select b.buy_size, p.purchase_total_price, p.purchase_date
@@ -50,7 +52,6 @@
 	<select id="getPurchaseRecentPriceSize" resultType="String">
 		select p.purchase_total_price from purchase p, buy_bid b where p.item_num=#{item_num} and b.buy_size=#{buy_size} order by p.purchase_date desc limit 1
 	</select>
-
 	<!-- 스타일 -->
 	<select id="getItemStyleList" resultType="BoardDto">
 		select * from board where item_num=#{item_num}

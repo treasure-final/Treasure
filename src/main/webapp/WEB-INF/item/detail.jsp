@@ -46,8 +46,9 @@ div.main {
 	border: none;
 	color: black;
 }
-select{
-text-align: center;
+
+select {
+	text-align: center;
 }
 
 * {
@@ -125,57 +126,58 @@ text-align: center;
 			$(".size-text").text(size);
 			$(".size-select").val(size);
 			$("#sizeModal").modal("hide");
-			
+
 			sendPurchaseRecentPriceSizeRequest(item_num, size);
 		});
 	});
 	function sendPurchaseRecentPriceSizeRequest(item_num, buy_size) {
 		$.ajax({
-			url: '/item/purchaseRecentPriceSize',
-			type: 'GET',
-			data: {
-				item_num: item_num,
-				buy_size: buy_size
+			url : '/item/purchaseRecentPriceSize',
+			type : 'GET',
+			data : {
+				item_num : item_num,
+				buy_size : buy_size
 			},
-			dataType: 'text',
-			success: function(response) {
+			dataType : 'text',
+			success : function(response) {
 				// 응답 데이터 처리
 				// response는 서버에서 반환하는 최근 거래 가격
-				
+
 				// 숫자 포맷팅 및 업데이트
 				var formattedPrice = new Intl.NumberFormat().format(response);
 				$(".purchase-recent-price").text(formattedPrice);
 			},
-			error: function(xhr, status, error) {
+			error : function(xhr, status, error) {
 				// 에러 처리
 				console.error("AJAX 요청 에러:", error);
 			}
 		});
 	}
 	function handleSizeSelect() {
-	    var selectElement = document.getElementById("size-select");
-	    var selectElement2 = document.getElementById("size-select2");
-	    var selectedValue = selectElement.value;
-	    var sizeTextElement = document.querySelector(".size-text");
-	    
-	    // 선택된 값을 size-text 요소에 삽입
-	    sizeTextElement.innerHTML = selectedValue;
-	    
-	    // 두 번째 select 요소의 옵션을 제거
-	    selectElement2.innerHTML = "";
+		var selectElement = document.getElementById("size-select");
+		var selectElement2 = document.getElementById("size-select2");
+		var selectedValue = selectElement.value;
+		var sizeTextElement = document.querySelector(".size-text");
 
-	    // 선택한 값을 두 번째 select 요소에 옵션으로 추가
-	    var option = document.createElement("option");
-	    option.value = selectedValue;
-	    option.text = selectedValue;
-	    selectElement2.add(option);
-	    
-	    // 선택한 값을 두 번째 select 요소에서 선택 상태로 설정
-	    selectElement2.value = selectedValue;
-	  }
+		// 선택된 값을 size-text 요소에 삽입
+		sizeTextElement.innerHTML = selectedValue;
+
+		// 두 번째 select 요소의 옵션을 제거
+		selectElement2.innerHTML = "";
+
+		// 선택한 값을 두 번째 select 요소에 옵션으로 추가
+		var option = document.createElement("option");
+		option.value = selectedValue;
+		option.text = selectedValue;
+		selectElement2.add(option);
+
+		// 선택한 값을 두 번째 select 요소에서 선택 상태로 설정
+		selectElement2.value = selectedValue;
+	}
 </script>
 </head>
 <body>
+	<c:set var="root" value="<%=request.getContextPath()%>" />
 	<div class="container mb-5">
 		<input type="hidden" class="item_num" value=${item_num }>
 		<div class="row">
@@ -204,6 +206,7 @@ text-align: center;
 										</div>
 										<%-- <div class="carousel-item" data-bs-interval="4000" data-bs-pause="hover">
 											<img src="/assets/images/${Ddto.item_image }" class="d-block w-100" alt="..."
+
 												style="position: relative; bottom: 50px"
 											>
 											<div class="carousel-caption d-none d-md-block"></div>
@@ -213,9 +216,10 @@ text-align: center;
 												style="position: relative; bottom: 50px"
 											>
 											<div class="carousel-caption d-none d-md-block"></div>
+
 										</div> --%>
 									</div>
-									<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
+									<!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
 										data-bs-slide="prev"
 									>
 										<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -226,7 +230,7 @@ text-align: center;
 									>
 										<span class="carousel-control-next-icon" aria-hidden="true"></span>
 										<span class="visually-hidden">Next</span>
-									</button>
+									</button> -->
 								</div>
 							</div>
 						</div>
@@ -314,17 +318,19 @@ text-align: center;
 																		<span style="font-size: 0.7rem;">가격</span>
 																	</button>
 																</div>
-																<c:forEach var="size" begin="220" end="320" step="5">
-																	<div class="col-4 p-2">
-																		<button type="button" class="btn btn-outline-detail btn-lg w-100 sizeselect"
-																			style="height: 10vh;"
-																		>
-																			<span class="size" style="font-size: 0.9rem; margin-bottom: 1rem;">${size}</span>
-																			<br>
-																			<span style="font-size: 0.7rem;">가격</span>
-																		</button>
-																	</div>
-																</c:forEach>
+																<c:if test="${Ddto.item_category == 'shoes'}">
+																	<c:forEach var="size" begin="220" end="320" step="5">
+																		<div class="col-4 p-2">
+																			<button type="button" class="btn btn-outline-detail btn-lg w-100 sizeselect"
+																				style="height: 10vh;"
+																			>
+																				<span class="size" style="font-size: 0.9rem; margin-bottom: 1rem;">${size}</span>
+																				<br>
+																				<span style="font-size: 0.7rem;">가격</span>
+																			</button>
+																		</div>
+																	</c:forEach>
+																</c:if>
 															</div>
 														</div>
 													</div>
@@ -362,7 +368,8 @@ text-align: center;
 										<div class="heading-section col-3">
 											<!-- 카테고리 별 사이즈 -->
 											<select class="form-select size-select" id="size-select" aria-label="size-select"
-												style="border: 0px; font-size: 1em; float: right; color: #666;" onchange="handleSizeSelect()"
+												style="border: 0px; font-size: 1em; float: right; color: #666;"
+												onchange="handleSizeSelect()"
 											>
 												<option>모든 사이즈</option>
 												<c:forEach var="size" begin="220" end="320" step="5">
@@ -946,7 +953,8 @@ text-align: center;
 																			<span style="font-size: 0.6rem; color: #666">${Ddto.item_korname }</span>
 																		</div>
 																		<div class="row col-5">
-																			<select class="form-select size-select2" id="size-select2"aria-label="size-select"
+																			<select class="form-select size-select2" id="size-select2"
+																				aria-label="size-select"
 																				style="border: 0px; font-size: 1em; float: right; color: #666;"
 																			>
 																				<option selected>모든 사이즈</option>

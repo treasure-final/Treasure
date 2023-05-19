@@ -7,7 +7,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import boot.mvc.buy_bid.BuyBidDto;
 import boot.mvc.item.ItemDto;
 
 @Service
@@ -67,5 +66,4 @@ public class DetailService implements DetailServiceInter {
 		
 		return mapper.getPurchaseRecentPriceSize(map);
 	}
-
 }

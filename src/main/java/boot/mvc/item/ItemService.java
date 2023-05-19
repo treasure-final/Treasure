@@ -60,4 +60,9 @@ public class ItemService implements ItemServiceInter {
 	public ItemDto getItemData(String item_num) {
 		return inter.getItemData(item_num);
 	}
+
+	@Override
+	public List<ItemDto> searchItems(String searchText) {
+		return inter.searchItems(searchText);
+	}
 }

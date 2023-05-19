@@ -53,7 +53,7 @@ div.main {
 }
 
 .login-wrapper {
-	width: 800px;
+	width: 830px;
 	padding: 40px;
 	box-sizing: border-box;
 	margin-top: 20px !important;
@@ -198,6 +198,33 @@ div.sell_size:hover {
 	background: black;
 	margin-bottom: 50px;
 }
+
+span.sell_size {
+	font-size: 12px;
+	vertical-align: middle;
+}
+
+div.sell_size {
+	margin: 3px;
+	padding: 18px;
+	flex-direction: column;
+	border: 1px solid #ebebeb;
+	border-radius: 20px;
+	background-color: white;
+	width: 110px;
+	vertical-align: middle;
+	text-align: center;
+	cursor: pointer;
+	line-height: 13px;
+}
+
+div.size_active {
+	border: 2px solid #747f55;
+}
+
+div.sell_size:hover {
+	background-color: #f3f3f3;
+}
 </style>
 <script>
 	$(function() {
@@ -205,8 +232,8 @@ div.sell_size:hover {
 	
 		//사이즈 선택했을 때 적용 사항
 		$(".sell_size").click(function() {
-			$(".sell_size").removeClass("sell_active");
-			$(this).addClass("sell_active");
+			$(".sell_size").removeClass("size_active");
+			$(this).addClass("size_active");
 			
 			size=$(this).find(':nth-child(1)').text();
 			
@@ -214,48 +241,120 @@ div.sell_size:hover {
 		
 		$("#sell-next").click(function(){
 			
-			 location.href = "/sell/sellAgree?size=" + size;
+			if(size== null) {
+				alert("사이즈를 선택해주세요");
+				return;
+			}
+			
+			 location.href = "/sell/sellAgree?item_num=${itemDto.item_num}&size=" + size;
             
 		});
 	});
 </script>
 </head>
 <body>
+		
 	<div class="login-wrapper">
+	<input type="hidden" name="item_num" value="${itemDto.item_num }">
 		<div>
 			<i id="logo">판매하기</i>
 		</div>
 		<div class="hr"></div>
 		<div style="display: flex;">
 
-			<img src="/img/item_image/1.png" class="sell_item_image">
+			<img src="../img/item_image/${itemDto.item_image }" class="sell_item_image">
 
 			<div style="flex-direction: column; padding: 20px; margin-top: 30px;">
-				<span class="sell_brand">Jordan</span>
+				<span class="sell_brand">${itemDto.item_brandname }</span>
 				<br>
-				<span class="sell_title">(W) 조던 1 x 트래비스 스캇 레트로 로우 OG SP 미디움 올리브</span>
+				<span class="sell_title">${itemDto.item_engname }</span><br>
+				<span class="sell_title">${itemDto.item_korname }</span>
 				<br>
 			</div>
 		</div>
-		<form method="" action="" id="">
-			<div style="display: flex;">
-				<%--                여성이라 사이즈는 225부터 시작, 사이즈는 5씩 증가--%>
-				<c:forEach var="size" begin="225" step="5" end="270" varStatus="i">
-					<div class="sell_size">
-						<span class="sell_size">${size}</span>
-						<br>
-						<span class="sell_size" style="color: #ec0b00;">금액</span>
-					</div>
-					<c:if test="${i.count%4==0}">
-			</div>
-			<div style="display: flex;">
+		
+		<div style="display: flex;">
+			<c:choose>
+			<%-- 여성이라 사이즈는 225부터 시작, 사이즈는 5씩 증가 --%>
+			<c:when test="${itemDto.item_category eq 'shoes'}">
+				<c:forEach var="dto" items="${list}" varStatus="i">
+				<div class="sell_size">			 	
+				     <span class="sell_size selectSize">${dto.buy_size}</span>
+				                 		           		
+					<br>
+					
+					<c:if test="${dto.buy_wishprice != 'null'}">
+						<span class="sell_size" style="color: #ec0b00;"><fmt:formatNumber value="${dto.buy_wishprice}" type="number"/></span>
+					</c:if>
+					
+					<c:if test="${dto.buy_wishprice == 'null'}">
+						<span class="sell_size">판매입찰</span>
+					</c:if>
+					
+					
+				</div>
+				
+				 <c:if test="${i.count % 4 == 0}">
+		</div>
+		
+		<div style="display: flex;">
 				</c:if>
 				</c:forEach>
-			</div>
-		</form>
+			</c:when>
+
+			<c:when test="${itemDto.item_category eq 'bag'}">
+			<c:forEach var="dto" items="${list}" varStatus="i">
+				<div style="margin-top: 30px;">
+				<div class="sell_size">
+					<span class="sell_size selectSize">${dto.buy_size}</span>
+					<br>
+					
+					<c:if test="${dto.buy_wishprice != 'null'}">
+						<span class="sell_size" style="color: #ec0b00;"><fmt:formatNumber value="${dto.buy_wishprice}" type="number"/></span>
+					</c:if>
+					
+					<c:if test="${dto.buy_wishprice == 'null'}">
+						<span class="sell_size">판매입찰</span>
+					</c:if>
+					
+				</div>
+				</div>
+				</c:forEach>
+			</c:when>
+
+			<c:otherwise>	
+				<c:forEach var="dto" items="${list}" varStatus="i">
+				<div style="margin-top: 30px;">
+				<div class="sell_size">			 	
+				     <span class="sell_size selectSize">${dto.buy_size}</span>
+				                 		           		
+					<br>
+					
+					<c:if test="${dto.buy_wishprice != 'null'}">
+						<span class="sell_size" style="color: #ec0b00;"><fmt:formatNumber value="${dto.buy_wishprice}" type="number"/></span>
+					</c:if>
+					
+					<c:if test="${dto.buy_wishprice == 'null'}">
+						<span class="sell_size">판매입찰</span>
+					</c:if>
+					
+					
+				</div></div>
+				
+				 <c:if test="${i.count % 4 == 0}">
+		</div>
+		
+		<div style="display: flex;">
+				</c:if>
+				</c:forEach>
+			</c:otherwise>
+
+			</c:choose>
+		</div>
+	
 		<div style="display: flex;">
 			<button type="button" id="sell-back">뒤로가기</button>
-			<button type="button" id="sell-next" onclick="location.href='/sell/sellAgree'">판매 계속하기</button>
+			<button type="button" id="sell-next">판매 계속하기</button>
 		</div>
 	</div>
 

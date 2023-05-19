@@ -22,3 +22,4 @@ public class PurchaseDto {
 	private Timestamp purchase_date;
 	
 }
+

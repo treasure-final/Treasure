@@ -184,29 +184,37 @@ to {
 	text-align: left;
 	margin-left: 450px
 }
+
+#content {
+	height: 500px;
+	overflow-y: scroll;
+}
 </style>
 </head>
 <body>
-	<div class="slideshow-container" style="width: 80%;">
-		<div class="all">
-			<div class="mySlides fade" align="center">
-				<img src="../assets/images/1.png" style="width: 100%">
+	<div id="content">
+		<!-- 초기 콘텐츠 -->
+		<div class="slideshow-container" style="width: 80%;">
+			<div class="all">
+				<div class="mySlides fade" align="center">
+					<img src="../assets/images/1.png" style="width: 100%">
+				</div>
+				<div class="mySlides fade" align="center">
+					<img src="../assets/images/2.png" style="width: 100%">
+				</div>
+				<div class="mySlides fade" align="center">
+					<img src="../assets/images/3.png" style="width: 100%">
+				</div>
+				<a class="prev" onclick="plusSlides(-1)">❮</a>
+				<a class="next" onclick="plusSlides(1)">❯</a>
 			</div>
-			<div class="mySlides fade" align="center">
-				<img src="../assets/images/2.png" style="width: 100%">
-			</div>
-			<div class="mySlides fade" align="center">
-				<img src="../assets/images/3.png" style="width: 100%">
-			</div>
-			<a class="prev" onclick="plusSlides(-1)">❮</a>
-			<a class="next" onclick="plusSlides(1)">❯</a>
 		</div>
-	</div>
-	<br>
-	<div style="text-align: center">
-		<span class="dot" onclick="currentSlide(1)"></span>
-		<span class="dot" onclick="currentSlide(2)"></span>
-		<span class="dot" onclick="currentSlide(3)"></span>
+		<br>
+		<div style="text-align: center">
+			<span class="dot" onclick="currentSlide(1)"></span>
+			<span class="dot" onclick="currentSlide(2)"></span>
+			<span class="dot" onclick="currentSlide(3)"></span>
+		</div>
 	</div>
 	<script>
 		let slideIndex = 1;
@@ -239,6 +247,45 @@ to {
 			slides[slideIndex - 1].style.display = "block";
 			dots[slideIndex - 1].className += " active";
 		}
+		$(document).ready(function() {
+			var page = 1;
+
+			// 스크롤 이벤트 감지
+			$('#content').scroll(function() {
+				if ($('#content').scrollTop() >= ($('#content')[0].scrollHeight - $('#content').height())) {
+					loadMoreData();
+				}
+			});
+
+			function loadMoreData() {
+				page++;
+
+				$.ajax({
+					url : '/load-more-data',
+					type : 'GET',
+					data : {
+						page : page
+					},
+					beforeSend : function() {
+						// 로딩 스피너 표시 등의 처리
+					},
+					success : function(response) {
+						// 서버로부터 받은 데이터 처리
+						var data = response.data;
+						var html = '';
+
+						for (var i = 0; i < data.length; i++) {
+							html += '<div class="item">' + data[i] + '</div>';
+						}
+
+						$('#content').append(html);
+					},
+					complete : function() {
+						// 로딩 스피너 등의 처리 해제
+					}
+				});
+			}
+		});
 	</script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package boot.mvc.detail;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import boot.mvc.buy_bid.BuyBidDto;
@@ -65,6 +67,17 @@ public class DetailController {
 		return mview;
 	}
 
+	@ResponseBody
+	@GetMapping("/item/getPurchaseRecentPriceSize")
+	public Map<String, Object> getPurchaseRecentPriceSize(@RequestParam("item_num") String itemNum, @RequestParam("buy_size") String buySize) {
+		Map<String, Object> map = new HashMap<>();
+
+		int getPurchaseRecentPriceSize = Dservice.getPurchaseRecentPriceSize(itemNum, buySize);
+		
+		map.put("getPurchaseRecentPriceSize", getPurchaseRecentPriceSize);
+
+		return map;
+	}
 //	@GetMapping("/item/detail")
 //	public ModelAndView DetailgetData(@RequestParam String item_num) {
 //		ModelAndView mview = new ModelAndView();

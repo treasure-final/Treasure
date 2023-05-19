@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boot.mvc.sell_total.SellTotalMapperInter">
+
+	<!-- 전체 판매 insert -->
+	<insert id="insertSellNow" parameterType="SellTotalDto">
+		 <if test="sell_num == null">
+	        insert into sell_total (user_num, sellnow_num)
+	        values (#{user_num}, #{sellnow_num})
+	    </if>
+	    <if test="sellnow_num == null">
+	        insert into sell_total (user_num, sell_num)
+	        values (#{user_num}, #{sell_num})
+	    </if>
+	</insert>
+
+	<!-- 방금 insert된 selltotal_num 가져오기 -->
+	<select id="getNowinsertSellTotalNum" resultType="String">
+		select LAST_INSERT_ID()
+	</select>
+
+	<select id="getListSellTotal" parameterType="String" resultType="SellTotalDto">
+		select * from sell_total where user_num=#{user_num}
+	</select>
+
+	
+</mapper>

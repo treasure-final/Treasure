@@ -111,6 +111,7 @@ div.main {
 	padding: 30px;
 }
 </style>
+
 <script type="text/javascript">
 	$(function() {
 		var item_num = $(".item_num").val();
@@ -150,8 +151,11 @@ div.main {
 		}); */
 	});
 </script>
+
 </head>
 <body>
+<c:set var="root" value="<%=request.getContextPath() %>" />
+ 
 	<div class="container mb-5">
 		<input type="hidden" class="item_num" value=${item_num }>
 		<div class="row">
@@ -178,8 +182,10 @@ div.main {
 												style="position: relative; bottom: 50px"
 											>
 										</div>
+
 										<%-- <div class="carousel-item" data-bs-interval="4000" data-bs-pause="hover">
 											<img src="/assets/images/${Ddto.item_image }" class="d-block w-100" alt="..."
+
 												style="position: relative; bottom: 50px"
 											>
 											<div class="carousel-caption d-none d-md-block"></div>
@@ -189,9 +195,11 @@ div.main {
 												style="position: relative; bottom: 50px"
 											>
 											<div class="carousel-caption d-none d-md-block"></div>
+
 										</div> --%>
+
 									</div>
-									<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
+									<!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
 										data-bs-slide="prev"
 									>
 										<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -202,7 +210,7 @@ div.main {
 									>
 										<span class="carousel-control-next-icon" aria-hidden="true"></span>
 										<span class="visually-hidden">Next</span>
-									</button>
+									</button> -->
 								</div>
 							</div>
 						</div>
@@ -214,6 +222,7 @@ div.main {
 									<!-- 상품명 -->
 									<div class="heading-section mt-sm-3">
 										<div style="margin-bottom: 0.5rem;">
+
 											<span id="brandname" style="font-size: 1.5em; font-weight: 600;">${Ddto.item_brandname }</span>
 											<span id="category"
 												style="font-size: 1em; font-weight: 500; margin-left: 1rem; color: #666"
@@ -222,6 +231,7 @@ div.main {
 										<span id="engname" style="font-size: 1.2em; font-weight: 600;">${Ddto.item_engname }</span>
 										<br>
 										<span id="korname" style="font-size: 1.1em; color: #666;">${Ddto.item_korname }</span>
+
 									</div>
 									<hr>
 									<!-- 모델 번호, 출시일 ... -->
@@ -233,7 +243,9 @@ div.main {
 											</div>
 											<div class="row mb-4">
 												<span style="font-size: 1.1em; color: #666;">출시일</span>
+
 												<span style="font-size: 1.2em; font-weight: 500;">${Ddto.item_releaseday} </span>
+
 											</div>
 											<div class="row mb-4">
 												<span style="font-size: 1.1em; color: #666;">컬러</span>
@@ -254,6 +266,7 @@ div.main {
 											<div>
 												<button type="button" class="btn btn-outline-detail btn-lg w-100"
 													style="height: 7vh; width: 290px; margin-left: 40px;"
+
 													onclick="location.href='/sell/sellSize?item_num=${item_num}'"
 												>판매</button>
 											</div>
@@ -290,6 +303,10 @@ div.main {
 																		<span style="font-size: 0.7rem;">가격</span>
 																	</button>
 																</div>
+																
+																<c:if test="${Ddto.item_category == 'shoes'}">
+																
+																
 																<c:forEach var="size" begin="220" end="320" step="5">
 																	<div class="col-4 p-2">
 																		<button type="button" class="btn btn-outline-detail btn-lg w-100 sizeselect"
@@ -301,6 +318,8 @@ div.main {
 																		</button>
 																	</div>
 																</c:forEach>
+																
+																</c:if>
 															</div>
 														</div>
 													</div>
@@ -337,7 +356,9 @@ div.main {
 										</div>
 										<div class="heading-section col-3">
 											<!-- 카테고리 별 사이즈 -->
+
 											<select class="form-select size-select" aria-label="size-select"
+
 												style="border: 0px; font-size: 1em; float: right; color: #666;"
 											>
 												<option>모든 사이즈</option>
@@ -771,6 +792,7 @@ div.main {
 																	<br>
 																</div>
 																<div class="col-4">
+
 																	<c:forEach items="${getPurchaseData }" var="p" end="4">
 																		<span style="font-size: 0.9em; color: #666; float: right; margin-right: 80px">
 																			<fmt:formatNumber value="${p.purchase_total_price }">
@@ -792,6 +814,7 @@ div.main {
 																		<br>
 																	</c:forEach>
 																	<br>
+
 																</div>
 															</div>
 														</div>
@@ -908,9 +931,11 @@ div.main {
 															<div class="modal-body" style="padding-left: 2.1rem;">
 																<div class="d-flex row col-12 mb-2">
 																	<div class="p-2" style="flex: 0 0 auto; width: 20%;">
+
 																		<img src="/assets/images/${Ddto.item_image }"
 																			style="height: 8vh; border-radius: 1.3rem;"
 																		>
+
 																	</div>
 																	<div class="p-2 mb-3" style="flex: 0 0 auto; width: 89%;">
 																		<div class="row">
@@ -922,7 +947,9 @@ div.main {
 																			<span style="font-size: 0.6rem; color: #666">${Ddto.item_korname }</span>
 																		</div>
 																		<div class="row col-5">
+
 																			<select class="form-select size-select" aria-label="size-select"
+
 																				style="border: 0px; font-size: 1em; float: right; color: #666;"
 																			>
 																				<option selected>모든 사이즈</option>
@@ -1272,6 +1299,7 @@ div.main {
 			</div>
 		</div>
 		<div class="mt-4 mb-lg-5" style="height: 40vh;">
+
 			<c:forEach items="${list }" var="a">
 				<c:if
 					test="${a.item_brandname==Ddto.item_brandname && a.item_category==Ddto.item_category && a.item_num!=Ddto.item_num}"
@@ -1283,6 +1311,7 @@ div.main {
 					</a>
 				</c:if>
 			</c:forEach>
+
 		</div>
 		<hr>
 		<div class="d-flex mt-5">

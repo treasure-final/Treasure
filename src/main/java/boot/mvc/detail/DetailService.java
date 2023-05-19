@@ -51,15 +51,4 @@ public class DetailService implements DetailServiceInter {
 		return mapper.getPurchaseRecentPriceAll(item_num);
 	}
 
-	
-
-	
-
-
-
-	
-
-	
-	
-
 }

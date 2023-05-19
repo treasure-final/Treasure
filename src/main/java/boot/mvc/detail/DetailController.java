@@ -56,4 +56,5 @@ public class DetailController {
 //
 //		return mview;
 //	}
+
 }

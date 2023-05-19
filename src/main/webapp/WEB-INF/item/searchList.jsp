@@ -190,10 +190,11 @@
        });
 
        // 라디오 버튼 클릭했을 때,브랜드 얻어와서 ajax로 넘기기
-       //  if($('input:radio[name="brand"]').is(":checked")) {
-       //      let value = "true";
-       //      console.log(value);
-       //  }
+        var value=$("input[name='brand']:checked").val();
+        if($('input[type="radio"]').prop("checked")) {
+            // let value = "true";
+            console.log(value);
+        }
 
     });
 </script>

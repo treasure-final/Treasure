@@ -20,4 +20,8 @@
 		select * from sell_bid where user_num=#{user_num} and sell_num=#{sell_num}
 	</select>
 
+    <select id="getSellBidDatas" resultType="SellBidDto" parameterType="String">
+        select * from sell_bid where item_num = #{item_num}
+    </select>
+
 </mapper>

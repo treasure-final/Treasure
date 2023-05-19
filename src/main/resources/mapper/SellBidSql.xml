@@ -14,9 +14,19 @@
 	<select id="getNowinsertSellBidNum" resultType="String">
 		select LAST_INSERT_ID()
 	</select>
+	
+	<!-- getData...... -->
+	<select id="getSellBidData" resultType="String" parameterType="SellBidDto">
+		select * from sell_bid where user_num=#{user_num} and sell_num=#{sell_num}
+	</select>
 
     <select id="getSellBidDatas" resultType="SellBidDto" parameterType="String">
         select * from sell_bid where item_num = #{item_num}
     </select>
+
+	<!-- 판매 입찰 가격 조회 -->
+	<select id="getSellPriceListByitemNum" parameterType="String" resultType="SellBidDto">
+		select * from sell_bid where item_num=#{item_num}
+	</select>
 
 </mapper>

@@ -1,12 +1,10 @@
-<%@ page import="java.util.List" %>
-<%@ page import="boot.mvc.item.ItemDto" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="boot.mvc.item.ItemService" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+<%@ page import="java.util.List"%>
+<%@ page import="boot.mvc.item.ItemDto"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="boot.mvc.item.ItemService"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -120,11 +118,11 @@
             </a>
          </div>
 
-         <div id="menulist">
-            <ul class="tul">
-               <li style="margin-right: 40px;"><a href="/"><b>Home</b></a></li>
-               <li style="margin-right: 40px;"><a href="#">Style</a></li>
-               <li style="margin-right: 40px;"><a href="/item/itemlist">Shop</a></li>
+      <div id="menulist">
+         <ul class="tul">
+            <li style="margin-right: 40px;"><a href="/"><b>Home</b></a></li>
+            <li style="margin-right: 40px;"><a href="/style/stylelist">Style</a></li>
+            <li style="margin-right: 40px;"><a href="/item/itemlist">Shop</a></li>
 
                <c:if test="${not empty loginOk}">
                   <li style="margin-right: 40px;"><a href="/user/myPage">My</a></li>
@@ -181,7 +179,6 @@
          window.location.href = "/user/loginForm";
       });
 
-
-   </script>
+</script>
 </body>
 </html>

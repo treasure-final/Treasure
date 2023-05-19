@@ -229,7 +229,9 @@
         }
 
         input[id="check1"]:checked + label::after, input[id="check2"]:checked + label::after,
-        input[id="check3"]:checked + label::after, input[id="check4"]:checked + label::after {
+        input[id="check3"]:checked + label::after, input[id="check4"]:checked + label::after,
+        input[id="check5"]:checked + label::after, input[id="check6"]:checked + label::after,
+        input[id="check7"]:checked + label::after {
             content: '✔';
             color: #fff;
             background: #747f55;
@@ -260,17 +262,32 @@
     </style>
     <script>
         $(function () {
+            // 배송 주소 암호화(일부분 *로 변환)
             let addr = $("#buy-addr").text();
             let name = $("#buy-name").text();
             let phone = $("#buy-phone").text();
             changeSecInfo(name, phone, addr);
+
+            //즉시 구매 & 구매 입찰 선택에 따른 페이지 출력 결과
             if (parseInt(${sellPrice}) == parseInt(${price})) {
                 $("#priceName").text("즉시 구매가");
+                $("#bidAgree").hide();
+                $("#immediateAgree").show();
+                $("#btn-bid").hide();
             } else {
                 $("#priceName").text("구매 희망가");
+                $("#bidAgree").show();
+                $("#immediateAgree").hide();
+                $("#purchaseForm").hide();
+                $("#btn-submit").hide();
             }
 
+            // 결제 API
+            pgName = "";
             $("#btn-submit").click(function () {
+                if (pgName == "") {
+                    alert("결제 방법을 선택해주세요");
+                }
                 var IMP = window.IMP;
                 IMP.init('imp01454568');
                 IMP.request_pay({
@@ -295,6 +312,7 @@
                     alert(msg);
                 });
             });
+
             $("#addr-modal").hide();
             $("#basic-box").css("border", "1px solid black");
 
@@ -305,7 +323,8 @@
                 });
             }
 
-            $("#btn-submit").click(function () {
+            // 구매입찰 ajax로 insert
+            $("#btn-bid").click(function () {
                 let addr = $("#buy-addr").text();
                 let name = $("#buy-name").text();
                 let phone = $("#buy-phone").text();
@@ -326,27 +345,25 @@
                     }
                 });
             });
+
             $(".modal-input > input:not(.btn-modal)").click(function () {
                 $(".modal-input > input").css("border-bottom", "1px solid #e3e3e3");
                 $(this).css("border-bottom", "2px solid #747f55");
                 $(".none-input").css("border-bottom", "1px solid #e3e3e3");
             });
 
+            // 주소 모달창 저장 이벤트
             $("#modal-submit").click(function () {
                 let name = $("#modal-name").val();
                 let phone = $("#modal-phone").val();
                 let addr = $("#sample6_address").val() + " " + $("#sample6_detailAddress").val();
-
                 changeSecInfo(name, phone, addr);
             });
+
             let day = ['일', '월', '화', '수', '목', '금', '토'];
             let today = new Date();
             let tomorrow = new Date(today.setDate(today.getDate() + 1));
             $("#tomorrow").text((tomorrow.getMonth() + 1) + "/" + tomorrow.getDate() + "(" + day[tomorrow.getDay()] + ")");
-
-            $("#btn-submit").attr("disabled", true);
-            $("#btn-submit").css("background-color", "#e3e3e3");
-            $("#btn-submit").css("cursor", "unset");
 
             $("#price").text(comma(${price}) + "원")
             if ("${deliveryWay}" == "fast") {
@@ -356,6 +373,12 @@
                 $("#totalPrice").text(comma(${price}+5500) + "원");
                 $(".totalPrice").text(comma(${price}+5500) + "원");
             }
+
+            <!-- 즉시구매 페이지 버튼 활성화 이벤트 start -->
+            $("#btn-submit").attr("disabled", true);
+            $("#btn-submit").css("background-color", "#e3e3e3");
+            $("#btn-submit").css("cursor", "unset");
+
             $(".chk").change(function () {
                 if ($('input:checkbox[class=chk]:checked').length === 4) {
                     $("#btn-submit").attr("disabled", false);
@@ -367,6 +390,25 @@
                     $("#btn-submit").css("cursor", "unset");
                 }
             });
+            <!-- 즉시구매 페이지 버튼 활성화 이벤트 end -->
+
+            <!-- 구매입찰 페이지 버튼 활성화 이벤트 start -->
+            $("#btn-bid").attr("disabled", true);
+            $("#btn-bid").css("background-color", "#e3e3e3");
+            $("#btn-bid").css("cursor", "unset");
+
+            $(".chk").change(function () {
+                if ($('input:checkbox[class=chk]:checked').length === 3) {
+                    $("#btn-bid").attr("disabled", false);
+                    $("#btn-bid").css("background-color", "#747f55");
+                    $("#btn-bid").css("cursor", "pointer");
+                } else {
+                    $("#btn-bid").attr("disabled", true);
+                    $("#btn-bid").css("background-color", "#e3e3e3");
+                    $("#btn-bid").css("cursor", "unset");
+                }
+            });
+            <!-- 즉시구매 페이지 버튼 활성화 이벤트 end -->
 
             $(".pay-box").click(function () {
                 $(".pay-box").css("border", "1px solid #e3e3e3");
@@ -457,7 +499,7 @@
             </table>
         </div>
     </div>
-    <div id="result-immediate" style="margin-left: 40px">
+    <div id="result-view" style="margin-left: 40px">
         <div class="result-content"
              style="border-top: 1px solid #e3e3e3; width: 95%; margin-top: 10px;">
         </div>
@@ -543,7 +585,7 @@
                 <div style="clear: left"></div>
             </div>
         </div>
-        <div class="agree-box">
+        <div class="agree-box" id="immediateAgree">
             <div class="agree-sub">
                 <input type="checkbox" required="required" class="chk" name="chkBox" id="check1" style="width: 25px;">
                 <label for="check1" style="margin-top: 8px;"></label>
@@ -568,11 +610,31 @@
                 <label for="check4"></label>
             </div>
         </div>
+        <div class="agree-box" id="bidAgree">
+            <div class="agree-sub">
+                <input type="checkbox" required="required" class="chk" name="chkBox" id="check5" style="width: 25px;">
+                <label for="check5" style="margin-top: 8px;"></label>
+                판매자의 판매거부, 배송지연, 미입고 등의 사유가 발생할 경우, 거래가 취소될 수 있습니다.<br>
+                <span>앱 알림 해제, 알림톡 차단, 전화번호 변경 후 미등록 시에는 거래 진행 상태 알림을 받을 수 없습니다.</span>
+            </div>
+            <div class="agree-sub">
+                <input type="checkbox" required="required" id="check6" name="chkBox" class="chk">
+                <label for="check6" style="margin-top: 8px"></label>
+                구매 입찰의 거래가 체결되면, 단순 변심이나 실수에 의한 취소가 불가능합니다.<br>
+                <span>본 거래는 개인간 거래로 전자상거래법(제17조)에 따른 청약철회(환불, 교환) 규정이 적용되지 않습니다.</span>
+            </div>
+            <div class="agree-sub" style="border: none; font-weight: bold">
+                구매 조건을 모두 확인하였으며, 입찰 진행에 동의합니다.
+                <input type="checkbox" required="required" id="check7" name="chkBox" class="chk">
+                <label for="check7"></label>
+            </div>
+        </div>
         <input type="hidden" id="userNum">
         <div style="margin-top: 50px; font-size: 18px;">
             <span><b>총 결제 금액</b></span><span style="margin-left: 435px; color: red"><b class="totalPrice"></b></span>
         </div>
         <input type="button" value="결제하기" class="btn-submit" id="btn-submit"><br><br>
+        <input type="button" value="구매입찰 하기" class="btn-submit" id="btn-bid"><br><br>
     </div>
 </div>
 

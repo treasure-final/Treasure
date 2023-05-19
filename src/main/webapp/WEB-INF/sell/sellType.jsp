@@ -219,9 +219,9 @@ div.main {
 		} else {
 			$("#sell-bid").css("background-color", "#e3e3e3").css("color", "black");
 			$("#result-bid").hide();
-		}
-		
-		calculatePrice("sell-immediate", $("#immediatePrice").text());
+			
+			calculatePrice("sell-immediate", $("#immediatePrice").text());
+		}	
 		
 		$("#sell-bid").click(
 				function() {
@@ -341,12 +341,14 @@ div.main {
                 	<fmt:formatNumber value="${sellNowPrice }" type="number"/>원
                 </c:if>
                 
-            </div>
+            </div> 
             <div id="typeBtn"
-                 style="margin-left: 7px; background-color: #e3e3e3; height: 55px; margin-top: 100px; margin-right: 10px; border-radius: 25px">
-                <input type="button" value="판매 입찰" class="btn-sellType" id="sell-bid"
-                       style="float: left; margin-right: 23px; margin-left: 2px;">
-                <input type="button" value="즉시 판매" class="btn-sellType" id="sell-immediate" style="float: left">
+                 style="margin-left: 7px; background-color: #e3e3e3; height: 55px; margin-top: 100px; margin-right: 10px; border-radius: 25px;">
+                              
+               	<input type="button" value="판매 입찰" class="btn-sellType" id="sell-bid"
+                      style="float: left; margin-right: 23px; margin-left: 13px;">
+                
+                <input type="button" value="즉시 판매" class="btn-sellType" id="sell-immediate" style="float: left;">
             </div>
         </div>
     </div>
@@ -368,7 +370,7 @@ div.main {
         </div>
         		
         <div class="result-bottom">
-            총 정산금액<span class="totalPrice" style="font-size: 14px; margin-left: 500px;">-원</span>
+            총 정산금액<span class="totalPrice" style="font-size: 14px; margin-left: 500px; float: right;">-원</span>
             <div style="display: flex;">
             <button type="button" class="sell-back" id="sell-back">뒤로가기</button> 
             <button type="button" id="sell-next" onclick="moveOrderPage('now')">판매 계속하기</button>
@@ -415,7 +417,7 @@ div.main {
             </span>
         </div>
         <div class="result-bottom">
-            총 정산금액<span class="totalPrice" id="totalPrice" style="font-size: 14px; margin-left: 500px;">-원</span>
+            총 정산금액<span class="totalPrice" id="totalPrice" style="font-size: 14px; margin-left: 500px; float: right;">-원</span>
             <div style="display: flex;">
             <button type="button" id="sell-back" class="sell-back">뒤로가기</button> 
             <button type="button" id="sell-next" onclick="moveOrderPage('bid')">판매 입찰 계속하기</button>

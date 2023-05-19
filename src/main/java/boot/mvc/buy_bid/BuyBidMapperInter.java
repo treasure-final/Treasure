@@ -10,5 +10,6 @@ public interface BuyBidMapperInter {
     public void insertBuyBid(BuyBidDto buyBidDto);
     public BuyBidDto getBuyBidForSellNow(HashMap<String,Object> map);
     public BuyBidDto getDataOfBuyBid(String buy_num);
+    public void updateBuyStatus(String buy_num);
     
 }

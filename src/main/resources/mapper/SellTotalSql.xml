@@ -25,5 +25,4 @@
 		select * from sell_total where user_num=#{user_num}
 	</select>
 
-	
 </mapper>

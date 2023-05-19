@@ -1,5 +1,7 @@
 package boot.mvc.sell_bid;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,11 @@ public class SellBidService implements SellBidServiceInter {
 	}
 
 	@Override
+	public List<SellBidDto> getSellPriceListByitemNum(String item_num) {
+		return mapper.getSellPriceListByitemNum(item_num);
+  }
+  
+  @Override
 	public SellBidDto getSellBidData(String user_num, String sell_num) {
 		// TODO Auto-generated method stub
 		return mapper.getSellBidData(user_num, sell_num);

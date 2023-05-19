@@ -97,6 +97,9 @@ $(document).ready(function () {
         select : function(event, ui) {	//아이템 선택시
             console.log(ui.item.label + " 선택 완료");
 
+            //자동완성 된 단어 검색 창으로 넘기기
+            location.href="item/itemsearch?searchText="+ui.item.value;
+
         },
         focus : function(event, ui) {	//포커스 가면
             return false;//한글 에러 잡기용도로 사용됨

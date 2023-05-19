@@ -188,12 +188,6 @@ select {
 										<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0"
 											class="active" aria-current="true" aria-label="Slide 1"
 										></button>
-										<!-- <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
-											aria-label="Slide 2"
-										></button>
-										<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
-											aria-label="Slide 3"
-										></button> -->
 									</div>
 									<div class="carousel-inner">
 										<div class="carousel-item active" data-bs-interval="4000" data-bs-pause="hover">
@@ -306,28 +300,116 @@ select {
 														<div class="modal-body" style="padding-left: 2.1rem;">
 															<div class="d-flex row col-12">
 																<!-- 카테고리 별 사이즈 -->
-																<div class="col-4 p-2">
-																	<button type="button" class="btn btn-outline-detail btn-lg w-100 sizeselect"
-																		style="height: 10vh;"
-																	>
-																		<span class="size" style="font-size: 0.9rem;">모든 사이즈</span>
-																		<br>
-																		<span style="font-size: 0.7rem;">가격</span>
-																	</button>
-																</div>
-																<c:if test="${Ddto.item_category == 'shoes'}">
-																	<c:forEach var="size" begin="220" end="320" step="5">
+																<c:if test="${Ddto.item_category != 'bag'}">
+																	<div class="col-4 p-2">																
+																		
+																		<button type="button" class="btn btn-outline-detail btn-lg w-100 sizeselect"
+																			style="height: 10vh;"
+																		>
+																			<span class="size" style="font-size: 0.9rem;">모든 사이즈</span>
+																			<br>
+																			
+																			<c:if test="${minPrice != 0}">
+																				<span style="font-size: 0.7rem; color: #ec0b00;"><fmt:formatNumber value="${minPrice}" type="number" /></span>
+																			</c:if>
+																			
+																			<c:if test="${minPrice == 0}">
+																				<span style="font-size: 0.7rem; color: black;">구매입찰</span>
+																			</c:if>
+																		</button>
+																	</div>
+
+																</c:if>
+																<c:choose>
+																	<c:when test="${Ddto.item_category == 'shoes'}">																																
+																		<c:forEach var="size" begin="220" end="270" step="5">
+																			<div class="col-4 p-2">
+																				<button type="button" class="btn btn-outline-detail btn-lg w-100 sizeselect"
+																					style="height: 10vh;"
+																				>
+																					<span class="size" style="font-size: 0.9rem; margin-bottom: 1rem;">${size}</span>
+																					<br>
+																					
+																					<c:if test="${priceList.size() != 0}">																																																							
+																					<c:forEach var="dto" items="${priceList }">																																						
+																						<c:if test="${dto.sell_size == size}">
+																							<span style="font-size: 0.7rem; color: #ec0b00;"><fmt:formatNumber value="${dto.sell_wishprice}" type="number" /></span>
+																						</c:if>	
+																						
+																						<c:if test="${dto.sell_size != size}">
+																							<span style="font-size: 0.7rem; color: black;">구매입찰</span>
+																						</c:if>																																									
+																					</c:forEach>
+																					</c:if>
+																							
+																					<c:if test="${priceList.size() == 0}">																																							
+																					<span style="font-size: 0.7rem; color: black;">구매입찰</span>
+																					</c:if>																												
+																				</button>
+																			</div>
+																		</c:forEach>																
+																	</c:when>
+					
+																	<c:when test="${Ddto.item_category == 'bag'}">																																					
 																		<div class="col-4 p-2">
 																			<button type="button" class="btn btn-outline-detail btn-lg w-100 sizeselect"
 																				style="height: 10vh;"
 																			>
-																				<span class="size" style="font-size: 0.9rem; margin-bottom: 1rem;">${size}</span>
+																				<span class="size" style="font-size: 0.9rem; margin-bottom: 1rem;">ONE SIZE</span>
 																				<br>
-																				<span style="font-size: 0.7rem;">가격</span>
+																				
+																				<c:if test="${priceList.size() != 0}">																																																							
+																				<c:forEach var="dto" items="${priceList }">																																						
+																					<c:if test="${dto.sell_size == size}">
+																						<span style="font-size: 0.7rem; color: #ec0b00;"><fmt:formatNumber value="${dto.sell_wishprice}" type="number" /></span>
+																					</c:if>	
+																					
+																					<c:if test="${dto.sell_size != size}">
+																						<span style="font-size: 0.7rem; color: black;">구매입찰</span>
+																					</c:if>																																									
+																				</c:forEach>
+																				</c:if>
+																						
+																				<c:if test="${priceList.size() == 0}">																																							
+																				<span style="font-size: 0.7rem; color: black;">구매입찰</span>
+																				</c:if>																												
 																			</button>
-																		</div>
-																	</c:forEach>
-																</c:if>
+																		</div>																					
+																	</c:when>
+							
+																	<c:otherwise>
+																		<c:set var="otherSize">XS,S,M,L,XL,XXL,XXXL</c:set>																														
+																		<c:forEach var="size" items="${otherSize}" varStatus="i">
+																			<div class="col-4 p-2">
+																				<button type="button" class="btn btn-outline-detail btn-lg w-100 sizeselect"
+																					style="height: 10vh;"
+																				>
+																					<span class="size" style="font-size: 0.9rem; margin-bottom: 1rem;">${size}</span>
+																					<br>
+																					
+																					<c:if test="${priceList.size() != 0}">																																																							
+																					<c:forEach var="dto" items="${priceList }">																																						
+																						<c:if test="${dto.sell_size == size}">
+																							<span style="font-size: 0.7rem; color: #ec0b00;"><fmt:formatNumber value="${dto.sell_wishprice}" type="number" /></span>
+																						</c:if>	
+																						
+																						<c:if test="${dto.sell_size != size}">
+																							<span style="font-size: 0.7rem; color: black;">구매입찰</span>
+																						</c:if>																																									
+																					</c:forEach>
+																					</c:if>
+																							
+																					<c:if test="${priceList.size() == 0}">																																							
+																					<span style="font-size: 0.7rem; color: black;">구매입찰</span>
+																					</c:if>																												
+																				</button>
+																			</div>
+																		</c:forEach>																
+																	</c:otherwise>
+			
+																</c:choose>
+			
+			
 															</div>
 														</div>
 													</div>
@@ -340,20 +422,29 @@ select {
 										<div class="heading-section col-9">
 											<span style="font-size: 1.1em; color: #666;">최근 거래가</span>
 										</div>
-										<div class="heading-section col-3">
-											<span style="font-size: 1.1em; float: right;">
-												<b class="ChangeRecentPriceSize">
-													<fmt:formatNumber value="${getPurchaseRecentPriceAll }" />
-												</b>
-												<b>원</b>
-											</span>
-											<span style="font-size: 0.8em; float: right; color: green">
-												<i class="fa fa-caret-down me-1"></i>
-												<span>3,000</span>
-												원 (
-												<span>-1.3</span>
-												%)
-											</span>
+										<div class="heading-section col-3">											
+											<c:if test="${getPurchaseRecentPriceAll != null}">
+												<b><span style="font-size: 1.1em; float: right;">
+													<fmt:formatNumber value="${getPurchaseRecentPriceAll }" />원
+												</span></b>
+												
+												<span style="font-size: 0.8em; float: right; color: green">
+													<i class="fa fa-caret-down me-1"></i>
+													<span>3,000</span>
+													원 (
+													<span>-1.3</span>
+													%)
+												</span>
+											</c:if>
+											
+											<c:if test="${getPurchaseRecentPriceAll == null}">
+												<b><span style="font-size: 1.1em; float: right;">
+												- 원
+												</span></b>
+												
+											</c:if>
+
+
 										</div>
 									</div>
 									<!-- 시세 -->

@@ -126,6 +126,21 @@ div.main {
 	cursor: pointer;
 }
 
+#bidbox {
+	background-color: #333333;
+
+}
+
+#bidbox-sub:hover {
+	color: #333333;
+}
+
+#bidbox:hover {
+	background-color: #ffffff;
+	color: #333333;
+	border: 1px solid #333333;
+	cursor: pointer;
+}
 #logo {
 	font-size: 25px;
 	font-weight: bold;
@@ -198,11 +213,21 @@ div.buy_size:hover {
 			$(".nomalday").css("color", "#ffffff");
 		});
 
+		$("#bidbox").hide();
 		//사이즈 선택했을 때 적용 사항
 		$(".buy_size").click(function() {
 			$(".buy_size").removeClass("size_active");
 			$(this).addClass("size_active");
 			price = $(this).text();
+			if(price.includes("구매입찰")) {
+				$("#bidbox").show();
+				$(".fastbox").hide();
+				$(".nomalbox").hide();
+			} else {
+				$("#bidbox").hide();
+				$(".fastbox").show();
+				$(".nomalbox").show();
+			}
 			//사이즈 값 받아오기
 			size = $(this).find(':nth-child(1)').text();
 		});
@@ -220,11 +245,21 @@ div.buy_size:hover {
 					deliveryWay = "nomal"; //일반배송
 				}
 				//구매동의로 이동
-				var data = "item_num=${item_num}&size=" + size + "&deliveryWay=" + deliveryWay + "&price=" + price;
-				location.href = "check?" + data;
+				var data = "item_num=${item_num}&size=" + size + "&deliveryWay=" + deliveryWay;
+				if ($(this).hasClass("fastbox")) {
+					location.href = "order?" + data + "&orderPrice=" + uncomma(price);;
+				} else {
+					location.href = "check?" + data + "&price=" + price;;
+				}
+
 			}
 		});
 	});
+
+	function uncomma(str) {
+		str = String(str);
+		return str.replace(/[^\d]+/g, '');
+	}
 </script>
 </head>
 <body>
@@ -321,10 +356,18 @@ div.buy_size:hover {
 			<button type="button" class="btn-login fastbox">
 				<i class="fa-solid fa-paper-plane fa-xs" style="color: #ffffff;"></i>&nbsp;빠른배송
 			</button>
-			<button type="button" class="btn-login nomalbox" style="line-height: 17px;">
+			<button type="button" class="btn-login nomalbox" style="line-height: 17px; padding-top: 16px">
 				일반배송
 				<br>
 				<span class="nomalday" style="font-size: 5px; color: white;">3일</span>
+			</button>
+		</div>
+		<div>
+			<button type="button" class="btn-login" id="bidbox" style="line-height: 17px; padding-top: 16px;
+			width: 99%">
+				구매입찰
+				<br>
+				<span id="bidbox-sub" style="font-size: 5px;">3일</span>
 			</button>
 		</div>
 	</div>

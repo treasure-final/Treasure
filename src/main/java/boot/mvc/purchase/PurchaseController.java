@@ -1,16 +1,17 @@
 package boot.mvc.purchase;
 
-import boot.mvc.buy_bid.BuyBidDto;
 import boot.mvc.item.ItemDto;
 import boot.mvc.item.ItemService;
 import boot.mvc.sell_bid.SellBidDto;
+import boot.mvc.sell_bid.SellBidService;
+import boot.mvc.user.UserDto;
+import boot.mvc.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
@@ -21,6 +22,10 @@ public class PurchaseController {
     PurchaseService service;
     @Autowired
     ItemService itemService;
+    @Autowired
+    UserService userService;
+    @Autowired
+    SellBidService sellBidService;
 
     //구매 사이즈 선택
     @GetMapping("/buy/select")
@@ -49,7 +54,7 @@ public class PurchaseController {
         mv.addObject("size", size);
         mv.addObject("deliveryWay", deliveryWay);
         mv.addObject("price", price.substring(3, price.length()));
-//        System.out.println(size);
+//      System.out.println(size);
 
         mv.setViewName("/purchase/purchaseAgree");
         return mv;
@@ -72,16 +77,31 @@ public class PurchaseController {
 
     //구매/결제
     @GetMapping("/buy/order")
-    public ModelAndView buyOrder(String item_num, String price, String size, String deadline, String deliveryWay) {
+    public ModelAndView buyOrder(String item_num, String price, String orderPrice,
+                                 HttpSession session, String size, String deadline, String deliveryWay) {
         ModelAndView mv = new ModelAndView();
+        String loginEmail = (String) session.getAttribute("loginEmail");
+        String userNum = userService.findEmailUserNum(loginEmail);
 
+        SellBidDto sellBidDto = sellBidService.getSellBidDatas(item_num);
+        UserDto userDto = userService.getUserNumData(userNum);
         ItemDto dto=itemService.getItemData(item_num);
         mv.addObject("dto", dto);
-        mv.addObject("price", price);
+        if(orderPrice!=null) {
+            mv.addObject("price", orderPrice.substring(3, orderPrice.length()));
+        } else {
+            mv.addObject("price", price);
+        }
+        mv.addObject("sellPrice", sellBidDto.getSell_wishprice());
         mv.addObject("deadline", deadline);
         mv.addObject("size", size);
         mv.addObject("deliveryWay", deliveryWay);
+        mv.addObject("loginEmail", loginEmail);
+        mv.addObject("userName", userDto.getUser_name());
+        mv.addObject("userPhone", userDto.getUser_hp());
+        mv.addObject("userAddr", userDto.getUser_addr());
         mv.setViewName("/purchase/purchaseOrder");
+
         return mv;
     }
 }

@@ -156,12 +156,11 @@ public class SellBidController {
 	      sellNowPrice = Integer.parseInt(buyBidDto.getBuy_wishprice());
 	      
 	      mview.addObject("buy_num", buy_num);
-	            
 	  } 
       
       mview.addObject("itemDto", itemDto); 
       mview.addObject("item_num", item_num); 
-	  mview.addObject("sellNowPrice", sellNowPrice);
+	    mview.addObject("sellNowPrice", sellNowPrice);
       mview.addObject("size", size);
       
       mview.setViewName("/sell/sellType");

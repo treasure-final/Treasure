@@ -83,4 +83,9 @@
 	<select id="getItemSort" resultType="ItemDto">
 	select * from item  order by item_brandname asc
 	</select>
+	
+	
+	<select id="getItemData" parameterType="String" resultType="ItemDto">
+	select * from item where item_num=#{item_num}
+	</select>
 </mapper>

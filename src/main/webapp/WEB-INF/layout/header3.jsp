@@ -92,13 +92,7 @@ a:hover {
 						<a href="#">Style</a>
 					</li>
 					<li style="margin-right: 40px;">
-						<a href="/item/detail">Sangsae</a>
-					</li>
-					<li style="margin-right: 40px;">
-						<a href="/item/insert">Insert</a>
-					</li>
-					<li style="margin-right: 40px;">
-						<a href="/sell/sellSize">Shop</a>
+						<a href="/item/itemlist">Shop</a>
 					</li>
 					<li style="margin-right: 40px;">
 						<a href="/user/myPage">My</a>

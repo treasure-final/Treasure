@@ -36,4 +36,9 @@ public interface UserServiceInter {
 
     //임시 비밀번호로 비밀번호 변경
     public void updateTemporarilyPass(String user_pass,String user_email);
+    
+	public String getName(String user_email);
+
+	public String getUserPhoto(String user_email);
+
 }

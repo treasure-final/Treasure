@@ -145,7 +145,7 @@ select {
 				// response는 서버에서 반환하는 최근 거래 가격
 
 				// 숫자 포맷팅 및 업데이트
-				$(".ChangeRecentPriceSize").text(response);
+				$(".ChangeRecentPriceSize").text(response.purchase_total_price);
 			},
 			error : function(xhr, status, error) {
 				// 에러 처리

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Service;
 
 import boot.mvc.item.ItemDto;
@@ -58,7 +59,7 @@ public class DetailService implements DetailServiceInter {
 	}
 
 	@Override
-	public int getPurchaseRecentPriceSize(String item_num, String buy_size) {
+	public Integer getPurchaseRecentPriceSize(String item_num, String buy_size) {
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("item_num", item_num);

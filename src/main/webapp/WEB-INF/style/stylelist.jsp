@@ -114,7 +114,7 @@
 		a {
 			cursor: pointer;
 		}
-		}
+
 	</style>
 
 
@@ -161,8 +161,7 @@
 
 						<a href="#" ><b style="width: 20px; cursor: pointer;  height: 5px; margin-left: 8px;"> ${b.name}</b></a>
 
-						<img alt=" " src="../img/style_image/heart.png" onclick="#"
-							 style="float: right; width: 15px; margin-right: 15px; margin-top: 5px; color: gray; cursor: pointer;">
+						<img alt=" " src="../img/style_image/heart.png" onclick="" style="float: right; width: 15px; margin-right: 15px; margin-top: 5px; color: gray; cursor: pointer;">
 					</div>
 
 					<div id="stylecontent">

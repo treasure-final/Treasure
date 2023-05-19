@@ -145,8 +145,7 @@ img {
 	animation-duration: 1.5s;
 }
 
-@
-keyframes fade {
+@keyframes fade {
 	from {opacity: .4
 }
 

@@ -46,6 +46,9 @@ div.main {
 	border: none;
 	color: black;
 }
+select{
+text-align: center;
+}
 
 * {
 	font-family: "GmarketSansMedium";
@@ -122,33 +125,54 @@ div.main {
 			$(".size-text").text(size);
 			$(".size-select").val(size);
 			$("#sizeModal").modal("hide");
+			
+			sendPurchaseRecentPriceSizeRequest(item_num, size);
 		});
-		
-		$(".size-text").select(function() {
-			var size = $(this).val();
-
-			$(".size-select").val(size);
-			$("#sizeModal").modal("hide");
-		});
-
-		/* $.ajax({
-		  url: "/item/DetailgetData",
-		  type: "get",
-		  dataType: "json",
-		  data: {
-		    "item_num": item_num
-		  },
-		  success: function(res) {
-			  
-		    $("#brandname").text(res.item_brandname);
-		    $("#category").text();
-		  },
-		  error: function(xhr, status, error) {
-		    // 오류 처리 로직을 추가합니다.
-		    console.log("AJAX 오류:", status, error);
-		  }
-		}); */
 	});
+	function sendPurchaseRecentPriceSizeRequest(item_num, buy_size) {
+		$.ajax({
+			url: '/item/purchaseRecentPriceSize',
+			type: 'GET',
+			data: {
+				item_num: item_num,
+				buy_size: buy_size
+			},
+			dataType: 'text',
+			success: function(response) {
+				// 응답 데이터 처리
+				// response는 서버에서 반환하는 최근 거래 가격
+				
+				// 숫자 포맷팅 및 업데이트
+				var formattedPrice = new Intl.NumberFormat().format(response);
+				$(".purchase-recent-price").text(formattedPrice);
+			},
+			error: function(xhr, status, error) {
+				// 에러 처리
+				console.error("AJAX 요청 에러:", error);
+			}
+		});
+	}
+	function handleSizeSelect() {
+	    var selectElement = document.getElementById("size-select");
+	    var selectElement2 = document.getElementById("size-select2");
+	    var selectedValue = selectElement.value;
+	    var sizeTextElement = document.querySelector(".size-text");
+	    
+	    // 선택된 값을 size-text 요소에 삽입
+	    sizeTextElement.innerHTML = selectedValue;
+	    
+	    // 두 번째 select 요소의 옵션을 제거
+	    selectElement2.innerHTML = "";
+
+	    // 선택한 값을 두 번째 select 요소에 옵션으로 추가
+	    var option = document.createElement("option");
+	    option.value = selectedValue;
+	    option.text = selectedValue;
+	    selectElement2.add(option);
+	    
+	    // 선택한 값을 두 번째 select 요소에서 선택 상태로 설정
+	    selectElement2.value = selectedValue;
+	  }
 </script>
 </head>
 <body>
@@ -315,7 +339,7 @@ div.main {
 										</div>
 										<div class="heading-section col-3">
 											<span style="font-size: 1.1em; float: right;">
-												<b>
+												<b class="ChangeRecentPriceSize">
 													<fmt:formatNumber value="${getPurchaseRecentPriceAll }" />
 												</b>
 												<b>원</b>
@@ -337,8 +361,8 @@ div.main {
 										</div>
 										<div class="heading-section col-3">
 											<!-- 카테고리 별 사이즈 -->
-											<select class="form-select size-select" aria-label="size-select"
-												style="border: 0px; font-size: 1em; float: right; color: #666;"
+											<select class="form-select size-select" id="size-select" aria-label="size-select"
+												style="border: 0px; font-size: 1em; float: right; color: #666;" onchange="handleSizeSelect()"
 											>
 												<option>모든 사이즈</option>
 												<c:forEach var="size" begin="220" end="320" step="5">
@@ -922,7 +946,7 @@ div.main {
 																			<span style="font-size: 0.6rem; color: #666">${Ddto.item_korname }</span>
 																		</div>
 																		<div class="row col-5">
-																			<select class="form-select size-select" aria-label="size-select"
+																			<select class="form-select size-select2" id="size-select2"aria-label="size-select"
 																				style="border: 0px; font-size: 1em; float: right; color: #666;"
 																			>
 																				<option selected>모든 사이즈</option>

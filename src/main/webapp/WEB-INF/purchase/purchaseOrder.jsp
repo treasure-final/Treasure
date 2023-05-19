@@ -104,7 +104,7 @@
         }
 
         .td2 {
-            padding-left: 490px;
+            padding-left: 475px;
         }
 
         td {
@@ -225,6 +225,7 @@
             position: relative;
             margin-right: 5px;
             float: right;
+            overflow: hidden;
         }
 
         input[id="check1"]:checked + label::after, input[id="check2"]:checked + label::after,
@@ -239,7 +240,7 @@
             left: 0;
             top: 0;
             float: right;
-            padding-top: 0;
+            padding-top: 5px;
         }
 
         .pay-box {
@@ -259,120 +260,37 @@
     </style>
     <script>
         $(function () {
-            $("#card").click(function () {
+            let addr = $("#buy-addr").text();
+            let name = $("#buy-name").text();
+            let phone = $("#buy-phone").text();
+            changeSecInfo(name, phone, addr);
+            if (parseInt(${sellPrice}) == parseInt(${price})) {
+                $("#priceName").text("즉시 구매가");
+            } else {
+                $("#priceName").text("구매 희망가");
+            }
+
+            $("#btn-submit").click(function () {
                 var IMP = window.IMP;
                 IMP.init('imp01454568');
                 IMP.request_pay({
-                    //pg: 'uplus', // version 1.1.0부터 지원.
-                    /*
-                        'kakao':카카오페이,
-                        html5_inicis':이니시스(웹표준결제) 2
-                            'nice':나이스페이 2
-                            'payco':페이코
-                            'syrup':시럽페이
-                            'paypal':페이팔
-                        */
+                    pg: pgName,
                     pay_method: 'card',
-                    /*
-                        'samsung':삼성페이,
-                        'card':신용카드,
-                        'trans':실시간계좌이체,
-                        'vbank':가상계좌,
-                        'phone':휴대폰소액결제
-                    */
                     merchant_uid: 'merchant_' + new Date().getTime(),
-                    /*
-                        merchant_uid에 경우
-                        https://docs.iamport.kr/implementation/payment
-                        위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
-                        참고하세요.
-                        나중에 포스팅 해볼게요.
-                     */
-                    name: '주문명:결제테스트',
-                    //결제창에서 보여질 이름
-                    amount: 1000,
-                    //가격
-                    buyer_email: 'iamport@siot.do',
-                    buyer_name: '구매자이름',
-                    buyer_tel: '010-1234-5678',
-                    buyer_addr: '서울특별시 강남구 삼성동',
+                    name: "${dto.item_korname}",
+                    amount: 100,
+                    buyer_email: "${loginEmail}",
+                    buyer_name: "${userName}",
+                    buyer_tel: "${userPhone}",
+                    buyer_addr: "${userAddr}",
                     buyer_postcode: '123-456',
-                    m_redirect_url: 'https://www.yourdomain.com/payments/complete'
-                    /*
-                        모바일 결제시,
-                        결제가 끝나고 랜딩되는 URL을 지정
-                        (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
-                        */
+                    m_redirect_url: 'http://localhost:8080/user/myPage'
                 }, function (rsp) {
                     console.log(rsp);
                     if (rsp.success) {
                         var msg = '결제가 완료되었습니다.';
-                        msg += '고유ID : ' + rsp.imp_uid;
-                        msg += '상점 거래ID : ' + rsp.merchant_uid;
-                        msg += '결제 금액 : ' + rsp.paid_amount;
-                        msg += '카드 승인번호 : ' + rsp.apply_num;
                     } else {
                         var msg = '결제에 실패하였습니다.';
-                        msg += '에러내용 : ' + rsp.error_msg;
-                    }
-                    alert(msg);
-                });
-            });
-            $("#kakaopay").click(function () {
-                var IMP = window.IMP;
-                IMP.init('imp01454568');
-                IMP.request_pay({
-                    //pg: 'kakaopay', // version 1.1.0부터 지원.
-                    /*
-                        'kakao':카카오페이,
-                        html5_inicis':이니시스(웹표준결제) 2
-                            'nice':나이스페이 2
-                            'payco':페이코
-                            'syrup':시럽페이
-                            'paypal':페이팔
-                        */
-                    pay_method: 'card',
-                    /*
-                        'samsung':삼성페이,
-                        'card':신용카드,
-                        'trans':실시간계좌이체,
-                        'vbank':가상계좌,
-                        'phone':휴대폰소액결제
-                    */
-                    merchant_uid: 'merchant_' + new Date().getTime(),
-                    /*
-                        merchant_uid에 경우
-                        https://docs.iamport.kr/implementation/payment
-                        위에 url에 따라가시면 넣을 수 있는 방법이 있습니다.
-                        참고하세요.
-                        나중에 포스팅 해볼게요.
-                     */
-                    name: '주문명:결제테스트',
-                    //결제창에서 보여질 이름
-                    amount: 1000,
-                    //가격
-                    buyer_email: 'iamport@siot.do',
-                    buyer_name: '구매자이름',
-                    buyer_tel: '010-1234-5678',
-                    buyer_addr: '서울특별시 강남구 삼성동',
-                    buyer_postcode: '123-456',
-                    m_redirect_url: 'https://www.yourdomain.com/payments/complete'
-                    /*
-                        모바일 결제시,
-                        결제가 끝나고 랜딩되는 URL을 지정
-                        (카카오페이, 페이코, 다날의 경우는 필요없음. PC와 마찬가지로 callback함수로 결과가 떨어짐)
-                        */
-                }, function (rsp) {
-                    console.log(rsp);
-                    if (rsp.success) {
-                        var msg = '결제가 완료되었습니다.';
-                        msg += '고유ID : ' + rsp.imp_uid;
-                        msg += '상점 거래ID : ' + rsp.merchant_uid;
-                        msg += '결제 금액 : ' + rsp.paid_amount;
-                        msg += '카드 승인번호 : ' + rsp.apply_num;
-                    } else {
-                        var msg = '결제에 실패하였습니다.';
-                        msg += '에러내용 : ' + rsp.error_msg;
                     }
                     alert(msg);
                 });
@@ -419,9 +337,7 @@
                 let phone = $("#modal-phone").val();
                 let addr = $("#sample6_address").val() + " " + $("#sample6_detailAddress").val();
 
-                $("#buy-name").text(name);
-                $("#buy-phone").text(phone);
-                $("#buy-addr").text(addr);
+                changeSecInfo(name, phone, addr);
             });
             let day = ['일', '월', '화', '수', '목', '금', '토'];
             let today = new Date();
@@ -433,8 +349,13 @@
             $("#btn-submit").css("cursor", "unset");
 
             $("#price").text(comma(${price}) + "원")
-            $("#totalPrice").text(comma(${price}+5500) + "원")
-
+            if ("${deliveryWay}" == "fast") {
+                $("#totalPrice").text(comma(${price}+7500) + "원");
+                $(".totalPrice").text(comma(${price}+7500) + "원");
+            } else {
+                $("#totalPrice").text(comma(${price}+5500) + "원");
+                $(".totalPrice").text(comma(${price}+5500) + "원");
+            }
             $(".chk").change(function () {
                 if ($('input:checkbox[class=chk]:checked').length === 4) {
                     $("#btn-submit").attr("disabled", false);
@@ -450,7 +371,8 @@
             $(".pay-box").click(function () {
                 $(".pay-box").css("border", "1px solid #e3e3e3");
                 $(this).css("border", "1px solid black");
-            })
+                pgName = $(this).attr("name");
+            });
         });
 
         function comma(str) {
@@ -461,6 +383,41 @@
         function uncomma(str) {
             str = String(str);
             return str.replace(/[^\d]+/g, '');
+        }
+
+        function changeSecInfo(name, phone, addr) {
+            let nameArr = name.split("");
+            let phoneArr = phone.split("");
+
+            let newName = "";
+            let newPhone = "";
+
+            for (let i = 0; i < nameArr.length; i++) {
+                if (i > 0) {
+                    newName += "*";
+                    continue;
+                }
+                newName += nameArr[i]
+            }
+
+            for (let i = 0; i < phoneArr.length; i++) {
+                if (i >= 4 && i <= 6) {
+                    newPhone += "*";
+                    continue;
+                }
+                if (i == 7) {
+                    newPhone += "-*";
+                    continue;
+                }
+                newPhone += phoneArr[i]
+                if (i == 2) {
+                    newPhone += "-";
+                }
+            }
+
+            $("#buy-name").text(newName);
+            $("#buy-phone").text(newPhone);
+            $("#buy-addr").text(addr);
         }
     </script>
 </head>
@@ -487,15 +444,15 @@
             <table>
                 <tr>
                     <td class="left-td">받는분</td>
-                    <td class="right-td" id="buy-name">김영돈</td>
+                    <td class="right-td" id="buy-name">${userName}</td>
                 </tr>
                 <tr>
                     <td class="left-td">연락처</td>
-                    <td class="right-td" id="buy-phone">010-2152-9843</td>
+                    <td class="right-td" id="buy-phone">${userPhone}</td>
                 </tr>
                 <tr>
                     <td class="left-td">배송 주소</td>
-                    <td class="right-td" id="buy-addr">경기 성남시 분당구 경부고속도로 409 (삼평동) 111</td>
+                    <td class="right-td" id="buy-addr">${userAddr}</td>
                 </tr>
             </table>
         </div>
@@ -542,11 +499,11 @@
     padding-top: 35px">
         <div style="font-size: 18px; margin-bottom: 10px">최종 주문 정보</div>
         <div style="font-size: 14px">총 결제금액</div>
-        <div style="color: red; margin-left: 550px; font-size: 18px"><b id="totalPrice">173,500원</b></div>
+        <div style="color: red; margin-left: 535px; font-size: 18px"><b id="totalPrice">173,500원</b></div>
         <div id="sub-info" style="border-top: 2px solid #e3e3e3; padding-bottom: 50px; margin-top: 30px">
             <table style="padding-top: 20px">
                 <tr>
-                    <td>즉시 구매가</td>
+                    <td id="priceName"></td>
                     <td class="td2" align="right"><b id="price"></b></td>
                 </tr>
                 <tr>
@@ -559,7 +516,12 @@
                 </tr>
                 <tr>
                     <td style="opacity: 0.8">배송비</td>
-                    <td class="td2" align="right">3,000원</td>
+                    <c:if test="${deliveryWay eq 'nomal'}">
+                        <td class="td2" align="right">3,000원</td>
+                    </c:if>
+                    <c:if test="${deliveryWay eq 'fast'}">
+                        <td class="td2" align="right">5,000원</td>
+                    </c:if>
                 </tr>
             </table>
         </div>
@@ -567,20 +529,24 @@
             <div style="font-size: 18px; margin-bottom: 10px">결제 방법</div>
             <div style="font-size: 15px;">일반 결제 <span style="opacity: 0.6; font-size: 12px;">일시불・할부</span></div>
             <div id="perchase-selectBox">
-                <div class="pay-box" id="card" style="margin-right: 10px; cursor: pointer">
+                <div class="pay-box" id="card" style="margin-right: 10px; cursor: pointer" name="uplus">
                     신용카드
                 </div>
-                    <div class="pay-box" style="cursor: pointer">
+                <div class="pay-box" style="cursor: pointer; float: left; padding-bottom: 13px" name="kakaopay">
+                    <div style="float: left">
                         카카오페이
+                    </div>
+                    <div style="float: left; margin-top: 5px">
                         <img src="../../img/kakaopay.png" id="kakaopay" style="width: 50px; margin-left: 90px;">
                     </div>
+                </div>
                 <div style="clear: left"></div>
             </div>
         </div>
         <div class="agree-box">
             <div class="agree-sub">
                 <input type="checkbox" required="required" class="chk" name="chkBox" id="check1" style="width: 25px;">
-                <label for="check1" style="margin-top: 8px"></label>
+                <label for="check1" style="margin-top: 8px;"></label>
                 판매자의 판매거부, 배송지연, 미입고 등의 사유가 발생할 경우, 거래가 취소될 수 있습니다.<br>
                 <span>앱 알림 해제, 알림톡 차단, 전화번호 변경 후 미등록 시에는 거래 진행 상태 알림을 받을 수 없습니다.</span>
             </div>
@@ -604,10 +570,9 @@
         </div>
         <input type="hidden" id="userNum">
         <div style="margin-top: 50px; font-size: 18px;">
-            <span><b>총 결제 금액</b></span><span style="margin-left: 455px; color: red"><b>173,500원</b></span>
+            <span><b>총 결제 금액</b></span><span style="margin-left: 435px; color: red"><b class="totalPrice"></b></span>
         </div>
-        <input type="button" value="구매 입찰하기" class="btn-submit" id="btn-submit"><br><br>
-        <input type="button" value="결제" class="btn-submit" id="btn_payment">
+        <input type="button" value="결제하기" class="btn-submit" id="btn-submit"><br><br>
     </div>
 </div>
 

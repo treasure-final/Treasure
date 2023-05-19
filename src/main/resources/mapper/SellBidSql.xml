@@ -15,4 +15,8 @@
 		select LAST_INSERT_ID()
 	</select>
 
+    <select id="getSellBidDatas" resultType="SellBidDto" parameterType="String">
+        select * from sell_bid where item_num = #{item_num}
+    </select>
+
 </mapper>

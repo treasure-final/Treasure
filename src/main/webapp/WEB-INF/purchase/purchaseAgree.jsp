@@ -49,6 +49,7 @@
             position: relative;
             margin-right: 5px;
             float: right;
+            overflow: hidden;
         }
 
         input[id="check1"]:checked + label::after, input[id="check2"]:checked + label::after,
@@ -65,6 +66,7 @@
             left: 0;
             top: 0;
             float: right;
+            padding-top: 5px;
         }
 
 
@@ -81,7 +83,7 @@
             position: relative;
             overflow: hidden;
             margin: auto;
-            width: 45%;
+            width: 48%;
             text-align: center;
             margin-bottom: 50px;
             margin-top: 30px;
@@ -102,7 +104,7 @@
             position: relative;
             overflow: hidden;
             margin: auto;
-            width: 45%;
+            width: 48%;
             text-align: center;
             margin-bottom: 50px;
             margin-top: 30px;
@@ -253,19 +255,19 @@
         </div >
         <div class="agree-sub">
             <input type="checkbox" required="required" id="check2" name="chkBox" class="chk">
-            <label for="check2" style="margin-top: 8px"></label>
+            <label for="check2" style="margin-top: 3px"></label>
             국내/해외에서 발매한 정품 · 새상품입니다.<br>
             <span>모든 구성품이 그대로이며, 한 번도 착용하지 않은 정품・새상품입니다. 국내 발매 상품 여부는 확인드리지 않습니다.</span>
         </div>
         <div class="agree-sub">
             <input type="checkbox" required="required" id="check3" name="chkBox" class="chk">
-            <label for="check3" style="margin-top: 8px" ></label>
+            <label for="check3" style="margin-top: 3px" ></label>
             제조사에서 불량으로 인정하지 않는 기준은 하자로 판단하지 않습니다.<br>
             <span>박스/패키지와 상품 컨디션에 민감하시다면 검수 기준을 반드시 확인하시기 바랍니다.</span>
         </div>
         <div class="agree-sub">
             <input type="checkbox" required="required" id="check4" name="chkBox" class="chk">
-            <label for="check4"></label>
+            <label for="check4" style="margin-top: 3px"></label>
             TREASURE의 최신 이용정책을 모두 확인하였으며, 구매를 계속합니다.<br>
             <span>건전하고 안전한 거래를 위해 반드시 숙지해야 할 미입고, 페널티, 부정거래 등의 이용정책을 확인했습니다.</span>
 

@@ -155,21 +155,18 @@
                   $("#searchinput").append(s);
 
                   // //만약 엔터키를 누르면(=검색하면) 검색 리스트 띄우도록
-                  // $(document).keydown(function(event) {
-                  //    if(event.which==13) {
-                  //       //입력한 검색 값을 받아와서
-                  //       var searchText=$("#search").val();
-                  //       if(link=="http://localhost:8080/item/itemlist") {
-                  //          location.href="itemsearch?searchText="+searchText;
-                  //       } else {
-                  //          location.href="/item/itemsearch?searchText="+searchText;
-                  //       }
-                  //    }
-                  // })
+                  $(document).keydown(function(event) {
+                     if(event.which==13 && $("#search").val()!=='') {
+                        //입력한 검색 값을 받아와서
+                        var searchText=$("#search").val();
+                        if(link=="http://localhost:8080/item/itemlist") {
+                           location.href="itemsearch?searchText="+searchText;
+                        } else {
+                           location.href="/item/itemsearch?searchText="+searchText;
+                        }
+                     }
+                  })
                }
-
-
-
             </script>
          </div>
       </div>

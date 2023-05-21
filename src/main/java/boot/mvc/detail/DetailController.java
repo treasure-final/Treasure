@@ -1,5 +1,6 @@
 package boot.mvc.detail;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import boot.mvc.buy_bid.BuyBidDto;
@@ -33,14 +35,12 @@ public class DetailController {
 		List<Map<String, Object>> groupedBuyData = Dservice.getBuyBidGroupedData(item_num);
 		List<Map<String, Object>> groupedSellData = Dservice.getSellBidGroupedData(item_num);
 		List<Map<String, Object>> getPurchaseData = Dservice.getPurchaseData(item_num);
-		String getPurchaseRecentPriceAll = Dservice.getPurchaseRecentPriceAll(item_num);
 
 		mview.addObject("list", list);
 		mview.addObject("Ddto", dto);
 		mview.addObject("groupedBuyData", groupedBuyData);
 		mview.addObject("groupedSellData", groupedSellData);
 		mview.addObject("getPurchaseData", getPurchaseData);
-		mview.addObject("getPurchaseRecentPriceAll", getPurchaseRecentPriceAll);
 
 		List<SellBidDto> priceList =  purchaseService.getBuyNowPrice(item_num);
 		mview.addObject("priceList", priceList);
@@ -64,6 +64,20 @@ public class DetailController {
 		model.addAttribute("item_num", item_num);
 		return mview;
 	}
+	
+	@ResponseBody
+	@GetMapping("/item/getPurchaseRecentPriceSize")
+	public int getPurchaseRecentPriceSize(@RequestParam("item_num") String itemNum, @RequestParam("buy_size") String buySize) {
+		int price = 0;
+
+		if(buySize.equals("모든 사이즈"))
+			price = Dservice.getPurchaseRecentPriceAll(itemNum);
+		else 
+			price = Dservice.getPurchaseRecentPriceSize(itemNum, buySize);
+		
+		return price;
+	}
+	
 
 //	@GetMapping("/item/detail")
 //	public ModelAndView DetailgetData(@RequestParam String item_num) {

@@ -115,41 +115,87 @@ div.main {
 <script type="text/javascript">
 	$(function() {
 		var item_num = $(".item_num").val();
-
+		
+		sendPurchaseRecentPriceSizeRequest(item_num, "모든 사이즈");
+		
 		// 모달창에서 사이즈 선택
 		$(".sizeselect").click(function() {
-			var size = $(this).find(".size").text();
+			var buy_size = $(this).find(".size").text();
 
-			$(".size-text").text(size);
-			$(".size-select").val(size);
+			$(".size-text").text(buy_size);
+			$(".size-select").val(buy_size);
 			$("#sizeModal").modal("hide");
+
+			sendPurchaseRecentPriceSizeRequest(item_num, buy_size);
 		});
 		
-		$(".size-text").select(function() {
-			var size = $(this).val();
-
-			$(".size-select").val(size);
-			$("#sizeModal").modal("hide");
-		});
-
-		/* $.ajax({
-		  url: "/item/DetailgetData",
-		  type: "get",
-		  dataType: "json",
-		  data: {
-		    "item_num": item_num
-		  },
-		  success: function(res) {
-			  
-		    $("#brandname").text(res.item_brandname);
-		    $("#category").text();
-		  },
-		  error: function(xhr, status, error) {
-		    // 오류 처리 로직을 추가합니다.
-		    console.log("AJAX 오류:", status, error);
-		  }
-		}); */
+		
+		    $('#size-select2').change(function() {
+		      var selectedSize = $(this).val();
+		      $('.col-6 span').each(function() {
+		        if ($(this).text() == selectedSize) {
+		          $(this).closest('.d-flex').show();
+		        } else {
+		          $(this).closest('.d-flex').hide();
+		        }
+		      });
+		    });
+		  
+		
 	});
+	
+	function sendPurchaseRecentPriceSizeRequest(item_num, buy_size) {
+		
+		$.ajax({
+			url : '/item/getPurchaseRecentPriceSize',
+			type : 'GET',
+			data : {
+				"item_num" : item_num,
+				"buy_size" : buy_size
+			},
+			dataType : 'text',
+			success : function(response) {
+				// 응답 데이터 처리
+				// response는 서버에서 반환하는 최근 거래 가격
+				
+				if(response != 0) {
+					// 숫자 포맷팅 및 업데이트
+		            const formatter = new Intl.NumberFormat('ko-KR');
+		            const formattedValue = formatter.format(Number(response));
+		            $(".ChangeRecentPriceSize").text(formattedValue);
+				} else 
+					$(".ChangeRecentPriceSize").text("-");
+			},
+			error : function(xhr, status, error) {
+				// 에러 처리
+				console.error("AJAX 요청 에러:", error);
+			}
+		});
+	}
+	
+	function handleSizeSelect() {
+		var selectElement = document.getElementById("size-select");
+		var selectElement2 = document.getElementById("size-select2");
+		var selectedValue = selectElement.value;
+		var sizeTextElement = document.querySelector(".size-text");
+
+		// 선택된 값을 size-text 요소에 삽입
+		sizeTextElement.innerHTML = selectedValue;
+
+		// 선택한 값을 두 번째 select 요소에 옵션으로 추가
+		var option = document.createElement("option");
+		option.value = selectedValue;
+		option.text = selectedValue;
+		selectElement2.add(option);
+
+		// 선택한 값을 두 번째 select 요소에서 선택 상태로 설정
+		selectElement2.value = selectedValue;
+		
+		alert(selectedValue);
+		$("#size_" + selectedValue).hide();
+		
+		// size_${g.buy_size }
+	}
 </script>
 
 </head>
@@ -279,6 +325,7 @@ div.main {
 																		</button>
 																	</div>
 																</c:if>
+																
 																<c:choose>
 																	<c:when test="${Ddto.item_category == 'shoes'}">																																
 																		<c:forEach var="size" begin="220" end="270" step="5">
@@ -367,43 +414,33 @@ div.main {
 																	</c:otherwise>
 			
 																</c:choose>
-			
-			
+						
 															</div>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-									</div>
+									</div>									
 									<!-- 최근 거래가 -->
 									<div class="d-flex pe-2 mb-5">
 										<div class="heading-section col-9">
 											<span style="font-size: 1.1em; color: #666;">최근 거래가</span>
 										</div>
 										<div class="heading-section col-3">
-																							
-											<c:if test="${getPurchaseRecentPriceAll != null}">
-												<b><span style="font-size: 1.1em; float: right;">
-													<fmt:formatNumber value="${getPurchaseRecentPriceAll }" />원
-												</span></b>
-												
-												<span style="font-size: 0.8em; float: right; color: green">
-													<i class="fa fa-caret-down me-1"></i>
-													<span>3,000</span>
-													원 (
-													<span>-1.3</span>
-													%)
-												</span>
-											</c:if>
-											
-											<c:if test="${getPurchaseRecentPriceAll == null}">
-												<b><span style="font-size: 1.1em; float: right;">
-												- 원
-												</span></b>
-												
-											</c:if>
-
+											<span style="font-size: 1.1em; float: right;">
+												<b class="ChangeRecentPriceSize">
+													<fmt:formatNumber value="" />
+												</b>
+												<b>원</b>
+											</span>
+											<!-- <span style="font-size: 0.8em; float: right; color: green">
+												<i class="fa fa-caret-down me-1"></i>
+												<span>3,000</span>
+												원 (
+												<span>-1.3</span>
+												%)
+											</span> -->
 										</div>
 									</div>
 									<!-- 시세 -->
@@ -414,15 +451,31 @@ div.main {
 										</div>
 										<div class="heading-section col-3">
 											<!-- 카테고리 별 사이즈 -->
-
-											<select class="form-select size-select" aria-label="size-select"
-
+											<select class="form-select size-select" id="size-select" aria-label="size-select"
 												style="border: 0px; font-size: 1em; float: right; color: #666;"
+												onchange="handleSizeSelect()"
 											>
-												<option>모든 사이즈</option>
-												<c:forEach var="size" begin="220" end="320" step="5">
-													<option value="${size}">${size}</option>
-												</c:forEach>
+												<option>모든 사이즈</option>											
+												
+												<c:choose>
+													<c:when test="${Ddto.item_category == 'shoes'}">																																
+														<c:forEach var="size" begin="220" end="270" step="5">
+															<option value="${size}">${size}</option>
+														</c:forEach>																
+													</c:when>
+	
+													<c:when test="${Ddto.item_category == 'bag'}">																																																							
+														<option value="ONE SIZE">ONE SIZE</option>																																				
+													</c:when>
+			
+													<c:otherwise>
+														<c:set var="otherSize">XS,S,M,L,XL,XXL,XXXL</c:set>																														
+														<c:forEach var="size" items="${otherSize}" varStatus="i">
+															<option value="${size}">${size}</option>
+														</c:forEach>																
+													</c:otherwise>
+												</c:choose>
+		
 											</select>
 										</div>
 									</div>
@@ -841,42 +894,50 @@ div.main {
 																</div>
 															</div>
 															<hr class="mt-0 mb-0">
-															<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
-																<div class="col-6">
-																	<c:forEach items="${getPurchaseData }" var="p" end="4">
-																		<span style="font-size: 0.9em; color: #666; margin-right: 25px">${p.buy_size }</span>
-																		<br>
-																	</c:forEach>
-																	<br>
-																</div>
-																<div class="col-4">
-
-																	<c:forEach items="${getPurchaseData }" var="p" end="4">
+															
+															<c:forEach items="${getPurchaseData }" var="p" end="4">
+																<div class="d-flex" id="size_${p.buy_size }" style="padding: 5px; text-align: center; margin-right: 20px;">
+																	<div class="col-6">																							
+																		<span style="font-size: 0.9em; color: #666; margin-right: 25px">${p.buy_size }</span>																									
+																	</div>
+																	<div class="col-4">
 																		<span style="font-size: 0.9em; color: #666; float: right; margin-right: 80px">
-																			<fmt:formatNumber value="${p.purchase_total_price }">
-																			</fmt:formatNumber>
-																			원
+																			<fmt:formatNumber value="${p.purchase_wishprice }" />원
 																		</span>
-																		<br>
-																	</c:forEach>
-																	<br>
-																</div>
-																<div class="col-2">
-																	<c:forEach items="${getPurchaseData }" var="p" end="4">
+																	</div>
+																	<div class="col-2">
 																		<span style="font-size: 0.9em; color: #666; margin-right: 30px">
 																			<fmt:parseDate var="dateFormatter" value="${p.purchase_date}"
 																				pattern="yyyy-MM-dd'T'HH:mm:ss"
 																			/>
 																			<fmt:formatDate value="${dateFormatter }" pattern="yyyy/MM/dd" />
 																		</span>
-																		<br>
-																	</c:forEach>
-																	<br>
-
-																</div>
-															</div>
+																	</div>
+																</div>																															
+															</c:forEach>
+															
+															<c:if test="${getPurchaseData.size() < 5}">
+															<c:forEach begin="1" end="${5 - getPurchaseData.size() }">
+															    <div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px;">
+																	<div class="col-6">																							
+																		<span style="font-size: 0.9em; color: #666; margin-right: 25px">-</span>																									
+																	</div>
+																	<div class="col-4">
+																		<span style="font-size: 0.9em; color: #666; float: right; margin-right: 105px">
+																			-
+																		</span>
+																	</div>
+																	<div class="col-2">
+																		<span style="font-size: 0.9em; color: #666; margin-right: 20px">
+																			-
+																		</span>
+																	</div>
+																</div>		
+															</c:forEach>
+															</c:if>
+															
 														</div>
-														<div style="padding-top: 20px">
+														<div class="mt-4" style="padding-top: 20px">
 															<button type="button" class="btn btn-outline-detail w-100" data-bs-toggle="modal"
 																data-bs-target="#detailModal"
 															>체결 내역 더보기</button>
@@ -896,35 +957,45 @@ div.main {
 																</div>
 															</div>
 															<hr class="mt-0 mb-0">
-															<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
-																<div class="col-6">
-																	<c:forEach items="${groupedSellData }" var="s" end="4">
-																		<span style="font-size: 0.9em; color: #666; margin-right: 25px">${s.sell_size }</span>
-																		<br>
-																	</c:forEach>
-																	<br>
-																</div>
-																<div class="col-4">
-																	<c:forEach items="${groupedSellData }" var="s" end="4">
+															
+															<c:forEach items="${groupedSellData }" var="s" end="4">
+																<div class="d-flex" id="size_${s.sell_size }" style="padding: 5px; text-align: center; margin-right: 20px;">
+																	<div class="col-6">																							
+																		<span style="font-size: 0.9em; color: #666; margin-right: 25px">${s.sell_size }</span>																								
+																	</div>
+																	<div class="col-4">
 																		<span style="font-size: 0.9em; color: #666; float: right; margin-right: 80px">
-																			<fmt:formatNumber value="${s.sell_wishprice }">
-																			</fmt:formatNumber>
-																			원
+																			<fmt:formatNumber value="${s.sell_wishprice }" />원
 																		</span>
-																		<br>
-																	</c:forEach>
-																	<br>
-																</div>
-																<div class="col-2">
-																	<c:forEach items="${groupedSellData }" var="s" end="4">
+																	</div>
+																	<div class="col-2">
 																		<span style="font-size: 0.9em; color: #666; margin-right: 0px">${s.count }</span>
-																		<br>
-																	</c:forEach>
-																	<br>
+																	</div>
 																</div>
-															</div>
+															</c:forEach>															
+															
+															<c:if test="${groupedSellData.size() < 5}">
+															<c:forEach begin="1" end="${5 - groupedSellData.size() }">
+															    <div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px;">
+																	<div class="col-6">																							
+																		<span style="font-size: 0.9em; color: #666; margin-right: 25px">-</span>																									
+																	</div>
+																	<div class="col-4">
+																		<span style="font-size: 0.9em; color: #666; float: right; margin-right: 105px">
+																			-
+																		</span>
+																	</div>
+																	<div class="col-2">
+																		<span style="font-size: 0.9em; color: #666; margin-right: 0px">
+																			-
+																		</span>
+																	</div>
+																</div>		
+															</c:forEach>
+															</c:if>
+																																											
 														</div>
-														<div style="padding-top: 20px">
+														<div class="mt-4" style="padding-top: 20px">
 															<button type="button" class="btn btn-outline-detail w-100" data-bs-toggle="modal"
 																data-bs-target="#detailModal"
 															>입찰 내역 더보기</button>
@@ -944,35 +1015,45 @@ div.main {
 																</div>
 															</div>
 															<hr class="mt-0 mb-0">
-															<div class="d-flex" style="padding: 5px; text-align: center;">
-																<div class="col-6">
-																	<c:forEach items="${groupedBuyData }" var="g" end="4">
-																		<span style="font-size: 0.9em; color: #666; margin-right: 30px">${g.buy_size }</span>
-																		<br>
-																	</c:forEach>
-																	<br>
-																</div>
-																<div class="col-4">
-																	<c:forEach items="${groupedBuyData }" var="g" end="4">
+															
+															<c:forEach items="${groupedBuyData }" var="g" end="4">
+																<div class="d-flex" id="size_${g.buy_size }" style="padding: 5px; text-align: center;">
+																	<div class="col-6">																							
+																		<span style="font-size: 0.9em; color: #666; margin-right: 30px">${g.buy_size }</span>																								
+																	</div>
+																	<div class="col-4">
 																		<span style="font-size: 0.9em; color: #666; float: right; margin-right: 100px">
-																			<fmt:formatNumber value="${g.buy_wishprice }">
-																			</fmt:formatNumber>
-																			원
+																			<fmt:formatNumber value="${g.buy_wishprice }" />원
 																		</span>
-																		<br>
-																	</c:forEach>
-																	<br>
-																</div>
-																<div class="col-2">
-																	<c:forEach items="${groupedBuyData }" var="g" end="4">
+																	</div>
+																	<div class="col-2">
 																		<span style="font-size: 0.9em; color: #666; margin-right: 30px">${g.count }</span>
-																		<br>
-																	</c:forEach>
-																	<br>
+																	</div>
 																</div>
-															</div>
+															</c:forEach>	
+																
+															<c:if test="${groupedBuyData.size() < 5}">	
+															<c:forEach begin="1" end="${5 - groupedBuyData.size() }">
+															    <div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px;">
+																	<div class="col-6">																							
+																		<span style="font-size: 0.9em; color: #666; margin-right: 25px">-</span>																									
+																	</div>
+																	<div class="col-4">
+																		<span style="font-size: 0.9em; color: #666; float: right; margin-right: 105px">
+																			-
+																		</span>
+																	</div>
+																	<div class="col-2">
+																		<span style="font-size: 0.9em; color: #666; margin-right: 0px">
+																			-
+																		</span>
+																	</div>
+																</div>		
+															</c:forEach>	
+															</c:if>
+																																																												
 														</div>
-														<div style="padding-top: 20px">
+														<div class="mt-4" style="padding-top: 20px">
 															<button type="button" class="btn btn-outline-detail w-100" data-bs-toggle="modal"
 																data-bs-target="#detailModal"
 															>입찰 내역 더보기</button>
@@ -1006,14 +1087,32 @@ div.main {
 																		</div>
 																		<div class="row col-5">
 
-																			<select class="form-select size-select" aria-label="size-select"
+																			<select class="form-select size-select2" id="size-select2"
+																				aria-label="size-select"
 
 																				style="border: 0px; font-size: 1em; float: right; color: #666;"
 																			>
 																				<option selected>모든 사이즈</option>
-																				<c:forEach var="size" begin="220" end="320" step="5">
-																					<option value="${size}">${size}</option>
-																				</c:forEach>
+																				
+																				<c:choose>
+																					<c:when test="${Ddto.item_category == 'shoes'}">																																
+																						<c:forEach var="size" begin="220" end="270" step="5">
+																							<option value="${size}">${size}</option>
+																						</c:forEach>																
+																					</c:when>
+									
+																					<c:when test="${Ddto.item_category == 'bag'}">																																																							
+																						<option value="ONE SIZE">ONE SIZE</option>																																				
+																					</c:when>
+											
+																					<c:otherwise>
+																						<c:set var="otherSize">XS,S,M,L,XL,XXL,XXXL</c:set>																														
+																						<c:forEach var="size" items="${otherSize}" varStatus="i">
+																							<option value="${size}">${size}</option>
+																						</c:forEach>																
+																					</c:otherwise>
+																				</c:choose>
+
 																			</select>
 																		</div>
 																	</div>
@@ -1053,17 +1152,28 @@ div.main {
 																						</div>
 																					</div>
 																					<hr class="mt-0 mb-0">
-																					<div class="d-flex">
-																						<div class="col-6">
-																							<span style="font-size: 0.9em; color: #666;">265</span>
+																					
+																					<c:forEach items="${getPurchaseData }" var="p">
+																						<div class="d-flex" id="size_${p.buy_size }">
+																							<div class="col-6">																							
+																								<span style="font-size: 0.9em; color: #666;">${p.buy_size }</span>																											
+																							</div>
+																							<div class="col-3">
+																								<span style="font-size: 0.9em; color: #666;">
+																									<fmt:formatNumber value="${p.purchase_wishprice }" />원
+																								</span>
+																							</div>
+																							<div class="col-3">
+																								<span style="font-size: 0.9em; color: #666;">
+																									<fmt:parseDate var="dateFormatter" value="${p.purchase_date}"
+																										pattern="yyyy-MM-dd'T'HH:mm:ss"
+																									/>
+																									<fmt:formatDate value="${dateFormatter }" pattern="yyyy/MM/dd" />
+																								</span>
+																							</div>
 																						</div>
-																						<div class="col-3">
-																							<span style="font-size: 0.9em; color: #666;">174,000원</span>
-																						</div>
-																						<div class="col-3">
-																							<span style="font-size: 0.9em; color: #666;">23/05/02</span>
-																						</div>
-																					</div>
+																					</c:forEach>
+	
 																				</div>
 																			</div>
 																			<div class="tab-pane fade" id="sellBidModal" role="tabpanel">
@@ -1080,17 +1190,23 @@ div.main {
 																						</div>
 																					</div>
 																					<hr class="mt-0 mb-0">
-																					<div class="d-flex">
-																						<div class="col-6">
-																							<span style="font-size: 0.9em; color: #666;">255</span>
+																					
+																					<c:forEach items="${groupedSellData }" var="s">
+																						<div class="d-flex" id="size_${p.buy_size }">
+																							<div class="col-6">																							
+																								<span style="font-size: 0.9em; color: #666;">${s.sell_size }</span>																											
+																							</div>
+																							<div class="col-3">
+																								<span style="font-size: 0.9em; color: #666;">
+																									<fmt:formatNumber value="${s.sell_wishprice }" />원
+																								</span>
+																							</div>
+																							<div class="col-3">
+																								<span style="font-size: 0.9em; color: #666; text-align: center;">${s.count }</span>
+																							</div>
 																						</div>
-																						<div class="col-4">
-																							<span style="font-size: 0.9em; color: #666;">154,000원</span>
-																						</div>
-																						<div class="col-2">
-																							<span style="font-size: 0.9em; color: #666;">1</span>
-																						</div>
-																					</div>
+																					</c:forEach>
+																				
 																				</div>
 																			</div>
 																			<div class="tab-pane fade" id="buyBidModal" role="tabpanel">
@@ -1107,17 +1223,23 @@ div.main {
 																						</div>
 																					</div>
 																					<hr class="mt-0 mb-0">
-																					<div class="d-flex">
-																						<div class="col-6">
-																							<span style="font-size: 0.9em; color: #666;">265</span>
+																					
+																					<c:forEach items="${groupedBuyData }" var="g">
+																						<div class="d-flex" id="size_${p.buy_size }">
+																							<div class="col-6">																							
+																								<span style="font-size: 0.9em; color: #666;">${g.buy_size }</span>																										
+																							</div>
+																							<div class="col-3">
+																								<span style="font-size: 0.9em; color: #666;">
+																									<fmt:formatNumber value="${g.buy_wishprice }" />원
+																								</span>
+																							</div>
+																							<div class="col-3" style="text-align: center;">
+																								<span style="font-size: 0.9em; color: #666; text-align: center;">${g.count }</span>
+																							</div>
 																						</div>
-																						<div class="col-4">
-																							<span style="font-size: 0.9em; color: #666;">153,000원</span>
-																						</div>
-																						<div class="col-2">
-																							<span style="font-size: 0.9em; color: #666;">1</span>
-																						</div>
-																					</div>
+																					</c:forEach>
+																																																												
 																				</div>
 																			</div>
 																		</div>
@@ -1401,3 +1523,154 @@ div.main {
 	<script src="../assets/js/custom.js"></script>
 </body>
 </html>
+
+
+//////////////////////////////
+
+
+<div class="tab-content">
+	<div class="tab-pane fade show active" id="deal" role="tabpanel">
+		<div class="p-2 mb-1" style="height: 17vh;">
+			<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
+				<div class="col-6">
+					<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 20px">사이즈</span>
+				</div>
+				<div class="col-3">
+					<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 35px">거래가</span>
+				</div>
+				<div class="col-3">
+					<span style="font-size: 0.8em; color: #a0a0a0; margin-left: 30px">거래일</span>
+				</div>
+			</div>
+			<hr class="mt-0 mb-0">
+			<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
+				<div class="col-6">
+					<c:forEach items="${getPurchaseData }" var="p" end="4">
+						<span style="font-size: 0.9em; color: #666; margin-right: 25px">${p.buy_size }</span>
+						<br>
+					</c:forEach>
+					<br>
+				</div>
+				<div class="col-4">
+
+					<c:forEach items="${getPurchaseData }" var="p" end="4">
+						<span style="font-size: 0.9em; color: #666; float: right; margin-right: 80px">
+							<fmt:formatNumber value="${p.purchase_wishprice }">
+							</fmt:formatNumber>
+							원
+						</span>
+						<br>
+					</c:forEach>
+					<br>
+				</div>
+				<div class="col-2">
+					<c:forEach items="${getPurchaseData }" var="p" end="4">
+						<span style="font-size: 0.9em; color: #666; margin-right: 30px">
+							<fmt:parseDate var="dateFormatter" value="${p.purchase_date}"
+								pattern="yyyy-MM-dd'T'HH:mm:ss"
+							/>
+							<fmt:formatDate value="${dateFormatter }" pattern="yyyy/MM/dd" />
+						</span>
+						<br>
+					</c:forEach>
+					<br>
+
+				</div>
+			</div>
+		</div>
+		<div style="padding-top: 20px">
+			<button type="button" class="btn btn-outline-detail w-100" data-bs-toggle="modal"
+				data-bs-target="#detailModal"
+			>체결 내역 더보기</button>
+		</div>
+	</div>
+	<div class="tab-pane fade" id="sellBid" role="tabpanel">
+		<div class="p-2 mb-1" style="height: 17vh;">
+			<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
+				<div class="col-6">
+					<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 20px">사이즈</span>
+				</div>
+				<div class="col-4">
+					<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 60px">판매 희망가</span>
+				</div>
+				<div class="col-2">
+					<span style="font-size: 0.8em; color: #a0a0a0;">수량</span>
+				</div>
+			</div>
+			<hr class="mt-0 mb-0">
+			<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
+				<div class="col-6">
+					<c:forEach items="${groupedSellData }" var="s" end="4">
+						<span style="font-size: 0.9em; color: #666; margin-right: 25px">${s.sell_size }</span>
+						<br>
+					</c:forEach>
+					<br>
+				</div>
+				<div class="col-4">
+					<c:forEach items="${groupedSellData }" var="s" end="4">
+						<span style="font-size: 0.9em; color: #666; float: right; margin-right: 80px">
+							<fmt:formatNumber value="${s.sell_wishprice }">
+							</fmt:formatNumber>
+							원
+						</span>
+						<br>
+					</c:forEach>
+					<br>
+				</div>
+				<div class="col-2">
+					<c:forEach items="${groupedSellData }" var="s" end="4">
+						<span style="font-size: 0.9em; color: #666; margin-right: 0px">${s.count }</span>
+						<br>
+					</c:forEach>
+					<br>
+				</div>
+			</div>
+		</div>
+		<div style="padding-top: 20px">
+			<button type="button" class="btn btn-outline-detail w-100" data-bs-toggle="modal"
+				data-bs-target="#detailModal"
+			>입찰 내역 더보기</button>
+		</div>
+	</div>
+	<div class="tab-pane fade" id="buyBid" role="tabpanel">
+		<div class="p-2 mb-1" style="height: 17vh;">
+			<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
+				<div class="col-6">
+					<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 20px">사이즈</span>
+				</div>
+				<div class="col-4">
+					<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 60px">구매 희망가</span>
+				</div>
+				<div class="col-2">
+					<span style="font-size: 0.8em; color: #a0a0a0;">수량</span>
+				</div>
+			</div>
+			<hr class="mt-0 mb-0">
+			<div class="d-flex" style="padding: 5px; text-align: center;">
+				<div class="col-6">
+					<c:forEach items="${groupedBuyData }" var="g" end="4">
+						<span style="font-size: 0.9em; color: #666; margin-right: 30px">${g.buy_size }</span>
+						<br>
+					</c:forEach>
+					<br>
+				</div>
+				<div class="col-4">
+					<c:forEach items="${groupedBuyData }" var="g" end="4">
+						<span style="font-size: 0.9em; color: #666; float: right; margin-right: 100px">
+							<fmt:formatNumber value="${g.buy_wishprice }">
+							</fmt:formatNumber>
+							원
+						</span>
+						<br>
+					</c:forEach>
+					<br>
+				</div>
+				<div class="col-2">
+					<c:forEach items="${groupedBuyData }" var="g" end="4">
+						<span style="font-size: 0.9em; color: #666; margin-right: 30px">${g.count }</span>
+						<br>
+					</c:forEach>
+					<br>
+				</div>
+			</div>
+		</div>

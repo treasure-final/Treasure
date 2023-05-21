@@ -23,7 +23,7 @@
 		from buy_bid
 		where item_num = #{item_num}
 		group by buy_size, buy_wishprice
-		order by buy_inputday desc
+		order by buy_wishprice desc
     
 	</select>
 	
@@ -33,21 +33,37 @@
 		from sell_bid
 		where item_num = #{item_num}
 		group by sell_size, sell_wishprice
-		order by sell_inputday desc
+		order by sell_wishprice desc
 	</select>
   
 	<!-- 체결 거래 리스트(사이즈, 거래가, 거래일) -->
 	<select id="getPurchaseData" resultType="Map" parameterType="String">
-		select b.buy_size, p.purchase_total_price, p.purchase_date
+		select b.buy_size, p.purchase_wishprice, p.purchase_date
 		from purchase p
 		join buy_bid b
 		on b.buy_num = p.buy_bid_num
 		where p.item_num=#{item_num}
+		order by p.purchase_date desc
 	</select>
 
-	<!-- 최근 거래가(사이즈 상관없이) -->
-	<select id="getPurchaseRecentPriceAll" resultType="String">
-		select purchase_total_price from purchase where item_num=#{item_num} order by purchase_date desc limit 1
+	<!-- 최근 거래가(전체 사이즈) -->
+	<select id="getPurchaseRecentPriceAll" resultType="int" parameterType="String">
+		select coalesce(
+			(select purchase_wishprice 
+			from purchase where item_num=#{item_num} 
+			order by purchase_date desc limit 1),
+		0) as purchase_wishprice
+	</select>
+	
+	<!-- 최근 거래가(특정 사이즈) -->
+	<select id="getPurchaseRecentPriceSize" resultType="int" parameterType="Map">
+		select coalesce(
+  			(select p.purchase_wishprice
+  			from purchase p
+  			join buy_bid b on b.buy_num = p.buy_bid_num
+ 			 where p.item_num=#{item_num} and b.buy_size=#{buy_size}
+  			order by p.purchase_date desc limit 1), 
+  		0) as purchase_wishprice
 	</select>
 
 	<!-- 스타일 -->

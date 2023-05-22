@@ -309,8 +309,9 @@
 
                     } else {
                         var msg = '결제에 실패하였습니다.';
+                        alert(msg);
                     }
-                    alert(msg);
+                    // alert(msg);
                 });
             });
 

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="boot.mvc.buy_now.BuyNowMapperInter">
+    <select id="getBuyNowPrice" resultType="SellBidDto" parameterType="String">
+        SELECT *
+        FROM sell_bid AS sb1
+        WHERE sb1.item_num = #{item_num}
+          AND sb1.sell_wishprice = (SELECT MIN(sb2.sell_wishprice)
+                                    FROM sell_bid AS sb2
+                                    WHERE sb2.item_num = #{item_num}
+                                      AND sb2.sell_size = sb1.sell_size)
+        GROUP BY sb1.sell_size
+    </select>
+
+    <resultMap id="buyNowDto" type="BuyNowDto">
+        <result property="buy_status" column="buy_status"/>
+        <result property="buynow_inputday" column="buynow_inputday"/>
+        <collection resultMap="itemDto" property="itemDto"/>
+    </resultMap>
+
+    <resultMap id="itemDto" type="ItemDto">
+        <result property="item_brandname" column="item_brandname"/>
+        <result property="item_engname" column="item_engname"/>
+        <result property="item_korname" column="item_korname"/>
+        <result property="item_image" column="item_image"/>
+    </resultMap>
+
+    <select id="getDataByStatus0" resultMap="buyNowDto" parameterType="String">
+        select *
+        from item
+                 inner join buy_now
+        where item.item_num = buy_now.item_num
+          and user_num = #{user_num}
+          and buy_status = 0
+    </select>
+
+    <select id="getDataByStatus1" resultMap="buyNowDto" parameterType="String">
+        select *
+        from item
+                 inner join buy_now
+        where item.item_num = order.item_num
+          and user_num = #{user_num}
+          and buy_status = 1
+    </select>
+</mapper>

@@ -178,25 +178,25 @@ div.main {
             </div>
         </div>
     </div>
-    
+
 
 
     <div class="container">
     <h2 id="logo"><i>판매 내역</i></h2>
     <div class="hr"></div>
-    
-    
+
+
 	    <div class="sell-header">
 	    	<div style="width: 750px">전체 3개</div>
 	    	<div style="width:150px;">검수현황</div>
 	    	<div style="width:200px; ">상태</div>
 	    	<div style="width:200px;">접수일</div>
 	    </div>
-	    
-	    <div style="margin-top: 30px;"></div>
-	    
 
-	    
+	    <div style="margin-top: 30px;"></div>
+
+
+
 <c:forEach items="${list}" var="sellTotalDto">
     <div class="sell-content">
         <div style="width: 750px; display: flex; font-size: 15px;">
@@ -211,7 +211,7 @@ div.main {
                 <div style="width: 200px;">${sellTotalDto.sellNowDto.sell_status}</div>
                 <div style="width: 200px;">${sellTotalDto.sellNowDto.sellnow_inputday}</div>
             </c:if>
-            
+
             <c:if test="${sellTotalDto.sellnow_num == null && sellTotalDto.sell_num != null}">
                 <img class="sellImg" src="../img/item_image/${sellTotalDto.itemDto.item_image}">
                 <div class="sellDescription">
@@ -231,9 +231,9 @@ div.main {
 
 
 
-     
+
     </div>
-    
+
 <div style="clear: left"></div>
 </div>
 

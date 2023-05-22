@@ -35,7 +35,7 @@ public class DetailController {
 		ItemDto dto = Dservice.DetailgetData(item_num);
 		List<Map<String, Object>> groupedBuyData = Dservice.getBuyBidGroupedData(item_num);
 		List<Map<String, Object>> groupedSellData = Dservice.getSellBidGroupedData(item_num);
-		List<Map<String, Object>> getOrderData = Dservice.getOrderData(item_num);
+		List<Map<String, Object>> getOrderData = Dservice.getOrderData(item_num, buy_size);
 
 		mview.addObject("list", list);
 		mview.addObject("Ddto", dto);

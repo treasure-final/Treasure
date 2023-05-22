@@ -65,6 +65,13 @@ public class DetailService implements DetailServiceInter {
 		map.put("item_num", item_num);
 		map.put("buy_size", buy_size);
 		
-		return mapper.getPurchaseRecentPriceSize(map);
+		Integer recentPrice = mapper.getPurchaseRecentPriceSize(map);
+
+	    // 반환된 값이 null인 경우 0으로 대체
+	    if (recentPrice == null) {
+	        recentPrice = 0;
+	    }
+
+	    return recentPrice;
 	}
 }

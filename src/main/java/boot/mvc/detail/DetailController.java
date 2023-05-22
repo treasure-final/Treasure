@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,14 +48,13 @@ public class DetailController {
 
 	@ResponseBody
 	@GetMapping("/item/getPurchaseRecentPriceSize")
-	public Map<String, Object> getPurchaseRecentPriceSize(@RequestParam("item_num") String itemNum, @RequestParam("buy_size") String buySize) {
-		Map<String, Object> map = new HashMap<>();
+	public ResponseEntity<Map<String, Integer>> getPurchaseRecentPriceSize(@RequestParam("item_num") String item_num, @RequestParam("buy_size") String buy_size) {
+	    Integer recentPrice = Dservice.getPurchaseRecentPriceSize(item_num, buy_size);
 
-		int getPurchaseRecentPriceSize = Dservice.getPurchaseRecentPriceSize(itemNum, buySize);
-		
-		map.put("getPurchaseRecentPriceSize", getPurchaseRecentPriceSize);
+	    Map<String, Integer> response = new HashMap<>();
+	    response.put("purchase_total_price", recentPrice);
 
-		return map;
+	    return ResponseEntity.ok(response);
 	}
 //	@GetMapping("/item/detail")
 //	public ModelAndView DetailgetData(@RequestParam String item_num) {

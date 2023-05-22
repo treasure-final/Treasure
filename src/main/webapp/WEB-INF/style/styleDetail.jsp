@@ -11,7 +11,6 @@
 	rel="stylesheet"
 >
 <title>Insert title here</title>
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
@@ -37,21 +36,6 @@ div.main {
 
 * {
 	font-family: "GmarketSansMedium";
-}
-
-div.all {
-	width: 70%;
-	height: 600px;
-	border: 1px solid black;
-	border-radius: 10px;
-	margin-left: 150px;
-}
-
-* {
-	font-family: "GmarketSansMedium";
-}
-
-* {
 	box-sizing: border-box
 }
 
@@ -64,15 +48,8 @@ body {
 	display: none
 }
 
-img {
+div>img {
 	vertical-align: middle;
-}
-
-/* Slideshow container */
-.slideshow-container {
-	max-width: 1000px;
-	position: relative;
-	margin: 250px;
 }
 
 /* Next & previous buttons */
@@ -81,11 +58,10 @@ img {
 	position: absolute;
 	top: 50%;
 	width: auto;
-	padding-right: 200px;
+	padding-right: 100px;
 	padding-left: 50px;
 	margin-top: -22px;
 	color: black;
-	font-weight: bold;
 	font-size: 18px;
 	transition: 0.6s ease;
 	border-radius: 0 3px 3px 0;
@@ -100,7 +76,7 @@ img {
 
 /* On hover, add a black background color with a little bit see-through */
 .prev:hover, .next:hover {
-	background-color: rgba(0, 0, 0, 0.8);
+	
 }
 
 /* Caption text */
@@ -163,14 +139,6 @@ to {
 	}
 }
 
-.content {
-	border: 1px solid black;
-	width: 40%;
-	height: 100px;
-	text-align: left;
-	margin-left: 450px
-}
-
 .like {
 	width: 40%;
 	text-align: left;
@@ -186,23 +154,59 @@ to {
 }
 
 #content {
-	height: 500px;
-	overflow-y: scroll;
+	height: 100%;
+	border: 2px solid green;
+}
+
+div.all {
+	width: 50%;
+	height: 600px;
+	border-radius: 10px;
+	border: 1px solid black;
+}
+/* Slideshow container */
+.slideshow-container {
+	max-width: 1000px;
+	position: relative;
+}
+
+.post {
+	width: 33%;
+	border-radius: 10px;
+	margin-top: 100px;
+}
+
+.profile {
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+.time {
+	margin-left: 10px
 }
 </style>
 </head>
 <body>
 	<div id="content">
+		<div class="post">
+			<div class="profile" style="">
+				<img src="../assets/images/1.png" alt="프로필 사진"
+					style="border-radius: 10px; max-width: 20px; max-height: 20px"
+				>
+				<span class="nickname">닉네임</span>
+			</div>
+			<p class="time" style="color: gray">며칠 전</p>
+		</div>
 		<!-- 초기 콘텐츠 -->
 		<div class="slideshow-container" style="width: 80%;">
-			<div class="all">
-				<div class="mySlides fade" align="center">
+			<div class="all" align="center">
+				<div class="mySlides fade">
 					<img src="../assets/images/1.png" style="width: 100%">
 				</div>
-				<div class="mySlides fade" align="center">
+				<div class="mySlides fade">
 					<img src="../assets/images/2.png" style="width: 100%">
 				</div>
-				<div class="mySlides fade" align="center">
+				<div class="mySlides fade">
 					<img src="../assets/images/3.png" style="width: 100%">
 				</div>
 				<a class="prev" onclick="plusSlides(-1)">❮</a>
@@ -210,11 +214,12 @@ to {
 			</div>
 		</div>
 		<br>
-		<div style="text-align: center">
+		<!-- 점 -->
+		<!-- <div style="text-align: center">
 			<span class="dot" onclick="currentSlide(1)"></span>
 			<span class="dot" onclick="currentSlide(2)"></span>
 			<span class="dot" onclick="currentSlide(3)"></span>
-		</div>
+		</div> -->
 	</div>
 	<script>
 		let slideIndex = 1;
@@ -245,7 +250,7 @@ to {
 				dots[i].className = dots[i].className.replace(" active", "");
 			}
 			slides[slideIndex - 1].style.display = "block";
-			dots[slideIndex - 1].className += " active";
+			/* dots[slideIndex - 1].className += " active"; */
 		}
 		$(document).ready(function() {
 			var page = 1;

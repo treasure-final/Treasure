@@ -121,7 +121,7 @@
 
     <div class="btns">
         <div class="moveTopBtn">
-            <span class="glyphicon glyphicon-triangle-top"></span>top
+            <span class="glyphicon glyphicon-triangle-top"></span>TOP
         </div>
     </div>
 

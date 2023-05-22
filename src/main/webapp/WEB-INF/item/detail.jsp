@@ -122,16 +122,26 @@ select {
 		// 모달창에서 사이즈 선택
 		$(".sizeselect").click(function() {
 			var buy_size = $(this).find(".size").text();
+			var selectElement2 = document.getElementById("size-select2");
 
 			$(".size-text").text(buy_size);
 			$(".size-select").val(buy_size);
 			$("#sizeModal").modal("hide");
 
-			sendPurchaseRecentPriceSizeRequest(item_num, buy_size);
+			// 선택한 값을 두 번째 select 요소에 옵션으로 추가
+			var option = document.createElement("option");
+			option.value = buy_size;
+			option.text = buy_size;
+			selectElement2.add(option);
+
+			// 선택한 값을 두 번째 select 요소에서 선택 상태로 설정
+			selectElement2.value = buy_size;
+
+			sendPurchaseRecentPriceSizeRequest1(item_num, buy_size);
 		});
 	});
 
-	function sendPurchaseRecentPriceSizeRequest(item_num, buy_size) {
+	function sendPurchaseRecentPriceSizeRequest1(item_num, buy_size) {
 		$.ajax({
 			url : '/item/getPurchaseRecentPriceSize',
 			type : 'GET',
@@ -139,13 +149,14 @@ select {
 				"item_num" : item_num,
 				"buy_size" : buy_size
 			},
-			dataType : 'text',
+			dataType : 'json', // 데이터 타입을 JSON으로 지정
 			success : function(response) {
 				// 응답 데이터 처리
-				// response는 서버에서 반환하는 최근 거래 가격
+				// response는 서버에서 반환하는 JSON 데이터
 
 				// 숫자 포맷팅 및 업데이트
-				$(".ChangeRecentPriceSize").text(response.purchase_total_price);
+				var formattedPrice = new Intl.NumberFormat().format(response.purchase_total_price);
+				var price = $(".ChangeRecentPriceSize").text(formattedPrice);
 			},
 			error : function(xhr, status, error) {
 				// 에러 처리
@@ -153,9 +164,11 @@ select {
 			}
 		});
 	}
+
 	function handleSizeSelect() {
 		var selectElement = document.getElementById("size-select");
 		var selectElement2 = document.getElementById("size-select2");
+
 		var selectedValue = selectElement.value;
 		var sizeTextElement = document.querySelector(".size-text");
 
@@ -177,6 +190,7 @@ select {
 	<c:set var="root" value="<%=request.getContextPath()%>" />
 	<div class="container mb-5">
 		<input type="hidden" class="item_num" value=${item_num }>
+		<input type="hidden" class="buy_size" value=${buy_size }>
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="page-content" style="padding: 1rem; height: 89vh;">

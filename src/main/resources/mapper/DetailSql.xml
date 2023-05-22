@@ -51,7 +51,7 @@
 	</select>
 
 	<!-- 최근 거래가(특정 사이즈) -->
-	<select id="getPurchaseRecentPriceSize" resultType="int">
+	<select id="getPurchaseRecentPriceSize" resultType="int" parameterType="Map">
 		select p.purchase_total_price
 		from purchase p
 		join buy_bid b

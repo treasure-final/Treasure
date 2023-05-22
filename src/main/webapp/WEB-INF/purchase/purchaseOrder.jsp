@@ -334,6 +334,7 @@
                     type: "post",
                     url: "insertBuyBid",
                     data: {
+                        "item_num" : "${item_num}",
                         "price": "${price}",
                         "size": "${size}",
                         "deadline": "${deadline}",

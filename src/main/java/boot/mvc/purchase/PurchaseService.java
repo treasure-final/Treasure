@@ -16,8 +16,18 @@ public class PurchaseService implements PurchaseServiceInter {
 	public void insertPurchase(PurchaseDto purchaseDto) {
 		mapper.insertPurchase(purchaseDto);
 	}
-	
-  @Override
+
+	@Override
+	public List<PurchaseDto> getDataByStatus0(String user_num) {
+		return mapper.getDataByStatus0(user_num);
+	}
+
+	@Override
+	public List<PurchaseDto> getDataByStatus1(String user_num) {
+		return mapper.getDataByStatus1(user_num);
+	}
+
+	@Override
 	public List<SellBidDto> getBuyNowPrice(String item_num) {
 		return mapper.getBuyNowPrice(item_num);
 	}

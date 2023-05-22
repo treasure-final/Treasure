@@ -19,12 +19,12 @@ public class BuyBidController {
 
     @PostMapping("/buy/insertBuyBid")
     @ResponseBody
-    public String insertBuyBid(HttpSession session, String price, String size, String deadline, String addr) {
+    public String insertBuyBid(HttpSession session, String price, String size, String deadline, String addr, String item_num) {
         String loginEmail = (String) session.getAttribute("loginEmail");
         String user_num = userService.findEmailUserNum(loginEmail);
 
         BuyBidDto buyBidDto = new BuyBidDto();
-        buyBidDto.setItem_num("161");
+        buyBidDto.setItem_num(item_num);
         buyBidDto.setUser_num(user_num);
         buyBidDto.setBuy_wishprice(price);
         buyBidDto.setBuy_size(size);

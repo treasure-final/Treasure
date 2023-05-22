@@ -304,13 +304,36 @@
                     m_redirect_url: 'http://localhost:8080/user/myPage'
                 }, function (rsp) {
                     console.log(rsp);
+                    let msg = "";
                     if (rsp.success) {
-                        var msg = '결제가 완료되었습니다.';
+                        msg = '결제가 완료되었습니다.';
 
+                        $.ajax({
+                            url:"orderproc",
+                            type: "post",
+                            data:{"item_num":${item_num},
+                                "size":${size},
+                                "wish_price":${price},
+                                "delivery":${deliveryWay},
+                                "buy_addr":${userAddr},
+                                "payment":pgName},
+                            success:function(data) {
+                                alert(msg);
+                                location.href="ordersuccess?item_num="+data;
+                            },statusCode:{
+                                404:function() {
+                                    alert("json 파일이 없어요");
+                                },
+                                500:function() {
+                                    alert("서버 오류… 코드를 다시 한 번 확인하세요");
+                                }
+                            }
+                        });
                     } else {
-                        var msg = '결제에 실패하였습니다.';
+                        msg = '결제에 실패하였습니다.';
+                        alert(msg);
                     }
-                    alert(msg);
+
                 });
             });
 

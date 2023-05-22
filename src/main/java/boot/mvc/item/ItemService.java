@@ -62,7 +62,10 @@ public class ItemService implements ItemServiceInter {
 	}
 
 	@Override
-	public List<ItemDto> searchItems(String searchText) {
-		return inter.searchItems(searchText);
+	public List<ItemDto> searchItems(String searchText,String brand) {
+		Map<String,String> map=new HashMap<>();
+		map.put("searchText",searchText);
+		map.put("brand",brand);
+		return inter.searchItems(map);
 	}
 }

@@ -25,7 +25,7 @@ public class DetailController {
 	DetailService Dservice;
 
 	@Autowired
-	PurchaseService purchaseService;
+  BuyNowService buyNowService;
 	
 	@GetMapping("/item/detail")
 	public ModelAndView detail(String item_num, String buy_size, Model model) {
@@ -43,7 +43,7 @@ public class DetailController {
 		mview.addObject("groupedSellData", groupedSellData);
 		mview.addObject("getOrderData", getOrderData);
 
-		List<SellBidDto> priceList =  purchaseService.getBuyNowPrice(item_num);
+		List<SellBidDto> priceList =  buyNowService.getBuyNowPrice(item_num);
 		mview.addObject("priceList", priceList);
 			
 		int minPrice = 0; 
@@ -102,7 +102,18 @@ public class DetailController {
 		return map;
 	}
 
-	
+	@ResponseBody
+	@GetMapping("/item/getPurchaseRecentPriceSize")
+	public Map<String, Object> getPurchaseRecentPriceSize(@RequestParam("item_num") String itemNum, @RequestParam("buy_size") String buySize) {
+		Map<String, Object> map = new HashMap<>();
+
+		int getPurchaseRecentPriceSize = Dservice.getPurchaseRecentPriceSize(itemNum, buySize);
+		
+		map.put("getPurchaseRecentPriceSize", getPurchaseRecentPriceSize);
+
+		return map;
+	}
+
 //	@GetMapping("/item/detail")
 //	public ModelAndView DetailgetData(@RequestParam String item_num) {
 //		ModelAndView mview = new ModelAndView();

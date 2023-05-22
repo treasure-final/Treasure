@@ -47,6 +47,10 @@ div.main {
 	color: black;
 }
 
+select {
+	text-align: center;
+}
+
 * {
 	font-family: "GmarketSansMedium";
 }
@@ -111,7 +115,6 @@ div.main {
 	padding: 30px;
 }
 </style>
-
 <script type="text/javascript">
 	$(function() {
 		var item_num = $(".item_num").val();
@@ -128,7 +131,6 @@ div.main {
 
 			sendPurchaseRecentPriceSizeRequest(item_num, buy_size);
 		});
-		
 		
 		    $('#size-select2').change(function() {
 		      var selectedSize = $(this).val();
@@ -157,7 +159,7 @@ div.main {
 			success : function(response) {
 				// 응답 데이터 처리
 				// response는 서버에서 반환하는 최근 거래 가격
-				
+
 				if(response != 0) {
 					// 숫자 포맷팅 및 업데이트
 		            const formatter = new Intl.NumberFormat('ko-KR');
@@ -172,7 +174,7 @@ div.main {
 			}
 		});
 	}
-	
+  
 	function handleSizeSelect() {
 		var selectElement = document.getElementById("size-select");
 		var selectElement2 = document.getElementById("size-select2");
@@ -198,10 +200,13 @@ div.main {
 	}
 </script>
 
+		// 선택한 값을 두 번째 select 요소에서 선택 상태로 설정
+		selectElement2.value = selectedValue;
+	}
+</script>
 </head>
 <body>
-<c:set var="root" value="<%=request.getContextPath() %>" />
- 
+	<c:set var="root" value="<%=request.getContextPath()%>" />
 	<div class="container mb-5">
 		<input type="hidden" class="item_num" value=${item_num }>
 		<div class="row">
@@ -221,8 +226,34 @@ div.main {
 											<img src="/assets/images/${Ddto.item_image }" class="d-block w-100" alt="..."
 												style="position: relative; bottom: 50px"
 											>
-										</div>			
-									</div>									
+										</div>
+										<%-- <div class="carousel-item" data-bs-interval="4000" data-bs-pause="hover">
+											<img src="/assets/images/${Ddto.item_image }" class="d-block w-100" alt="..."
+
+												style="position: relative; bottom: 50px"
+											>
+											<div class="carousel-caption d-none d-md-block"></div>
+										</div>
+										<div class="carousel-item" data-bs-interval="4000" data-bs-pause="hover">
+											<img src="/assets/images/1.png" class="d-block w-100" alt="..."
+												style="position: relative; bottom: 50px"
+											>
+											<div class="carousel-caption d-none d-md-block"></div>
+
+										</div> --%>
+									</div>
+									<!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
+										data-bs-slide="prev"
+									>
+										<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+										<span class="visually-hidden">Previous</span>
+									</button>
+									<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
+										data-bs-slide="next"
+									>
+										<span class="carousel-control-next-icon" aria-hidden="true"></span>
+										<span class="visually-hidden">Next</span>
+									</button> -->
 								</div>
 							</div>
 						</div>
@@ -234,7 +265,6 @@ div.main {
 									<!-- 상품명 -->
 									<div class="heading-section mt-sm-3">
 										<div style="margin-bottom: 0.5rem;">
-
 											<span id="brandname" style="font-size: 1.5em; font-weight: 600;">${Ddto.item_brandname }</span>
 											<span id="category"
 												style="font-size: 1em; font-weight: 500; margin-left: 1rem; color: #666"
@@ -243,7 +273,6 @@ div.main {
 										<span id="engname" style="font-size: 1.2em; font-weight: 600;">${Ddto.item_engname }</span>
 										<br>
 										<span id="korname" style="font-size: 1.1em; color: #666;">${Ddto.item_korname }</span>
-
 									</div>
 									<hr>
 									<!-- 모델 번호, 출시일 ... -->
@@ -255,9 +284,7 @@ div.main {
 											</div>
 											<div class="row mb-4">
 												<span style="font-size: 1.1em; color: #666;">출시일</span>
-
 												<span style="font-size: 1.2em; font-weight: 500;">${Ddto.item_releaseday} </span>
-
 											</div>
 											<div class="row mb-4">
 												<span style="font-size: 1.1em; color: #666;">컬러</span>
@@ -278,7 +305,6 @@ div.main {
 											<div>
 												<button type="button" class="btn btn-outline-detail btn-lg w-100"
 													style="height: 7vh; width: 290px; margin-left: 40px;"
-
 													onclick="location.href='/sell/sellSize?item_num=${item_num}'"
 												>판매</button>
 											</div>
@@ -324,6 +350,7 @@ div.main {
 																			</c:if>
 																		</button>
 																	</div>
+
 																</c:if>
 																
 																<c:choose>
@@ -427,6 +454,7 @@ div.main {
 										<div class="heading-section col-9">
 											<span style="font-size: 1.1em; color: #666;">최근 거래가</span>
 										</div>
+
 										<div class="heading-section col-3">
 											<span style="font-size: 1.1em; float: right;">
 												<b class="ChangeRecentPriceSize">
@@ -441,6 +469,7 @@ div.main {
 												<span>-1.3</span>
 												%)
 											</span> -->
+
 										</div>
 									</div>
 									<!-- 시세 -->
@@ -935,7 +964,6 @@ div.main {
 																</div>		
 															</c:forEach>
 															</c:if>
-															
 														</div>
 														<div class="mt-4" style="padding-top: 20px">
 															<button type="button" class="btn btn-outline-detail w-100" data-bs-toggle="modal"
@@ -1070,11 +1098,9 @@ div.main {
 															<div class="modal-body" style="padding-left: 2.1rem;">
 																<div class="d-flex row col-12 mb-2">
 																	<div class="p-2" style="flex: 0 0 auto; width: 20%;">
-
 																		<img src="/assets/images/${Ddto.item_image }"
 																			style="height: 8vh; border-radius: 1.3rem;"
 																		>
-
 																	</div>
 																	<div class="p-2 mb-3" style="flex: 0 0 auto; width: 89%;">
 																		<div class="row">
@@ -1089,7 +1115,6 @@ div.main {
 
 																			<select class="form-select size-select2" id="size-select2"
 																				aria-label="size-select"
-
 																				style="border: 0px; font-size: 1em; float: right; color: #666;"
 																			>
 																				<option selected>모든 사이즈</option>
@@ -1479,7 +1504,6 @@ div.main {
 			</div>
 		</div>
 		<div class="mt-4 mb-lg-5" style="height: 40vh;">
-
 			<c:forEach items="${list }" var="a">
 				<c:if
 					test="${a.item_brandname==Ddto.item_brandname && a.item_category==Ddto.item_category && a.item_num!=Ddto.item_num}"
@@ -1491,7 +1515,6 @@ div.main {
 					</a>
 				</c:if>
 			</c:forEach>
-
 		</div>
 		<hr>
 		<div class="d-flex mt-5">

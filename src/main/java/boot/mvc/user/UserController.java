@@ -1,5 +1,11 @@
 package boot.mvc.user;
 
+import boot.mvc.item.ItemDto;
+import boot.mvc.item.ItemService;
+import boot.mvc.buy_bid.BuyBidDto;
+import boot.mvc.buy_bid.BuyBidService;
+import boot.mvc.buy_now.BuyNowDto;
+import boot.mvc.buy_now.BuyNowService;
 import boot.mvc.sell_bid.SellBidDto;
 import boot.mvc.sell_bid.SellBidService;
 import boot.mvc.sell_now.SellNowDto;
@@ -14,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,15 +48,24 @@ public class UserController {
 
     @Autowired
     UserService service;
-    
+
     @Autowired
     SellTotalService sellTotalService;
-    
+
     @Autowired
     SellBidService sellBiService;
-    
+
     @Autowired
     SellNowService sellNowService;
+    
+    @Autowired
+    ItemService itemService;
+
+    @Autowired
+    BuyBidService buyBidService;
+
+    @Autowired
+    BuyNowService buyNowService;
 
     private NaverLoginBO naverLoginBO;
     private String apiResult = null;
@@ -130,7 +146,7 @@ public class UserController {
 
         return "redirect:/";
     }
-    
+
     @RequestMapping(value = "/callbackKakao.do", method = {RequestMethod.GET, RequestMethod.POST})
     public String callbackKakao(Model model, @RequestParam String code, @RequestParam String state, HttpSession session) throws Exception {
 
@@ -153,56 +169,55 @@ public class UserController {
         session.setAttribute("loginEmail", email);
         session.setAttribute("nickname", nickname);
         session.setAttribute("loginOk", "loginOk");
-        
+
         UserDto userDto = new UserDto();
         userDto.setUser_email(email);
         userDto.setUser_name(nickname);
-        
-        
+
+
         if (service.userSearchEmail(email) != 1) {
 
             service.insertJoinUser(userDto);
 
             model.addAttribute("user_num", service.findEmailUserNum(email));
 
-            return "redirect:/user/kakaoUserForm?user_num="+model.getAttribute("user_num");
-        }else {
+            return "redirect:/user/kakaoUserForm?user_num=" + model.getAttribute("user_num");
+        } else {
 
             return "redirect:/";
         }
-        
+
     }
-    
-    
-   @GetMapping("/user/kakaoUserForm")
-   public ModelAndView kakaoUserForm(String user_num) {
-      
-      ModelAndView mview=new ModelAndView();
-      
-      UserDto dto=service.getUserNumData(user_num);
-      String email=dto.getUser_email();
-      
-      mview.addObject("dto", dto);
-      mview.addObject("user_num", service.findEmailUserNum(email));
-      mview.setViewName("/user/kakaoUserForm");
-      
-      return mview;
-   }
-    
+
+
+    @GetMapping("/user/kakaoUserForm")
+    public ModelAndView kakaoUserForm(String user_num) {
+
+        ModelAndView mview = new ModelAndView();
+
+        UserDto dto = service.getUserNumData(user_num);
+        String email = dto.getUser_email();
+
+        mview.addObject("dto", dto);
+        mview.addObject("user_num", service.findEmailUserNum(email));
+        mview.setViewName("/user/kakaoUserForm");
+
+        return mview;
+    }
+
     @PostMapping("/user/updateKaKaoUser")
     public String updateKakaoUser(@ModelAttribute UserDto dto, String addr1, String addr2, String addr3) {
 
         String user_addr = addr1 + " " + addr2 + " " + addr3;
         dto.setUser_addr(user_addr);
-        
+
         System.out.println(dto.getUser_num());
         service.kakaoUserInfoUpdate(dto);
 
         return "redirect:/";
 
     }
-    
-    
+
 
     @PostMapping("/user/loginProc")
     public String loginProc(String email, String password,
@@ -305,34 +320,35 @@ public class UserController {
         }
         return map2;
     }
-    
+
 
     @GetMapping("/user/myPage")
     public String myinfo(Model model, HttpSession session) {
 
-        String loginEmail=(String)session.getAttribute("loginEmail");
+        String loginEmail = (String) session.getAttribute("loginEmail");
         //System.out.println(loginEmail);
 
-        String user_num=service.findEmailUserNum(loginEmail);
+        String user_num = service.findEmailUserNum(loginEmail);
         //System.out.println(user_num);
 
-        UserDto dto=service.getUserNumData(user_num);
+        UserDto dto = service.getUserNumData(user_num);
 
         model.addAttribute("dto", dto);
         model.addAttribute("user_num", user_num);
 
         return "/user/myPage";
     }
+
     @GetMapping("/user/myProfile")
     public String myProfile(Model model, HttpSession session) {
 
-        String loginEmail=(String)session.getAttribute("loginEmail");
+        String loginEmail = (String) session.getAttribute("loginEmail");
         System.out.println(loginEmail);
 
-        String user_num=service.findEmailUserNum(loginEmail);
+        String user_num = service.findEmailUserNum(loginEmail);
         System.out.println(user_num);
 
-        UserDto dto=service.getUserNumData(user_num);
+        UserDto dto = service.getUserNumData(user_num);
 
         // 주소 분리
         String user_addr = dto.getUser_addr();
@@ -351,25 +367,25 @@ public class UserController {
 
         return "/user/myProfile";
     }
-    
+
     @PostMapping("/user/updateProfile")
     public String updateProfile(UserDto dto, String addr1, String addr2, String addr3, HttpSession session, MultipartFile upload) {
 
         String user_addr = addr1 + " " + addr2 + " " + addr3;
-         dto.setUser_addr(user_addr);
+        dto.setUser_addr(user_addr);
 
-        String path=session.getServletContext().getRealPath("/save");
+        String path = session.getServletContext().getRealPath("/save");
 
         String fileName = UUID.randomUUID().toString() + "_" + upload.getOriginalFilename();
 
-        if(upload.isEmpty()) {
+        if (upload.isEmpty()) {
             dto.setUser_photo(null);
-        }else {
+        } else {
 
             dto.setUser_photo(fileName);
 
             try {
-                upload.transferTo(new File(path+"\\"+fileName));
+                upload.transferTo(new File(path + "\\" + fileName));
 
             } catch (IllegalStateException e) {
                 // TODO Auto-generated catch block
@@ -396,35 +412,58 @@ public class UserController {
     public int passSearchMailSender(@RequestParam String email) {
 //        System.out.println(email);
 
-        int checkEmail=service.isUserEmail(email);
+        int checkEmail = service.isUserEmail(email);
 //        System.out.println(checkEmail);
-        if(checkEmail==1) {
+        if (checkEmail == 1) {
             MailSender.mailSend(email);
-            String randompass=MailSender.getRandompass();
+            String randompass = MailSender.getRandompass();
 //            System.out.println(randompass);
-            service.updateTemporarilyPass(randompass,email);
+            service.updateTemporarilyPass(randompass, email);
         }
         return checkEmail;
     }
     
     @GetMapping("/user/sellHistory")
-    public String sellHistory(Model model, HttpSession session, String sell_num, String sellnow_num) {
-    	
-    	String loginEmail=(String)session.getAttribute("loginEmail");
-        String user_num=service.findEmailUserNum(loginEmail);
-     
-        List<SellTotalDto> list=sellTotalService.getListSellTotal(user_num);
+    public String sellHistory(Model model, HttpSession session) {
+
+        String loginEmail = (String) session.getAttribute("loginEmail");
+        String user_num = service.findEmailUserNum(loginEmail);
+
+        List<SellTotalDto> list = sellTotalService.getListSellTotal(user_num);
         
-        SellBidDto SBdto=sellBiService.getSellBidData(user_num, sell_num);
-        SellNowDto SNdto=sellNowService.getSellNowData(user_num, sellnow_num);
-        
-        model.addAttribute("user_num", user_num);
+        for(SellTotalDto sellTotalDto : list) {
+        	if(sellTotalDto.getSell_num() == null) {
+        		String sellnow_num = sellTotalDto.getSellnow_num();       		
+        		
+        		SellNowDto sellNowDto = sellNowService.getSellNowData(user_num, sellnow_num);
+        		String item_num=sellNowDto.getItem_num();
+        		ItemDto itemDto=itemService.getItemData(item_num);
+        		
+        		sellTotalDto.setSellNowDto(sellNowDto);
+        		sellTotalDto.setItemDto(itemDto);
+        		
+        		System.out.println("sellNow: "+sellnow_num);
+        		System.out.println("item: "+item_num);
+        	}else {
+        		String sell_num=sellTotalDto.getSell_num();
+        		
+        		SellBidDto sellBidDto=sellBiService.getSellBidData(user_num, sell_num);
+        		
+        		String item_num=sellBidDto.getItem_num();
+        		ItemDto itemDto=itemService.getItemData(item_num);
+        		
+        		sellTotalDto.setSellBidDto(sellBidDto);
+        		sellTotalDto.setItemDto(itemDto);
+        		System.out.println("sellnum: "+sell_num);
+        		
+        	}
+        }
+
         model.addAttribute("list", list);
-        model.addAttribute("SBdto", SBdto);
-        model.addAttribute("SNdto", SNdto);
+        model.addAttribute("user_num", user_num);
         
-        	
-    	return "/user/sellHistory";
-    	
+
+        return "/user/sellHistory";
     }
+ 
 }

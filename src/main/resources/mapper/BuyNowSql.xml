@@ -2,12 +2,7 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="boot.mvc.purchase.PurchaseMapperInter">
-
-	<insert id="insertPurchase" parameterType="PurchaseDto">
-		insert into purchase values(null, #{item_num}, #{buy_bid_num}, #{selltotal_num}, #{user_num}, #{purchase_addr}, #{purchase_wishprice}, #{purchase_delivery}, #{purchase_total_price}, ${purchase_status}, now())
-	</insert>
-  
+<mapper namespace="boot.mvc.buy_now.BuyNowMapperInter">
     <select id="getBuyNowPrice" resultType="SellBidDto" parameterType="String">
         SELECT *
         FROM sell_bid AS sb1
@@ -19,13 +14,9 @@
         GROUP BY sb1.sell_size
     </select>
 
-    <select id="getPurchaseData" resultType="PurchaseDto" parameterType="Map">
-        select * from purchase where user_num=#{user_num} and item_num=#{item_num}
-    </select>
-
-    <resultMap id="purchaseDto" type="PurchaseDto">
-        <result property="purchase_status" column="purchase_status"/>
-        <result property="purchase_date" column="purchase_date"/>
+    <resultMap id="buyNowDto" type="BuyNowDto">
+        <result property="buy_status" column="buy_status"/>
+        <result property="buynow_inputday" column="buynow_inputday"/>
         <collection resultMap="itemDto" property="itemDto"/>
     </resultMap>
 
@@ -36,21 +27,21 @@
         <result property="item_image" column="item_image"/>
     </resultMap>
 
-    <select id="getDataByStatus0" resultMap="purchaseDto" parameterType="String">
+    <select id="getDataByStatus0" resultMap="BuyNowDto" parameterType="String">
         select *
         from item
-                 inner join purchase
-        where item.item_num = purchase.item_num
+                 inner join buy_now
+        where item.item_num = buy_now.item_num
           and user_num = #{user_num}
-          and purchase_status = 0
+          and buy_status = 0
     </select>
 
-    <select id="getDataByStatus1" resultMap="purchaseDto" parameterType="String">
+    <select id="getDataByStatus1" resultMap="BuyNowDto" parameterType="String">
         select *
         from item
-                 inner join purchase
-        where item.item_num = purchase.item_num
+                 inner join buy_now
+        where item.item_num = order.item_num
           and user_num = #{user_num}
-          and purchase_status = 1
+          and buy_status = 1
     </select>
 </mapper>

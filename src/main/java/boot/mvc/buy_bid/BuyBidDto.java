@@ -1,5 +1,6 @@
 package boot.mvc.buy_bid;
 
+import boot.mvc.item.ItemDto;
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
@@ -20,4 +21,5 @@ public class BuyBidDto {
     private int buy_deadline;
     private Timestamp buy_inputday;
     private Timestamp buy_modifyday;
+    private ItemDto itemDto;
 }

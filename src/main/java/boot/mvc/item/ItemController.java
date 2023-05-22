@@ -61,12 +61,19 @@ public class ItemController {
 	}
 
 	@GetMapping("/item/itemsearch")
-	public ModelAndView itemSearch(String searchText) {
+	public ModelAndView itemSearch(String searchText,
+								  String brand) {
 		System.out.println(searchText);
+		System.out.println(brand);
 		ModelAndView mv=new ModelAndView();
 
-		List<ItemDto> searchList=service.searchItems(searchText);
+		List<ItemDto> searchList=service.searchItems(searchText,brand);
 		mv.addObject("searchList",searchList);
+		if(brand!=null) {
+			searchList=service.searchItems(searchText,brand);
+			mv.addObject("searchList",searchList);
+			return mv;
+		}
 		mv.addObject("searchText",searchText);
 
 		mv.setViewName("/item/searchList");

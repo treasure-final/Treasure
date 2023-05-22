@@ -183,17 +183,34 @@
         }
     </style>
 </head>
-<script>
-    $(function() {
+<script type="text/javascript">
+    $(document).ready(function() {
        $(".init").click(function() {
            location.reload();
        });
 
        // 라디오 버튼 클릭했을 때,브랜드 얻어와서 ajax로 넘기기
-       //  if($('input:radio[name="brand"]').is(":checked")) {
-       //      let value = "true";
-       //      console.log(value);
-       //  }
+       const brand=document.getElementsByName("brand");
+       select_brand=null;
+       if($('input[type=radio]').click(function() {
+           for(var i=0; i<brand.length; i++) {
+               if(brand[i].checked===true) {
+                   select_brand=brand[i].value;
+               }
+           }
+           console.log(select_brand);
+           $.ajax({
+               url:"itemsearch",
+               data:{"brand": select_brand},
+               type:"get",
+               success:function(res) {
+                    <c:forEach var="search" items="${searchList}">
+                        ${search.item_engname}+"<br>";
+                   </c:forEach>
+               }
+           });
+       }));
+
 
     });
 </script>
@@ -212,84 +229,92 @@
             <input type="radio" name="brand" value="Nike">
                 <span style="vertical-align: top;">Nike</span>
             <br>
-
             <input type="radio" name="brand" value="Jordan">
                 <span style="vertical-align: top;">Jordan</span>
             <br>
-
+        <label>
             <input type="radio" name="brand" value="Adidas">
+        </label>
                 <span style="vertical-align: top;">Adidas</span>
             <br>
-
+        <label>
             <input type="radio" name="brand" value="New Balance">
+        </label>
                 <span style="vertical-align: top;">New Balance</span>
             <br>
 
+        <label>
             <input type="radio" name="brand" value="Arc'teryx">
-                <span
-                        style="vertical-align: top;">Arc'teryx</span>
+        </label>
+        <span style="vertical-align: top;">Arc'teryx</span>
             <br>
-
-            <input type="radio" name="brand" value="COS">
+        <label>
+            <input type="radio" name="brand" value="COS"></label>
                 <span style="vertical-align: top;">COS</span>
-            <br>
 
-            <input type="radio" name="brand" value="Porter">
-                <span
-                        style="vertical-align: top;">Porter</span>
             <br>
-
-            <input type="radio" name="brand" value="Our Legacy">
+        <label>
+            <input type="radio" name="brand" value="Porter"> </label>
+                <span style="vertical-align: top;">Porter</span>
+            <br>
+        <label>
+            <input type="radio" name="brand" value="Our Legacy"></label>
                 <span style="vertical-align: top;">Our Legacy</span>
-            <br>
 
-            <input type="radio" name="brand" value="Stussy">
+            <br>
+        <label>
+            <input type="radio" name="brand" value="Stussy"></label>
                 <span style="vertical-align: top;">Stussy</span>
-            <br>
 
-            <input type="radio" name="brand" value="Stone Island">
+            <br>
+        <label>
+            <input type="radio" name="brand" value="Stone Island"></label>
                 <span style="vertical-align: top;">Stone Island</span>
-            <br>
 
-            <input type="radio" name="brand" value="IAB Studio</">
+            <br>
+        <label>
+            <input type="radio" name="brand" value="IAB Studio"> </label>
                 <span style="vertical-align: top;">IAB Studio</span>
-            <br>
 
-            <input type="radio" name="brand" value="AMI">
+            <br>
+        <label>
+            <input type="radio" name="brand" value="AMI"></label>
                 <span style="vertical-align: top;">AMI</span>
-            <br>
 
-            <input type="radio" name="brand" value="Essentials">
+            <br>
+        <label>
+            <input type="radio" name="brand" value="Essentials"> </label>
                 <span style="vertical-align: top;">Essentials</span>
-            <br>
 
-            <input type="radio" name="brand" value="Diesel">
+            <br>
+        <label>
+            <input type="radio" name="brand" value="Diesel"></label>
                 <span style="vertical-align: top;">Diesel</span>
-            <br>
 
-            <input type="radio" name="brand" value="Wooyoungmi">
+            <br>
+        <label>
+            <input type="radio" name="brand" value="Wooyoungmi"></label>
                 <span style="vertical-align: top;">Wooyoungmi</span>
+
             <br>
 
-            <input type="radio" name="brand" value="Porter"><span
-                    style="vertical-align: top;">Porter</span>
             <br><br>
         <b style="font-size: 20px;">카테고리</b>
         <br>
         <br>
-        <input type="checkbox" name="ck" value="shoes">
+        <input type="checkbox" class="ck" value="shoes">
             <span style="vertical-align: top;">신발</span><br>
 
-        <input type="checkbox" name="ck" value="outer">
+        <input type="checkbox" class="ck" value="outer">
             <span style="vertical-align: top;">아우터</span><br>
 
-        <input type="checkbox" name="ck" value="top">
+        <input type="checkbox" class="ck" value="top">
             <span style="vertical-align: top;">상의</span><br>
 
-        <input type="checkbox" name="ck" value="bottom">
+        <input type="checkbox" class="ck" value="bottom">
             <span style="vertical-align: top;">하의</span><br>
 
-        <input type="checkbox" name="ck" value="bag">
+        <input type="checkbox" class="ck" value="bag">
             <span style="vertical-align: top;">잡화</span><br>
     </div>
 
@@ -300,23 +325,23 @@
         </div>
 
         <c:if test="${fn:length(searchList) ne 0}">
-        <div style="margin-left: 40px; border: 0px solid gray;" class="itemmain">
+        <div class="itemmain">
             <c:forEach var="searchList" items="${searchList}" varStatus="i">
+<%--            <div>--%>
                 <div class="imgbox">
-
                     <div class="pho">
-                        <a href="detail?item_num=${searchList.item_num}"><img alt="" src="../img/item_image/${searchList.item_image }"
-                                                                              style="width: 220px; height: 200px; border-radius: 30px; cursor: pointer;"
-                        ></a>
+                        <a href="detail?item_num=${searchList.item_num}">
+                            <img alt="" src="../img/item_image/${searchList.item_image }" style="width: 220px; height: 200px; border-radius: 30px; cursor: pointer;"></a>
                     </div>
-
-                    <span class="p"> <b id="brandcolor"
-                                        style="color: black; font-size: 2em;">${searchList.item_brandname }</b><br>
-                  <br>${searchList.item_engname }<br> <b> ${searchList.item_korname }</b> <br>
+                    <span class="p"><b id="brandcolor" style="color: black; font-size: 2em;">${searchList.item_brandname }</b><br>
+                  <br>${searchList.item_engname }<br><b>${searchList.item_korname }</b><br>
                <br>
-               <b style="color: black; font-size: 13px;">${searchList.item_releaseprice}</b>
-               </span><br>
+               <b style="color: black; font-size: 13px;">${searchList.item_releaseprice}</b></span>
                 </div>
+<%--                <c:if test="${i.count%4==0}">--%>
+<%--                    </div><div>--%>
+<%--                </c:if>--%>
+<%--                </div>--%>
             </c:forEach>
         </div>
     </div>

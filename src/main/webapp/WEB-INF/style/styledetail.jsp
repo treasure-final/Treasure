@@ -177,12 +177,189 @@ div.all {
 }
 
 .profile {
-	margin-left: 10px;
-	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 .time {
-	margin-left: 10px
+	vertical-align: bottom;
+}
+
+.comment {
+	margin-left: 500px;
+	margin-top: 10px;
+}
+
+.commentspace {
+	margin-left: 500px;
+}
+
+.nickname {
+	vertical-align: top;
+}
+
+.styletable {
+	text-align: left;
+}
+
+@import "bourbon";
+
+$
+heart_size: 15px ; $heart_color: #c8c8c8 ; $heart_color--hover: #ff5454 ; .heart {
+	background: $heart_color;
+	cursor: pointer; @ include size($heart_size); @ include transition(.2s);
+	transform: rotate(45deg);
+	&.
+	liked
+	{
+	background
+	:
+	lighten(
+	$
+	
+	
+	heart_color--hover
+	,
+	5%
+	);
+}
+
+&
+.liking {
+	animation: pump 750ms;
+}
+
+&
+:hover {
+	background: darken($ heart_color--hover, 5%);
+	transform: rotate(45deg) scale(1.2)
+}
+
+&
+::before, &::after {
+	content: ""; @ include size(inherit);
+	border-radius: 50%;
+	background: inherit;
+}
+
+&
+::before { @include position(absolute, 0 null null ($heart_size/-2));
+	
+}
+
+&
+::after { @include position(absolute, ($heart_size/-2) null null null);
+	
+}
+
+}
+.container { @include position(absolute, 50% null null 50%); @include transform(translate(-50%, -50%));
+	
+}
+
+@
+keyframes pump { 0% {
+	transform: rotate(45deg) scale(1.2);
+	background: $heart_color--hover;
+}
+50
+
+
+%
+{
+transform
+
+
+:
+
+
+rotate
+(
+
+
+45deg
+
+
+)
+
+
+scale
+(
+
+
+1
+.8
+
+
+)
+;
+
+
+background
+
+
+:
+
+
+$
+heart_color--hover
+;
+
+
+}
+100
+
+
+%
+{
+transform
+
+
+:
+
+
+rotate
+(
+
+
+45deg
+
+
+)
+
+
+scale
+(
+
+
+1
+
+
+)
+;
+
+
+background
+
+
+:
+
+
+lighten
+(
+
+
+$
+heart_color--hover
+,
+5
+%
+
+
+)
+;
+
+
+}
 }
 </style>
 </head>
@@ -190,40 +367,51 @@ div.all {
 	<div id="content">
 		<c:forEach items="${DetailList }" var="Bdto">
 			<div class="post">
-				<div class="profile" style="">
-					<img src="/save/${Bdto.user_photo }" alt="프로필 사진"
-						style="border-radius: 10px; max-width: 20px; max-height: 20px"
-					>
-					<span class="nickname">${Bdto.user_name }</span>
+				<div class="profile">
+					<table class="styletable">
+						<tr>
+							<th rowspan="2">
+								<img src="/save/${Bdto.user_photo }" alt="프로필 사진"
+									style="border-radius: 100px; max-width: 40px; max-height: 40px"
+								>
+							</th>
+							<th>
+								<span class="nickname">${Bdto.user_name }</span>
+							</th>
+						</tr>
+						<tr>
+							<th>
+								<span class="time" style="color: gray">
+									<fmt:parseDate var="dateFormatter" value="${Bdto.board_writeday}"
+										pattern="yyyy-MM-dd'T'HH:mm:ss"
+									/>
+									<script type="text/javascript">
+										function formatRelativeTime(date) {
+											var now = new Date();
+											var diff = Math.floor((now - date) / 1000);
+
+											if (diff < 60) {
+												return diff + '초 전';
+											} else if (diff < 60 * 60) {
+												var minutes = Math.floor(diff / 60);
+												return minutes + '분 전';
+											} else if (diff < 60 * 60 * 24) {
+												var hours = Math.floor(diff / (60 * 60));
+												return hours + '시간 전';
+											} else {
+												var days = Math.floor(diff / (60 * 60 * 24));
+												return days + '일 전';
+											}
+										}
+										var formattedDate = new Date("${Bdto.board_writeday}");
+										var relativeTime = formatRelativeTime(formattedDate);
+										document.write(relativeTime);
+									</script>
+								</span>
+							</th>
+						</tr>
+					</table>
 				</div>
-				<p class="time" style="color: gray">
-					<fmt:parseDate var="dateFormatter" value="${Bdto.board_writeday}"
-						pattern="yyyy-MM-dd'T'HH:mm:ss"
-					/>
-					<script>
-						var formattedDate = new Date("${Bdto.board_writeday}");
-						var relativeTime = formatRelativeTime(formattedDate);
-						document.write(relativeTime);
-
-						function formatRelativeTime(date) {
-							var now = new Date();
-							var diff = Math.floor((now - date) / 1000);
-
-							if (diff < 60) {
-								return diff + '초 전';
-							} else if (diff < 60 * 60) {
-								var minutes = Math.floor(diff / 60);
-								return minutes + '분 전';
-							} else if (diff < 60 * 60 * 24) {
-								var hours = Math.floor(diff / (60 * 60));
-								return hours + '시간 전';
-							} else {
-								var days = Math.floor(diff / (60 * 60 * 24));
-								return days + '일 전';
-							}
-						}
-					</script>
-				</p>
 			</div>
 			<!-- 초기 콘텐츠 -->
 			<div class="slideshow-container" style="width: 80%; margin-left: 500px">
@@ -241,8 +429,16 @@ div.all {
 					<a class="next" onclick="plusSlides(1)">❯</a>
 				</div>
 			</div>
-			<br>
+			<div class="container">
+				<div class="heart"></div>
+			</div>
+			<c:forEach items="${comments}" var="c">
+                <div class="comment">${c.comment_content}</div>
+                <div class="commentspace">${c.user_nickname}</div>
+                <div class="commentspace">${c.comment_writeday}</div>
+            </c:forEach>
 		</c:forEach>
+		<br>
 		<!-- 점 -->
 		<!-- <div style="text-align: center">
 			<span class="dot" onclick="currentSlide(1)"></span>
@@ -320,6 +516,18 @@ div.all {
 				});
 			}
 		});
+		$('.heart').on('click', function() {
+			  el = $(this);
+			  if (el.hasClass('liked') ) {
+			    el.removeClass('liked');
+			    return
+			  } else {
+			    el.addClass('liking');
+			    el.one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function (e) {
+			      el.addClass('liked').removeClass('liking');
+			    });  
+			  }
+			});
 	</script>
 </body>
 </html>

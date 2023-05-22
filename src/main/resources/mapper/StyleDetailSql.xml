@@ -5,4 +5,5 @@
 	<select id="StyleDetailList" resultType="Map">
 		select * from board b join user u on b.user_num = u.user_num order by b.board_writeday desc
 	</select>
+	<!-- 게시판 좋아요 -->
 </mapper>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="boot.mvc.comment_like.CommentLikeMapperInter">
-	
+	<!-- 댓글 좋아요 추가 -->
+	<!-- 댓글 좋아요 삭제 -->
 </mapper>

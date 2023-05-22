@@ -1,5 +1,7 @@
 package boot.mvc.user;
 
+import boot.mvc.item.ItemDto;
+import boot.mvc.item.ItemService;
 import boot.mvc.buy_bid.BuyBidDto;
 import boot.mvc.buy_bid.BuyBidService;
 import boot.mvc.buy_now.BuyNowDto;
@@ -18,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -54,6 +57,9 @@ public class UserController {
 
     @Autowired
     SellNowService sellNowService;
+    
+    @Autowired
+    ItemService itemService;
 
     @Autowired
     BuyBidService buyBidService;
@@ -416,40 +422,48 @@ public class UserController {
         }
         return checkEmail;
     }
-
+    
     @GetMapping("/user/sellHistory")
-    public String sellHistory(Model model, HttpSession session, String sell_num, String sellnow_num) {
+    public String sellHistory(Model model, HttpSession session) {
 
         String loginEmail = (String) session.getAttribute("loginEmail");
         String user_num = service.findEmailUserNum(loginEmail);
 
         List<SellTotalDto> list = sellTotalService.getListSellTotal(user_num);
+        
+        for(SellTotalDto sellTotalDto : list) {
+        	if(sellTotalDto.getSell_num() == null) {
+        		String sellnow_num = sellTotalDto.getSellnow_num();       		
+        		
+        		SellNowDto sellNowDto = sellNowService.getSellNowData(user_num, sellnow_num);
+        		String item_num=sellNowDto.getItem_num();
+        		ItemDto itemDto=itemService.getItemData(item_num);
+        		
+        		sellTotalDto.setSellNowDto(sellNowDto);
+        		sellTotalDto.setItemDto(itemDto);
+        		
+        		System.out.println("sellNow: "+sellnow_num);
+        		System.out.println("item: "+item_num);
+        	}else {
+        		String sell_num=sellTotalDto.getSell_num();
+        		
+        		SellBidDto sellBidDto=sellBiService.getSellBidData(user_num, sell_num);
+        		
+        		String item_num=sellBidDto.getItem_num();
+        		ItemDto itemDto=itemService.getItemData(item_num);
+        		
+        		sellTotalDto.setSellBidDto(sellBidDto);
+        		sellTotalDto.setItemDto(itemDto);
+        		System.out.println("sellnum: "+sell_num);
+        		
+        	}
+        }
 
-        SellBidDto SBdto = sellBiService.getSellBidData(user_num, sell_num);
-        SellNowDto SNdto = sellNowService.getSellNowData(user_num, sellnow_num);
-
-        model.addAttribute("user_num", user_num);
         model.addAttribute("list", list);
-        model.addAttribute("SBdto", SBdto);
-        model.addAttribute("SNdto", SNdto);
+        model.addAttribute("user_num", user_num);
+        
 
         return "/user/sellHistory";
     }
-
-    @GetMapping("/user/buyHistory")
-    public String sellHistory(HttpSession session, Model model) {
-
-        String loginEmail = (String) session.getAttribute("loginEmail");
-        String user_num = service.findEmailUserNum(loginEmail);
-
-        List<BuyBidDto> itemBuyBidJoinList = buyBidService.getItemInfoByBuyBid(user_num);
-        List<BuyNowDto> purchaseIngList = buyNowService.getDataByStatus0(user_num);
-        List<BuyNowDto> purchaseEndList = buyNowService.getDataByStatus1(user_num);
-
-        model.addAttribute("itemBuyBidJoinList", itemBuyBidJoinList);
-        model.addAttribute("purchaseIngList", purchaseIngList);
-        model.addAttribute("purchaseEndList", purchaseEndList);
-
-        return "/user/buyHistory";
-    }
+ 
 }

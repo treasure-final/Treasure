@@ -27,8 +27,7 @@ public class SellTotalService implements SellTotalServiceInter {
 		return mapper.getListSellTotal(user_num);
 	}
 
-	
-	
 
+	
 
 }

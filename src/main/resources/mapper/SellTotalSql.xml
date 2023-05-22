@@ -10,6 +10,7 @@
 	        insert into sell_total (user_num, sellnow_num)
 	        values (#{user_num}, #{sellnow_num})
 	    </if>
+	    
 	    <if test="sellnow_num == null">
 	        insert into sell_total (user_num, sell_num)
 	        values (#{user_num}, #{sell_num})
@@ -21,8 +22,18 @@
 		select LAST_INSERT_ID()
 	</select>
 
+	
 	<select id="getListSellTotal" parameterType="String" resultType="SellTotalDto">
-		select * from sell_total where user_num=#{user_num}
+    SELECT st.*, sn.sellnow_num AS sellNowDto_sellnow_num, sb.sell_num AS sellBidDto_sell_num, i.item_num AS itemDto_item_num
+    FROM sell_total st
+    LEFT JOIN sell_now sn ON st.sellnow_num = sn.sellnow_num
+    LEFT JOIN sell_bid sb ON st.sell_num = sb.sell_num
+    LEFT JOIN item i ON sb.item_num = i.item_num
+    WHERE st.user_num = #{user_num} order by selltotal_num desc
 	</select>
+	
+	
+	
+
 
 </mapper>

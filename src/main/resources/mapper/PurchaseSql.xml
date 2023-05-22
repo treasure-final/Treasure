@@ -4,18 +4,51 @@
 
 <mapper namespace="boot.mvc.purchase.PurchaseMapperInter">
 
-	<insert id="insertPurchase" parameterType="PurchaseDto">
-		insert into purchase values(null, #{item_num}, #{buy_bid_num}, #{selltotal_num}, #{purchase_addr}, #{purchase_wishprice}, #{purchase_delivery}, #{purchase_total_price}, ${purchase_status}, now())
-	</insert>
-	
+    <insert id="insertPurchase" parameterType="PurchaseDto">
+        insert into purchase
+        values (null, #{item_num}, #{buy_bid_num}, #{selltotal_num}, #{purchase_addr}, #{purchase_wishprice},
+                #{purchase_delivery}, #{purchase_total_price}, ${purchase_status}, now())
+    </insert>
+
     <select id="getBuyNowPrice" resultType="SellBidDto" parameterType="String">
         SELECT *
         FROM sell_bid AS sb1
-        WHERE sb1.item_num = #{item_num} AND sb1.sell_wishprice = (
-            SELECT MIN(sb2.sell_wishprice)
-            FROM sell_bid AS sb2
-            WHERE sb2.item_num = #{item_num} AND sb2.sell_size = sb1.sell_size
-        )
+        WHERE sb1.item_num = #{item_num}
+          AND sb1.sell_wishprice = (SELECT MIN(sb2.sell_wishprice)
+                                    FROM sell_bid AS sb2
+                                    WHERE sb2.item_num = #{item_num}
+                                      AND sb2.sell_size = sb1.sell_size)
         GROUP BY sb1.sell_size
+    </select>
+
+    <resultMap id="purchaseDto" type="PurchaseDto">
+        <result property="purchase_status" column="purchase_status"/>
+        <result property="purchase_date" column="purchase_date"/>
+        <collection resultMap="itemDto" property="itemDto"/>
+    </resultMap>
+
+    <resultMap id="itemDto" type="ItemDto">
+        <result property="item_brandname" column="item_brandname"/>
+        <result property="item_engname" column="item_engname"/>
+        <result property="item_korname" column="item_korname"/>
+        <result property="item_image" column="item_image"/>
+    </resultMap>
+
+    <select id="getDataByStatus0" resultMap="purchaseDto" parameterType="String">
+        select *
+        from item
+                 inner join purchase
+        where item.item_num = purchase.item_num
+          and user_num = #{user_num}
+          and purchase_status = 0
+    </select>
+
+    <select id="getDataByStatus1" resultMap="purchaseDto" parameterType="String">
+        select *
+        from item
+                 inner join purchase
+        where item.item_num = purchase.item_num
+          and user_num = #{user_num}
+          and purchase_status = 1
     </select>
 </mapper>

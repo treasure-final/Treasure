@@ -1,6 +1,8 @@
 package boot.mvc.buy_bid;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,4 +38,13 @@ public class BuyBidService implements BuyBidServiceInter {
 		mapper.updateBuyStatus(buy_num);
 	}
 
+	@Override
+	public List<BuyBidDto> getBuyBidData(String user_num) {
+		return mapper.getBuyBidData(user_num);
+	}
+
+	@Override
+	public List<BuyBidDto> getItemInfoByBuyBid(String user_num) {
+		return mapper.getItemInfoByBuyBid(user_num);
+	}
 }

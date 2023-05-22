@@ -99,7 +99,7 @@ body {
 			<div class="stylebox">
 				<div id="stylepho">
 					<img alt="스타일사진 나오는곳" src="../img/item_image/1.png" style="width: 200px; height: 150px;"
-						onclick="location.href='/style/styleDetail'"
+						onclick="location.href='/style/detail'"
 					>
 				</div>
 				<span id="styledata">

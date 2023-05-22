@@ -11,7 +11,6 @@ import lombok.Data;
 public class BoardDto {
 private int board_id;	
 private int user_num;
-
 private String board_content;
 private String board_image;
 private int board_like_count;

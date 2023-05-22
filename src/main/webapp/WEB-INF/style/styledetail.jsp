@@ -58,8 +58,8 @@ div>img {
 	position: absolute;
 	top: 50%;
 	width: auto;
-	padding-right: 100px;
-	padding-left: 50px;
+	padding-right: 510px;
+	padding-left: 10px;
 	margin-top: -22px;
 	color: black;
 	font-size: 18px;
@@ -155,7 +155,6 @@ to {
 
 #content {
 	height: 100%;
-	border: 2px solid green;
 }
 
 div.all {
@@ -174,6 +173,7 @@ div.all {
 	width: 33%;
 	border-radius: 10px;
 	margin-top: 100px;
+	margin-left: 500px;
 }
 
 .profile {
@@ -188,32 +188,61 @@ div.all {
 </head>
 <body>
 	<div id="content">
-		<div class="post">
-			<div class="profile" style="">
-				<img src="../assets/images/1.png" alt="프로필 사진"
-					style="border-radius: 10px; max-width: 20px; max-height: 20px"
-				>
-				<span class="nickname">닉네임</span>
-			</div>
-			<p class="time" style="color: gray">며칠 전</p>
-		</div>
-		<!-- 초기 콘텐츠 -->
-		<div class="slideshow-container" style="width: 80%;">
-			<div class="all" align="center">
-				<div class="mySlides fade">
-					<img src="../assets/images/1.png" style="width: 100%">
+		<c:forEach items="${DetailList }" var="Bdto">
+			<div class="post">
+				<div class="profile" style="">
+					<img src="/save/${Bdto.user_photo }" alt="프로필 사진"
+						style="border-radius: 10px; max-width: 20px; max-height: 20px"
+					>
+					<span class="nickname">${Bdto.user_name }</span>
 				</div>
-				<div class="mySlides fade">
+				<p class="time" style="color: gray">
+					<fmt:parseDate var="dateFormatter" value="${Bdto.board_writeday}"
+						pattern="yyyy-MM-dd'T'HH:mm:ss"
+					/>
+					<script>
+						var formattedDate = new Date("${Bdto.board_writeday}");
+						var relativeTime = formatRelativeTime(formattedDate);
+						document.write(relativeTime);
+
+						function formatRelativeTime(date) {
+							var now = new Date();
+							var diff = Math.floor((now - date) / 1000);
+
+							if (diff < 60) {
+								return diff + '초 전';
+							} else if (diff < 60 * 60) {
+								var minutes = Math.floor(diff / 60);
+								return minutes + '분 전';
+							} else if (diff < 60 * 60 * 24) {
+								var hours = Math.floor(diff / (60 * 60));
+								return hours + '시간 전';
+							} else {
+								var days = Math.floor(diff / (60 * 60 * 24));
+								return days + '일 전';
+							}
+						}
+					</script>
+				</p>
+			</div>
+			<!-- 초기 콘텐츠 -->
+			<div class="slideshow-container" style="width: 80%; margin-left: 500px">
+				<div class="all">
+					<div class="mySlides fade">
+						<img src="../assets/images/1.png" style="width: 100%">
+					</div>
+					<!-- <div class="mySlides fade">
 					<img src="../assets/images/2.png" style="width: 100%">
 				</div>
 				<div class="mySlides fade">
 					<img src="../assets/images/3.png" style="width: 100%">
+				</div> -->
+					<a class="prev" onclick="plusSlides(-1)">❮</a>
+					<a class="next" onclick="plusSlides(1)">❯</a>
 				</div>
-				<a class="prev" onclick="plusSlides(-1)">❮</a>
-				<a class="next" onclick="plusSlides(1)">❯</a>
 			</div>
-		</div>
-		<br>
+			<br>
+		</c:forEach>
 		<!-- 점 -->
 		<!-- <div style="text-align: center">
 			<span class="dot" onclick="currentSlide(1)"></span>

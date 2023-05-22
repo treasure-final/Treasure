@@ -13,9 +13,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import boot.mvc.buy_bid.BuyBidDto;
+import boot.mvc.buy_now.BuyNowService;
 import boot.mvc.item.ItemDto;
-import boot.mvc.purchase.PurchaseService;
 import boot.mvc.sell_bid.SellBidDto;
 
 @Controller
@@ -26,7 +25,7 @@ public class DetailController {
 
 	@Autowired
   	BuyNowService buyNowService;
-	
+
 	@GetMapping("/item/detail")
 	public ModelAndView detail(String item_num, String buy_size, Model model) {
 		ModelAndView mview = new ModelAndView();
@@ -35,7 +34,7 @@ public class DetailController {
 		ItemDto dto = Dservice.DetailgetData(item_num);
 		List<Map<String, Object>> groupedBuyData = Dservice.getBuyBidGroupedData(item_num);
 		List<Map<String, Object>> groupedSellData = Dservice.getSellBidGroupedData(item_num);
-		List<Map<String, Object>> getOrderData = Dservice.getOrderData(item_num);
+		List<Map<String, Object>> getOrderData = Dservice.getOrderData(item_num, buy_size);
 
 		mview.addObject("list", list);
 		mview.addObject("Ddto", dto);
@@ -68,7 +67,7 @@ public class DetailController {
 	
 	@ResponseBody
 	@GetMapping("/item/getOrderRecentPriceSize")
-	public int getPurchaseRecentPriceSize(@RequestParam("item_num") String itemNum, @RequestParam("buy_size") String buySize) {
+	public int getOrderRecentPriceSize(@RequestParam("item_num") String itemNum, @RequestParam("buy_size") String buySize) {
 		int price = 0;
 
 		if(buySize.equals("모든 사이즈"))
@@ -99,18 +98,6 @@ public class DetailController {
 	    map.put("order_date", order_date);
 	    map.put("wish_price", wish_price);
 		
-		return map;
-	}
-
-	@ResponseBody
-	@GetMapping("/item/getPurchaseRecentPriceSize")
-	public Map<String, Object> getPurchaseRecentPriceSize(@RequestParam("item_num") String itemNum, @RequestParam("buy_size") String buySize) {
-		Map<String, Object> map = new HashMap<>();
-
-		int getPurchaseRecentPriceSize = Dservice.getPurchaseRecentPriceSize(itemNum, buySize);
-		
-		map.put("getPurchaseRecentPriceSize", getPurchaseRecentPriceSize);
-
 		return map;
 	}
 

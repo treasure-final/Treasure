@@ -2,8 +2,8 @@ package boot.mvc.user;
 
 import boot.mvc.buy_bid.BuyBidDto;
 import boot.mvc.buy_bid.BuyBidService;
-import boot.mvc.purchase.PurchaseDto;
-import boot.mvc.purchase.PurchaseService;
+import boot.mvc.buy_now.BuyNowDto;
+import boot.mvc.buy_now.BuyNowService;
 import boot.mvc.sell_bid.SellBidDto;
 import boot.mvc.sell_bid.SellBidService;
 import boot.mvc.sell_now.SellNowDto;
@@ -59,7 +59,7 @@ public class UserController {
     BuyBidService buyBidService;
 
     @Autowired
-    PurchaseService purchaseService;
+    BuyNowService buyNowService;
 
     private NaverLoginBO naverLoginBO;
     private String apiResult = null;
@@ -443,8 +443,8 @@ public class UserController {
         String user_num = service.findEmailUserNum(loginEmail);
 
         List<BuyBidDto> itemBuyBidJoinList = buyBidService.getItemInfoByBuyBid(user_num);
-        List<PurchaseDto> purchaseIngList = purchaseService.getDataByStatus0(user_num);
-        List<PurchaseDto> purchaseEndList = purchaseService.getDataByStatus1(user_num);
+        List<BuyNowDto> purchaseIngList = buyNowService.getDataByStatus0(user_num);
+        List<BuyNowDto> purchaseEndList = buyNowService.getDataByStatus1(user_num);
 
         model.addAttribute("itemBuyBidJoinList", itemBuyBidJoinList);
         model.addAttribute("purchaseIngList", purchaseIngList);

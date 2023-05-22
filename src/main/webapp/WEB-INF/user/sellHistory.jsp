@@ -196,7 +196,7 @@ div.main {
     
     
 	    <div class="sell-header">
-	    	<div style="width: 600px;">전체 3개</div>
+	    	<div style="width: 600px;">총 ${totalCount }개</div>
 	    	<div style="width:80px;">검수현황</div>
 	    	<div style="width:80px;">상태</div>
 	    	<div style="width:170px; margin-left: 15px;">접수일</div>

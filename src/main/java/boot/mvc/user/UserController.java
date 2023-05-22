@@ -444,8 +444,8 @@ public class UserController {
         		sellTotalDto.setSellNowDto(sellNowDto);
         		sellTotalDto.setItemDto(itemDto);
         		
-        		System.out.println("sellNow: "+sellnow_num);
-        		System.out.println("item: "+item_num);
+//        		System.out.println("sellNow: "+sellnow_num);
+//        		System.out.println("item: "+item_num);
         	}else {
         		String sell_num=sellTotalDto.getSell_num();
         		
@@ -456,12 +456,13 @@ public class UserController {
         		
         		sellTotalDto.setSellBidDto(sellBidDto);
         		sellTotalDto.setItemDto(itemDto);
-        		System.out.println("sellnum: "+sell_num);
+				/* System.out.println("sellnum: "+sell_num); */
         		
         	}
         }
 
         model.addAttribute("list", list);
+        model.addAttribute("totalCount", list.size());
         model.addAttribute("user_num", user_num);
         
 

@@ -27,7 +27,7 @@
         <result property="item_image" column="item_image"/>
     </resultMap>
 
-    <select id="getDataByStatus0" resultMap="BuyNowDto" parameterType="String">
+    <select id="getDataByStatus0" resultMap="buyNowDto" parameterType="String">
         select *
         from item
                  inner join buy_now
@@ -36,11 +36,11 @@
           and buy_status = 0
     </select>
 
-    <select id="getDataByStatus1" resultMap="BuyNowDto" parameterType="String">
+    <select id="getDataByStatus1" resultMap="buyNowDto" parameterType="String">
         select *
         from item
                  inner join buy_now
-        where item.item_num = order.item_num
+        where item.item_num = buy_now.item_num
           and user_num = #{user_num}
           and buy_status = 1
     </select>

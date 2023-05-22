@@ -81,12 +81,11 @@ public class BuyNowController {
     //구매/결제
     @GetMapping("/buy/order")
     public ModelAndView buyOrder(String item_num, String price, String orderPrice,
-                                 HttpSession session, String size, String deadline, String deliveryWay) {
+                                 HttpSession session, String size, String deadline, String deliveryWay, String buyType) {
         ModelAndView mv = new ModelAndView();
         String loginEmail = (String) session.getAttribute("loginEmail");
         String userNum = userService.findEmailUserNum(loginEmail);
 
-        SellBidDto sellBidDto = sellBidService.getSellBidDatas(item_num);
         UserDto userDto = userService.getUserNumData(userNum);
         ItemDto dto=itemService.getItemData(item_num);
         mv.addObject("dto", dto);
@@ -95,8 +94,9 @@ public class BuyNowController {
         } else {
             mv.addObject("price", price);
         }
-        mv.addObject("sellPrice", sellBidDto.getSell_wishprice());
         mv.addObject("deadline", deadline);
+        mv.addObject("item_num", item_num);
+        mv.addObject("buyType", buyType);
         mv.addObject("size", size);
         mv.addObject("deliveryWay", deliveryWay);
         mv.addObject("loginEmail", loginEmail);

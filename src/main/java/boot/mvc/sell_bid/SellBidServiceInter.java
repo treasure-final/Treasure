@@ -8,6 +8,4 @@ public interface SellBidServiceInter {
 	public String getNowinsertSellBidNum();
 	public List<SellBidDto> getSellPriceListByitemNum(String item_num);
 	public SellBidDto getSellBidData(String user_num, String sell_num);
-	public SellBidDto getSellBidDatas(String item_num);
-
 }

@@ -14,6 +14,7 @@ public class PurchaseDto {
 	private String item_num;
 	private String buy_bid_num;
 	private String selltotal_num;
+	private String user_num;
 	private String purchase_addr;
 	private int purchase_wishprice;
 	private String purchase_delivery;

@@ -120,6 +120,7 @@ public class SellNowController {
         	purchaseDto.setItem_num(item_num);
         	purchaseDto.setBuy_bid_num(buy_num);
         	purchaseDto.setSelltotal_num(selltotal_num);
+        	purchaseDto.setUser_num(user_num);
         	purchaseDto.setPurchase_addr(buyBidDto.getBuy_addr());
         	purchaseDto.setPurchase_wishprice(Integer.parseInt(buyBidDto.getBuy_wishprice()));
         	purchaseDto.setPurchase_delivery("빠른배송");

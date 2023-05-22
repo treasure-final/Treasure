@@ -5,7 +5,7 @@
 <mapper namespace="boot.mvc.purchase.PurchaseMapperInter">
 
 	<insert id="insertPurchase" parameterType="PurchaseDto">
-		insert into purchase values(null, #{item_num}, #{buy_bid_num}, #{selltotal_num}, #{purchase_addr}, #{purchase_wishprice}, #{purchase_delivery}, #{purchase_total_price}, ${purchase_status}, now())
+		insert into purchase values(null, #{item_num}, #{buy_bid_num}, #{selltotal_num}, #{user_num}, #{purchase_addr}, #{purchase_wishprice}, #{purchase_delivery}, #{purchase_total_price}, ${purchase_status}, now())
 	</insert>
 	
     <select id="getBuyNowPrice" resultType="SellBidDto" parameterType="String">
@@ -17,5 +17,9 @@
             WHERE sb2.item_num = #{item_num} AND sb2.sell_size = sb1.sell_size
         )
         GROUP BY sb1.sell_size
+    </select>
+
+    <select id="getPurchaseData" resultType="PurchaseDto" parameterType="Map">
+        select * from purchase where user_num=#{user_num} and item_num=#{item_num}
     </select>
 </mapper>

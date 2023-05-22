@@ -104,4 +104,23 @@ public class PurchaseController {
 
         return mv;
     }
+
+    @GetMapping("/buy/ordersuccess")
+    public ModelAndView ordersuccess(String item_num, HttpSession session,String size) {
+        ModelAndView mv=new ModelAndView();
+
+        ItemDto dto=itemService.getItemData(item_num);
+        mv.addObject("dto", dto);
+        String loginEmail = (String) session.getAttribute("loginEmail");
+        String userNum = userService.findEmailUserNum(loginEmail);
+        UserDto userDto = userService.getUserNumData(userNum);
+        PurchaseDto purchaseDto=service.getPurchaseData(userNum,item_num);
+        mv.addObject("userName", userDto.getUser_name());
+        mv.addObject("userPhone", userDto.getUser_hp());
+        mv.addObject("size", size);
+        mv.addObject("purchaseDto",purchaseDto);
+
+        mv.setViewName("/purchase/purchaseSuccess");
+        return mv;
+    }
 }

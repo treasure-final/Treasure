@@ -1,7 +1,8 @@
-package boot.mvc.purchase;
+package boot.mvc.buy_now;
 
 import boot.mvc.item.ItemDto;
 import boot.mvc.item.ItemService;
+import boot.mvc.order.OrderService;
 import boot.mvc.sell_bid.SellBidDto;
 import boot.mvc.sell_bid.SellBidService;
 import boot.mvc.user.UserDto;
@@ -16,16 +17,18 @@ import java.util.List;
 
 
 @Controller
-public class PurchaseController {
+public class BuyNowController {
 
     @Autowired
-    PurchaseService service;
+    BuyNowService service;
     @Autowired
     ItemService itemService;
     @Autowired
     UserService userService;
     @Autowired
     SellBidService sellBidService;
+    @Autowired
+    OrderService orderService;
 
     //구매 사이즈 선택
     @GetMapping("/buy/select")
@@ -102,6 +105,23 @@ public class PurchaseController {
         mv.addObject("userAddr", userDto.getUser_addr());
         mv.setViewName("/purchase/purchaseOrder");
 
+        return mv;
+    }
+
+    @GetMapping("/buy/ordersuccess")
+    public ModelAndView ordersuccess(String item_num, HttpSession session,String size) {
+        ModelAndView mv=new ModelAndView();
+
+        ItemDto dto=itemService.getItemData(item_num);
+        mv.addObject("dto", dto);
+        String loginEmail = (String) session.getAttribute("loginEmail");
+        String userNum = userService.findEmailUserNum(loginEmail);
+        UserDto userDto = userService.getUserNumData(userNum);
+        mv.addObject("userName", userDto.getUser_name());
+        mv.addObject("userPhone", userDto.getUser_hp());
+        mv.addObject("size", size);
+
+        mv.setViewName("/purchase/purchaseSuccess");
         return mv;
     }
 }

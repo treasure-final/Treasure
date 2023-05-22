@@ -12,7 +12,7 @@ public interface ItemServiceInter {
     public List<ItemDto> getSearhAllData(String ck, String brand);
     public List<ItemDto> getItemSort();
     public ItemDto getItemData(String item_num);
-    public List<ItemDto> searchItems(String searchText);
+    public List<ItemDto> searchItems(String searchText,String brand);
 
 	 
 }

@@ -77,11 +77,14 @@
 	select * from item where item_num=#{item_num}
 	</select>
 
-	<select id="searchItems" parameterType="String" resultType="ItemDto">
+	<select id="searchItems" parameterType="Map" resultType="ItemDto">
 		SELECT *
 		FROM item
-		WHERE item_engname LIKE CONCAT('%', #{searchText}, '%')
-		   OR item_korname LIKE CONCAT('%', #{searchText}, '%')
-		   OR item_brandname LIKE CONCAT('%', #{searchText}, '%')
+		WHERE (item_engname LIKE CONCAT('%', #{searchText}, '%')
+		OR item_korname LIKE CONCAT('%', #{searchText}, '%')
+		OR item_brandname LIKE CONCAT('%', #{searchText}, '%'))
+		<if test="brand != null">
+			AND item_brandname = #{brand}
+		</if>
 	</select>
 </mapper>

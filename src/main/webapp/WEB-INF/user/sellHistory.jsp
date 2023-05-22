@@ -199,32 +199,37 @@ div.main {
 	    
 <c:forEach items="${list}" var="sellTotalDto">
     <div class="sell-content">
-        <div style="width: 750px; display: flex; font-size: 15px;">
+    
             <c:if test="${sellTotalDto.sell_num == null && sellTotalDto.sellnow_num != null }">
+        	<div style="width: 750px; display: flex; font-size: 15px;">
                 <img class="sellImg" src="../img/item_image/${sellTotalDto.itemDto.item_image}">
                 <div class="sellDescription">
                     <div>${sellTotalDto.itemDto.item_engname}</div>
                     <div>${sellTotalDto.itemDto.item_korname}</div>
                     <div>${sellTotalDto.itemDto.item_size}</div>
                 </div>
+			</div>                
                 <div style="width: 150px; color: #31b46e;">${sellTotalDto.sellNowDto.test_result}</div>
                 <div style="width: 200px;">${sellTotalDto.sellNowDto.sell_status}</div>
                 <div style="width: 200px;">${sellTotalDto.sellNowDto.sellnow_inputday}</div>
             </c:if>
             
             <c:if test="${sellTotalDto.sellnow_num == null && sellTotalDto.sell_num != null}">
+            <div style="width: 750px; display: flex; font-size: 15px;">
                 <img class="sellImg" src="../img/item_image/${sellTotalDto.itemDto.item_image}">
                 <div class="sellDescription">
                     <div>${sellTotalDto.itemDto.item_engname}</div>
                     <div>${sellTotalDto.itemDto.item_korname}</div>
-                    <div>${sellTotalDto.itemDto.item_size}</div>
+                    <div>${sellTotalDto.sellBidDto.sell_size}</div>
                 </div>
+			</div>                
                 <div style="width: 150px; color: #31b46e;">${sellTotalDto.sellBidDto.test_result}</div>
                 <div style="width: 200px;">${sellTotalDto.sellBidDto.sell_status}</div>
                 <div style="width: 200px;">${sellTotalDto.sellBidDto.sell_inputday}</div>
             </c:if>
+            
         </div>
-    </div>
+    
 </c:forEach>
 
 

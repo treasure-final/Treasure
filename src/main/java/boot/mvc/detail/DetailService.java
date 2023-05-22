@@ -66,7 +66,7 @@ public class DetailService implements DetailServiceInter {
 	}
 
 	@Override
-	public List<Map<String, Object>> getChartData(String size, String item_num, String start, String end) {
+	public List<Map<String, Object>> getOrderChartData(String size, String item_num, String start, String end) {
 		Map<String, Object> map = new HashMap<>();
 		
 		map.put("size", size);
@@ -74,7 +74,31 @@ public class DetailService implements DetailServiceInter {
 		map.put("start", start);
 		map.put("end", end);
 		
-		return mapper.getChartData(map);
+		return mapper.getOrderChartData(map);
+	}
+
+	@Override
+	public List<Map<String, Object>> getSellChartData(String size, String item_num, String start, String end) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("size", size);
+		map.put("item_num", item_num);
+		map.put("start", start);
+		map.put("end", end);
+		
+		return mapper.getSellChartData(map);
+	}
+
+	@Override
+	public List<Map<String, Object>> getBuyChartData(String size, String item_num, String start, String end) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("size", size);
+		map.put("item_num", item_num);
+		map.put("start", start);
+		map.put("end", end);
+		
+		return mapper.getBuyChartData(map);
 	}
 
 }

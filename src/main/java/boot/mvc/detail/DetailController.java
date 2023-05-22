@@ -85,7 +85,7 @@ public class DetailController {
 	
 	@ResponseBody
 	@GetMapping("/item/getChartData")
-	public Map<String, Object> getChartData(@RequestParam String item_num,
+	public Map<String, Object> getChartData(@RequestParam String type, @RequestParam String item_num,
 			@RequestParam String size, @RequestParam String period) {
 		
 		Map<String, Object> map = new HashMap<>();
@@ -127,19 +127,47 @@ public class DetailController {
 		
 		end = today.format(formatter);
 			
-		List<Map<String, Object>> chartData = Dservice.getChartData(size, item_num, start, end);
-		System.out.println(size + ", " + item_num + ", " + start + ", " + end + ", " + chartData.size()); 
-		List<String> order_date = new ArrayList<>(); 
+		List<Map<String, Object>> chartData = new ArrayList<>();
+		List<String> date = new ArrayList<>(); 
 		List<Integer> wish_price = new ArrayList<>();
-		 
-		for (Map<String, Object> data : chartData) {
-			order_date.add(data.get("order_date").toString());
-			wish_price.add(Integer.parseInt(data.get("wish_price").toString())); 
-		}
-		 
-		map.put("order_date", order_date); 
-		map.put("wish_price", wish_price);
 		
+		if(type.equals("체결 거래")) {
+			chartData = Dservice.getOrderChartData(size, item_num, start, end);
+			
+			for (Map<String, Object> data : chartData) {
+				date.add(data.get("order_date").toString());
+				wish_price.add(Integer.parseInt(data.get("wish_price").toString())); 
+			}
+			 
+			map.put("date", date); 
+			map.put("wish_price", wish_price);
+			
+		} else if(type.equals("판매 입찰")) {
+			chartData = Dservice.getSellChartData(size, item_num, start, end);
+			
+			for (Map<String, Object> data : chartData) {
+				date.add(data.get("sell_inputday").toString());
+				wish_price.add(Integer.parseInt(data.get("sell_wishprice").toString())); 
+			}
+			 
+			map.put("date", date); 
+			map.put("wish_price", wish_price);
+			
+		} else {
+			chartData = Dservice.getBuyChartData(size, item_num, start, end);
+			
+			for (Map<String, Object> data : chartData) {
+				date.add(data.get("buy_inputday").toString());
+				wish_price.add(Integer.parseInt(data.get("buy_wishprice").toString())); 
+			}
+			 
+			map.put("date", date); 
+			map.put("wish_price", wish_price);
+			
+		}
+		
+		// System.out.println(type + "," + period + ", " + size + ", " + item_num + ", " + start + ", " + end + ", " + chartData.size()); 
+			
 		return map;
 	}
 

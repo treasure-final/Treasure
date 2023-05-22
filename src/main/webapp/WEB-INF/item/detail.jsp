@@ -27,9 +27,7 @@
 <!--chart.js  -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0"></script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"
-></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 @font-face {
 	font-family: "GmarketSansMedium";
@@ -119,14 +117,14 @@ select {
 	$(function() {
 		var item_num = $(".item_num").val();
 		
-		getChartData(item_num, "전체", "all");
-		
+		getChartData("체결 거래", item_num, "전체", "all");
+
 		sendPurchaseRecentPriceSizeRequest(item_num, "모든 사이즈");
 		
 		// 모달창에서 사이즈 선택
 		$(".sizeselect").click(function() {
 			var buy_size = $(this).find(".size").text();
-			alert(buy_size)
+			//alert(buy_size)
 			$(".size-text").text(buy_size);
 			$(".size-select").val(buy_size);
 			$("#sizeModal").modal("hide");
@@ -150,16 +148,48 @@ select {
 	    
 	    // 시세 차트 tab
 	    $(".chart-tab").click(function () {
-	    	period = $(this).text();
-	    	size = $(".chart-size").attr("size");	
+	    	item_num = $(".item_num").val();
 	    	
+	    	period = $(this).text();	    		
+	    	$(".chart-period").val(period);
+	    	
+	    	size = $(".chart-size").val();
 	    	if(size == "")
 	    		size = "all";
 	    		
-	    	getChartData(item_num, period, size);
+	    	type = $(".chart-type").val();
+	    	if(type == "")
+	    		type = "체결 거래";
+	    	
+	    	//alert(period + "," + size + "," + type)
+	    	if ($("#all").hasClass("show")) {
+		        $("#all").removeClass("show active");
+		    }
+	    	 
+	    	getChartData(type, item_num, period, size);
 				
-		});
-		    
+		});    
+	
+	    // 체결 거래, 판매 입찰, 구매 입찰 버튼
+	    $(".chart-btn").click(function() {
+	    	item_num = $(".item_num").val();
+	    	
+	    	type = $(this).text();
+	    	$(".chart-type").val(type);
+	    	
+	    	period = $(".chart-period").val();
+	    	if(period == "")
+	    		period = "전체";
+	    	
+	    	size = $(".chart-size").val();
+	    	if(size == "")
+	    		size = "all";
+	    		
+	    	//alert(type + "," +item_num + ","+ period + "," + size)
+	    	
+	    	getChartData(type, item_num, period, size);
+	    });
+	    
 	});
 	
 	function sendPurchaseRecentPriceSizeRequest(item_num, buy_size) {
@@ -197,7 +227,7 @@ select {
 		var selectedValue = selectElement.value;
 		var sizeTextElement = document.querySelector(".size-text");
 
-		$(".chart-size").attr("size", selectedValue);
+		$(".chart-size").val(selectedValue);
 		
 		// 선택된 값을 size-text 요소에 삽입
 		sizeTextElement.innerHTML = selectedValue;
@@ -209,24 +239,43 @@ select {
 		selectElement2.add(option);
 
 		// 선택한 값을 두 번째 select 요소에서 선택 상태로 설정
-		selectElement2.value = selectedValue;
+		/* selectElement2.value = selectedValue;
 		$("#size_" + selectedValue).removeClass("d-flex");
-		$("#size_" + selectedValue).css("display", "none");
-		
-		// size_${g.buy_size }
+		$("#size_" + selectedValue).css("display", "none"); */
 
 		// 선택한 값을 두 번째 select 요소에서 선택 상태로 설정
 		selectElement2.value = selectedValue;
+		
+		// 차트 변경
+		type = $(".chart-type").val();
+    	if(type == "")
+    		type = "체결 거래";
+	    	
+		period = $(".chart-period").val();
+    	if(period == "")
+    		period = "전체";
+    	
+    	size = $(".chart-size").val();
+    	if(size == "")
+    		size = "all";
+    	
+    	item_num = $(".item_num").val();	
+		getChartData(type, item_num, period, size);
 	}
 	
-	function getChartData(item_num, period, size) {
-		
-		alert(item_num+ ", "+period + ", "+size);
-    	
+	var myChart1 = null;
+	var myChart3 = null;
+	var myChart6 = null;
+	var myChart12 = null;
+	var myChartAll = null;
+	
+	function getChartData(type, item_num, period, size) {
+
     	$.ajax({
 			url : '/item/getChartData',
 			type : 'get',
 			data : {
+				"type" : type,
 				"item_num" : item_num,
 				"size" : size,
 				"period" : period
@@ -235,14 +284,121 @@ select {
 			success : function(res) {
 				console.log(res);
 				
-				$.each(res.order_date, function(i, date) {
-					  console.log("order_date[" + i + "]: " + date);
-				});
-
-				$.each(res.wish_price, function(i, price) {
-				  console.log("wish_price[" + i + "]: " + price);
-				});
-				
+				if(res.date.length == 0)
+					//alert("0");
+				else {
+					var myChart = null; // 차트 객체를 저장할 변수
+		            var chart = null; // 차트의 ID를 저장할 변수
+	
+		            if (period == '1개월') {
+		                if (myChart1) {
+		                    myChart1.destroy(); // 이전 차트 제거
+		                }
+	
+		                chart = 'myChart1';
+		                myChart = myChart1;
+		            } else if (period == '3개월') {
+		                if (myChart3) {
+		                    myChart3.destroy(); // 이전 차트 제거
+		                }
+	
+		                chart = 'myChart3';
+		                myChart = myChart3;
+		            } else if (period == '6개월') {
+		                if (myChart6) {
+		                    myChart6.destroy(); // 이전 차트 제거
+		                }
+	
+		                chart = 'myChart6';
+		                myChart = myChart6;
+		            } else if (period == '1년') {
+		                if (myChart12) {
+		                    myChart12.destroy(); // 이전 차트 제거
+		                }
+	
+		                chart = 'myChart12';
+		                myChart = myChart12;
+		            } else {
+		                if (myChartAll) {
+		                    myChartAll.destroy(); // 이전 차트 제거
+		                }
+	
+		                chart = 'myChartAll';
+		                myChart = myChartAll;
+		            }
+					
+					var monthList = [];
+					var monthData = [];
+					
+					$.each(res.date, function(i, date) {
+						var dateObj = new Date(date);
+						var year = dateObj.getFullYear();
+						var month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+						var day = dateObj.getDate().toString().padStart(2, '0');
+						var formattedDate = year + '/' + month + '/' + day;
+						
+						  console.log("date[" + i + "]: " + formattedDate);
+						  monthList.push(formattedDate);
+					});
+	
+					$.each(res.wish_price, function(i, price) {
+						console.log("wish_price[" + i + "]: " + price);
+						monthData.push(price); 
+					});
+										
+					var canvas = document.createElement('canvas');
+		            canvas.id = chart;
+		            var ctx = canvas.getContext('2d');
+		          
+		            var existingCanvas = document.getElementById(chart);
+		            if (existingCanvas) {
+		                existingCanvas.parentNode.replaceChild(canvas, existingCanvas);
+		            }
+					
+					myChart = new Chart(ctx, {
+						type : 'line',
+						data : {
+							labels : monthList,
+							datasets : [ {
+								data : monthData,
+								borderColor : 'rgba(255, 99, 132, 1)',
+								borderWidth : 1,
+								pointStyle : true
+							} ]
+						},
+	
+						options : {
+							responsive : false,
+							scales : {
+								x : {
+									ticks : {
+										maxRotation : 0,
+									},
+									display : false,
+									grid : {
+										display : false
+									}
+								},
+								y : {
+									position : 'right',// `axis` is determined by the position as `'y'`
+	
+									grid : {
+										display : false
+									}
+								}
+	
+							},
+							responsive : true,
+							plugins : {
+								legend : {
+									display : false
+								}
+	
+							}
+						}
+					});
+				}
+								
 			},
 			error : function(xhr, status, error) {
 				// 에러 처리
@@ -534,7 +690,9 @@ select {
 									</div>
 									<!-- 시세 그래프 -->
 									<div class="d-flex pe-2 mb-1 price-chart">
-									<input type="hidden" class="chart-size" size="">
+									<input type="hidden" class="chart-size" value="">
+									<input type="hidden" class="chart-period" value="">
+									<input type="hidden" class="chart-type" value="">
 										<div class="col-xl-12">
 											<div class="nav-align-top mb-4">
 												<ul class="nav nav-pills mb-3 nav-fill" role="tablist">
@@ -570,340 +728,35 @@ select {
 													</li>
 												</ul>
 												<div class="tab-content">
-													<div class="tab-pane fade show active" id="onemonth" role="tabpanel">
+													<div class="tab-pane fade" id="onemonth" role="tabpanel">
 														<div style="width: 550px; margin-left: 0px">
 															<canvas id="myChart1" height="100"></canvas>
 														</div>
-														<script>
-															function addZero(i) {
-																var rtn = i + 100;
-																return rtn.toString().replace("1", "/");
-															}
-															var monthList = [];
-															var monthData = [];
-															var today = new Date();
-															for (var i = 30; i >= 0; i--) {
-																var dt = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
-																var year = dt.getFullYear();
-																var mon = addZero(dt.getMonth() + 1);
-																var day = addZero(dt.getDate());
-																var format = year + mon + day;
-																monthList.push(format);
-																monthData.push(Math.floor(Math.random() * 300000));
-															}
-
-															const ctx = document.getElementById('myChart1').getContext('2d');
-															const myChart = new Chart(ctx, {
-																type : 'line',
-																data : {
-																	labels : monthList,
-																	datasets : [ {
-																		data : monthData,
-																		borderColor : 'rgba(255, 99, 132, 1)',
-																		borderWidth : 1,
-																		pointStyle : false
-																	} ]
-																},
-
-																options : {
-																	responsive : false,
-																	scales : {
-																		x : {
-																			ticks : {
-																				maxRotation : 0,
-																			},
-																			display : false,
-																			grid : {
-																				display : false
-																			}
-																		},
-																		y : {
-																			position : 'right',// `axis` is determined by the position as `'y'`
-
-																			grid : {
-																				display : false
-																			}
-																		}
-
-																	},
-																	responsive : true,
-																	plugins : {
-																		legend : {
-																			display : false
-																		}
-
-																	}
-																}
-															});
-														</script>
+														
 													</div>
 													<div class="tab-pane fade" id="threemonth" role="tabpanel">
 														<div style="width: 550px; margin-left: 0px">
 															<canvas id="myChart3" height="100"></canvas>
 														</div>
-														<script>
-															function addZero(i) {
-																var rtn = i + 100;
-																return rtn.toString().replace("1", "/");
-															}
-															var monthList = [];
-															var monthData = [];
-															var today = new Date();
-															for (var i = 90; i >= 0; i--) {
-																var dt = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
-																var year = dt.getFullYear();
-																var mon = addZero(dt.getMonth() + 1);
-																var day = addZero(dt.getDate());
-																var format = year + mon + day;
-																monthList.push(format);
-																monthData.push(Math.floor(Math.random() * 300000));
-															}
-
-															const ctx3 = document.getElementById('myChart3').getContext('2d');
-															const myChart3 = new Chart(ctx3, {
-																type : 'line',
-																data : {
-																	labels : monthList,
-																	datasets : [ {
-																		data : monthData,
-																		borderColor : 'rgba(255, 99, 132, 1)',
-																		borderWidth : 1,
-																		pointStyle : false
-																	} ]
-																},
-
-																options : {
-																	responsive : false,
-																	scales : {
-																		x : {
-																			ticks : {
-																				maxRotation : 0,
-																			},
-																			display : false,
-																			grid : {
-																				display : false
-																			}
-																		},
-																		y : {
-																			position : 'right',// `axis` is determined by the position as `'y'`
-
-																			grid : {
-																				display : false
-																			}
-																		}
-
-																	},
-																	responsive : true,
-																	plugins : {
-																		legend : {
-																			display : false
-																		}
-
-																	}
-																}
-															});
-														</script>
+														
 													</div>
 													<div class="tab-pane fade" id="sixmonth" role="tabpanel">
 														<div style="width: 550px; margin-left: 0px">
 															<canvas id="myChart6" height="100"></canvas>
 														</div>
-														<script>
-															function addZero(i) {
-																var rtn = i + 100;
-																return rtn.toString().replace("1", "/");
-															}
-															var monthList = [];
-															var monthData = [];
-															var today = new Date();
-															for (var i = 189; i >= 0; i--) {
-																var dt = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
-																var year = dt.getFullYear();
-																var mon = addZero(dt.getMonth() + 1);
-																var day = addZero(dt.getDate());
-																var format = year + mon + day;
-																monthList.push(format);
-																monthData.push(Math.floor(Math.random() * 300000));
-															}
-
-															const ctx6 = document.getElementById('myChart6').getContext('2d');
-															const myChart6 = new Chart(ctx6, {
-																type : 'line',
-																data : {
-																	labels : monthList,
-																	datasets : [ {
-																		data : monthData,
-																		borderColor : 'rgba(255, 99, 132, 1)',
-																		borderWidth : 1,
-																		pointStyle : false
-																	} ]
-																},
-
-																options : {
-																	responsive : false,
-																	scales : {
-																		x : {
-																			ticks : {
-																				maxRotation : 0,
-																			},
-																			display : false,
-																			grid : {
-																				display : false
-																			}
-																		},
-																		y : {
-																			position : 'right',// `axis` is determined by the position as `'y'`
-
-																			grid : {
-																				display : false
-																			}
-																		}
-
-																	},
-																	responsive : true,
-																	plugins : {
-																		legend : {
-																			display : false
-																		}
-
-																	}
-																}
-															});
-														</script>
+														
 													</div>
 													<div class="tab-pane fade" id="oneyear" role="tabpanel">
 														<div style="width: 550px; margin-left: 0px">
 															<canvas id="myChart12" height="100"></canvas>
 														</div>
-														<script>
-															function addZero(i) {
-																var rtn = i + 100;
-																return rtn.toString().replace("1", "/");
-															}
-															var monthList = [];
-															var monthData = [];
-															var today = new Date();
-															for (var i = 365; i >= 0; i--) {
-																var dt = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
-																var year = dt.getFullYear();
-																var mon = addZero(dt.getMonth() + 1);
-																var day = addZero(dt.getDate());
-																var format = year + mon + day;
-																monthList.push(format);
-																monthData.push(Math.floor(Math.random() * 300000));
-															}
-
-															const ctx12 = document.getElementById('myChart12').getContext('2d');
-															const myChart12 = new Chart(ctx12, {
-																type : 'line',
-																data : {
-																	labels : monthList,
-																	datasets : [ {
-																		data : monthData,
-																		borderColor : 'rgba(255, 99, 132, 1)',
-																		borderWidth : 1,
-																		pointStyle : false
-																	} ]
-																},
-
-																options : {
-																	responsive : false,
-																	scales : {
-																		x : {
-																			ticks : {
-																				maxRotation : 0,
-																			},
-																			display : false,
-																			grid : {
-																				display : false
-																			}
-																		},
-																		y : {
-																			position : 'right',// `axis` is determined by the position as `'y'`
-
-																			grid : {
-																				display : false
-																			}
-																		}
-
-																	},
-																	responsive : true,
-																	plugins : {
-																		legend : {
-																			display : false
-																		}
-
-																	}
-																}
-															});
-														</script>
+														
 													</div>
-													<div class="tab-pane fade" id="all" role="tabpanel">
+													<div class="tab-pane fade show active" id="all" role="tabpanel">
 														<div style="width: 550px; margin-left: 0px">
 															<canvas id="myChartAll" height="100"></canvas>
 														</div>
-														<script>
-															function addZero(i) {
-																var rtn = i + 100;
-																return rtn.toString().replace("1", "/");
-															}
-															var monthList = [];
-															var monthData = [];
-															var today = new Date();
-															for (var i = 365; i >= 0; i--) {
-																var dt = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
-																var year = dt.getFullYear();
-																var mon = addZero(dt.getMonth() + 1);
-																var day = addZero(dt.getDate());
-																var format = year + mon + day;
-																monthList.push(format);
-																monthData.push(Math.floor(Math.random() * 300000));
-															}
-
-															const ctxAll = document.getElementById('myChartAll').getContext('2d');
-															const myChartAll = new Chart(ctxAll, {
-																type : 'line',
-																data : {
-																	labels : monthList,
-																	datasets : [ {
-																		data : monthData,
-																		borderColor : 'rgba(255, 99, 132, 1)',
-																		borderWidth : 1,
-																		pointStyle : true
-																	} ]
-																},
-
-																options : {
-																	responsive : false,
-																	scales : {
-																		x : {
-																			ticks : {
-																				maxRotation : 0,
-																			},
-																			display : false,
-																			grid : {
-																				display : false
-																			}
-																		},
-																		y : {
-																			position : 'right',// `axis` is determined by the position as `'y'`
-
-																			grid : {
-																				display : false
-																			}
-																		}
-
-																	},
-																	responsive : true,
-																	plugins : {
-																		legend : {
-																			display : false
-																		}
-
-																	}
-																}
-															});
-														</script>
+														
 													</div>
 												</div>
 											</div>
@@ -915,19 +768,19 @@ select {
 											<div class="nav-align-top mb-4">
 												<ul class="nav nav-pills mb-2 nav-fill" role="tablist">
 													<li class="nav-item">
-														<button type="button" class="btn btn-detail active w-100" role="tab"
+														<button type="button" class="btn btn-detail active w-100 chart-btn" role="tab"
 															data-bs-toggle="tab" data-bs-target="#deal" aria-controls="deal" aria-selected="true"
 															style="border-radius: 20px 0px 0px 20px"
 														>체결 거래</button>
 													</li>
 													<li class="nav-item">
-														<button type="button" class="btn btn-detail w-100" role="tab" data-bs-toggle="tab"
+														<button type="button" class="btn btn-detail w-100 chart-btn" role="tab" data-bs-toggle="tab"
 															data-bs-target="#sellBid" aria-controls="sellBid" aria-selected="false"
 															style="border-radius: 0px"
 														>판매 입찰</button>
 													</li>
 													<li class="nav-item">
-														<button type="button" class="btn btn-detail w-100" role="tab" data-bs-toggle="tab"
+														<button type="button" class="btn btn-detail w-100 chart-btn" role="tab" data-bs-toggle="tab"
 															data-bs-target="#buyBid" aria-controls="buyBid" aria-selected="false"
 															style="border-radius: 0px 20px 20px 0px"
 														>구매 입찰</button>

@@ -20,7 +20,7 @@
 	</update>
 	
 	<!-- getData...... -->
-	<select id="getSellNowData" resultType="String" parameterType="SellNowDto">
+	<select id="getSellNowData" resultType="SellNowDto" parameterType="String">
 		select * from sell_now where user_num=#{user_num} and sellnow_num=#{sellnow_num}
 	</select>
 	

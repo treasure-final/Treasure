@@ -2,6 +2,7 @@ package boot.mvc.sell_now;
 
 import org.apache.ibatis.type.Alias;
 
+import boot.mvc.item.ItemDto;
 import lombok.Data;
 
 @Data
@@ -18,5 +19,14 @@ public class SellNowDto {
 	private String sellnow_addr;
 	private String sell_status;
 	private String test_result;
+	private ItemDto itemDto;
+	
+	 public ItemDto getItemDto() {
+	        return itemDto;
+	    }
+
+	    public void setItemDto(ItemDto itemDto) {
+	        this.itemDto = itemDto;
+	    }
 
 }

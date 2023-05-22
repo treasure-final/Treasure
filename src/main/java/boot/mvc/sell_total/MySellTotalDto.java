@@ -13,6 +13,7 @@ public class MySellTotalDto {
 	private String item_korname;
 	private String item_modelnum;
 	private String item_image;
+	private String size;
 	private String name;
 	private String addr;
 	private String phone;
@@ -20,9 +21,10 @@ public class MySellTotalDto {
 	private String bank_number;
 	private String card_name;
 	private String card_number;
-	private String wishprice;
-	private String totalprice;
-	private String size;
-	private String deadline;
+	private int wishprice;
+	private int totalprice;
+	private String status;
+	private String test;
+	private int deadline;
 	
 }

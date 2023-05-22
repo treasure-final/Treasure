@@ -1,9 +1,12 @@
 package boot.mvc.user;
 
+import boot.mvc.item.ItemDto;
+import boot.mvc.item.ItemService;
 import boot.mvc.sell_bid.SellBidDto;
 import boot.mvc.sell_bid.SellBidService;
 import boot.mvc.sell_now.SellNowDto;
 import boot.mvc.sell_now.SellNowService;
+import boot.mvc.sell_total.MySellTotalDto;
 import boot.mvc.sell_total.SellTotalDto;
 import boot.mvc.sell_total.SellTotalService;
 import boot.mvc.user.kakaoApi.KakaoLoginBO;
@@ -14,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -50,6 +54,9 @@ public class UserController {
     
     @Autowired
     SellNowService sellNowService;
+    
+    @Autowired
+    ItemService itemService;
 
     private NaverLoginBO naverLoginBO;
     private String apiResult = null;
@@ -408,23 +415,50 @@ public class UserController {
     }
     
     @GetMapping("/user/sellHistory")
-    public String sellHistory(Model model, HttpSession session, String sell_num, String sellnow_num) {
-    	
-    	String loginEmail=(String)session.getAttribute("loginEmail");
-        String user_num=service.findEmailUserNum(loginEmail);
-     
-        List<SellTotalDto> list=sellTotalService.getListSellTotal(user_num);
+    public String sellHistory(Model model, HttpSession session, String sell_num, String sellnow_num, String item_num) {
+        String loginEmail = (String) session.getAttribute("loginEmail");
+        String user_num = service.findEmailUserNum(loginEmail);
+
+        List<SellTotalDto> list = sellTotalService.getListSellTotal(user_num);
         
-        SellBidDto SBdto=sellBiService.getSellBidData(user_num, sell_num);
-        SellNowDto SNdto=sellNowService.getSellNowData(user_num, sellnow_num);
+        SellBidDto sellBidDto =new SellBidDto();
+        SellNowDto sellNowDto =new SellNowDto();
+        ItemDto itemDto=itemService.getItemData(item_num); // Add this line
         
+        /*
+        if (sellNowDto.getItemDto() != null) {
+            
+        	System.out.println("널 아님");
+        }System.out.println("널 임..");
+
+        if (sellBidDto.getItemDto() != null) {
+            
+        	System.out.println("널 아님");
+        }System.out.println("널 임..");
+        */
+        
+        if(sell_num!=null) {      	
+        	sellBidDto=sellBiService.getSellBidData(user_num, sell_num);  	        	
+        }
+        
+        
+        if(sellnow_num!=null) {      	
+        	sellNowDto=sellNowService.getSellNowData(user_num, sellnow_num);
+        }
+        
+        
+        
+        model.addAttribute("sellBidDto", sellBidDto);
+        model.addAttribute("sellNowDto", sellNowDto);
+        model.addAttribute("itemDto", itemDto);
         model.addAttribute("user_num", user_num);
+        model.addAttribute("sell_num", sell_num);
+        model.addAttribute("sellnow_num", sellnow_num);
+        model.addAttribute("item_num", item_num);
         model.addAttribute("list", list);
-        model.addAttribute("SBdto", SBdto);
-        model.addAttribute("SNdto", SNdto);
         
-        	
-    	return "/user/sellHistory";
-    	
+
+        return "/user/sellHistory";
     }
+ 
 }

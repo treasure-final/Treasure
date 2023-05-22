@@ -16,7 +16,7 @@
 	</select>
 	
 	<!-- getData...... -->
-	<select id="getSellBidData" resultType="String" parameterType="SellBidDto">
+	<select id="getSellBidData" resultType="SellBidDto" parameterType="String">
 		select * from sell_bid where user_num=#{user_num} and sell_num=#{sell_num}
 	</select>
 

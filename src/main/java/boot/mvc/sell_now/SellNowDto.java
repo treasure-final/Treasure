@@ -1,5 +1,7 @@
 package boot.mvc.sell_now;
 
+import java.sql.Timestamp;
+
 import org.apache.ibatis.type.Alias;
 
 import boot.mvc.item.ItemDto;
@@ -19,6 +21,7 @@ public class SellNowDto {
 	private String sellnow_addr;
 	private String sell_status;
 	private String test_result;
+	private Timestamp sellnow_inputday;
 	private ItemDto itemDto;
 	
 	 public ItemDto getItemDto() {

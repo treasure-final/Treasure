@@ -198,37 +198,36 @@ div.main {
 
 	    
 <c:forEach items="${list}" var="sellTotalDto">
-
     <div class="sell-content">
-        <div style="width:200px;">유저num: ${sellTotalDto.user_num}</div>
-        <div style="width:750px; display: flex; font-size: 15px;">
-            <c:choose>
-                <c:when test="${empty sellTotalDto.sell_num && not empty sellTotalDto.sellnow_num}">
-                    <img class="sellImg" src="../img/item_image/${sellTotalDto.sellNowDto.itemDto.item_image}.png">
-                    <div class="sellDescription">
-                        <div>${sellTotalDto.sellNowDto.itemDto.item_engname} sellnum: ${sellTotalDto.sellnow_num }</div> <!-- sellnow_num은 넘어감 -->
-                        <div>${sellTotalDto.sellNowDto.itemDto.item_korname}</div>
-                        <div>${sellTotalDto.sellNowDto.itemDto.item_size}</div>
-                    </div>
-                    <div style="width:150px; color: #31b46e;">${sellTotalDto.sellNowDto.test_result}</div>
-                    <div style="width:200px;">${sellTotalDto.sellNowDto.sell_status}</div>
-                    <%-- <div style="width:200px;">${sellTotalDto.sellNowDto.item_inputday}</div> --%>
-                </c:when>
-                <c:when test="${not empty sellTotalDto.sell_num && empty sellTotalDto.sellnow_num}">
-                    <img class="sellImg" src="../img/item_image/${sellTotalDto.sellBidDto.itemDto.item_image}.png">
-                    <div class="sellDescription">
-                        <div>${sellTotalDto.sellBidDto.itemDto.item_engname} sellnownum: ${sellTotalDto.sell_num }</div> <!-- 역시 sell_num 은 넘어감 -->
-                        <div>${sellTotalDto.sellBidDto.itemDto.item_korname} ${sellTotalDto.sellBidDto.itemDto.item_num}</div>
-                        <div>${sellTotalDto.sellBidDto.sell_size}</div>
-                    </div>
-                    <div style="width:150px; color: #31b46e;">${sellTotalDto.sellBidDto.test_result}</div>
-                    <div style="width:200px;">${sellTotalDto.sellBidDto.sell_status}</div>
-                    <div style="width:200px;">${sellTotalDto.sellBidDto.sell_inputday}</div>
-                </c:when>
-            </c:choose>
+        <div style="width: 750px; display: flex; font-size: 15px;">
+            <c:if test="${sellTotalDto.sell_num == null && sellTotalDto.sellnow_num != null }">
+                <img class="sellImg" src="../img/item_image/${sellTotalDto.itemDto.item_image}">
+                <div class="sellDescription">
+                    <div>${sellTotalDto.itemDto.item_engname}</div>
+                    <div>${sellTotalDto.itemDto.item_korname}</div>
+                    <div>${sellTotalDto.itemDto.item_size}</div>
+                </div>
+                <div style="width: 150px; color: #31b46e;">${sellTotalDto.sellNowDto.test_result}</div>
+                <div style="width: 200px;">${sellTotalDto.sellNowDto.sell_status}</div>
+                <div style="width: 200px;">${sellTotalDto.sellNowDto.sellnow_inputday}</div>
+            </c:if>
+            
+            <c:if test="${sellTotalDto.sellnow_num == null && sellTotalDto.sell_num != null}">
+                <img class="sellImg" src="../img/item_image/${sellTotalDto.itemDto.item_image}">
+                <div class="sellDescription">
+                    <div>${sellTotalDto.itemDto.item_engname}</div>
+                    <div>${sellTotalDto.itemDto.item_korname}</div>
+                    <div>${sellTotalDto.itemDto.item_size}</div>
+                </div>
+                <div style="width: 150px; color: #31b46e;">${sellTotalDto.sellBidDto.test_result}</div>
+                <div style="width: 200px;">${sellTotalDto.sellBidDto.sell_status}</div>
+                <div style="width: 200px;">${sellTotalDto.sellBidDto.sell_inputday}</div>
+            </c:if>
         </div>
     </div>
 </c:forEach>
+
+
 
 
 

@@ -6,7 +6,6 @@ import boot.mvc.sell_bid.SellBidDto;
 import boot.mvc.sell_bid.SellBidService;
 import boot.mvc.sell_now.SellNowDto;
 import boot.mvc.sell_now.SellNowService;
-import boot.mvc.sell_total.MySellTotalDto;
 import boot.mvc.sell_total.SellTotalDto;
 import boot.mvc.sell_total.SellTotalService;
 import boot.mvc.user.kakaoApi.KakaoLoginBO;
@@ -414,48 +413,45 @@ public class UserController {
         return checkEmail;
     }
     
+    
     @GetMapping("/user/sellHistory")
-    public String sellHistory(Model model, HttpSession session, String sell_num, String sellnow_num, String item_num) {
+    public String sellHistory(Model model, HttpSession session) {
         String loginEmail = (String) session.getAttribute("loginEmail");
         String user_num = service.findEmailUserNum(loginEmail);
 
         List<SellTotalDto> list = sellTotalService.getListSellTotal(user_num);
         
-        SellBidDto sellBidDto =new SellBidDto();
-        SellNowDto sellNowDto =new SellNowDto();
-        ItemDto itemDto=itemService.getItemData(item_num); // Add this line
         
-        /*
-        if (sellNowDto.getItemDto() != null) {
-            
-        	System.out.println("널 아님");
-        }System.out.println("널 임..");
+        for(SellTotalDto sellTotalDto : list) {
+        	if(sellTotalDto.getSell_num() == null) {
+        		String sellnow_num = sellTotalDto.getSellnow_num();       		
+        		
+        		SellNowDto sellNowDto = sellNowService.getSellNowData(user_num, sellnow_num);
+        		String item_num=sellNowDto.getItem_num();
+        		ItemDto itemDto=itemService.getItemData(item_num);
+        		
+        		sellTotalDto.setSellNowDto(sellNowDto);
+        		sellTotalDto.setItemDto(itemDto);
+        		
+        		System.out.println("sellNow: "+sellnow_num);
+        		System.out.println("item: "+item_num);
+        	}else {
+        		String sell_num=sellTotalDto.getSell_num();
+        		
+        		SellBidDto sellBidDto=sellBiService.getSellBidData(user_num, sell_num);
+        		
+        		String item_num=sellBidDto.getItem_num();
+        		ItemDto itemDto=itemService.getItemData(item_num);
+        		
+        		sellTotalDto.setSellBidDto(sellBidDto);
+        		sellTotalDto.setItemDto(itemDto);
+        		System.out.println("sellnum: "+sell_num);
+        		
+        	}
+        }
 
-        if (sellBidDto.getItemDto() != null) {
-            
-        	System.out.println("널 아님");
-        }System.out.println("널 임..");
-        */
-        
-        if(sell_num!=null) {      	
-        	sellBidDto=sellBiService.getSellBidData(user_num, sell_num);  	        	
-        }
-        
-        
-        if(sellnow_num!=null) {      	
-        	sellNowDto=sellNowService.getSellNowData(user_num, sellnow_num);
-        }
-        
-        
-        
-        model.addAttribute("sellBidDto", sellBidDto);
-        model.addAttribute("sellNowDto", sellNowDto);
-        model.addAttribute("itemDto", itemDto);
-        model.addAttribute("user_num", user_num);
-        model.addAttribute("sell_num", sell_num);
-        model.addAttribute("sellnow_num", sellnow_num);
-        model.addAttribute("item_num", item_num);
         model.addAttribute("list", list);
+        model.addAttribute("user_num", user_num);
         
 
         return "/user/sellHistory";

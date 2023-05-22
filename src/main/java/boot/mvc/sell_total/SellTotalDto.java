@@ -15,16 +15,34 @@ public class SellTotalDto {
 	private String user_num;
 	private String sell_num; 
 	private String sellnow_num;
+	private ItemDto itemDto;
+	private SellTotalDto sellTotalDto;
 	private SellNowDto sellNowDto;
 	private SellBidDto sellBidDto;
-	private ItemDto itemDto;
 	
-	 public ItemDto getItemDto() {
-	        return itemDto;
-	    }
-
-	    public void setItemDto(ItemDto itemDto) {
-	        this.itemDto = itemDto;
-	    }
+	public ItemDto getItemDto() {
+		return itemDto;
+	}
+	public void setItemDto(ItemDto itemDto) {
+		this.itemDto = itemDto;
+	}
+	public SellTotalDto getSellTotalDto() {
+		return sellTotalDto;
+	}
+	public void setSellTotalDto(SellTotalDto sellTotalDto) {
+		this.sellTotalDto = sellTotalDto;
+	}
+	public SellNowDto getSellNowDto() {
+		return sellNowDto;
+	}
+	public void setSellNowDto(SellNowDto sellNowDto) {
+		this.sellNowDto = sellNowDto;
+	}
+	public SellBidDto getSellBidDto() {
+		return sellBidDto;
+	}
+	public void setSellBidDto(SellBidDto sellBidDto) {
+		this.sellBidDto = sellBidDto;
+	} 
 	
 }

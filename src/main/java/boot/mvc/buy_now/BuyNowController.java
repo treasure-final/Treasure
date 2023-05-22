@@ -95,7 +95,7 @@ public class BuyNowController {
         } else {
             mv.addObject("price", price);
         }
-        mv.addObject("sellPrice", sellBidDto.getSell_wishprice());
+        mv.addObject("item_num",item_num);
         mv.addObject("deadline", deadline);
         mv.addObject("size", size);
         mv.addObject("deliveryWay", deliveryWay);
@@ -123,5 +123,17 @@ public class BuyNowController {
 
         mv.setViewName("/purchase/purchaseSuccess");
         return mv;
+    }
+
+    @PostMapping("/buy/orderproc")
+    public String orderproc(HttpSession session,
+                            String item_num, String wish_price, String price,
+                            String size) {
+        System.out.println(item_num);
+        System.out.println(wish_price);
+        System.out.println(size);
+        System.out.println(price);
+
+        return "redirect:ordersuccess?item_num="+item_num+"&size="+size;
     }
 }

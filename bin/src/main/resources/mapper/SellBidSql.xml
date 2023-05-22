@@ -3,5 +3,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="boot.mvc.sell_bid.SellBidMapperInter">
+
+   <!-- 판매입찰 insert -->
+   <insert id="insertSellBid" parameterType="SellBidDto">
+      insert into sell_bid (user_num, item_num, sell_account, sell_penaltypay, sell_wishprice, sell_totalprice, sell_size, sell_deadline, sell_addr, sell_status, test_result, sell_inputday)
+      values (#{user_num},#{item_num},#{sell_account},#{sell_penaltypay},#{sell_wishprice},#{sell_totalprice},#{sell_size},#{sell_deadline},#{sell_addr},#{sell_status},#{test_result},now())
+   </insert>
+   
+   	<!-- 방금 insert된 sell_num 가져오기 -->
+	<select id="getNowinsertSellBidNum" resultType="String">
+		select LAST_INSERT_ID()
+	</select>
 	
+	<!-- getData...... -->
+	<select id="getSellBidData" resultType="SellBidDto" parameterType="String">
+		select * from sell_bid where user_num=#{user_num} and sell_num=#{sell_num}
+	</select>
+
+    <select id="getSellBidDatas" resultType="SellBidDto" parameterType="String">
+        select * from sell_bid where item_num = #{item_num}
+    </select>
+
+	<!-- 판매 입찰 가격 조회 -->
+	<select id="getSellPriceListByitemNum" parameterType="String" resultType="SellBidDto">
+		select * from sell_bid where item_num=#{item_num}
+	</select>
+
 </mapper>

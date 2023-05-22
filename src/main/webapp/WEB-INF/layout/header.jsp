@@ -149,7 +149,7 @@
                var link = document.location.href;
                console.log(link);
 
-               if(link=="http://localhost:8080/" || link=="http://localhost:8080/item/itemlist" || link.indexOf("itemsearch?")) {
+               if(link=="http://localhost:9010/" || link=="http://localhost:9010/item/itemlist" || link.indexOf("itemsearch?")) {
                   var s="<img alt='' src='../assets/images/searchicon.png' style='width: 25px; z-index: 3; margin-left: 10px; position: absolute; margin-top: 10px;'>";
                   s+="<input type='text' id='search' autocomplete='off' placeholder='상품 검색' style='z-index: 4;'>";
                   $("#searchinput").append(s);
@@ -159,7 +159,7 @@
                      if(event.which==13 && $("#search").val()!=='') {
                         //입력한 검색 값을 받아와서
                         var searchText=$("#search").val();
-                        if(link=="http://localhost:8080/item/itemlist") {
+                        if(link=="http://localhost:9010/item/itemlist") {
                            location.href="itemsearch?searchText="+searchText;
                         } else {
                            location.href="/item/itemsearch?searchText="+searchText;

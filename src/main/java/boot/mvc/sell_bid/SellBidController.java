@@ -160,7 +160,7 @@ public class SellBidController {
       
       mview.addObject("itemDto", itemDto); 
       mview.addObject("item_num", item_num); 
-	    mview.addObject("sellNowPrice", sellNowPrice);
+	  mview.addObject("sellNowPrice", sellNowPrice);
       mview.addObject("size", size);
       
       mview.setViewName("/sell/sellType");

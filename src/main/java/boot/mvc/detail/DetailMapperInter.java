@@ -18,10 +18,10 @@ public interface DetailMapperInter {
 	
 	public List<Map<String, Object>> getSellBidGroupedData(String item_num);
   
-	public List<Map<String, Object>> getPurchaseData(String item_num);
+	public List<Map<String, Object>> getOrderData(Map<String, Object> map);
 	
-	public String getPurchaseRecentPriceAll(String item_num);
+	public int getOrderRecentPriceAll(String item_num);
 	
-	public int getPurchaseRecentPriceSize(Map<String, Object> map);
+	public int getOrderRecentPriceSize(Map<String, Object> map);
 
 }

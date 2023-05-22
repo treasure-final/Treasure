@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import boot.mvc.buy_bid.BuyBidDto;
 import boot.mvc.buy_bid.BuyBidService;
-import boot.mvc.purchase.PurchaseDto;
-import boot.mvc.purchase.PurchaseService;
+import boot.mvc.buy_now.BuyNowDto;
+import boot.mvc.buy_now.BuyNowService;
 import boot.mvc.sell_total.SellTotalDto;
 import boot.mvc.sell_total.SellTotalService;
 import boot.mvc.user.UserService;
@@ -27,7 +27,7 @@ public class SellNowController {
 	UserService userService;	
 	
 	@Autowired
-	PurchaseService purchaseService;
+	BuyNowService buyNowService;
 	
 	@Autowired 
 	BuyBidService buyBidService;
@@ -111,32 +111,9 @@ public class SellNowController {
         String selltotal_num = sellTotalService.getNowinsertSellTotalNum();        
         
         if(test_result.equals("합격")) {
-        	
-        	// purchase insert하기
-        	PurchaseDto purchaseDto = new PurchaseDto();       	
-        	
-        	BuyBidDto buyBidDto = buyBidService.getDataOfBuyBid(buy_num);
-        	
-        	purchaseDto.setItem_num(item_num);
-        	purchaseDto.setBuy_bid_num(buy_num);
-        	purchaseDto.setSelltotal_num(selltotal_num);
-        	purchaseDto.setPurchase_addr(buyBidDto.getBuy_addr());
-        	purchaseDto.setPurchase_wishprice(Integer.parseInt(buyBidDto.getBuy_wishprice()));
-        	purchaseDto.setPurchase_delivery("빠른배송");
-        	purchaseDto.setPurchase_total_price(totalPrice);
-        	
-        	// 배송 상태 random
-        	Random random2 = new Random();
-            double statusResult = random.nextDouble(); 
-
-            if (statusResult <= 0.5) {
-            	purchaseDto.setPurchase_status(0);
-            } else {
-            	purchaseDto.setPurchase_status(1);
-            }
- 
-        	purchaseService.insertPurchase(purchaseDto);
-        	buyBidService.updateBuyStatus(buy_num);
+        	         
+            buyBidService.updateBuyStatus(buy_num);      	
+            
         }
         
 		return loginEmail;

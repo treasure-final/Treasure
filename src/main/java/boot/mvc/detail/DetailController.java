@@ -1,5 +1,6 @@
 package boot.mvc.detail;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,7 @@ public class DetailController {
 	DetailService Dservice;
 
 	@Autowired
-	PurchaseService purchaseService;
+  BuyNowService buyNowService;
 	
 	@GetMapping("/item/detail")
 	public ModelAndView detail(String item_num, String buy_size, Model model) {
@@ -34,17 +35,15 @@ public class DetailController {
 		ItemDto dto = Dservice.DetailgetData(item_num);
 		List<Map<String, Object>> groupedBuyData = Dservice.getBuyBidGroupedData(item_num);
 		List<Map<String, Object>> groupedSellData = Dservice.getSellBidGroupedData(item_num);
-		List<Map<String, Object>> getPurchaseData = Dservice.getPurchaseData(item_num);
-		String getPurchaseRecentPriceAll = Dservice.getPurchaseRecentPriceAll(item_num);
+		List<Map<String, Object>> getOrderData = Dservice.getOrderData(item_num);
 
 		mview.addObject("list", list);
 		mview.addObject("Ddto", dto);
 		mview.addObject("groupedBuyData", groupedBuyData);
 		mview.addObject("groupedSellData", groupedSellData);
-		mview.addObject("getPurchaseData", getPurchaseData);
-		mview.addObject("getPurchaseRecentPriceAll", getPurchaseRecentPriceAll);
+		mview.addObject("getOrderData", getOrderData);
 
-		List<SellBidDto> priceList =  purchaseService.getBuyNowPrice(item_num);
+		List<SellBidDto> priceList =  buyNowService.getBuyNowPrice(item_num);
 		mview.addObject("priceList", priceList);
 			
 		int minPrice = 0; 
@@ -66,6 +65,42 @@ public class DetailController {
 		model.addAttribute("item_num", item_num);
 		return mview;
 	}
+	
+	@ResponseBody
+	@GetMapping("/item/getOrderRecentPriceSize")
+	public int getPurchaseRecentPriceSize(@RequestParam("item_num") String itemNum, @RequestParam("buy_size") String buySize) {
+		int price = 0;
+
+		if(buySize.equals("모든 사이즈"))
+			price = Dservice.getOrderRecentPriceAll(itemNum);
+		else 
+			price = Dservice.getOrderRecentPriceSize(itemNum, buySize);
+		
+		return price;
+	}
+	
+	@ResponseBody
+	@GetMapping("/item/getChartData")
+	public Map<String, Object> getChartData(@RequestParam String item_num,
+			@RequestParam String size) {
+		// size, wish_price, order_date
+		Map<String, Object> map = new HashMap<>();
+		
+		List<Map<String, Object>> orderData = Dservice.getOrderData(item_num, size);
+		
+		List<String> order_date = new ArrayList<>();
+	    List<Integer> wish_price = new ArrayList<>();
+	    
+	    for (Map<String, Object> order : orderData) {
+	    	order_date.add(order.get("order_date").toString());
+	        wish_price.add(Integer.parseInt(order.get("wish_price").toString()));
+	    }
+	    
+	    map.put("order_date", order_date);
+	    map.put("wish_price", wish_price);
+		
+		return map;
+	}
 
 	@ResponseBody
 	@GetMapping("/item/getPurchaseRecentPriceSize")
@@ -78,6 +113,7 @@ public class DetailController {
 
 		return map;
 	}
+
 //	@GetMapping("/item/detail")
 //	public ModelAndView DetailgetData(@RequestParam String item_num) {
 //		ModelAndView mview = new ModelAndView();

@@ -25,7 +25,7 @@ public class DetailController {
 	DetailService Dservice;
 
 	@Autowired
-  BuyNowService buyNowService;
+  	BuyNowService buyNowService;
 	
 	@GetMapping("/item/detail")
 	public ModelAndView detail(String item_num, String buy_size, Model model) {

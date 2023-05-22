@@ -8,9 +8,14 @@ import java.util.Map;
 
 @Mapper
 public interface PurchaseMapperInter {
-  
-	public void insertPurchase(PurchaseDto purchaseDto);
-  public List<SellBidDto> getBuyNowPrice(String item_num);
-  public PurchaseDto getPurchaseData(Map<String,String> map);
 
+    public PurchaseDto getPurchaseData(Map<String,String> map);
+  
+    public void insertPurchase(PurchaseDto purchaseDto);
+
+    public List<SellBidDto> getBuyNowPrice(String item_num);
+
+    public List<PurchaseDto> getDataByStatus0(String user_num);
+
+    public List<PurchaseDto> getDataByStatus1(String user_num);
 }

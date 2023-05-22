@@ -2,6 +2,7 @@ package boot.mvc.purchase;
 
 import java.sql.Timestamp;
 
+import boot.mvc.item.ItemDto;
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
@@ -20,6 +21,7 @@ public class PurchaseDto {
 	private int purchase_total_price;
 	private int purchase_status;
 	private Timestamp purchase_date;
+	private ItemDto itemDto;
 	
 }
 

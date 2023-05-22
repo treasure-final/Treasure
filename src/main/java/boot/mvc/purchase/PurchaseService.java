@@ -25,6 +25,16 @@ public class PurchaseService implements PurchaseServiceInter {
 		map.put("user_num",user_num);
 		map.put("item_num",item_num);
 		return mapper.getPurchaseData(map);
+
+  @Override
+	public List<PurchaseDto> getDataByStatus0(String user_num) {
+		return mapper.getDataByStatus0(user_num);
+	}
+
+	@Override
+	public List<PurchaseDto> getDataByStatus1(String user_num) {
+		return mapper.getDataByStatus1(user_num);
+
 	}
 
 	@Override

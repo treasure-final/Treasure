@@ -65,4 +65,16 @@ public class DetailService implements DetailServiceInter {
 		return mapper.getOrderRecentPriceSize(map);
 	}
 
+	@Override
+	public List<Map<String, Object>> getChartData(String size, String item_num, String start, String end) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("size", size);
+		map.put("item_num", item_num);
+		map.put("start", start);
+		map.put("end", end);
+		
+		return mapper.getChartData(map);
+	}
+
 }

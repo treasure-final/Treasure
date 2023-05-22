@@ -1,6 +1,7 @@
 package boot.mvc.detail;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -71,13 +72,13 @@ public class DetailController {
 	
 	@ResponseBody
 	@GetMapping("/item/getOrderRecentPriceSize")
-	public int getOrderRecentPriceSize(@RequestParam("item_num") String itemNum, @RequestParam("buy_size") String buySize) {
+	public int getOrderRecentPriceSize(@RequestParam String item_num, @RequestParam String buy_size) {
 		int price = 0;
-
-		if(buySize.equals("모든 사이즈"))
-			price = Dservice.getOrderRecentPriceAll(itemNum);
+	
+		if(buy_size.equals("모든 사이즈"))
+			price = Dservice.getOrderRecentPriceAll(item_num);
 		else 
-			price = Dservice.getOrderRecentPriceSize(itemNum, buySize);
+			price = Dservice.getOrderRecentPriceSize(item_num, buy_size);
 		
 		return price;
 	}
@@ -85,22 +86,59 @@ public class DetailController {
 	@ResponseBody
 	@GetMapping("/item/getChartData")
 	public Map<String, Object> getChartData(@RequestParam String item_num,
-			@RequestParam String size) {
-		// size, wish_price, order_date
+			@RequestParam String size, @RequestParam String period) {
+		
 		Map<String, Object> map = new HashMap<>();
+		String start = "";
+		String end = "";
 		
-		List<Map<String, Object>> orderData = Dservice.getOrderData(item_num);
-		
-		List<String> order_date = new ArrayList<>();
-	    List<Integer> wish_price = new ArrayList<>();    
+		// 오늘 날짜
+        LocalDate today = LocalDate.now().plusDays(1);
 
-	    for (Map<String, Object> order : orderData) {	
-	    	order_date.add(order.get("order_date").toString());
-	        wish_price.add(Integer.parseInt(order.get("wish_price").toString()));
-	    }
-	    
-	    map.put("order_date", order_date);
-	    map.put("wish_price", wish_price);
+        // 1개월 전 날짜
+        LocalDate oneMonthAgo = today.minusMonths(1);
+
+        // 3개월 전 날짜
+        LocalDate threeMonthsAgo = today.minusMonths(3);
+
+        // 6개월 전 날짜
+        LocalDate sixMonthsAgo = today.minusMonths(6);
+
+        // 1년 전 날짜
+        LocalDate oneYearAgo = today.minusYears(1);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        String oneMonthAgoStr = oneMonthAgo.format(formatter);
+        String threeMonthsAgoStr = threeMonthsAgo.format(formatter);
+        String sixMonthsAgoStr = sixMonthsAgo.format(formatter);
+        String oneYearAgoStr = oneYearAgo.format(formatter);
+		
+		if(period.equals("1개월")) 
+			start = oneMonthAgoStr; 
+		else if(period.equals("3개월"))
+			start = threeMonthsAgoStr; 
+		else if(period.equals("6개월"))
+			start = sixMonthsAgoStr; 
+		else if(period.equals("1년"))
+			start = oneYearAgoStr; 
+		else 
+			start = "null";
+		
+		end = today.format(formatter);
+			
+		List<Map<String, Object>> chartData = Dservice.getChartData(size, item_num, start, end);
+		System.out.println(size + ", " + item_num + ", " + start + ", " + end + ", " + chartData.size()); 
+		List<String> order_date = new ArrayList<>(); 
+		List<Integer> wish_price = new ArrayList<>();
+		 
+		for (Map<String, Object> data : chartData) {
+			order_date.add(data.get("order_date").toString());
+			wish_price.add(Integer.parseInt(data.get("wish_price").toString())); 
+		}
+		 
+		map.put("order_date", order_date); 
+		map.put("wish_price", wish_price);
 		
 		return map;
 	}

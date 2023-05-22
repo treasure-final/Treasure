@@ -23,5 +23,7 @@ public interface DetailMapperInter {
 	public int getOrderRecentPriceAll(String item_num);
 	
 	public int getOrderRecentPriceSize(Map<String, Object> map);
+	
+	public List<Map<String, Object>> getChartData(Map<String, Object> map);
 
 }

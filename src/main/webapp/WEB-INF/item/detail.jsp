@@ -119,30 +119,23 @@ select {
 	$(function() {
 		var item_num = $(".item_num").val();
 		
+		getChartData(item_num, "전체", "all");
+		
 		sendPurchaseRecentPriceSizeRequest(item_num, "모든 사이즈");
 		
 		// 모달창에서 사이즈 선택
 		$(".sizeselect").click(function() {
 			var buy_size = $(this).find(".size").text();
-
+			alert(buy_size)
 			$(".size-text").text(buy_size);
 			$(".size-select").val(buy_size);
 			$("#sizeModal").modal("hide");
 
+			$(".chart-size").attr("size", buy_size);
+			
 			sendPurchaseRecentPriceSizeRequest(item_num, buy_size);
 		});
-		
-	    $('#size-select2').change(function() {
-	      var selectedSize = $(this).val();
-	      $('.col-6 span').each(function() {
-	        if ($(this).text() == selectedSize) {
-	          $(this).closest('.d-flex').show();
-	        } else {
-	          $(this).closest('.d-flex').hide();
-	        }
-	      });
-	    });
-		
+
 	    /* 시세 부분 안보이게 */
 	    /*  
 	    size1 = '${groupedBuyData.size()}';
@@ -155,9 +148,16 @@ select {
 	    }  
 	    */
 	    
+	    // 시세 차트 tab
 	    $(".chart-tab").click(function () {
-			tab = $(this).text();
-			alert(tab);
+	    	period = $(this).text();
+	    	size = $(".chart-size").attr("size");	
+	    	
+	    	if(size == "")
+	    		size = "all";
+	    		
+	    	getChartData(item_num, period, size);
+				
 		});
 		    
 	});
@@ -197,6 +197,8 @@ select {
 		var selectedValue = selectElement.value;
 		var sizeTextElement = document.querySelector(".size-text");
 
+		$(".chart-size").attr("size", selectedValue);
+		
 		// 선택된 값을 size-text 요소에 삽입
 		sizeTextElement.innerHTML = selectedValue;
 
@@ -208,14 +210,46 @@ select {
 
 		// 선택한 값을 두 번째 select 요소에서 선택 상태로 설정
 		selectElement2.value = selectedValue;
-		
-		alert(selectedValue);
-		$("#size_" + selectedValue).hide();
+		$("#size_" + selectedValue).removeClass("d-flex");
+		$("#size_" + selectedValue).css("display", "none");
 		
 		// size_${g.buy_size }
 
 		// 선택한 값을 두 번째 select 요소에서 선택 상태로 설정
 		selectElement2.value = selectedValue;
+	}
+	
+	function getChartData(item_num, period, size) {
+		
+		alert(item_num+ ", "+period + ", "+size);
+    	
+    	$.ajax({
+			url : '/item/getChartData',
+			type : 'get',
+			data : {
+				"item_num" : item_num,
+				"size" : size,
+				"period" : period
+			},
+			dataType : 'json',
+			success : function(res) {
+				console.log(res);
+				
+				$.each(res.order_date, function(i, date) {
+					  console.log("order_date[" + i + "]: " + date);
+				});
+
+				$.each(res.wish_price, function(i, price) {
+				  console.log("wish_price[" + i + "]: " + price);
+				});
+				
+			},
+			error : function(xhr, status, error) {
+				// 에러 처리
+				console.error("AJAX 요청 에러:", error);
+			}
+		});
+		
 	}
 </script>
 </head>
@@ -500,6 +534,7 @@ select {
 									</div>
 									<!-- 시세 그래프 -->
 									<div class="d-flex pe-2 mb-1 price-chart">
+									<input type="hidden" class="chart-size" size="">
 										<div class="col-xl-12">
 											<div class="nav-align-top mb-4">
 												<ul class="nav nav-pills mb-3 nav-fill" role="tablist">
@@ -834,7 +869,7 @@ select {
 																		data : monthData,
 																		borderColor : 'rgba(255, 99, 132, 1)',
 																		borderWidth : 1,
-																		pointStyle : false
+																		pointStyle : true
 																	} ]
 																},
 
@@ -1152,7 +1187,7 @@ select {
 																		</div>
 																		<div class="row col-5">
 
-																			<select class="form-select size-select2" id="size-select2"
+																			<select class="form-select size-select" id="size-select2"
 																				aria-label="size-select"
 																				style="border: 0px; font-size: 1em; float: right; color: #666;"
 																			>

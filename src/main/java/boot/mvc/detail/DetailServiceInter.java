@@ -21,4 +21,6 @@ public interface DetailServiceInter {
 	
 	public int getOrderRecentPriceSize(String item_num, String buy_size);
 
+	public List<Map<String, Object>> getChartData(String size, String item_num, String start, String end);
+
 }

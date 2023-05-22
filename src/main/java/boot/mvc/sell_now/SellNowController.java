@@ -7,14 +7,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import boot.mvc.buy_bid.BuyBidDto;
 import boot.mvc.buy_bid.BuyBidService;
-import boot.mvc.buy_now.BuyNowDto;
 import boot.mvc.buy_now.BuyNowService;
 import boot.mvc.sell_total.SellTotalDto;
 import boot.mvc.sell_total.SellTotalService;

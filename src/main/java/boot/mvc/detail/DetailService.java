@@ -12,57 +12,57 @@ import boot.mvc.item.ItemDto;
 @Service
 public class DetailService implements DetailServiceInter {
 
-   @Autowired
-   DetailMapperInter mapper;
+	@Autowired
+	DetailMapperInter mapper;
 
-   @Override
-   public ItemDto DetailgetData(String item_num) {
-      // TODO Auto-generated
-      // method stub
-      return mapper.DetailgetData(item_num);
-   }
+	@Override
+	public ItemDto DetailgetData(String item_num) {
+		// TODO Auto-generated
+		// method stub
+		return mapper.DetailgetData(item_num);
+	}
 
-   @Override
-   public List<ItemDto> getAllData() {
-      // TODO Auto-generated
-      // method stub
-      return mapper.getAllData();
-   }
+	@Override
+	public List<ItemDto> getAllData() {
+		// TODO Auto-generated
+		// method stub
+		return mapper.getAllData();
+	}
 
-   @Override
-   public List<Map<String, Object>> getBuyBidGroupedData(String item_num) {
-      // TODO Auto-generated
-      // method stub
-      return mapper.getBuyBidGroupedData(item_num);
-   }
+	@Override
+	public List<Map<String, Object>> getBuyBidGroupedData(String item_num) {
+		// TODO Auto-generated
+		// method stub
+		return mapper.getBuyBidGroupedData(item_num);
+	}
 
-   @Override
-   public List<Map<String, Object>> getSellBidGroupedData(String item_num) {
-      // TODO Auto-generated
-      // method stub
-      return mapper.getSellBidGroupedData(item_num);
-   }
+	@Override
+	public List<Map<String, Object>> getSellBidGroupedData(String item_num) {
+		// TODO Auto-generated
+		// method stub
+		return mapper.getSellBidGroupedData(item_num);
+	}
 
-   @Override
-   public List<Map<String, Object>> getOrderData(String item) {
+	@Override
+	public List<Map<String, Object>> getOrderData(String item) {
 
-      return mapper.getOrderData(item);
-   }
+		return mapper.getOrderData(item);
+	}
 
-   @Override
-   public int getOrderRecentPriceAll(String item_num) {
-      // TODO Auto-generated method stub
-      return mapper.getOrderRecentPriceAll(item_num);
-   }
-   
-   @Override
-   public int getOrderRecentPriceSize(String item_num, String buy_size) {
-      Map<String, Object> map = new HashMap<>();
-      
-      map.put("item_num", item_num);
-      map.put("buy_size", buy_size);
-      
-      return mapper.getOrderRecentPriceSize(map);
-   }
+	@Override
+	public int getOrderRecentPriceAll(String item_num) {
+		// TODO Auto-generated method stub
+		return mapper.getOrderRecentPriceAll(item_num);
+	}
+
+	@Override
+	public int getOrderRecentPriceSize(String item_num, String buy_size) {
+		Map<String, Object> map = new HashMap<>();
+
+		map.put("item_num", item_num);
+		map.put("buy_size", buy_size);
+
+		return mapper.getOrderRecentPriceSize(map);
+	}
 
 }

@@ -468,5 +468,21 @@ public class UserController {
 
         return "/user/sellHistory";
     }
- 
+
+    @GetMapping("/user/buyHistory")
+    public String sellHistory(HttpSession session, Model model) {
+
+        String loginEmail = (String) session.getAttribute("loginEmail");
+        String user_num = service.findEmailUserNum(loginEmail);
+
+        List<BuyBidDto> itemBuyBidJoinList = buyBidService.getItemInfoByBuyBid(user_num);
+        List<BuyNowDto> purchaseIngList = buyNowService.getDataByStatus0(user_num);
+        List<BuyNowDto> purchaseEndList = buyNowService.getDataByStatus1(user_num);
+
+        model.addAttribute("itemBuyBidJoinList", itemBuyBidJoinList);
+        model.addAttribute("purchaseIngList", purchaseIngList);
+        model.addAttribute("purchaseEndList", purchaseEndList);
+
+        return "/user/buyHistory";
+    }
 }

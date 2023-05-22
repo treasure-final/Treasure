@@ -282,12 +282,12 @@
         function moveBidPage() {
             let hopePrice = $("#hopePrice").val();
             let deadline = parseInt(intDay);
-            location.href = 'order?item_num=${dto.item_num}&size=${size}&price=' + uncomma(hopePrice) + '&deadline=' + deadline + '&deliveryWay=${deliveryWay}'
+            location.href = 'order?item_num=${dto.item_num}&size=${size}&price=' + uncomma(hopePrice) + '&deadline=' + deadline + '&deliveryWay=${deliveryWay}' + '&buyType=구매입찰'
         }
 
         function moveImmediatePage() {
             let immediatePrice = $("#immediatePrice").text();
-            location.href = 'order?item_num=${dto.item_num}&size=${size}&price=' + uncomma(immediatePrice) + '&deliveryWay=${deliveryWay}'
+            location.href = 'order?item_num=${dto.item_num}&size=${size}&price=' + uncomma(immediatePrice) + '&deliveryWay=${deliveryWay}' + '&buyType=즉시구매'
         }
 
         function inputNumberFormat(obj) {

@@ -269,7 +269,7 @@
             changeSecInfo(name, phone, addr);
 
             //즉시 구매 & 구매 입찰 선택에 따른 페이지 출력 결과
-            if (parseInt(${sellPrice}) == parseInt(${price})) {
+            if ('${buyType}' === '즉시구매') {
                 $("#priceName").text("즉시 구매가");
                 $("#bidAgree").hide();
                 $("#immediateAgree").show();
@@ -306,10 +306,12 @@
                     console.log(rsp);
                     if (rsp.success) {
                         var msg = '결제가 완료되었습니다.';
+
                     } else {
                         var msg = '결제에 실패하였습니다.';
+                        alert(msg);
                     }
-                    alert(msg);
+                    // alert(msg);
                 });
             });
 

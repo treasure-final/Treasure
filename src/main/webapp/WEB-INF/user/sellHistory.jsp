@@ -46,7 +46,6 @@ div.main {
 
 .container {
 	width: 82%;
-	height: 1200px;
 	padding: 40px;
 	box-sizing: border-box;
 	margin-left: 0px;
@@ -92,30 +91,23 @@ div.main {
 	font-size: 23px;
 	font-weight: bold;
 	margin-bottom: 20px;
-}
-
-.hr {
-	border: none;
-	height: 2px;
-	background: black;
-	margin-bottom: 50px;
-	overflow: hidden;
-	width: 1200px;
+	margin-left: 10px;
 }
 
 .sell-header {
-	width: 1170px;
-	font-size: 14px;
+
+	font-size: 13px;
 	display: flex;
 	margin-left: 10px;
+	padding: 10px;
 	/* background-color: yellow; */
 	padding: 10px;
 	opacity: 0.7;
 }
 
 .sell-content {
-	width: 1170px;
-	font-size: 15px;
+	width: 900px;
+	font-size: 14px;
 	display: flex;
 	margin-left: 10px;
 	/* background-color: #FAFAFA; */
@@ -129,9 +121,26 @@ div.main {
 }
 
 .sell-content:hover {
-	border: 1px solid black;
+	border: 1px solid  rgba(34,34,34,.5);
 	background-color: #FAFAFA;
 }
+
+.sell-content-no {
+	width: 900px;
+	font-size: 14px;
+	display: flex;
+	margin-left: 10px;
+	background-color: rgba(34,34,34,.1);
+	border: 1px solid rgba(34, 34, 34, .05);
+	box-shadow: 0 2px 6px rgba(0, 0, 0, .12);
+	border-radius: 20px;
+	padding: 10px;
+	margin-bottom: 25px;
+	justify-content: center;
+	align-items: center;
+	opacity: 0.7;
+}
+
 
 .sellImg {
 	width: 100px;
@@ -144,7 +153,7 @@ div.main {
 	display: flex;
 	flex-direction: column;
 	margin-left: 10px;
-	font-size: 15px;
+	font-size: 14px;
 	margin-top: 15px;
 }
 </style>
@@ -183,59 +192,83 @@ div.main {
 
     <div class="container">
     <h2 id="logo"><i>판매 내역</i></h2>
-    <div class="hr"></div>
+    <div style="margin-bottom: 60px;"></div>
     
     
 	    <div class="sell-header">
-	    	<div style="width: 750px">전체 3개</div>
-	    	<div style="width:150px;">검수현황</div>
-	    	<div style="width:200px; ">상태</div>
-	    	<div style="width:200px;">접수일</div>
+	    	<div style="width: 600px;">전체 3개</div>
+	    	<div style="width:80px;">검수현황</div>
+	    	<div style="width:80px;">상태</div>
+	    	<div style="width:170px; margin-left: 15px;">접수일</div>
 	    </div>
 	    
 	    <div style="margin-top: 30px;"></div>
-	    
-
-	    
-<c:forEach items="${list}" var="sellTotalDto">
-    <div class="sell-content">
-    
-            <c:if test="${sellTotalDto.sell_num == null && sellTotalDto.sellnow_num != null }">
-        	<div style="width: 750px; display: flex; font-size: 15px;">
-                <img class="sellImg" src="../img/item_image/${sellTotalDto.itemDto.item_image}">
-                <div class="sellDescription">
-                    <div>${sellTotalDto.itemDto.item_engname}</div>
-                    <div>${sellTotalDto.itemDto.item_korname}</div>
-                    <div>${sellTotalDto.itemDto.item_size}</div>
-                </div>
+	    	    
+	<c:forEach items="${list}" var="sellTotalDto">
+            <c:if test="${sellTotalDto.sell_num == null && sellTotalDto.sellnow_num != null && sellTotalDto.sellNowDto.test_result eq '불합격' }">
+    		<div class="sell-content-no"> 
+	        	<div style="width: 600px; display: flex; font-size: 15px;">
+	                <img class="sellImg" src="../img/item_image/${sellTotalDto.itemDto.item_image}">
+	                <div class="sellDescription">
+	                    <div>${sellTotalDto.itemDto.item_engname}</div>
+	                    <div>${sellTotalDto.itemDto.item_korname}</div>
+	                    <div>${sellTotalDto.itemDto.item_size}</div>
+	                </div>
+				</div>             
+	                <div style="width: 100px;">${sellTotalDto.sellNowDto.test_result}</div>
+	                <div style="width: 100px;">${sellTotalDto.sellNowDto.sell_status}</div>
+	                <div style="width: 150px; margin-left: 15px;"><fmt:formatDate value="${sellTotalDto.sellNowDto.sellnow_inputday}" pattern="yyyy/MM/dd"/></div>              
+			</div>
+            </c:if>
+	           
+            <c:if test="${sellTotalDto.sell_num == null && sellTotalDto.sellnow_num != null && sellTotalDto.sellNowDto.test_result eq '합격' }">
+	 		<div class="sell-content">            
+	        	<div style="width: 600px; display: flex; font-size: 15px;">
+	                <img class="sellImg" src="../img/item_image/${sellTotalDto.itemDto.item_image}">
+	                <div class="sellDescription">
+	                    <div>${sellTotalDto.itemDto.item_engname}</div>
+	                    <div>${sellTotalDto.itemDto.item_korname}</div>
+	                    <div>${sellTotalDto.itemDto.item_size}</div>
+	                </div>
+				</div>             
+	                <div style="width: 100px; color: #31b46e;">${sellTotalDto.sellNowDto.test_result}</div>
+	                <div style="width: 100px;">${sellTotalDto.sellNowDto.sell_status}</div>
+	                <div style="width: 150px; margin-left: 15px;"><fmt:formatDate value="${sellTotalDto.sellNowDto.sellnow_inputday}" pattern="yyyy/MM/dd"/></div>              
 			</div>                
-                <div style="width: 150px; color: #31b46e;">${sellTotalDto.sellNowDto.test_result}</div>
-                <div style="width: 200px;">${sellTotalDto.sellNowDto.sell_status}</div>
-                <div style="width: 200px;">${sellTotalDto.sellNowDto.sellnow_inputday}</div>
             </c:if>
             
-            <c:if test="${sellTotalDto.sellnow_num == null && sellTotalDto.sell_num != null}">
-            <div style="width: 750px; display: flex; font-size: 15px;">
-                <img class="sellImg" src="../img/item_image/${sellTotalDto.itemDto.item_image}">
-                <div class="sellDescription">
-                    <div>${sellTotalDto.itemDto.item_engname}</div>
-                    <div>${sellTotalDto.itemDto.item_korname}</div>
-                    <div>${sellTotalDto.sellBidDto.sell_size}</div>
-                </div>
+            <c:if test="${sellTotalDto.sellnow_num == null && sellTotalDto.sell_num != null  && sellTotalDto.sellBidDto.test_result eq '불합격'}">
+			<div class="sell-content-no">            
+	            <div style="width: 600px; display: flex; font-size: 15px;">
+	                <img class="sellImg" src="../img/item_image/${sellTotalDto.itemDto.item_image}">
+	                <div class="sellDescription">
+	                    <div>${sellTotalDto.itemDto.item_engname}</div>
+	                    <div>${sellTotalDto.itemDto.item_korname}</div>
+	                    <div>${sellTotalDto.sellBidDto.sell_size}</div>
+	                </div>
+				</div>                
+	                <div style="width: 100px;">${sellTotalDto.sellBidDto.test_result}</div>
+	                <div style="width: 100px;">${sellTotalDto.sellBidDto.sell_status}</div>
+	                <div style="width: 150px; margin-left: 15px;"><fmt:formatDate value="${sellTotalDto.sellBidDto.sell_inputday}" pattern="yyyy/MM/dd"/></div>                
 			</div>                
-                <div style="width: 150px; color: #31b46e;">${sellTotalDto.sellBidDto.test_result}</div>
-                <div style="width: 200px;">${sellTotalDto.sellBidDto.sell_status}</div>
-                <div style="width: 200px;">${sellTotalDto.sellBidDto.sell_inputday}</div>
             </c:if>
             
-        </div>
-    
-</c:forEach>
-
-
-
-
-
+            <c:if test="${sellTotalDto.sellnow_num == null && sellTotalDto.sell_num != null  && sellTotalDto.sellBidDto.test_result eq '합격'}">
+			<div class="sell-content">            
+	            <div style="width: 600px; display: flex; font-size: 15px;">
+	                <img class="sellImg" src="../img/item_image/${sellTotalDto.itemDto.item_image}">
+	                <div class="sellDescription">
+	                    <div>${sellTotalDto.itemDto.item_engname}</div>
+	                    <div>${sellTotalDto.itemDto.item_korname}</div>
+	                    <div>${sellTotalDto.sellBidDto.sell_size}</div>
+	                </div>
+				</div>                
+	                <div style="width: 100px; color: #31b46e;">${sellTotalDto.sellBidDto.test_result}</div>
+	                <div style="width: 100px;">${sellTotalDto.sellBidDto.sell_status}</div>
+	                <div style="width: 150px; margin-left: 15px;"><fmt:formatDate value="${sellTotalDto.sellBidDto.sell_inputday}" pattern="yyyy/MM/dd"/></div>                
+			</div>                
+            </c:if>  
+	</c:forEach>
      
     </div>
     

@@ -200,10 +200,6 @@ select {
 	}
 </script>
 
-		// 선택한 값을 두 번째 select 요소에서 선택 상태로 설정
-		selectElement2.value = selectedValue;
-	}
-</script>
 </head>
 <body>
 	<c:set var="root" value="<%=request.getContextPath()%>" />

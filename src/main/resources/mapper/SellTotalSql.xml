@@ -32,6 +32,10 @@
     WHERE st.user_num = #{user_num} order by selltotal_num desc
 	</select>
 	
+	<select id="getTotalSellCount" parameterType="String" resultType="int">
+	select count(*) from sell_total where user_num=#{user_num}
+	</select>
+	
 	
 	
 

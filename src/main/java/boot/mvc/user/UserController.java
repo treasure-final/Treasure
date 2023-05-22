@@ -436,6 +436,8 @@ public class UserController {
         		String sellnow_num = sellTotalDto.getSellnow_num();       		
         		
         		SellNowDto sellNowDto = sellNowService.getSellNowData(user_num, sellnow_num);
+				/* String sellnow_size=buyBidService.getBuyBidData(user_num); */
+        		
         		String item_num=sellNowDto.getItem_num();
         		ItemDto itemDto=itemService.getItemData(item_num);
         		

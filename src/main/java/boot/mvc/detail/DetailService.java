@@ -44,14 +44,9 @@ public class DetailService implements DetailServiceInter {
 	}
 
 	@Override
-	public List<Map<String, Object>> getOrderData(String item_num, String size) {
-		// TODO Auto-generated method stub
-		Map<String, Object> map = new HashMap<>();
-		
-		map.put("item_num", item_num);
-		map.put("size", size);
-		
-		return mapper.getOrderData(map);
+	public List<Map<String, Object>> getOrderData(String item) {
+
+		return mapper.getOrderData(item);
 	}
 
 	@Override
@@ -70,13 +65,4 @@ public class DetailService implements DetailServiceInter {
 		return mapper.getOrderRecentPriceSize(map);
 	}
 
-	@Override
-	public int getPurchaseRecentPriceSize(String item_num, String buy_size) {
-		Map<String, Object> map = new HashMap<>();
-		
-		map.put("item_num", item_num);
-		map.put("buy_size", buy_size);
-		
-		return mapper.getPurchaseRecentPriceSize(map);
-	}
 }

@@ -36,7 +36,7 @@
 	</select>
   
 	<!-- 체결 거래 리스트(사이즈, 거래가, 거래일) -->
-	<select id="getOrderData" resultType="Map" parameterType="Map">
+	<!-- <select id="getOrderData" resultType="Map" parameterType="Map">
 		select size, wish_price, order_date
 		from order
 		where item_num=#{item_num}
@@ -44,15 +44,23 @@
 			and size=#{size}
 		</if>
 		order by order_date desc
+	</select> -->
+	
+	<select id="getOrderData" resultType="Map" parameterType="String">
+		select size, wish_price, order_date
+		from `order`
+		where item_num=#{item_num}
+		order by order_date desc
 	</select>
+
 
 	<!-- 최근 거래가(전체 사이즈) -->
 	<select id="getOrderRecentPriceAll" resultType="int" parameterType="String">
 		select coalesce(		
 			(select wish_price 
-			from order where item_num=#{item_num} 
+			from `order` where item_num=#{item_num} 
 			order by order_date desc limit 1),
-		0) as wish_price 
+		0) as wish_price
 	</select>
 	
 	<!-- 최근 거래가(특정 사이즈) -->
@@ -62,21 +70,23 @@
   			from order
  			 where item_num=#{item_num} and size=#{size}
   			order by order_date desc limit 1), 
-  		0) as wish_price 
+  		0) as wish_price
 	</select>
 	
 	<!-- 최근 거래가(특정 사이즈) -->
 	<select id="getPurchaseRecentPriceSize" resultType="int">
-		select p.purchase_total_price 
-		from purchase p
-		join buy_bid b
-		on b.buy_num = p.buy_bid_num
-		where p.item_num=#{item_num} and b.buy_size=#{buy_size} order by p.purchase_date desc limit 1
+		select wish_price
+		from order
+		where item_num=#{item_num} and size=#{size} order by order_date desc limit 1
 	</select>
 	
 	<!-- 스타일 -->
 	<select id="getItemStyleList" resultType="BoardDto">
 		select * from board where item_num=#{item_num}
 	</select>
+
+	<!-- <select id="getPurchaseData" resultType="PurchaseDto" parameterType="Map">
+        select * from purchase where user_num=#{user_num} and item_num=#{item_num}
+    </select> -->
 
 </mapper>

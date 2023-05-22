@@ -18,7 +18,7 @@ public interface DetailMapperInter {
 	
 	public List<Map<String, Object>> getSellBidGroupedData(String item_num);
   
-	public List<Map<String, Object>> getOrderData(Map<String, Object> map);
+	public List<Map<String, Object>> getOrderData(String item);
 	
 	public int getOrderRecentPriceAll(String item_num);
 	

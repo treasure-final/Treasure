@@ -16,6 +16,8 @@ import boot.mvc.buy_bid.BuyBidDto;
 import boot.mvc.buy_bid.BuyBidService;
 import boot.mvc.buy_now.BuyNowDto;
 import boot.mvc.buy_now.BuyNowService;
+import boot.mvc.order.OrderDto;
+import boot.mvc.order.OrderService;
 import boot.mvc.sell_total.SellTotalDto;
 import boot.mvc.sell_total.SellTotalService;
 import boot.mvc.user.UserService;
@@ -37,6 +39,9 @@ public class SellNowController {
 	
 	@Autowired
 	SellTotalService sellTotalService;
+	
+	@Autowired
+	OrderService orderService;
 	
 	@PostMapping("/sell/insertSellNow")
 	@ResponseBody
@@ -108,11 +113,20 @@ public class SellNowController {
         sellTotalDto.setSellnow_num(sellnow_num);        
         
         sellTotalService.insertSellNow(sellTotalDto);
-        String selltotal_num = sellTotalService.getNowinsertSellTotalNum();        
-        
+ 
         if(test_result.equals("합격")) {
-        	         
-            buyBidService.updateBuyStatus(buy_num);      	
+        	// insertOrder  
+        	
+        	OrderDto orderDto = new OrderDto();
+        	
+        	orderDto.setBuy_user(buyBidService.getDataOfBuyBid(buy_num).getUser_num());
+        	orderDto.setSell_user(user_num);
+        	orderDto.setItem_num(item_num);
+          	orderDto.setSize(buyBidService.getDataOfBuyBid(buy_num).getBuy_size());
+        	orderDto.setWish_price(Integer.parseInt(buyBidService.getDataOfBuyBid(buy_num).getBuy_wishprice()));            
+			
+			orderService.insertOrder(orderDto);
+			buyBidService.updateBuyStatus(buy_num);      	
             
         }
         

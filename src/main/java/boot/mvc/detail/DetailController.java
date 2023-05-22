@@ -1,5 +1,8 @@
 package boot.mvc.detail;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -86,12 +89,12 @@ public class DetailController {
 		// size, wish_price, order_date
 		Map<String, Object> map = new HashMap<>();
 		
-		List<Map<String, Object>> orderData = Dservice.getOrderData(item_num, size);
+		List<Map<String, Object>> orderData = Dservice.getOrderData(item_num);
 		
 		List<String> order_date = new ArrayList<>();
-	    List<Integer> wish_price = new ArrayList<>();
-	    
-	    for (Map<String, Object> order : orderData) {
+	    List<Integer> wish_price = new ArrayList<>();    
+
+	    for (Map<String, Object> order : orderData) {	
 	    	order_date.add(order.get("order_date").toString());
 	        wish_price.add(Integer.parseInt(order.get("wish_price").toString()));
 	    }

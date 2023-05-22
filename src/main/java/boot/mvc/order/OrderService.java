@@ -8,5 +8,9 @@ public class OrderService implements OrderServiceInter {
 
 	@Autowired
     OrderMapperInter mapper;
-	
+
+    @Override
+    public void insertOrder(OrderDto orderDto) {
+        mapper.insertOrder(orderDto);
+    }
 }

@@ -53,25 +53,29 @@
 		order by order_date desc
 	</select>
 
-	<!-- 최근 거래가(전체 사이즈) -->
-	<select id="getOrderRecentPriceAll" resultType="int" parameterType="String">
-		select coalesce(		
-			(select wish_price 
-			from `order` where item_num=#{item_num} 
-			order by order_date desc limit 1),
-		0) as wish_price
-	</select>
-	
-	<!-- 최근 거래가(특정 사이즈) -->
-	<select id="getOrderRecentPriceSize" resultType="int" parameterType="Map">
+	<!-- 최근 거래가 -->
+<!-- 	<select id="getOrderRecentPrice" resultType="int" parameterType="Map">
 		select coalesce(
   			(select wish_price
   			from `order`
- 			where item_num=#{item_num} and size=#{size}
-  			order by order_date desc limit 1), 
+ 			where item_num=#{item_num}
+ 			<if test="size != 'all'">
+    		 and size=#{size} 
+    		</if> 
+  			order by order_date desc limit 2), 
   		0) as wish_price
-	</select>
+	</select> -->
 		
+		<select id="getOrderRecentPrice" resultType="int" parameterType="Map">
+		select wish_price
+  			from `order`
+ 			where item_num=#{item_num}
+ 			<if test="size != 'all'">
+    		 and size=#{size} 
+    		</if> 
+  			order by order_date desc limit 2
+	</select>
+	
 	<!-- 스타일 -->
 	<select id="getItemStyleList" resultType="BoardDto">
 		select * from board where item_num=#{item_num}

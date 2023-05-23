@@ -17,9 +17,7 @@ public interface DetailServiceInter {
 	
 	public List<Map<String, Object>> getOrderData(String item_num, String size);
 	
-	public int getOrderRecentPriceAll(String item_num);
-	
-	public int getOrderRecentPriceSize(String item_num, String buy_size);
+	public List<Integer> getOrderRecentPrice(String item_num, String size);
 
 	public List<Map<String, Object>> getOrderChartData(String size, String item_num, String start, String end);
 

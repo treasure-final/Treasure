@@ -44,4 +44,8 @@
           and user_num = #{user_num}
           and buy_status = 1
     </select>
+
+    <insert id="insertBuyNow" parameterType="BuyNowDto">
+        insert into buy_now (user_num,sell_num,buynow_price,buy_status,delivery,buy_addr,payment,buynow_inputday) values(#{user_num},#{sell_num},#{buynow_price},#{buy_status},#{delivery},#{buy_addr},#{payment},now())
+    </insert>
 </mapper>

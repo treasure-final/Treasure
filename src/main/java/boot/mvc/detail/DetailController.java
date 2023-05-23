@@ -37,19 +37,18 @@ public class DetailController {
 
 		List<ItemDto> list = Dservice.getAllData();
 		ItemDto dto = Dservice.DetailgetData(item_num);
-		List<Map<String, Object>> groupedBuyData = Dservice.getBuyBidGroupedData(item_num);
-		List<Map<String, Object>> groupedSellData = Dservice.getSellBidGroupedData(item_num);
-		List<Map<String, Object>> getOrderData = Dservice.getOrderData(item_num);
+		//List<Map<String, Object>> groupedBuyData = Dservice.getBuyBidGroupedData(item_num);
+		//List<Map<String, Object>> groupedSellData = Dservice.getSellBidGroupedData(item_num);
+		//List<Map<String, Object>> getOrderData = Dservice.getOrderData(item_num);
 
 		mview.addObject("list", list);
 		mview.addObject("Ddto", dto);
-		mview.addObject("groupedBuyData", groupedBuyData);
-		mview.addObject("groupedSellData", groupedSellData);
-		mview.addObject("getOrderData", getOrderData);
+		//mview.addObject("groupedBuyData", groupedBuyData);
+		//mview.addObject("groupedSellData", groupedSellData);
+		//mview.addObject("getOrderData", getOrderData);
 
 		List<SellBidDto> priceList =  buyNowService.getBuyNowPrice(item_num);
-		mview.addObject("priceList", priceList);
-			
+		
 		int minPrice = 0; 
 
 		if (!priceList.isEmpty()) { // priceList가 비어있지 않은 경우
@@ -62,6 +61,7 @@ public class DetailController {
 		    }
 		}
 		
+		mview.addObject("priceList", priceList);
 		mview.addObject("minPrice", minPrice);
 		
 		mview.setViewName("/3/item/detail");
@@ -166,22 +166,34 @@ public class DetailController {
 			
 		}
 		
-		 System.out.println(type + "," + period + ", " + size + ", " + item_num + ", " + start + ", " + end + ", " + chartData.size()); 
+		 // System.out.println(type + "," + period + ", " + size + ", " + item_num + ", " + start + ", " + end + ", " + chartData.size()); 
 			
 		return map;
 	}
 
-//	@GetMapping("/item/detail")
-//	public ModelAndView DetailgetData(@RequestParam String item_num) {
-//		ModelAndView mview = new ModelAndView();
-//
-//		ItemDto dto = Dservice.DetailgetData(item_num);
-//
-//		mview.addObject("Ddto", dto);
-//
-//		mview.setViewName("/item/detail");
-//
-//		return mview;
-//	}
-
+	@GetMapping("/item/getTabContent")
+	@ResponseBody
+	public List<TabContentDto> getTabContent(@RequestParam String type, @RequestParam String item_num, @RequestParam String size) {
+		List<TabContentDto> content = new ArrayList<>();
+		List<Map<String, Object>> dataList = new ArrayList<>();
+		TabContentDto tabContentDto = new TabContentDto();
+		
+		if(type.equals("체결 거래")) {
+			dataList = Dservice.getBuyBidGroupedData(item_num, size);
+			
+			for (Map<String, Object> data : dataList) {
+				tabContentDto.setDate(data.get("order_date").toString());
+				//tabContentDto.setPrice(data.get("wish_price"));
+			}
+		}
+		else if(type.equals("판매 입찰")) {
+			dataList = Dservice.getSellBidGroupedData(item_num, size);
+		}
+		else {
+			dataList = Dservice.getOrderData(item_num, size);
+		}
+		
+		return content;
+	}
+	
 }

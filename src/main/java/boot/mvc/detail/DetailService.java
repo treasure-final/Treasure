@@ -30,23 +30,33 @@ public class DetailService implements DetailServiceInter {
 	}
 
 	@Override
-	public List<Map<String, Object>> getBuyBidGroupedData(String item_num) {
-		// TODO Auto-generated
-		// method stub
-		return mapper.getBuyBidGroupedData(item_num);
+	public List<Map<String, Object>> getBuyBidGroupedData(String item_num, String size) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("item_num", item_num);
+		map.put("size", size);
+		
+		return mapper.getBuyBidGroupedData(map);
 	}
 
 	@Override
-	public List<Map<String, Object>> getSellBidGroupedData(String item_num) {
-		// TODO Auto-generated
-		// method stub
-		return mapper.getSellBidGroupedData(item_num);
+	public List<Map<String, Object>> getSellBidGroupedData(String item_num, String size) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("item_num", item_num);
+		map.put("size", size);
+			
+		return mapper.getSellBidGroupedData(map);
 	}
 
 	@Override
-	public List<Map<String, Object>> getOrderData(String item) {
-
-		return mapper.getOrderData(item);
+	public List<Map<String, Object>> getOrderData(String item_num, String size) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("item_num", item_num);
+		map.put("size", size);
+		
+		return mapper.getOrderData(map);
 	}
 
 	@Override

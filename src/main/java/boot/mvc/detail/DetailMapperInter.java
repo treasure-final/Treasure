@@ -14,11 +14,11 @@ public interface DetailMapperInter {
 
 	public List<ItemDto> getAllData();
 	
-	public List<Map<String, Object>> getBuyBidGroupedData(String item_num);
+	public List<Map<String, Object>> getBuyBidGroupedData(Map<String, Object> map);
 	
-	public List<Map<String, Object>> getSellBidGroupedData(String item_num);
+	public List<Map<String, Object>> getSellBidGroupedData(Map<String, Object> map);
   
-	public List<Map<String, Object>> getOrderData(String item);
+	public List<Map<String, Object>> getOrderData(Map<String, Object> map);
 	
 	public int getOrderRecentPriceAll(String item_num);
 	

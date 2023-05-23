@@ -1,6 +1,7 @@
+
 # tomcat port
 server:
-  port: 8080
+  port: 9010
   
 # jsp 
 spring:
@@ -23,5 +24,7 @@ spring:
 mybatis:
   type-aliases-package: boot.mvc.*
   mapper-locations:
+  
+  
   - /mapper/**/*.xml
   

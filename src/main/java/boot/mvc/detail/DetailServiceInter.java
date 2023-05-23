@@ -14,11 +14,11 @@ public interface DetailServiceInter {
 	public List<Map<String, Object>> getBuyBidGroupedData(String item_num);
 
 	public List<Map<String, Object>> getSellBidGroupedData(String item_num);
-	
-	public List<Map<String, Object>> getPurchaseData(String item_num);
-	
-	public String getPurchaseRecentPriceAll(String item_num);
-	
-	public Integer getPurchaseRecentPriceSize(String item_num, String buy_size);
+
+	public List<Map<String, Object>> getOrderData(String item_num);
+
+	public int getOrderRecentPriceAll(String item_num);
+
+	public int getOrderRecentPriceSize(String item_num, String buy_size);
 
 }

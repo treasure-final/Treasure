@@ -219,9 +219,9 @@ div.main {
             <div id="profile-content"><b style="font-size: 16px; opacity: 1">${dto.user_name }</b>
                 <br><span style="opacity: 0.5">${dto.user_email }</span>
                 <br><input type="button" class="profile-btn" value="프로필 수정" align="left" onclick="location.href='/user/myProfile'">
-                <input type="button" class="profile-btn" value="내 스타일" align="left" style="width: 80px">
+                <input type="button" class="profile-btn" value="내 스타일" align="left" style="width: 80px " onclick="location.href='/style/mystyle'">
             </div>
-        </div>
+        </div>f
         <div style="clear: left"></div>
         <span style="font-size: 16px; font-weight: bold">판매 내역</span>
         <div class="list-box" style="background-color: #f2f9f6;">
@@ -233,10 +233,10 @@ div.main {
 
         <span style="font-size: 16px; font-weight: bold">구매 내역</span>
         <div class="list-box box2" style="background-color: rgb(254, 247, 246);">
-            <div align="center" style="margin-left: 45px; cursor: pointer;">전체<br><b style="color: red">0</b></div>
-            <div align="center" style="border-left: 2px solid #e3e3e3; cursor: default; ">입찰 중<br>0</div>
-            <div align="center" style="margin-left: 30px; cursor: default;">진행 중<br>0</div>
-            <div align="center" style="margin-left: 30px; cursor: default;">종료<br>0</div>
+            <div align="center" style="margin-left: 45px; cursor: pointer;" id="buyTotal">전체<br><b style="color: red">${bidSize+ingSize+endSize}</b></div>
+            <div align="center" style="border-left: 2px solid #e3e3e3; cursor: default; ">입찰 중<br>${bidSize}</div>
+            <div align="center" style="margin-left: 30px; cursor: default;">진행 중<br>${ingSize}</div>
+            <div align="center" style="margin-left: 30px; cursor: default;">종료<br>${endSize}</div>
         </div>
         
 
@@ -250,8 +250,10 @@ div.main {
 
 <script type="text/javascript">
 $("#total").click(function(){
-	
 	location.href="/user/sellHistory";
+});
+$("#buyTotal").click(function(){
+    location.href="/user/buyHistory";
 });
 
 </script>

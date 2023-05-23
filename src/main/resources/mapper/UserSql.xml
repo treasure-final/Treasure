@@ -74,4 +74,18 @@
     <update id="updateTemporarilyPass" parameterType="Map">
         update user set user_pass=#{user_pass} where user_email=#{user_email}
     </update>
+
+    
+     
+    <select id="getName" parameterType="String" resultType="String">
+	select user_name from user where user_email=#{user_email}
+	
+	</select>
+	
+	 <select id="getUserPhoto" parameterType="String" resultType="String">
+	select user_photo from user where user_email=#{user_email}
+	</select>
+	
+	
+
 </mapper>

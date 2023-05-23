@@ -10,5 +10,5 @@ public interface SellBidMapperInter {
 	public void insertSellBid(SellBidDto SellBidDto);
 	public String getNowinsertSellBidNum();
 	public List<SellBidDto> getSellPriceListByitemNum(String item_num);
-
+	public SellBidDto getSellBidData(String user_num, String sell_num);
 }

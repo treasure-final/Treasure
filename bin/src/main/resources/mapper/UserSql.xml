@@ -3,5 +3,85 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="boot.mvc.user.UserMapperInter">
+    <select id="checkIdAndPassword" parameterType="Map" resultType="int">
+        select count(*)
+        from user
+        where user_email = #{user_email}
+          and user_pass = #{user_pass}
+    </select>
+
+    <!-- 가입insert -->
+    <insert id="insertJoinUser" parameterType="UserDto">
+        insert into user (user_email, user_pass, user_name, user_nickname, user_hp, user_birth, user_addr, user_joinday)
+        values (#{user_email}, #{user_pass}, #{user_name}, #{user_nickname}, #{user_hp}, #{user_birth}, #{user_addr},
+                now())
+    </insert>
+
+    <!--아이디 중복 확인  -->
+    <select id="userSearchEmail" parameterType="String" resultType="int">
+        select count(*)
+        from user
+        where user_email = #{user_email}
+    </select>
+
+    <!--닉네임 중복 확인  -->
+    <select id="userSearchNickname" parameterType="String" resultType="int">
+        select count(*)
+        from user
+        where user_nickname = #{user_nickname}
+    </select>
+
+    <!--이메일 찾기 회원 검사-->
+    <select id="checkEmailByUserInfo" parameterType="Map" resultType="int">
+        select count(*)
+        from user
+        where user_name = #{user_name}
+          and user_birth = #{user_birth}
+          and user_hp = #{user_hp}
+    </select>
+
+    <select id="findEmailByUserInfo" parameterType="Map" resultType="String">
+        select user_email
+        from user
+        where user_hp = #{user_hp}
+    </select>
+    
+    <!-- 카카오 유저 정보 추가입력 -->
+    <update id="kakaoUserInfoUpdate" parameterType="UserDto">
+    	update user set user_nickname=#{user_nickname},user_hp=#{user_hp},user_birth=#{user_birth},user_addr=#{user_addr} where user_num=#{user_num}
+    </update>
+    
+    <!-- num에 대한 데이터 -->
+    <select id="getUserNumData" parameterType="String" resultType="UserDto">
+    	select * from user where user_num=#{user_num}
+    </select>
+    
+    <select id="findEmailUserNum" parameterType="String" resultType="String">
+    	select user_num from user where user_email=#{user_email}
+    </select>
+    
+    <!-- 프로필 수정 -->
+    <update id="userProfileUpdate" parameterType="UserDto">
+    	update user set user_nickname=#{user_nickname},user_hp=#{user_hp},user_birth=#{user_birth},user_addr=#{user_addr} 
+	    	<if test="user_photo!=null">
+	    	,user_photo=#{user_photo}
+	    	</if>
+    	where user_num=#{user_num}
+    </update>
+    <select id="isUserEmail" parameterType="String" resultType="int">
+        select count(*) from user where user_email=#{user_email}
+    </select>
+    <update id="updateTemporarilyPass" parameterType="Map">
+        update user set user_pass=#{user_pass} where user_email=#{user_email}
+    </update>
+
+    <select id="getName" parameterType="String" resultType="String">
+        select user_name from user where user_email=#{user_email}
+
+    </select>
+
+    <select id="getUserPhoto" parameterType="String" resultType="String">
+        select user_photo from user where user_email=#{user_email}
+    </select>
 
 </mapper>

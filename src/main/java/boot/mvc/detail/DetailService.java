@@ -45,33 +45,27 @@ public class DetailService implements DetailServiceInter {
 	}
 
 	@Override
-	public List<Map<String, Object>> getPurchaseData(String item_num) {
-		// TODO Auto-generated
-		// method stub
-		return mapper.getPurchaseData(item_num);
+	public List<Map<String, Object>> getOrderData(String item) {
+
+		return mapper.getOrderData(item);
 	}
 
 	@Override
-	public String getPurchaseRecentPriceAll(String item_num) {
-		// TODO Auto-generated
-		// method stub
-		return mapper.getPurchaseRecentPriceAll(item_num);
+	public int getOrderRecentPriceAll(String item_num) {
+		// TODO Auto-generated method stub
+		return mapper.getOrderRecentPriceAll(item_num);
 	}
 
 	@Override
-	public Integer getPurchaseRecentPriceSize(String item_num, String buy_size) {
+
+	public int getOrderRecentPriceSize(String item_num, String buy_size) {
+
 		Map<String, Object> map = new HashMap<>();
-		
+
 		map.put("item_num", item_num);
 		map.put("buy_size", buy_size);
-		
-		Integer recentPrice = mapper.getPurchaseRecentPriceSize(map);
 
-	    // 반환된 값이 null인 경우 0으로 대체
-	    if (recentPrice == null) {
-	        recentPrice = 0;
-	    }
-
-	    return recentPrice;
+		return mapper.getOrderRecentPriceSize(map);
 	}
+
 }

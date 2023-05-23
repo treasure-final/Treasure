@@ -23,46 +23,70 @@
 		from buy_bid
 		where item_num = #{item_num}
 		group by buy_size, buy_wishprice
-		order by buy_inputday desc
-
+		order by buy_wishprice desc
 	</select>
+
 	<!-- 구매 입찰 리스트(사이즈, 판매희망가, 수량) -->
 	<select id="getSellBidGroupedData" resultType="Map">
 		select sell_size, sell_wishprice, count(*) as count
 		from sell_bid
 		where item_num = #{item_num}
 		group by sell_size, sell_wishprice
-		order by sell_inputday desc
+		order by sell_wishprice desc
 	</select>
 
 	<!-- 체결 거래 리스트(사이즈, 거래가, 거래일) -->
-	<select id="getPurchaseData" resultType="Map" parameterType="String">
-		select b.buy_size, p.purchase_total_price, p.purchase_date
-		from purchase p
-		join buy_bid b
-		on b.buy_num = p.buy_bid_num
-		where p.item_num=#{item_num}
-		order by p.purchase_date desc
+	<!-- <select id="getOrderData" resultType="Map" parameterType="Map">
+       select size, wish_price, order_date
+       from order
+       where item_num=#{item_num}
+       <if test="size != '모든 사이즈'">
+          and size=#{size}
+       </if>
+       order by order_date desc
+    </select> -->
+
+	<select id="getOrderData" resultType="Map" parameterType="String">
+		select size, wish_price, order_date
+		from `order`
+		where item_num=#{item_num}
+		order by order_date desc
 	</select>
 
 	<!-- 최근 거래가(전체 사이즈) -->
-	<select id="getPurchaseRecentPriceAll" resultType="String">
-		select purchase_total_price from purchase where item_num=#{item_num} order by purchase_date desc limit 1
+	<select id="getOrderRecentPriceAll" resultType="int" parameterType="String">
+		select coalesce(
+					   (select wish_price
+						from `order` where item_num=#{item_num}
+						order by order_date desc limit 1),
+      0) as wish_price
 	</select>
 
 	<!-- 최근 거래가(특정 사이즈) -->
-	<select id="getPurchaseRecentPriceSize" resultType="int" parameterType="Map">
-		select p.purchase_total_price
-		from purchase p
-		join buy_bid b
-		on b.buy_num = p.buy_bid_num
-		where p.item_num=#{item_num} and b.buy_size=#{buy_size}
-		order by p.purchase_date desc limit 1
+	<select id="getOrderRecentPriceSize" resultType="int" parameterType="Map">
+		select coalesce(
+					   (select wish_price
+						from order
+						where item_num=#{item_num} and size=#{size}
+           order by order_date desc limit 1),
+        0) as wish_price
+	</select>
+
+	<!-- 최근 거래가(특정 사이즈) -->
+	<select id="getPurchaseRecentPriceSize" resultType="int">
+		select wish_price
+		from order
+		where item_num=#{item_num} and size=#{size} order by order_date desc limit 1
+>>>>>>> 4a6b9b8410cce1104f88b0ec4b45414c23028f99
 	</select>
 
 	<!-- 스타일 -->
 	<select id="getItemStyleList" resultType="BoardDto">
 		select * from board where item_num=#{item_num}
 	</select>
+
+	<!-- <select id="getPurchaseData" resultType="PurchaseDto" parameterType="Map">
+         select * from purchase where user_num=#{user_num} and item_num=#{item_num}
+     </select> -->
 
 </mapper>

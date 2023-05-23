@@ -89,4 +89,21 @@ public class UserService implements UserServiceInter {
         mapper.updateTemporarilyPass(map);
     }
 
+
+    //스타일리스트에서 씀
+	@Override
+	public String getName(String user_email) {
+		// TODO Auto-generated method stub
+		return mapper.getName(user_email);
+	}
+
+	@Override
+	public String getUserPhoto(String user_email) {
+		// TODO Auto-generated method stub
+		return mapper.getUserPhoto(user_email);
+	}
+
+	
+
+
 }

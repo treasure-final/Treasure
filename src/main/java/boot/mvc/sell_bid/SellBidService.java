@@ -26,6 +26,10 @@ public class SellBidService implements SellBidServiceInter {
 	@Override
 	public List<SellBidDto> getSellPriceListByitemNum(String item_num) {
 		return mapper.getSellPriceListByitemNum(item_num);
+  }
+  
+	@Override
+	public SellBidDto getSellBidData(String user_num, String sell_num) {
+	    return mapper.getSellBidData(user_num, sell_num);
 	}
-	
 }

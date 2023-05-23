@@ -116,18 +116,42 @@ select {
 }
 </style>
 <script type="text/javascript">
-	$(function() {
-		var item_num = $(".item_num").val();
+		$(function() {
+			var item_num = $(".item_num").val();
 
+<<<<<<< HEAD
 		// 모달창에서 사이즈 선택
 		$(".sizeselect").click(function() {
 			var buy_size = $(this).find(".size").text();
 			var selectElement2 = document.getElementById("size-select2");
+=======
+			sendPurchaseRecentPriceSizeRequest(item_num, "모든 사이즈");
 
-			$(".size-text").text(buy_size);
-			$(".size-select").val(buy_size);
-			$("#sizeModal").modal("hide");
+			// 모달창에서 사이즈 선택
+			$(".sizeselect").click(function() {
+				var buy_size = $(this).find(".size").text();
 
+				$(".size-text").text(buy_size);
+				$(".size-select").val(buy_size);
+				$("#sizeModal").modal("hide");
+
+				sendPurchaseRecentPriceSizeRequest(item_num, buy_size);
+			});
+
+			$('#size-select2').change(function() {
+				var selectedSize = $(this).val();
+				$('.col-6 span').each(function() {
+					if ($(this).text() == selectedSize) {
+						$(this).closest('.d-flex').show();
+					} else {
+						$(this).closest('.d-flex').hide();
+					}
+				});
+			});
+>>>>>>> 4a6b9b8410cce1104f88b0ec4b45414c23028f99
+
+
+<<<<<<< HEAD
 			// 선택한 값을 두 번째 select 요소에 옵션으로 추가
 			var option = document.createElement("option");
 			option.value = buy_size;
@@ -138,9 +162,11 @@ select {
 			selectElement2.value = buy_size;
 
 			sendPurchaseRecentPriceSizeRequest1(item_num, buy_size);
+=======
+>>>>>>> 4a6b9b8410cce1104f88b0ec4b45414c23028f99
 		});
-	});
 
+<<<<<<< HEAD
 	function sendPurchaseRecentPriceSizeRequest1(item_num, buy_size) {
 		$.ajax({
 			url : '/item/getPurchaseRecentPriceSize',
@@ -171,26 +197,69 @@ select {
 
 		var selectedValue = selectElement.value;
 		var sizeTextElement = document.querySelector(".size-text");
+=======
+		function sendPurchaseRecentPriceSizeRequest(item_num, buy_size) {
 
-		// 선택된 값을 size-text 요소에 삽입
-		sizeTextElement.innerHTML = selectedValue;
+			$.ajax({
+				url : '/item/getOrderRecentPriceSize',
+				type : 'GET',
+				data : {
+					"item_num" : item_num,
+					"buy_size" : buy_size
+				},
+				dataType : 'text',
+				success : function(response) {
+					// 응답 데이터 처리
+					// response는 서버에서 반환하는 최근 거래 가격
+>>>>>>> 4a6b9b8410cce1104f88b0ec4b45414c23028f99
 
-		// 선택한 값을 두 번째 select 요소에 옵션으로 추가
-		var option = document.createElement("option");
-		option.value = selectedValue;
-		option.text = selectedValue;
-		selectElement2.add(option);
+					if(response != 0) {
+						// 숫자 포맷팅 및 업데이트
+						const formatter = new Intl.NumberFormat('ko-KR');
+						const formattedValue = formatter.format(Number(response));
+						$(".ChangeRecentPriceSize").text(formattedValue);
+					} else
+						$(".ChangeRecentPriceSize").text("-");
+				},
+				error : function(xhr, status, error) {
+					// 에러 처리
+					console.error("AJAX 요청 에러:", error);
+				}
+			});
+		}
 
-		// 선택한 값을 두 번째 select 요소에서 선택 상태로 설정
-		selectElement2.value = selectedValue;
-	}
+		function handleSizeSelect() {
+			var selectElement = document.getElementById("size-select");
+			var selectElement2 = document.getElementById("size-select2");
+			var selectedValue = selectElement.value;
+			var sizeTextElement = document.querySelector(".size-text");
+
+			// 선택된 값을 size-text 요소에 삽입
+			sizeTextElement.innerHTML = selectedValue;
+
+			// 선택한 값을 두 번째 select 요소에 옵션으로 추가
+			var option = document.createElement("option");
+			option.value = selectedValue;
+			option.text = selectedValue;
+			selectElement2.add(option);
+
+			// 선택한 값을 두 번째 select 요소에서 선택 상태로 설정
+			selectElement2.value = selectedValue;
+
+			alert(selectedValue);
+			$("#size_" + selectedValue).hide();
+
+			// size_${g.buy_size }
+			// 선택한 값을 두 번째 select 요소에서 선택 상태로 설정
+			selectElement2.value = selectedValue;
+		}
+	</script>
 </script>
 </head>
 <body>
 	<c:set var="root" value="<%=request.getContextPath()%>" />
 	<div class="container mb-5">
 		<input type="hidden" class="item_num" value=${item_num }>
-		<input type="hidden" class="buy_size" value=${buy_size }>
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="page-content" style="padding: 1rem; height: 89vh;">
@@ -202,12 +271,6 @@ select {
 										<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0"
 											class="active" aria-current="true" aria-label="Slide 1"
 										></button>
-										<!-- <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
-											aria-label="Slide 2"
-										></button>
-										<button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
-											aria-label="Slide 3"
-										></button> -->
 									</div>
 									<div class="carousel-inner">
 										<div class="carousel-item active" data-bs-interval="4000" data-bs-pause="hover">
@@ -216,32 +279,32 @@ select {
 											>
 										</div>
 										<%-- <div class="carousel-item" data-bs-interval="4000" data-bs-pause="hover">
-											<img src="/assets/images/${Ddto.item_image }" class="d-block w-100" alt="..."
+                                       <img src="/assets/images/${Ddto.item_image }" class="d-block w-100" alt="..."
 
-												style="position: relative; bottom: 50px"
-											>
-											<div class="carousel-caption d-none d-md-block"></div>
-										</div>
-										<div class="carousel-item" data-bs-interval="4000" data-bs-pause="hover">
-											<img src="/assets/images/1.png" class="d-block w-100" alt="..."
-												style="position: relative; bottom: 50px"
-											>
-											<div class="carousel-caption d-none d-md-block"></div>
+                                          style="position: relative; bottom: 50px"
+                                       >
+                                       <div class="carousel-caption d-none d-md-block"></div>
+                                    </div>
+                                    <div class="carousel-item" data-bs-interval="4000" data-bs-pause="hover">
+                                       <img src="/assets/images/1.png" class="d-block w-100" alt="..."
+                                          style="position: relative; bottom: 50px"
+                                       >
+                                       <div class="carousel-caption d-none d-md-block"></div>
 
-										</div> --%>
+                                    </div> --%>
 									</div>
 									<!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
-										data-bs-slide="prev"
-									>
-										<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-										<span class="visually-hidden">Previous</span>
-									</button>
-									<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
-										data-bs-slide="next"
-									>
-										<span class="carousel-control-next-icon" aria-hidden="true"></span>
-										<span class="visually-hidden">Next</span>
-									</button> -->
+                                   data-bs-slide="prev"
+                                >
+                                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                   <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
+                                   data-bs-slide="next"
+                                >
+                                   <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                   <span class="visually-hidden">Next</span>
+                                </button> -->
 								</div>
 							</div>
 						</div>
@@ -320,28 +383,107 @@ select {
 														<div class="modal-body" style="padding-left: 2.1rem;">
 															<div class="d-flex row col-12">
 																<!-- 카테고리 별 사이즈 -->
-																<div class="col-4 p-2">
-																	<button type="button" class="btn btn-outline-detail btn-lg w-100 sizeselect"
-																		style="height: 10vh;"
-																	>
-																		<span class="size" style="font-size: 0.9rem;">모든 사이즈</span>
-																		<br>
-																		<span style="font-size: 0.7rem;">가격</span>
-																	</button>
-																</div>
-																<c:if test="${Ddto.item_category == 'shoes'}">
-																	<c:forEach var="size" begin="220" end="320" step="5">
+																<c:if test="${Ddto.item_category != 'bag'}">
+																	<div class="col-4 p-2">
+																		<button type="button" class="btn btn-outline-detail btn-lg w-100 sizeselect"
+																			style="height: 10vh;"
+																		>
+																			<span class="size" style="font-size: 0.9rem;">모든 사이즈</span>
+																			<br>
+																			<c:if test="${minPrice != 0}">
+																				<span style="font-size: 0.7rem; color: #ec0b00;">
+																					<fmt:formatNumber value="${minPrice}" type="number" />
+																				</span>
+																			</c:if>
+																			<c:if test="${minPrice == 0}">
+																				<span style="font-size: 0.7rem; color: black;">구매입찰</span>
+																			</c:if>
+																		</button>
+																	</div>
+																</c:if>
+																<c:choose>
+																	<c:when test="${Ddto.item_category == 'shoes'}">
+																		<c:forEach var="size" begin="220" end="270" step="5">
+																			<div class="col-4 p-2">
+																				<button type="button" class="btn btn-outline-detail btn-lg w-100 sizeselect"
+																					style="height: 10vh;"
+																				>
+																					<span class="size" style="font-size: 0.9rem; margin-bottom: 1rem;">${size}</span>
+																					<br>
+																					<c:if test="${priceList.size() != 0}">
+																						<c:forEach var="dto" items="${priceList }">
+																							<c:if test="${dto.sell_size == size}">
+																								<span style="font-size: 0.7rem; color: #ec0b00;">
+																									<fmt:formatNumber value="${dto.sell_wishprice}" type="number" />
+																								</span>
+																							</c:if>
+																							<c:if test="${dto.sell_size != size}">
+																								<span style="font-size: 0.7rem; color: black;">구매입찰</span>
+																							</c:if>
+																						</c:forEach>
+																					</c:if>
+																					<c:if test="${priceList.size() == 0}">
+																						<span style="font-size: 0.7rem; color: black;">구매입찰</span>
+																					</c:if>
+																				</button>
+																			</div>
+																		</c:forEach>
+																	</c:when>
+																	<c:when test="${Ddto.item_category == 'bag'}">
 																		<div class="col-4 p-2">
 																			<button type="button" class="btn btn-outline-detail btn-lg w-100 sizeselect"
 																				style="height: 10vh;"
 																			>
-																				<span class="size" style="font-size: 0.9rem; margin-bottom: 1rem;">${size}</span>
+																				<span class="size" style="font-size: 0.9rem; margin-bottom: 1rem;">ONE
+																					SIZE</span>
 																				<br>
-																				<span style="font-size: 0.7rem;">가격</span>
+																				<c:if test="${priceList.size() != 0}">
+																					<c:forEach var="dto" items="${priceList }">
+																						<c:if test="${dto.sell_size == size}">
+																							<span style="font-size: 0.7rem; color: #ec0b00;">
+																								<fmt:formatNumber value="${dto.sell_wishprice}" type="number" />
+																							</span>
+																						</c:if>
+																						<c:if test="${dto.sell_size != size}">
+																							<span style="font-size: 0.7rem; color: black;">구매입찰</span>
+																						</c:if>
+																					</c:forEach>
+																				</c:if>
+																				<c:if test="${priceList.size() == 0}">
+																					<span style="font-size: 0.7rem; color: black;">구매입찰</span>
+																				</c:if>
 																			</button>
 																		</div>
-																	</c:forEach>
-																</c:if>
+																	</c:when>
+																	<c:otherwise>
+																		<c:set var="otherSize">XS,S,M,L,XL,XXL,XXXL</c:set>
+																		<c:forEach var="size" items="${otherSize}" varStatus="i">
+																			<div class="col-4 p-2">
+																				<button type="button" class="btn btn-outline-detail btn-lg w-100 sizeselect"
+																					style="height: 10vh;"
+																				>
+																					<span class="size" style="font-size: 0.9rem; margin-bottom: 1rem;">${size}</span>
+																					<br>
+																					<c:if test="${priceList.size() != 0}">
+																						<c:forEach var="dto" items="${priceList }">
+																							<c:if test="${dto.sell_size == size}">
+																								<span style="font-size: 0.7rem; color: #ec0b00;">
+																									<fmt:formatNumber value="${dto.sell_wishprice}" type="number" />
+																								</span>
+																							</c:if>
+																							<c:if test="${dto.sell_size != size}">
+																								<span style="font-size: 0.7rem; color: black;">구매입찰</span>
+																							</c:if>
+																						</c:forEach>
+																					</c:if>
+																					<c:if test="${priceList.size() == 0}">
+																						<span style="font-size: 0.7rem; color: black;">구매입찰</span>
+																					</c:if>
+																				</button>
+																			</div>
+																		</c:forEach>
+																	</c:otherwise>
+																</c:choose>
 															</div>
 														</div>
 													</div>
@@ -357,17 +499,17 @@ select {
 										<div class="heading-section col-3">
 											<span style="font-size: 1.1em; float: right;">
 												<b class="ChangeRecentPriceSize">
-													<fmt:formatNumber value="${getPurchaseRecentPriceAll }" />
+													<fmt:formatNumber value="" />
 												</b>
 												<b>원</b>
 											</span>
-											<span style="font-size: 0.8em; float: right; color: green">
-												<i class="fa fa-caret-down me-1"></i>
-												<span>3,000</span>
-												원 (
-												<span>-1.3</span>
-												%)
-											</span>
+											<!-- <span style="font-size: 0.8em; float: right; color: green">
+                                           <i class="fa fa-caret-down me-1"></i>
+                                           <span>3,000</span>
+                                           원 (
+                                           <span>-1.3</span>
+                                           %)
+                                        </span> -->
 										</div>
 									</div>
 									<!-- 시세 -->
@@ -383,9 +525,22 @@ select {
 												onchange="handleSizeSelect()"
 											>
 												<option>모든 사이즈</option>
-												<c:forEach var="size" begin="220" end="320" step="5">
-													<option value="${size}">${size}</option>
-												</c:forEach>
+												<c:choose>
+													<c:when test="${Ddto.item_category == 'shoes'}">
+														<c:forEach var="size" begin="220" end="270" step="5">
+															<option value="${size}">${size}</option>
+														</c:forEach>
+													</c:when>
+													<c:when test="${Ddto.item_category == 'bag'}">
+														<option value="ONE SIZE">ONE SIZE</option>
+													</c:when>
+													<c:otherwise>
+														<c:set var="otherSize">XS,S,M,L,XL,XXL,XXXL</c:set>
+														<c:forEach var="size" items="${otherSize}" varStatus="i">
+															<option value="${size}">${size}</option>
+														</c:forEach>
+													</c:otherwise>
+												</c:choose>
 											</select>
 										</div>
 									</div>
@@ -431,335 +586,335 @@ select {
 															<canvas id="myChart1" height="100"></canvas>
 														</div>
 														<script>
-															function addZero(i) {
-																var rtn = i + 100;
-																return rtn.toString().replace("1", "/");
-															}
-															var monthList = [];
-															var monthData = [];
-															var today = new Date();
-															for (var i = 30; i >= 0; i--) {
-																var dt = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
-																var year = dt.getFullYear();
-																var mon = addZero(dt.getMonth() + 1);
-																var day = addZero(dt.getDate());
-																var format = year + mon + day;
-																monthList.push(format);
-																monthData.push(Math.floor(Math.random() * 300000));
-															}
+														function addZero(i) {
+															var rtn = i + 100;
+															return rtn.toString().replace("1", "/");
+														}
+														var monthList = [];
+														var monthData = [];
+														var today = new Date();
+														for (var i = 30; i >= 0; i--) {
+															var dt = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
+															var year = dt.getFullYear();
+															var mon = addZero(dt.getMonth() + 1);
+															var day = addZero(dt.getDate());
+															var format = year + mon + day;
+															monthList.push(format);
+															monthData.push(Math.floor(Math.random() * 300000));
+														}
 
-															const ctx = document.getElementById('myChart1').getContext('2d');
-															const myChart = new Chart(ctx, {
-																type : 'line',
-																data : {
-																	labels : monthList,
-																	datasets : [ {
-																		data : monthData,
-																		borderColor : 'rgba(255, 99, 132, 1)',
-																		borderWidth : 1,
-																		pointStyle : false
-																	} ]
-																},
+														const ctx = document.getElementById('myChart1').getContext('2d');
+														const myChart = new Chart(ctx, {
+															type : 'line',
+															data : {
+																labels : monthList,
+																datasets : [ {
+																	data : monthData,
+																	borderColor : 'rgba(255, 99, 132, 1)',
+																	borderWidth : 1,
+																	pointStyle : false
+																} ]
+															},
 
-																options : {
-																	responsive : false,
-																	scales : {
-																		x : {
-																			ticks : {
-																				maxRotation : 0,
-																			},
-																			display : false,
-																			grid : {
-																				display : false
-																			}
+															options : {
+																responsive : false,
+																scales : {
+																	x : {
+																		ticks : {
+																			maxRotation : 0,
 																		},
-																		y : {
-																			position : 'right',// `axis` is determined by the position as `'y'`
-
-																			grid : {
-																				display : false
-																			}
-																		}
-
-																	},
-																	responsive : true,
-																	plugins : {
-																		legend : {
+																		display : false,
+																		grid : {
 																			display : false
 																		}
+																	},
+																	y : {
+																		position : 'right',// `axis` is determined by the position as `'y'`
 
+																		grid : {
+																			display : false
+																		}
 																	}
+
+																},
+																responsive : true,
+																plugins : {
+																	legend : {
+																		display : false
+																	}
+
 																}
-															});
-														</script>
+															}
+														});
+													</script>
 													</div>
 													<div class="tab-pane fade" id="threemonth" role="tabpanel">
 														<div style="width: 550px; margin-left: 0px">
 															<canvas id="myChart3" height="100"></canvas>
 														</div>
 														<script>
-															function addZero(i) {
-																var rtn = i + 100;
-																return rtn.toString().replace("1", "/");
-															}
-															var monthList = [];
-															var monthData = [];
-															var today = new Date();
-															for (var i = 90; i >= 0; i--) {
-																var dt = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
-																var year = dt.getFullYear();
-																var mon = addZero(dt.getMonth() + 1);
-																var day = addZero(dt.getDate());
-																var format = year + mon + day;
-																monthList.push(format);
-																monthData.push(Math.floor(Math.random() * 300000));
-															}
+														function addZero(i) {
+															var rtn = i + 100;
+															return rtn.toString().replace("1", "/");
+														}
+														var monthList = [];
+														var monthData = [];
+														var today = new Date();
+														for (var i = 90; i >= 0; i--) {
+															var dt = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
+															var year = dt.getFullYear();
+															var mon = addZero(dt.getMonth() + 1);
+															var day = addZero(dt.getDate());
+															var format = year + mon + day;
+															monthList.push(format);
+															monthData.push(Math.floor(Math.random() * 300000));
+														}
 
-															const ctx3 = document.getElementById('myChart3').getContext('2d');
-															const myChart3 = new Chart(ctx3, {
-																type : 'line',
-																data : {
-																	labels : monthList,
-																	datasets : [ {
-																		data : monthData,
-																		borderColor : 'rgba(255, 99, 132, 1)',
-																		borderWidth : 1,
-																		pointStyle : false
-																	} ]
-																},
+														const ctx3 = document.getElementById('myChart3').getContext('2d');
+														const myChart3 = new Chart(ctx3, {
+															type : 'line',
+															data : {
+																labels : monthList,
+																datasets : [ {
+																	data : monthData,
+																	borderColor : 'rgba(255, 99, 132, 1)',
+																	borderWidth : 1,
+																	pointStyle : false
+																} ]
+															},
 
-																options : {
-																	responsive : false,
-																	scales : {
-																		x : {
-																			ticks : {
-																				maxRotation : 0,
-																			},
-																			display : false,
-																			grid : {
-																				display : false
-																			}
+															options : {
+																responsive : false,
+																scales : {
+																	x : {
+																		ticks : {
+																			maxRotation : 0,
 																		},
-																		y : {
-																			position : 'right',// `axis` is determined by the position as `'y'`
-
-																			grid : {
-																				display : false
-																			}
-																		}
-
-																	},
-																	responsive : true,
-																	plugins : {
-																		legend : {
+																		display : false,
+																		grid : {
 																			display : false
 																		}
+																	},
+																	y : {
+																		position : 'right',// `axis` is determined by the position as `'y'`
 
+																		grid : {
+																			display : false
+																		}
 																	}
+
+																},
+																responsive : true,
+																plugins : {
+																	legend : {
+																		display : false
+																	}
+
 																}
-															});
-														</script>
+															}
+														});
+													</script>
 													</div>
 													<div class="tab-pane fade" id="sixmonth" role="tabpanel">
 														<div style="width: 550px; margin-left: 0px">
 															<canvas id="myChart6" height="100"></canvas>
 														</div>
 														<script>
-															function addZero(i) {
-																var rtn = i + 100;
-																return rtn.toString().replace("1", "/");
-															}
-															var monthList = [];
-															var monthData = [];
-															var today = new Date();
-															for (var i = 189; i >= 0; i--) {
-																var dt = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
-																var year = dt.getFullYear();
-																var mon = addZero(dt.getMonth() + 1);
-																var day = addZero(dt.getDate());
-																var format = year + mon + day;
-																monthList.push(format);
-																monthData.push(Math.floor(Math.random() * 300000));
-															}
+														function addZero(i) {
+															var rtn = i + 100;
+															return rtn.toString().replace("1", "/");
+														}
+														var monthList = [];
+														var monthData = [];
+														var today = new Date();
+														for (var i = 189; i >= 0; i--) {
+															var dt = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
+															var year = dt.getFullYear();
+															var mon = addZero(dt.getMonth() + 1);
+															var day = addZero(dt.getDate());
+															var format = year + mon + day;
+															monthList.push(format);
+															monthData.push(Math.floor(Math.random() * 300000));
+														}
 
-															const ctx6 = document.getElementById('myChart6').getContext('2d');
-															const myChart6 = new Chart(ctx6, {
-																type : 'line',
-																data : {
-																	labels : monthList,
-																	datasets : [ {
-																		data : monthData,
-																		borderColor : 'rgba(255, 99, 132, 1)',
-																		borderWidth : 1,
-																		pointStyle : false
-																	} ]
-																},
+														const ctx6 = document.getElementById('myChart6').getContext('2d');
+														const myChart6 = new Chart(ctx6, {
+															type : 'line',
+															data : {
+																labels : monthList,
+																datasets : [ {
+																	data : monthData,
+																	borderColor : 'rgba(255, 99, 132, 1)',
+																	borderWidth : 1,
+																	pointStyle : false
+																} ]
+															},
 
-																options : {
-																	responsive : false,
-																	scales : {
-																		x : {
-																			ticks : {
-																				maxRotation : 0,
-																			},
-																			display : false,
-																			grid : {
-																				display : false
-																			}
+															options : {
+																responsive : false,
+																scales : {
+																	x : {
+																		ticks : {
+																			maxRotation : 0,
 																		},
-																		y : {
-																			position : 'right',// `axis` is determined by the position as `'y'`
-
-																			grid : {
-																				display : false
-																			}
-																		}
-
-																	},
-																	responsive : true,
-																	plugins : {
-																		legend : {
+																		display : false,
+																		grid : {
 																			display : false
 																		}
+																	},
+																	y : {
+																		position : 'right',// `axis` is determined by the position as `'y'`
 
+																		grid : {
+																			display : false
+																		}
 																	}
+
+																},
+																responsive : true,
+																plugins : {
+																	legend : {
+																		display : false
+																	}
+
 																}
-															});
-														</script>
+															}
+														});
+													</script>
 													</div>
 													<div class="tab-pane fade" id="oneyear" role="tabpanel">
 														<div style="width: 550px; margin-left: 0px">
 															<canvas id="myChart12" height="100"></canvas>
 														</div>
 														<script>
-															function addZero(i) {
-																var rtn = i + 100;
-																return rtn.toString().replace("1", "/");
-															}
-															var monthList = [];
-															var monthData = [];
-															var today = new Date();
-															for (var i = 365; i >= 0; i--) {
-																var dt = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
-																var year = dt.getFullYear();
-																var mon = addZero(dt.getMonth() + 1);
-																var day = addZero(dt.getDate());
-																var format = year + mon + day;
-																monthList.push(format);
-																monthData.push(Math.floor(Math.random() * 300000));
-															}
+														function addZero(i) {
+															var rtn = i + 100;
+															return rtn.toString().replace("1", "/");
+														}
+														var monthList = [];
+														var monthData = [];
+														var today = new Date();
+														for (var i = 365; i >= 0; i--) {
+															var dt = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
+															var year = dt.getFullYear();
+															var mon = addZero(dt.getMonth() + 1);
+															var day = addZero(dt.getDate());
+															var format = year + mon + day;
+															monthList.push(format);
+															monthData.push(Math.floor(Math.random() * 300000));
+														}
 
-															const ctx12 = document.getElementById('myChart12').getContext('2d');
-															const myChart12 = new Chart(ctx12, {
-																type : 'line',
-																data : {
-																	labels : monthList,
-																	datasets : [ {
-																		data : monthData,
-																		borderColor : 'rgba(255, 99, 132, 1)',
-																		borderWidth : 1,
-																		pointStyle : false
-																	} ]
-																},
+														const ctx12 = document.getElementById('myChart12').getContext('2d');
+														const myChart12 = new Chart(ctx12, {
+															type : 'line',
+															data : {
+																labels : monthList,
+																datasets : [ {
+																	data : monthData,
+																	borderColor : 'rgba(255, 99, 132, 1)',
+																	borderWidth : 1,
+																	pointStyle : false
+																} ]
+															},
 
-																options : {
-																	responsive : false,
-																	scales : {
-																		x : {
-																			ticks : {
-																				maxRotation : 0,
-																			},
-																			display : false,
-																			grid : {
-																				display : false
-																			}
+															options : {
+																responsive : false,
+																scales : {
+																	x : {
+																		ticks : {
+																			maxRotation : 0,
 																		},
-																		y : {
-																			position : 'right',// `axis` is determined by the position as `'y'`
-
-																			grid : {
-																				display : false
-																			}
-																		}
-
-																	},
-																	responsive : true,
-																	plugins : {
-																		legend : {
+																		display : false,
+																		grid : {
 																			display : false
 																		}
+																	},
+																	y : {
+																		position : 'right',// `axis` is determined by the position as `'y'`
 
+																		grid : {
+																			display : false
+																		}
 																	}
+
+																},
+																responsive : true,
+																plugins : {
+																	legend : {
+																		display : false
+																	}
+
 																}
-															});
-														</script>
+															}
+														});
+													</script>
 													</div>
 													<div class="tab-pane fade" id="all" role="tabpanel">
 														<div style="width: 550px; margin-left: 0px">
 															<canvas id="myChartAll" height="100"></canvas>
 														</div>
 														<script>
-															function addZero(i) {
-																var rtn = i + 100;
-																return rtn.toString().replace("1", "/");
-															}
-															var monthList = [];
-															var monthData = [];
-															var today = new Date();
-															for (var i = 365; i >= 0; i--) {
-																var dt = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
-																var year = dt.getFullYear();
-																var mon = addZero(dt.getMonth() + 1);
-																var day = addZero(dt.getDate());
-																var format = year + mon + day;
-																monthList.push(format);
-																monthData.push(Math.floor(Math.random() * 300000));
-															}
+														function addZero(i) {
+															var rtn = i + 100;
+															return rtn.toString().replace("1", "/");
+														}
+														var monthList = [];
+														var monthData = [];
+														var today = new Date();
+														for (var i = 365; i >= 0; i--) {
+															var dt = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
+															var year = dt.getFullYear();
+															var mon = addZero(dt.getMonth() + 1);
+															var day = addZero(dt.getDate());
+															var format = year + mon + day;
+															monthList.push(format);
+															monthData.push(Math.floor(Math.random() * 300000));
+														}
 
-															const ctxAll = document.getElementById('myChartAll').getContext('2d');
-															const myChartAll = new Chart(ctxAll, {
-																type : 'line',
-																data : {
-																	labels : monthList,
-																	datasets : [ {
-																		data : monthData,
-																		borderColor : 'rgba(255, 99, 132, 1)',
-																		borderWidth : 1,
-																		pointStyle : false
-																	} ]
-																},
+														const ctxAll = document.getElementById('myChartAll').getContext('2d');
+														const myChartAll = new Chart(ctxAll, {
+															type : 'line',
+															data : {
+																labels : monthList,
+																datasets : [ {
+																	data : monthData,
+																	borderColor : 'rgba(255, 99, 132, 1)',
+																	borderWidth : 1,
+																	pointStyle : false
+																} ]
+															},
 
-																options : {
-																	responsive : false,
-																	scales : {
-																		x : {
-																			ticks : {
-																				maxRotation : 0,
-																			},
-																			display : false,
-																			grid : {
-																				display : false
-																			}
+															options : {
+																responsive : false,
+																scales : {
+																	x : {
+																		ticks : {
+																			maxRotation : 0,
 																		},
-																		y : {
-																			position : 'right',// `axis` is determined by the position as `'y'`
-
-																			grid : {
-																				display : false
-																			}
-																		}
-
-																	},
-																	responsive : true,
-																	plugins : {
-																		legend : {
+																		display : false,
+																		grid : {
 																			display : false
 																		}
+																	},
+																	y : {
+																		position : 'right',// `axis` is determined by the position as `'y'`
 
+																		grid : {
+																			display : false
+																		}
 																	}
+
+																},
+																responsive : true,
+																plugins : {
+																	legend : {
+																		display : false
+																	}
+
 																}
-															});
-														</script>
+															}
+														});
+													</script>
 													</div>
 												</div>
 											</div>
@@ -804,40 +959,47 @@ select {
 																</div>
 															</div>
 															<hr class="mt-0 mb-0">
-															<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
-																<div class="col-6">
-																	<c:forEach items="${getPurchaseData }" var="p" end="4">
+															<c:forEach items="${getOrderData }" var="p" end="4">
+																<div class="d-flex" id="size_${p.buy_size }"
+																	style="padding: 5px; text-align: center; margin-right: 20px;"
+																>
+																	<div class="col-6">
 																		<span style="font-size: 0.9em; color: #666; margin-right: 25px">${p.buy_size }</span>
-																		<br>
-																	</c:forEach>
-																	<br>
-																</div>
-																<div class="col-4">
-																	<c:forEach items="${getPurchaseData }" var="p" end="4">
+																	</div>
+																	<div class="col-4">
 																		<span style="font-size: 0.9em; color: #666; float: right; margin-right: 80px">
-																			<fmt:formatNumber value="${p.purchase_total_price }">
-																			</fmt:formatNumber>
+																			<fmt:formatNumber value="${p.purchase_wishprice }" />
 																			원
 																		</span>
-																		<br>
-																	</c:forEach>
-																	<br>
-																</div>
-																<div class="col-2">
-																	<c:forEach items="${getPurchaseData }" var="p" end="4">
+																	</div>
+																	<div class="col-2">
 																		<span style="font-size: 0.9em; color: #666; margin-right: 30px">
 																			<fmt:parseDate var="dateFormatter" value="${p.purchase_date}"
 																				pattern="yyyy-MM-dd'T'HH:mm:ss"
 																			/>
 																			<fmt:formatDate value="${dateFormatter }" pattern="yyyy/MM/dd" />
 																		</span>
-																		<br>
-																	</c:forEach>
-																	<br>
+																	</div>
 																</div>
-															</div>
+															</c:forEach>
+															<c:if test="${getOrderData.size() < 5}">
+																<c:forEach begin="1" end="${5 - getOrderData.size() }">
+																	<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px;">
+																		<div class="col-6">
+																			<span style="font-size: 0.9em; color: #666; margin-right: 25px">-</span>
+																		</div>
+																		<div class="col-4">
+																			<span style="font-size: 0.9em; color: #666; float: right; margin-right: 105px">
+																				- </span>
+																		</div>
+																		<div class="col-2">
+																			<span style="font-size: 0.9em; color: #666; margin-right: 20px"> - </span>
+																		</div>
+																	</div>
+																</c:forEach>
+															</c:if>
 														</div>
-														<div style="padding-top: 20px">
+														<div class="mt-4" style="padding-top: 20px">
 															<button type="button" class="btn btn-outline-detail w-100" data-bs-toggle="modal"
 																data-bs-target="#detailModal"
 															>체결 내역 더보기</button>
@@ -857,35 +1019,42 @@ select {
 																</div>
 															</div>
 															<hr class="mt-0 mb-0">
-															<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
-																<div class="col-6">
-																	<c:forEach items="${groupedSellData }" var="s" end="4">
+															<c:forEach items="${groupedSellData }" var="s" end="4">
+																<div class="d-flex" id="size_${s.sell_size }"
+																	style="padding: 5px; text-align: center; margin-right: 20px;"
+																>
+																	<div class="col-6">
 																		<span style="font-size: 0.9em; color: #666; margin-right: 25px">${s.sell_size }</span>
-																		<br>
-																	</c:forEach>
-																	<br>
-																</div>
-																<div class="col-4">
-																	<c:forEach items="${groupedSellData }" var="s" end="4">
+																	</div>
+																	<div class="col-4">
 																		<span style="font-size: 0.9em; color: #666; float: right; margin-right: 80px">
-																			<fmt:formatNumber value="${s.sell_wishprice }">
-																			</fmt:formatNumber>
+																			<fmt:formatNumber value="${s.sell_wishprice }" />
 																			원
 																		</span>
-																		<br>
-																	</c:forEach>
-																	<br>
-																</div>
-																<div class="col-2">
-																	<c:forEach items="${groupedSellData }" var="s" end="4">
+																	</div>
+																	<div class="col-2">
 																		<span style="font-size: 0.9em; color: #666; margin-right: 0px">${s.count }</span>
-																		<br>
-																	</c:forEach>
-																	<br>
+																	</div>
 																</div>
-															</div>
+															</c:forEach>
+															<c:if test="${groupedSellData.size() < 5}">
+																<c:forEach begin="1" end="${5 - groupedSellData.size() }">
+																	<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px;">
+																		<div class="col-6">
+																			<span style="font-size: 0.9em; color: #666; margin-right: 25px">-</span>
+																		</div>
+																		<div class="col-4">
+																			<span style="font-size: 0.9em; color: #666; float: right; margin-right: 105px">
+																				- </span>
+																		</div>
+																		<div class="col-2">
+																			<span style="font-size: 0.9em; color: #666; margin-right: 0px"> - </span>
+																		</div>
+																	</div>
+																</c:forEach>
+															</c:if>
 														</div>
-														<div style="padding-top: 20px">
+														<div class="mt-4" style="padding-top: 20px">
 															<button type="button" class="btn btn-outline-detail w-100" data-bs-toggle="modal"
 																data-bs-target="#detailModal"
 															>입찰 내역 더보기</button>
@@ -905,35 +1074,42 @@ select {
 																</div>
 															</div>
 															<hr class="mt-0 mb-0">
-															<div class="d-flex" style="padding: 5px; text-align: center;">
-																<div class="col-6">
-																	<c:forEach items="${groupedBuyData }" var="g" end="4">
+															<c:forEach items="${groupedBuyData }" var="g" end="4">
+																<div class="d-flex" id="size_${g.buy_size }"
+																	style="padding: 5px; text-align: center;"
+																>
+																	<div class="col-6">
 																		<span style="font-size: 0.9em; color: #666; margin-right: 30px">${g.buy_size }</span>
-																		<br>
-																	</c:forEach>
-																	<br>
-																</div>
-																<div class="col-4">
-																	<c:forEach items="${groupedBuyData }" var="g" end="4">
+																	</div>
+																	<div class="col-4">
 																		<span style="font-size: 0.9em; color: #666; float: right; margin-right: 100px">
-																			<fmt:formatNumber value="${g.buy_wishprice }">
-																			</fmt:formatNumber>
+																			<fmt:formatNumber value="${g.buy_wishprice }" />
 																			원
 																		</span>
-																		<br>
-																	</c:forEach>
-																	<br>
-																</div>
-																<div class="col-2">
-																	<c:forEach items="${groupedBuyData }" var="g" end="4">
+																	</div>
+																	<div class="col-2">
 																		<span style="font-size: 0.9em; color: #666; margin-right: 30px">${g.count }</span>
-																		<br>
-																	</c:forEach>
-																	<br>
+																	</div>
 																</div>
-															</div>
+															</c:forEach>
+															<c:if test="${groupedBuyData.size() < 5}">
+																<c:forEach begin="1" end="${5 - groupedBuyData.size() }">
+																	<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px;">
+																		<div class="col-6">
+																			<span style="font-size: 0.9em; color: #666; margin-right: 25px">-</span>
+																		</div>
+																		<div class="col-4">
+																			<span style="font-size: 0.9em; color: #666; float: right; margin-right: 105px">
+																				- </span>
+																		</div>
+																		<div class="col-2">
+																			<span style="font-size: 0.9em; color: #666; margin-right: 0px"> - </span>
+																		</div>
+																	</div>
+																</c:forEach>
+															</c:if>
 														</div>
-														<div style="padding-top: 20px">
+														<div class="mt-4" style="padding-top: 20px">
 															<button type="button" class="btn btn-outline-detail w-100" data-bs-toggle="modal"
 																data-bs-target="#detailModal"
 															>입찰 내역 더보기</button>
@@ -969,9 +1145,22 @@ select {
 																				style="border: 0px; font-size: 1em; float: right; color: #666;"
 																			>
 																				<option selected>모든 사이즈</option>
-																				<c:forEach var="size" begin="220" end="320" step="5">
-																					<option value="${size}">${size}</option>
-																				</c:forEach>
+																				<c:choose>
+																					<c:when test="${Ddto.item_category == 'shoes'}">
+																						<c:forEach var="size" begin="220" end="270" step="5">
+																							<option value="${size}">${size}</option>
+																						</c:forEach>
+																					</c:when>
+																					<c:when test="${Ddto.item_category == 'bag'}">
+																						<option value="ONE SIZE">ONE SIZE</option>
+																					</c:when>
+																					<c:otherwise>
+																						<c:set var="otherSize">XS,S,M,L,XL,XXL,XXXL</c:set>
+																						<c:forEach var="size" items="${otherSize}" varStatus="i">
+																							<option value="${size}">${size}</option>
+																						</c:forEach>
+																					</c:otherwise>
+																				</c:choose>
 																			</select>
 																		</div>
 																	</div>
@@ -1011,17 +1200,27 @@ select {
 																						</div>
 																					</div>
 																					<hr class="mt-0 mb-0">
-																					<div class="d-flex">
-																						<div class="col-6">
-																							<span style="font-size: 0.9em; color: #666;">265</span>
+																					<c:forEach items="${getOrderData }" var="p">
+																						<div class="d-flex" id="size_${p.buy_size }">
+																							<div class="col-6">
+																								<span style="font-size: 0.9em; color: #666;">${p.buy_size }</span>
+																							</div>
+																							<div class="col-3">
+																								<span style="font-size: 0.9em; color: #666;">
+																									<fmt:formatNumber value="${p.purchase_wishprice }" />
+																									원
+																								</span>
+																							</div>
+																							<div class="col-3">
+																								<span style="font-size: 0.9em; color: #666;">
+																									<fmt:parseDate var="dateFormatter" value="${p.purchase_date}"
+																										pattern="yyyy-MM-dd'T'HH:mm:ss"
+																									/>
+																									<fmt:formatDate value="${dateFormatter }" pattern="yyyy/MM/dd" />
+																								</span>
+																							</div>
 																						</div>
-																						<div class="col-3">
-																							<span style="font-size: 0.9em; color: #666;">174,000원</span>
-																						</div>
-																						<div class="col-3">
-																							<span style="font-size: 0.9em; color: #666;">23/05/02</span>
-																						</div>
-																					</div>
+																					</c:forEach>
 																				</div>
 																			</div>
 																			<div class="tab-pane fade" id="sellBidModal" role="tabpanel">
@@ -1038,17 +1237,22 @@ select {
 																						</div>
 																					</div>
 																					<hr class="mt-0 mb-0">
-																					<div class="d-flex">
-																						<div class="col-6">
-																							<span style="font-size: 0.9em; color: #666;">255</span>
+																					<c:forEach items="${groupedSellData }" var="s">
+																						<div class="d-flex" id="size_${p.buy_size }">
+																							<div class="col-6">
+																								<span style="font-size: 0.9em; color: #666;">${s.sell_size }</span>
+																							</div>
+																							<div class="col-3">
+																								<span style="font-size: 0.9em; color: #666;">
+																									<fmt:formatNumber value="${s.sell_wishprice }" />
+																									원
+																								</span>
+																							</div>
+																							<div class="col-3">
+																								<span style="font-size: 0.9em; color: #666; text-align: center;">${s.count }</span>
+																							</div>
 																						</div>
-																						<div class="col-4">
-																							<span style="font-size: 0.9em; color: #666;">154,000원</span>
-																						</div>
-																						<div class="col-2">
-																							<span style="font-size: 0.9em; color: #666;">1</span>
-																						</div>
-																					</div>
+																					</c:forEach>
 																				</div>
 																			</div>
 																			<div class="tab-pane fade" id="buyBidModal" role="tabpanel">
@@ -1065,17 +1269,22 @@ select {
 																						</div>
 																					</div>
 																					<hr class="mt-0 mb-0">
-																					<div class="d-flex">
-																						<div class="col-6">
-																							<span style="font-size: 0.9em; color: #666;">265</span>
+																					<c:forEach items="${groupedBuyData }" var="g">
+																						<div class="d-flex" id="size_${p.buy_size }">
+																							<div class="col-6">
+																								<span style="font-size: 0.9em; color: #666;">${g.buy_size }</span>
+																							</div>
+																							<div class="col-3">
+																								<span style="font-size: 0.9em; color: #666;">
+																									<fmt:formatNumber value="${g.buy_wishprice }" />
+																									원
+																								</span>
+																							</div>
+																							<div class="col-3" style="text-align: center;">
+																								<span style="font-size: 0.9em; color: #666; text-align: center;">${g.count }</span>
+																							</div>
 																						</div>
-																						<div class="col-4">
-																							<span style="font-size: 0.9em; color: #666;">153,000원</span>
-																						</div>
-																						<div class="col-2">
-																							<span style="font-size: 0.9em; color: #666;">1</span>
-																						</div>
-																					</div>
+																					</c:forEach>
 																				</div>
 																			</div>
 																		</div>

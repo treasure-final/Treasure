@@ -282,12 +282,12 @@
         function moveBidPage() {
             let hopePrice = $("#hopePrice").val();
             let deadline = parseInt(intDay);
-            location.href = 'order?item_num=${dto.item_num}&size=${size}&price=' + uncomma(hopePrice) + '&deadline=' + deadline + '&deliveryWay=${deliveryWay}'
+            location.href = 'order?item_num=${dto.item_num}&size=${size}&price=' + uncomma(hopePrice) + '&deadline=' + deadline + '&deliveryWay=${deliveryWay}' + '&buyType=구매입찰'
         }
 
         function moveImmediatePage() {
             let immediatePrice = $("#immediatePrice").text();
-            location.href = 'order?item_num=${dto.item_num}&size=${size}&price=' + uncomma(immediatePrice) + '&deliveryWay=${deliveryWay}'
+            location.href = 'order?item_num=${dto.item_num}&size=${size}&price=' + uncomma(immediatePrice) + '&deliveryWay=${deliveryWay}' + '&buyType=즉시구매'
         }
 
         function inputNumberFormat(obj) {
@@ -328,7 +328,7 @@
              style="border-top: 1px solid #b9b9b9; width: 90%; float: left; height: 40%;">
             <div class="price-info" align="center">
                 <div style="opacity: 0.7; font-size: 14px;">즉시 구매가</div>
-                169,000
+                ${price}
             </div>
             <div class="price-info" align="center" style="border-left: 1px solid #b9b9b9">
                 <div style="opacity: 0.7; font-size: 14px;">즉시 판매가</div>
@@ -345,8 +345,8 @@
     <div id="result-immediate" style="margin-left: 40px">
         <div style="font-size: 13px;">즉시 구매가</div>
         <div align="right" id="immediatePrice"
-             style="font-size: 20px; margin-right: 35px; margin-top: 10px; font-weight: bold">
-            169,000<span>원</span></div>
+             style="font-size: 20px; margin-right: 33px; margin-top: 10px; font-weight: bold">
+            ${price}<span>원</span></div>
 
         <div class="result-content"
              style="border-top: 1px solid #b9b9b9; width: 95%; height: 10%; margin-top: 39px;">

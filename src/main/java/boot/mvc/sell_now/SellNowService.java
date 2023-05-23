@@ -30,4 +30,10 @@ public class SellNowService implements SellNowServiceInter {
 		return mapper.getSellNowData(user_num, sellnow_num);
 	}
 
+	@Override
+	public int getSellNowdSuccessCount(String user_num) {
+		// TODO Auto-generated method stub
+		return mapper.getSellNowdSuccessCount(user_num);
+	}
+
 }

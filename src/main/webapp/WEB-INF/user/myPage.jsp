@@ -225,10 +225,10 @@ div.main {
         <div style="clear: left"></div>
         <span style="font-size: 16px; font-weight: bold">판매 내역</span>
         <div class="list-box" style="background-color: #f2f9f6;">
-            <div align="center" style="margin-left: 45px; cursor: pointer;" id="total">전체<br><b style="color: green">0</b></div>
-            <div align="center" style="border-left: 2px solid #e3e3e3; margin-left: 45px; cursor: default;">입찰 중<br>0</div>
-            <div align="center" style="margin-left: 30px; cursor: default;">진행 중<br>0</div>
-            <div align="center" style="margin-left: 30px; cursor: default;">종료<br>0</div>
+            <div align="center" style="margin-left: 45px; cursor: pointer;" id="total">전체<br><b style="color: green">${sellTotalCount }</b></div>
+            <div align="center" style="border-left: 2px solid #e3e3e3; margin-left: 45px; cursor: default;">입찰 중<br>${sellBidIngCount }</div>
+            <div align="center" style="margin-left: 30px; cursor: default;">진행 중<br>${ingSize}</div>
+            <div align="center" style="margin-left: 30px; cursor: default;">종료<br>${sellSuccessCount }</div>
         </div>
 
         <span style="font-size: 16px; font-weight: bold">구매 내역</span>

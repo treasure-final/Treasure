@@ -20,7 +20,7 @@ public class SellTotalDto {
 	private SellTotalDto sellTotalDto;
 	private SellNowDto sellNowDto;
 	private SellBidDto sellBidDto;
-	private BuyBidDto bydBidDto;
+	private BuyBidDto buyBidDto; 
 	
 	
 	public ItemDto getItemDto() {
@@ -47,12 +47,13 @@ public class SellTotalDto {
 	public void setSellBidDto(SellBidDto sellBidDto) {
 		this.sellBidDto = sellBidDto;
 	} 
-	public BuyBidDto getBydBidDto() {
-		return bydBidDto;
+	public BuyBidDto getBuyBidDto() {
+		return buyBidDto;
 	}
-	public void setBydBidDto(BuyBidDto bydBidDto) {
-		this.bydBidDto = bydBidDto;
-	} 
+
+	public void setBuyBidDto(BuyBidDto buyBidDto) {
+		this.buyBidDto = buyBidDto;
+	}
 	
 	
 	

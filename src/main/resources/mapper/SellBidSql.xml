@@ -24,5 +24,13 @@
 	<select id="getSellPriceListByitemNum" parameterType="String" resultType="SellBidDto">
 		select * from sell_bid where item_num=#{item_num}
 	</select>
+	
+	<select id="getSellBidCount" parameterType="String" resultType="int">
+		select count(*) from sell_bid where user_num=${user_num} and sell_status='판매대기' and test_result='합격';
+	</select>
+	
+	<select id="getSellBidSuccessCount" parameterType="String" resultType="int">
+		select count(*) from sell_bid where user_num=${user_num} and sell_status='판매완료' or sell_status='판매불가'
+	</select>
 
 </mapper>

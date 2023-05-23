@@ -333,12 +333,21 @@ public class UserController {
         List<BuyBidDto> itemBuyBidJoinList = buyBidService.getItemInfoByBuyBid(user_num);
         List<BuyNowDto> purchaseIngList = buyNowService.getDataByStatus0(user_num);
         List<BuyNowDto> purchaseEndList = buyNowService.getDataByStatus1(user_num);
+        
+        int sellTotalCount=sellTotalService.getTotalSellCount(user_num);
+        int sellBidIngCount=sellBiService.getSellBidCount(user_num);
+        int sellBidSuccessCount=sellBiService.getSellBidSuccessCount(user_num);
+        int sellNowSuccessCount=sellNowService.getSellNowdSuccessCount(user_num);
+        
 
         model.addAttribute("dto", dto);
         model.addAttribute("user_num", user_num);
         model.addAttribute("bidSize", itemBuyBidJoinList.size());
         model.addAttribute("ingSize", purchaseIngList.size());
         model.addAttribute("endSize", purchaseEndList.size());
+        model.addAttribute("sellTotalCount", sellTotalCount);
+        model.addAttribute("sellBidIngCount", sellBidIngCount);
+        model.addAttribute("sellSuccessCount", sellBidSuccessCount+sellNowSuccessCount);
 
         return "/user/myPage";
     }
@@ -428,28 +437,31 @@ public class UserController {
     }
     
     @GetMapping("/user/sellHistory")
-    public String sellHistory(Model model, HttpSession session) {
+    public String sellHistory(Model model, HttpSession session, @RequestParam(defaultValue = "0") int offset) {
 
         String loginEmail = (String) session.getAttribute("loginEmail");
         String user_num = service.findEmailUserNum(loginEmail);
 
-        List<SellTotalDto> list = sellTotalService.getListSellTotal(user_num);
+        List<SellTotalDto> list = sellTotalService.getListSellTotal(user_num, offset);
+        
+        
+        int sellTotalCount=sellTotalService.getTotalSellCount(user_num);
         
         for(SellTotalDto sellTotalDto : list) {
         	if(sellTotalDto.getSell_num() == null) {
         		String sellnow_num = sellTotalDto.getSellnow_num();       		
-        		
         		SellNowDto sellNowDto = sellNowService.getSellNowData(user_num, sellnow_num);
-				/* String sellnow_size=buyBidService.getBuyBidData(user_num); */
         		
         		String item_num=sellNowDto.getItem_num();
         		ItemDto itemDto=itemService.getItemData(item_num);
         		
+        		String buy_num = sellNowDto.getBuy_num();
+        		BuyBidDto buyBidDto = buyBidService.getDataOfBuyBid(buy_num);
+        		
         		sellTotalDto.setSellNowDto(sellNowDto);
         		sellTotalDto.setItemDto(itemDto);
+        		sellTotalDto.setBuyBidDto(buyBidDto);
         		
-//        		System.out.println("sellNow: "+sellnow_num);
-//        		System.out.println("item: "+item_num);
         	}else {
         		String sell_num=sellTotalDto.getSell_num();
         		
@@ -460,18 +472,61 @@ public class UserController {
         		
         		sellTotalDto.setSellBidDto(sellBidDto);
         		sellTotalDto.setItemDto(itemDto);
-				/* System.out.println("sellnum: "+sell_num); */
         		
         	}
         }
 
         model.addAttribute("list", list);
-        model.addAttribute("totalCount", list.size());
+        model.addAttribute("sellTotalCount", sellTotalCount);
         model.addAttribute("user_num", user_num);
-        
+        model.addAttribute("offset", offset);        
 
         return "/user/sellHistory";
     }
+    
+    //무한스크롤 ajax
+    @GetMapping("/user/sellHistoryScroll")
+    @ResponseBody
+    public List<SellTotalDto> sellHistoryScroll(HttpSession session, int offset){
+    	
+    	String loginEmail = (String) session.getAttribute("loginEmail");
+        String user_num = service.findEmailUserNum(loginEmail);
+        
+    	List<SellTotalDto> list = sellTotalService.getListSellTotal(user_num, offset);
+		/* System.out.println(list.size()); */
+    	
+    	for(SellTotalDto sellTotalDto : list) {
+        	if(sellTotalDto.getSell_num() == null) {
+        		String sellnow_num = sellTotalDto.getSellnow_num();      
+        		SellNowDto sellNowDto = sellNowService.getSellNowData(user_num, sellnow_num);        		
+        		
+        		String item_num=sellNowDto.getItem_num();
+        		ItemDto itemDto=itemService.getItemData(item_num);
+        		
+        		String buy_num = sellNowDto.getBuy_num();
+        		BuyBidDto buyBidDto = buyBidService.getDataOfBuyBid(buy_num);
+        		
+        		sellTotalDto.setSellNowDto(sellNowDto);
+        		sellTotalDto.setItemDto(itemDto);
+        		sellTotalDto.setBuyBidDto(buyBidDto);
+        		
+        	}else {
+        		String sell_num=sellTotalDto.getSell_num();
+        		
+        		SellBidDto sellBidDto=sellBiService.getSellBidData(user_num, sell_num);
+        		
+        		String item_num=sellBidDto.getItem_num();
+        		ItemDto itemDto=itemService.getItemData(item_num);
+        		
+        		sellTotalDto.setSellBidDto(sellBidDto);
+        		sellTotalDto.setItemDto(itemDto);
+        		
+        	}
+        }
+  	
+    	return list;   	    	
+    }
+    
 
     @GetMapping("/user/buyHistory")
     public String sellHistory(HttpSession session, Model model) {
@@ -488,5 +543,17 @@ public class UserController {
         model.addAttribute("purchaseEndList", purchaseEndList);
 
         return "/user/buyHistory";
+    }
+    
+    @GetMapping("/user/sellSuccess")
+    public String sellSuccsee() {
+  	
+    	return "/user/sellSuccess";
+    }
+    
+    @GetMapping("/user/sellNowSuccess")
+    public String sellNowSuccess() {
+  	
+    	return "/user/sellNowSuccess";
     }
 }

@@ -19,17 +19,15 @@
 
 <style>
 @font-face {
-	font-family: "GmarketSansMedium";
-	src:
-		url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
-		format("woff");
-	font-weight: normal;
-	font-style: normal;
-}
+            font-family: "GmarketSansMedium";
+            src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff") format("woff");
+            font-weight: normal;
+            font-style: normal;
+        }
 
-* {
-	font-family: "GmarketSansMedium";
-}
+        * {
+            font-family: "GmarketSansMedium";
+        }
 
 div.main {
 	font-family: "GmarketSansMedium";
@@ -45,7 +43,7 @@ div.main {
 }
 
 .container {
-	width: 82%;
+	width: 82%;	
 	padding: 40px;
 	box-sizing: border-box;
 	margin-left: 0px;
@@ -107,7 +105,7 @@ div.main {
 
 .sell-content {
 	width: 900px;
-	font-size: 14px;
+	font-size: 13px;
 	display: flex;
 	margin-left: 10px;
 	/* background-color: #FAFAFA; */
@@ -118,16 +116,17 @@ div.main {
 	margin-bottom: 25px;
 	justify-content: center;
 	align-items: center;
+	cursor: pointer;
 }
 
 .sell-content:hover {
-	border: 1px solid  rgba(34,34,34,.5);
+	border: 1px solid  rgba(34,34,34,.2);
 	background-color: #FAFAFA;
 }
 
 .sell-content-no {
 	width: 900px;
-	font-size: 14px;
+	font-size: 13px;
 	display: flex;
 	margin-left: 10px;
 	background-color: rgba(34,34,34,.1);
@@ -153,14 +152,28 @@ div.main {
 	display: flex;
 	flex-direction: column;
 	margin-left: 10px;
-	font-size: 14px;
+	font-size: 13px;
 	margin-top: 15px;
 }
+        
 </style>
 
 <script type="text/javascript">
 
+$(function(){
+	
+	$(document).on("click", "#sellBid", function() {
+		  location.href = "/user/sellSuccess";
+		});
+	
+	$(document).on("click", "#sellNow", function() {
+		  location.href = "/user/sellNowSuccess";
+		});
+
+});
 </script>
+
+
 </head>
 <body>
 <div class="wrapper">
@@ -187,8 +200,6 @@ div.main {
             </div>
         </div>
     </div>
-    
-
 
     <div class="container">
     <h2 id="logo"><i>판매 내역</i></h2>
@@ -196,14 +207,15 @@ div.main {
     
     
 	    <div class="sell-header">
-	    	<div style="width: 600px;">총 ${totalCount }개</div>
+	    	<div style="width: 600px;">총 ${sellTotalCount }개</div>
 	    	<div style="width:80px;">검수현황</div>
 	    	<div style="width:80px;">상태</div>
 	    	<div style="width:170px; margin-left: 15px;">접수일</div>
 	    </div>
 	    
 	    <div style="margin-top: 30px;"></div>
-	    	    
+	    
+	<section id="sellHistorySection">    	    
 	<c:forEach items="${list}" var="sellTotalDto">
             <c:if test="${sellTotalDto.sell_num == null && sellTotalDto.sellnow_num != null && sellTotalDto.sellNowDto.test_result eq '불합격' }">
     		<div class="sell-content-no"> 
@@ -212,7 +224,7 @@ div.main {
 	                <div class="sellDescription">
 	                    <div>${sellTotalDto.itemDto.item_engname}</div>
 	                    <div>${sellTotalDto.itemDto.item_korname}</div>
-	                    <div>${sellTotalDto.itemDto.item_size}</div>
+	                    <div>${sellTotalDto.buyBidDto.buy_size}</div>
 	                </div>
 				</div>             
 	                <div style="width: 100px;">${sellTotalDto.sellNowDto.test_result}</div>
@@ -222,17 +234,19 @@ div.main {
             </c:if>
 	           
             <c:if test="${sellTotalDto.sell_num == null && sellTotalDto.sellnow_num != null && sellTotalDto.sellNowDto.test_result eq '합격' }">
-	 		<div class="sell-content">            
+	 		<div class="sell-content" id="sellNow">            
 	        	<div style="width: 600px; display: flex; font-size: 15px;">
 	                <img class="sellImg" src="../img/item_image/${sellTotalDto.itemDto.item_image}">
 	                <div class="sellDescription">
 	                    <div>${sellTotalDto.itemDto.item_engname}</div>
-	                    <div>${sellTotalDto.itemDto.item_korname}</div>
-	                    <div>${sellTotalDto.itemDto.item_size}</div>
+	                    <div style="opacity: 0.5;">${sellTotalDto.itemDto.item_korname}</div>
+	                    <div>${sellTotalDto.buyBidDto.buy_size}</div>
 	                </div>
 				</div>             
 	                <div style="width: 100px; color: #31b46e;">${sellTotalDto.sellNowDto.test_result}</div>
-	                <div style="width: 100px;">${sellTotalDto.sellNowDto.sell_status}</div>
+	                <c:if test="${sellTotalDto.sellNowDto.sell_status eq '판매완료'}"><div style="width: 100px; color:#31b46e;">${sellTotalDto.sellNowDto.sell_status}</div></c:if>
+	                <c:if test="${sellTotalDto.sellNowDto.sell_status eq '판매대기'}"><div style="width: 100px;">${sellTotalDto.sellNowDto.sell_status}</div></c:if>
+	                
 	                <div style="width: 150px; margin-left: 15px;"><fmt:formatDate value="${sellTotalDto.sellNowDto.sellnow_inputday}" pattern="yyyy/MM/dd"/></div>              
 			</div>                
             </c:if>
@@ -242,7 +256,7 @@ div.main {
 	            <div style="width: 600px; display: flex; font-size: 15px;">
 	                <img class="sellImg" src="../img/item_image/${sellTotalDto.itemDto.item_image}">
 	                <div class="sellDescription">
-	                    <div>${sellTotalDto.itemDto.item_engname}</div>
+	                    <div style="">${sellTotalDto.itemDto.item_engname}</div>
 	                    <div>${sellTotalDto.itemDto.item_korname}</div>
 	                    <div>${sellTotalDto.sellBidDto.sell_size}</div>
 	                </div>
@@ -254,26 +268,135 @@ div.main {
             </c:if>
             
             <c:if test="${sellTotalDto.sellnow_num == null && sellTotalDto.sell_num != null  && sellTotalDto.sellBidDto.test_result eq '합격'}">
-			<div class="sell-content">            
+			<div class="sell-content" id="sellBid">            
 	            <div style="width: 600px; display: flex; font-size: 15px;">
 	                <img class="sellImg" src="../img/item_image/${sellTotalDto.itemDto.item_image}">
 	                <div class="sellDescription">
 	                    <div>${sellTotalDto.itemDto.item_engname}</div>
-	                    <div>${sellTotalDto.itemDto.item_korname}</div>
+	                    <div style="opacity: 0.5;">${sellTotalDto.itemDto.item_korname}</div>
 	                    <div>${sellTotalDto.sellBidDto.sell_size}</div>
 	                </div>
 				</div>                
 	                <div style="width: 100px; color: #31b46e;">${sellTotalDto.sellBidDto.test_result}</div>
-	                <div style="width: 100px;">${sellTotalDto.sellBidDto.sell_status}</div>
+	                <c:if test="${sellTotalDto.sellBidDto.sell_status eq '판매완료'}"><div style="width: 100px; color:#31b46e;">${sellTotalDto.sellBidDto.sell_status}</div></c:if>
+	                <c:if test="${sellTotalDto.sellBidDto.sell_status eq '판매대기'}"><div style="width: 100px;">${sellTotalDto.sellBidDto.sell_status}</div></c:if>
 	                <div style="width: 150px; margin-left: 15px;"><fmt:formatDate value="${sellTotalDto.sellBidDto.sell_inputday}" pattern="yyyy/MM/dd"/></div>                
 			</div>                
             </c:if>  
 	</c:forEach>
-     
+	</section> 
     </div>
+    
+    
     
 <div style="clear: left"></div>
 </div>
+
+<script type="text/javascript">
+		
+	var offset=${offset};
+	      window.onscroll = function(e) {
+	            console.log(window.innerHeight , window.scrollY,document.body.offsetHeight,document.body.scrollHeight)
+	            if((window.innerHeight + window.scrollY+1200) >= document.body.scrollHeight) {
+
+	               offset=offset+6;   //데이터의 시작점 limit의 수와 똑같이 더해줘야함
+
+	               $.ajax({
+	                 type:"get",
+	                 dataType:"json",
+	                 url:"/user/sellHistoryScroll",
+	                 data:{"offset":offset},
+	                 success:function(res){
+	                	  
+	                    $.each(res,function(i,sellTotalDto){   //res의 담겨있는 list를 이치함수로 받아와 반복문 실행
+
+	                    	let html = '';	                    	
+	                    	
+	                    	setTimeout(function(){ 
+	                        if(sellTotalDto.sell_num == null && sellTotalDto.sellnow_num != null && sellTotalDto.sellNowDto.test_result === '불합격'){
+	                            html += '<div class="sell-content-no">';
+	                              html += '   <div style="width: 600px; display: flex; font-size: 15px;">';
+	                              html += '       <img class="sellImg" src="../img/item_image/' + sellTotalDto.itemDto.item_image + '">';
+	                              html += '       <div class="sellDescription">';
+	                              html += '           <div>' + sellTotalDto.itemDto.item_engname + '</div>';
+	                              html += '           <div>' + sellTotalDto.itemDto.item_korname + '</div>';
+	                              html += '           <div>' + sellTotalDto.buyBidDto.buy_size + '</div>';
+	                              html += '       </div>';
+	                              html += '   </div>';
+	                              html += '   <div style="width: 100px;">' + sellTotalDto.sellNowDto.test_result + '</div>';
+	                              html += '   <div style="width: 100px;">' + sellTotalDto.sellNowDto.sell_status + '</div>';
+	                              html += '   <div style="width: 150px; margin-left: 15px;">' + sellTotalDto.sellNowDto.sellnow_inputday + '</div>';
+	                              html += '</div>';	                          	                           
+	                        };
+	                       
+	                   if(sellTotalDto.sell_num == null && sellTotalDto.sellnow_num != null && sellTotalDto.sellNowDto.test_result === '합격'){	                      
+	                       html += '<div class="sell-content" id="sellNow">';
+	                              html += '   <div style="width: 600px; display: flex; font-size: 15px;">';
+	                              html += '       <img class="sellImg" src="../img/item_image/' + sellTotalDto.itemDto.item_image + '">';
+	                              html += '       <div class="sellDescription">';
+	                              html += '           <div>' + sellTotalDto.itemDto.item_engname + '</div>';
+	                              html += '           <div style="opacity: 0.5;">' + sellTotalDto.itemDto.item_korname + '</div>';
+	                              html += '           <div>' + sellTotalDto.buyBidDto.buy_size + '</div>';
+	                              html += '       </div>';
+	                              html += '   </div>';
+	                              html += '   <div style="width: 100px; color: #31b46e;">' + sellTotalDto.sellNowDto.test_result + '</div>';
+	                              if(sellTotalDto.sellNowDto.sell_status==='판매완료'){
+	                            	  html += '   <div style="width: 100px; color: #31b46e;">' + sellTotalDto.sellNowDto.sell_status + '</div>';	                            	  
+	                              }else if(sellTotalDto.sellNowDto.sell_status==='판매대기'){
+	                              html += '   <div style="width: 100px;">' + sellTotalDto.sellNowDto.sell_status + '</div>';	                            	  
+	                              }
+	                              html += '   <div style="width: 150px; margin-left: 15px;">' + sellTotalDto.sellNowDto.sellnow_inputday + '</div>';
+	                              html += '</div>';                        
+	                   };
+	                   
+	                   if(sellTotalDto.sellnow_num == null && sellTotalDto.sell_num != null  && sellTotalDto.sellBidDto.test_result === '불합격'){
+	                      html += '<div class="sell-content-no">';
+	                           html += '   <div style="width: 600px; display: flex; font-size: 15px;">';
+	                           html += '       <img class="sellImg" src="../img/item_image/' + sellTotalDto.itemDto.item_image + '">';
+	                           html += '       <div class="sellDescription">';
+	                           html += '           <div>' + sellTotalDto.itemDto.item_engname + '</div>';
+	                           html += '           <div>' + sellTotalDto.itemDto.item_korname + '</div>';
+	                           html += '           <div>' + sellTotalDto.sellBidDto.sell_size + '</div>';
+	                           html += '       </div>';
+	                           html += '   </div>';
+	                           html += '   <div style="width: 100px;">' + sellTotalDto.sellBidDto.test_result + '</div>';
+	                           html += '   <div style="width: 100px;">' + sellTotalDto.sellBidDto.sell_status + '</div>';
+	                           html += '   <div style="width: 150px; margin-left: 15px;">' + sellTotalDto.sellBidDto.sell_inputday + '</div>';
+	                           html += '</div>';                     
+	                   };
+	                   
+	                   if(sellTotalDto.sellnow_num == null && sellTotalDto.sell_num != null  && sellTotalDto.sellBidDto.test_result === '합격'){
+	                      	html += '<div class="sell-content" id="sellBid">';
+	                           html += '   <div style="width: 600px; display: flex; font-size: 15px;">';
+	                           html += '       <img class="sellImg" src="../img/item_image/' + sellTotalDto.itemDto.item_image + '">';
+	                           html += '       <div class="sellDescription">';
+	                           html += '           <div>' + sellTotalDto.itemDto.item_engname + '</div>';
+	                           html += '           <div style="opacity: 0.5;">' + sellTotalDto.itemDto.item_korname + '</div>';
+	                           html += '           <div>' + sellTotalDto.sellBidDto.sell_size + '</div>';
+	                           html += '       </div>';
+	                           html += '   </div>';
+	                           html += '   <div style="width: 100px; color: #31b46e;">' + sellTotalDto.sellBidDto.test_result + '</div>';
+	                           if(sellTotalDto.sellBidDto.sell_status==='판매완료'){
+	                           html += '   <div style="width: 100px; color: #31b46e;">' + sellTotalDto.sellBidDto.sell_status + '</div>';	                        	   
+	                           }else if(sellTotalDto.sellBidDto.sell_status==='판매대기'){
+	                           html += '   <div style="width: 100px;">' + sellTotalDto.sellBidDto.sell_status + '</div>';	                        	   
+	                           }
+	                           html += '   <div style="width: 150px; margin-left: 15px;">' + sellTotalDto.sellBidDto.sell_inputday + '</div>';
+	                           html += '</div>';	                      
+	                   };
+	                   
+		                   var addContent = document.createElement("div"); 
+		                   addContent.innerHTML = html;
+		                   document.querySelector('section').appendChild(addContent);
+		                   },700);
+	                    	
+	                    });     
+	                 }
+	               });	               
+	            }
+	          };
+	        
+</script>
 
 
 

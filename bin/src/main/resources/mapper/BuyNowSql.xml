@@ -7,11 +7,15 @@
         SELECT *
         FROM sell_bid AS sb1
         WHERE sb1.item_num = #{item_num}
-          AND sb1.sell_wishprice = (SELECT MIN(sb2.sell_wishprice)
-                                    FROM sell_bid AS sb2
-                                    WHERE sb2.item_num = #{item_num}
-                                      AND sb2.sell_size = sb1.sell_size)
-        GROUP BY sb1.sell_size
+          AND sb1.sell_wishprice = (
+            SELECT MIN(sb2.sell_wishprice)
+            FROM sell_bid AS sb2
+            WHERE sb2.item_num = #{item_num}
+              AND sb2.sell_size = sb1.sell_size
+        )
+          AND sb1.sell_status = '판매대기'
+          AND sb1.test_result = '합격'
+        GROUP BY sb1.sell_size;
     </select>
 
     <resultMap id="buyNowDto" type="BuyNowDto">
@@ -44,4 +48,12 @@
           and user_num = #{user_num}
           and buy_status = 1
     </select>
+
+    <insert id="insertBuyNow" parameterType="BuyNowDto">
+        insert into buy_now(user_num,item_num,sell_num,buynow_price,buy_status,delivery,buy_addr,payment,buynow_inputday) values(#{user_num},#{item_num},#{sell_num},#{buynow_price},#{buy_status},#{delivery},#{buy_addr},#{payment},now())
+    </insert>
+
+    <update id="updateSellStatus" parameterType="String">
+        update sell_bid set sell_status = '판매완료' where sell_num=#{sell_num}
+    </update>
 </mapper>

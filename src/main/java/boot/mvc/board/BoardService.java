@@ -8,19 +8,25 @@ import org.springframework.stereotype.Service;
 @Service
 public class BoardService implements BoardServiceInter {
 
-	@Autowired
-	BoardMapperInter mapper;
+   @Autowired
+   BoardMapperInter mapper;
 
-	@Override
-	public void insertStyle(BoardDto dto) {
-		// TODO Auto-generated method stub
-		mapper.insertStyle(dto);
-	}
+   @Override
+   public void insertStyle(BoardDto dto) {
+   
+      mapper.insertStyle(dto);
+   }
 
-	@Override
-	public List<BoardDto> getList() {
-		// TODO Auto-generated method stub
-		return mapper.getList();
-	}
+   @Override
+   public List<BoardDto> getList() {
+      
+      return mapper.getList();
+   }
+
+@Override
+public void deleteStyle(String board_id) {
+	// TODO Auto-generated method stub
+	mapper.deleteStyle(board_id);
+}
 
 }

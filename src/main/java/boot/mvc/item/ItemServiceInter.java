@@ -1,9 +1,10 @@
 package boot.mvc.item;
 
 import java.util.List;
-import java.util.Map;
+
 
 public interface ItemServiceInter {
+
 
     public int getTotalCount();
     public List<ItemDto> getAllData();
@@ -15,4 +16,5 @@ public interface ItemServiceInter {
     public List<ItemDto> searchItems(String searchText,String brand);
 
 	 
+
 }

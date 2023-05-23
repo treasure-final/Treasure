@@ -269,7 +269,7 @@
             changeSecInfo(name, phone, addr);
 
             //즉시 구매 & 구매 입찰 선택에 따른 페이지 출력 결과
-            if (parseInt(${sellPrice}) == parseInt(${price})) {
+            if ('${buyType}' === '즉시구매') {
                 $("#priceName").text("즉시 구매가");
                 $("#bidAgree").hide();
                 $("#immediateAgree").show();
@@ -304,12 +304,35 @@
                     m_redirect_url: 'http://localhost:8080/user/myPage'
                 }, function (rsp) {
                     console.log(rsp);
+                    let msg = "";
                     if (rsp.success) {
-                        var msg = '결제가 완료되었습니다.';
+                        msg = '결제가 완료되었습니다.';
+
+                        $.ajax({
+                            url:"orderproc",
+                            type: "post",
+                            data:{"item_num":'${item_num}',
+                                "size":'${size}',
+                                "wish_price":${price},
+                                "delivery":'${deliveryWay}',
+                                "buy_addr":'${userAddr}',
+                                "payment":pgName},
+                            success:function(data) {
+                                alert(msg);
+                                location.href="ordersuccess?item_num="+data;
+                            },statusCode:{
+                                404:function() {
+                                    alert("json 파일이 없어요");
+                                },
+                                500:function() {
+                                    alert("서버 오류… 코드를 다시 한 번 확인하세요");
+                                }
+                            }
+                        });
                     } else {
-                        var msg = '결제에 실패하였습니다.';
+                        msg = '결제에 실패하였습니다.';
+                        alert(msg);
                     }
-                    alert(msg);
                 });
             });
 
@@ -334,6 +357,7 @@
                     type: "post",
                     url: "insertBuyBid",
                     data: {
+                        "item_num" : "${item_num}",
                         "price": "${price}",
                         "size": "${size}",
                         "deadline": "${deadline}",

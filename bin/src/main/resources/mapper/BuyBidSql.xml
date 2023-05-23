@@ -3,5 +3,69 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="boot.mvc.buy_bid.BuyBidMapperInter">
-	
+    <insert id="insertBuyBid" parameterType="buyBidDto">
+        insert into buy_bid (item_num, user_num, buy_wishprice, buy_size, buy_addr, buy_deadline, buy_inputday)
+        values (#{item_num}, #{user_num}, #{buy_wishprice}, #{buy_size}, #{buy_addr}, #{buy_deadline}, now())
+    </insert>
+
+    <!-- 즉시판매할 buy_num 조회 -->
+    <select id="getBuyBidForSellNow" resultType="BuyBidDto" parameterType="HashMap">
+        select *
+        from buy_bid
+        where item_num = #{item_num}
+          and buy_size = #{buy_size}
+          and buy_status!='구매완료'
+        order by buy_wishprice desc limit 1
+    </select>
+
+    <select id="getDataOfBuyBid" resultType="BuyBidDto" parameterType="String">
+        select *
+        from buy_bid
+        where buy_num = #{buy_num}
+    </select>
+
+    <!-- buy_status 구매완료로 업데이트 -->
+    <update id="updateBuyStatus" parameterType="String">
+        update buy_bid
+        set buy_status="구매완료"
+        where buy_num = #{buy_num}
+    </update>
+
+    <select id="getBuyBidData" resultType="BuyBidDto" parameterType="String">
+        select *
+        from buy_bid
+        where user_num = #{user_num}
+        order by buy_num desc
+    </select>
+
+    <resultMap id="buyBidDto" type="BuyBidDto">
+        <result property="buy_num" column="buy_num"/>
+        <result property="buy_wishprice" column="buy_wishprice"/>
+        <result property="buy_inputday" column="buy_inputday"/>
+        <result property="buy_size" column="buy_size"/>
+        <collection resultMap="itemDto" property="itemDto"/>
+    </resultMap>
+
+    <resultMap id="itemDto" type="ItemDto">
+        <result property="item_num" column="item_num"></result>
+        <result property="item_brandname" column="item_brandname"/>
+        <result property="item_engname" column="item_engname"/>
+        <result property="item_korname" column="item_korname"/>
+        <result property="item_image" column="item_image"/>
+    </resultMap>
+
+    <select id="getItemInfoByBuyBid" resultMap="buyBidDto" parameterType="String">
+        select buy_num,
+               buy_wishprice,
+               buy_inputday,
+               buy_size,
+               item_brandname,
+               item_engname,
+               item_korname,
+               item_image
+        from buy_bid b
+                 inner join item i
+                            on b.item_num = i.item_num
+        where user_num = #{user_num};
+    </select>
 </mapper>

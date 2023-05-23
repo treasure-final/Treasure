@@ -28,15 +28,8 @@ public class SellBidService implements SellBidServiceInter {
 		return mapper.getSellPriceListByitemNum(item_num);
   }
   
-  @Override
+	@Override
 	public SellBidDto getSellBidData(String user_num, String sell_num) {
-		// TODO Auto-generated method stub
-		return mapper.getSellBidData(user_num, sell_num);
+	    return mapper.getSellBidData(user_num, sell_num);
 	}
-	
-  @Override
-	public SellBidDto getSellBidDatas(String item_num) {
-		return mapper.getSellBidDatas(item_num);
-	}
-
 }

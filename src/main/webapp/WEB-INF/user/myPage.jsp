@@ -233,10 +233,10 @@ div.main {
 
         <span style="font-size: 16px; font-weight: bold">구매 내역</span>
         <div class="list-box box2" style="background-color: rgb(254, 247, 246);">
-            <div align="center" style="margin-left: 45px; cursor: pointer;">전체<br><b style="color: red">0</b></div>
-            <div align="center" style="border-left: 2px solid #e3e3e3; cursor: default; ">입찰 중<br>0</div>
-            <div align="center" style="margin-left: 30px; cursor: default;">진행 중<br>0</div>
-            <div align="center" style="margin-left: 30px; cursor: default;">종료<br>0</div>
+            <div align="center" style="margin-left: 45px; cursor: pointer;" id="buyTotal">전체<br><b style="color: red">${bidSize+ingSize+endSize}</b></div>
+            <div align="center" style="border-left: 2px solid #e3e3e3; cursor: default; ">입찰 중<br>${bidSize}</div>
+            <div align="center" style="margin-left: 30px; cursor: default;">진행 중<br>${ingSize}</div>
+            <div align="center" style="margin-left: 30px; cursor: default;">종료<br>${endSize}</div>
         </div>
         
 
@@ -250,8 +250,10 @@ div.main {
 
 <script type="text/javascript">
 $("#total").click(function(){
-	
 	location.href="/user/sellHistory";
+});
+$("#buyTotal").click(function(){
+    location.href="/user/buyHistory";
 });
 
 </script>

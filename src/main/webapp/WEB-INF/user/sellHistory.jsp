@@ -178,55 +178,62 @@ div.main {
             </div>
         </div>
     </div>
-    
+
 
 
     <div class="container">
     <h2 id="logo"><i>판매 내역</i></h2>
     <div class="hr"></div>
-    
-    
+
+
 	    <div class="sell-header">
 	    	<div style="width: 750px">전체 3개</div>
 	    	<div style="width:150px;">검수현황</div>
 	    	<div style="width:200px; ">상태</div>
 	    	<div style="width:200px;">접수일</div>
 	    </div>
-	    
+
 	    <div style="margin-top: 30px;"></div>
-	    
-	    <section>
-	     <div class="sell-content">
-	    	<div style="width:750px; display: flex; font-size: 15px;">
-		    		<img class="sellImg" src="../img/item_image/16.png">
-		    		<div class="sellDescription">
-			    		<div>Arc'teryx Atom LT Hoody Black</div>
-			    		<div>아크테릭스 아톰 LT 후디 블랙</div>
-			    		<div>XL</div>
-		    		</div>
-		    	</div>
-	    	<div style="width:150px; color: #f15746;">불합격</div>
-	    	<div style="width:200px;">판매대기</div>
-	    	<div style="width:200px;">23.12.25</div>
-	    </div>
-	    </section>
-	    
-	     <div class="sell-content">
-	    	<div style="width:750px; display: flex; font-size: 15px;">
-		    		<img class="sellImg" src="../img/item_image/16.png">
-		    		<div class="sellDescription">
-			    		<div>Arc'teryx Atom LT Hoody Black</div>
-			    		<div>아크테릭스 아톰 LT 후디 블랙</div>
-			    		<div>XL</div>
-		    		</div>
-		    	</div>
-	    	<div style="width:150px; color: #31b46e;">합격</div>
-	    	<div style="width:200px;">판매완료</div>
-	    	<div style="width:200px;">23.12.25</div>
-	    </div>
-     
+
+
+
+<c:forEach items="${list}" var="sellTotalDto">
+    <div class="sell-content">
+        <div style="width: 750px; display: flex; font-size: 15px;">
+            <c:if test="${sellTotalDto.sell_num == null && sellTotalDto.sellnow_num != null }">
+                <img class="sellImg" src="../img/item_image/${sellTotalDto.itemDto.item_image}">
+                <div class="sellDescription">
+                    <div>${sellTotalDto.itemDto.item_engname}</div>
+                    <div>${sellTotalDto.itemDto.item_korname}</div>
+                    <div>${sellTotalDto.itemDto.item_size}</div>
+                </div>
+                <div style="width: 150px; color: #31b46e;">${sellTotalDto.sellNowDto.test_result}</div>
+                <div style="width: 200px;">${sellTotalDto.sellNowDto.sell_status}</div>
+                <div style="width: 200px;">${sellTotalDto.sellNowDto.sellnow_inputday}</div>
+            </c:if>
+
+            <c:if test="${sellTotalDto.sellnow_num == null && sellTotalDto.sell_num != null}">
+                <img class="sellImg" src="../img/item_image/${sellTotalDto.itemDto.item_image}">
+                <div class="sellDescription">
+                    <div>${sellTotalDto.itemDto.item_engname}</div>
+                    <div>${sellTotalDto.itemDto.item_korname}</div>
+                    <div>${sellTotalDto.itemDto.item_size}</div>
+                </div>
+                <div style="width: 150px; color: #31b46e;">${sellTotalDto.sellBidDto.test_result}</div>
+                <div style="width: 200px;">${sellTotalDto.sellBidDto.sell_status}</div>
+                <div style="width: 200px;">${sellTotalDto.sellBidDto.sell_inputday}</div>
+            </c:if>
+        </div>
     </div>
-    
+</c:forEach>
+
+
+
+
+
+
+    </div>
+
 <div style="clear: left"></div>
 </div>
 

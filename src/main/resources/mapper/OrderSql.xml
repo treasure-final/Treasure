@@ -6,4 +6,13 @@
     <insert id="insertOrder" parameterType="OrderDto">
         insert into `order` values(null, #{buy_user}, #{sell_user}, #{item_num}, #{size}, #{wish_price}, now())
     </insert>
+    <!-- 방금 insert된 sell_num 가져오기 -->
+    <select id="getNowinsertOrderNum" resultType="String">
+        select count(LAST_INSERT_ID()) from `order`
+    </select>
+    <select id="getOrderData" parameterType="String" resultType="OrderDto">
+        select *
+        from `order`
+        where order_num=#{order_num}
+    </select>
 </mapper>

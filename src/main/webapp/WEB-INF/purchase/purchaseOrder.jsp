@@ -319,7 +319,7 @@
                                 "payment":pgName},
                             success:function(data) {
                                 alert(msg);
-                                location.href="ordersuccess?item_num="+data;
+                                location.href="ordersuccess?sell_num="+data;
                             },statusCode:{
                                 404:function() {
                                     alert("json 파일이 없어요");

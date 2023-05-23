@@ -221,31 +221,31 @@
         </div>
         <div class="hr"></div>
         <div style="display:flex; justify-content: center;">
-            <img src="/img/item_image/${dto.item_image}" class="order_image">
+            <img src="/img/item_image/${itemDto.item_image}" class="order_image">
         </div>
         <div style="display:flex; justify-content: center; margin-bottom: 100px;">
         <span style="margin-bottom: 20px; font-size: 12pt; color: dimgray;">구매한 상품은 전문가 검수 완료 후, 안전하게 배송될 예정입니다.</span>
         </div>
         <div style="font-size: 16pt;">
-        <span>총 결제금액</span><span style="float: right;"><b style="color: #ff6961; font-style: italic;"><fmt:formatNumber value="${purchaseDto.purchase_total_price}" pattern="###,###,###"/></b>원</span>
+        <span>총 결제금액</span><span style="float: right;"><b style="color: #ff6961; font-style: italic;"><fmt:formatNumber value="${buyNowDto.buynow_price+delivery+2500}" pattern="###,###,###"/></b> 원</span>
         </div>
         <div style=" margin-bottom: 50px;">
-        <span>구매 가격</span><span style="float: right;"><fmt:formatNumber value="${purchaseDto.purchase_wishprice}" pattern="###,###,###"/></span><br>
-        <span>배송비</span><span style="float: right;"><fmt:formatNumber value="${purchaseDto.purchase_wishprice}" pattern="#,###"/></span>
+        <span>구매 가격</span><span style="float: right;"><fmt:formatNumber value="${buyNowDto.buynow_price}" pattern="###,###,###"/></span><br>
+        <span>배송비</span><span style="float: right;"><fmt:formatNumber value="${delivery}" pattern="#,###"/></span><br>
+        <span>검수비</span><span style="float: right;">2,500</span>
         </div>
         <div style="border: none; height: 1px; background: gray; margin-bottom: 50px;"></div>
-            <div class="orderInfo">
             <div id="right-info"
                  style="width: 90%; float: left;">
                 <span style="font-size: 18px;">주문 상품</span>
                 <table>
                     <tr>
                         <td class="left-td">모델</td>
-                        <td class="right-td">${dto.item_modelnum}</td>
+                        <td class="right-td">${itemDto.item_modelnum}</td>
                     </tr>
                     <tr>
                         <td class="left-td">상품명</td>
-                        <td class="right-td">${dto.item_korname}</td>
+                        <td class="right-td">${itemDto.item_korname}</td>
                     </tr>
                     <tr>
                         <td class="left-td">사이즈</td>
@@ -265,12 +265,11 @@
                     </tr>
                     <tr>
                         <td class="left-td">배송 주소</td>
-                        <td class="right-td" id="buy-addr">${purchaseDto.purchase_addr}</td>
+                        <td class="right-td" id="buy-addr">${buyNowDto.buy_addr}</td>
                     </tr>
                 </table>
                 <div class="hr" style="margin-top: 60px;"></div>
             </div>
         </div>
-    </div>
 </body>
 </html>

@@ -119,8 +119,7 @@
         }
 
         .bid-content:hover {
-            border: 1px solid black;
-            background-color: #FAFAFA;
+            background-color: #f3f3f3;
         }
 
         .sellImg {
@@ -332,7 +331,7 @@
                     </div>
                 </div>
                 <div style="width:150px; color: #f15746;"></div>
-                <div style="width:400px; margin-right: 30px"><fmt:formatDate value="${list.purchase_date}" pattern="yyyy/MM/dd"></fmt:formatDate></div>
+                <div style="width:400px; margin-right: 30px"><fmt:formatDate value="${list.buynow_inputday}" pattern="yyyy/MM/dd"></fmt:formatDate></div>
                 <div style="width:300px; font-size: 15px;">
                     배송완료
                 </div>

@@ -46,6 +46,9 @@
     </select>
 
     <insert id="insertBuyNow" parameterType="BuyNowDto">
-        insert into buy_now (user_num,sell_num,buynow_price,buy_status,delivery,buy_addr,payment,buynow_inputday) values(#{user_num},#{sell_num},#{buynow_price},#{buy_status},#{delivery},#{buy_addr},#{payment},now())
+        insert into buy_now (user_num,item_num,sell_num,buynow_price,buy_status,delivery,buy_addr,payment,buynow_inputday) values(#{user_num},#{item_num},#{sell_num},#{buynow_price},#{buy_status},#{delivery},#{buy_addr},#{payment},now())
     </insert>
+    <update id="updateSellStatus" parameterType="String">
+        update sell_bid set sell_status = '판매완료' where sell_num=#{sell_num}
+    </update>
 </mapper>

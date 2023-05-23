@@ -44,7 +44,7 @@
         select *
         from item
                  inner join buy_now
-        where item.item_num = order.item_num
+        where item.item_num = buy_now.item_num
           and user_num = #{user_num}
           and buy_status = 1
     </select>

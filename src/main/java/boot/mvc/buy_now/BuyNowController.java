@@ -144,17 +144,16 @@ public class BuyNowController {
         String sell_user=list.get(0).getUser_num();
         String sell_num=list.get(0).getSell_num();
 
-        System.out.println(item_num);
-        System.out.println(wish_price);
-        System.out.println(size);
-        System.out.println(sell_user);
-        System.out.println(sell_num);
-        System.out.println(delivery);
-        System.out.println(buy_addr);
-        System.out.println(payment);
+//        System.out.println(item_num);
+//        System.out.println(wish_price);
+//        System.out.println(size);
+//        System.out.println(sell_user);
+//        System.out.println(sell_num);
+//        System.out.println(delivery);
+//        System.out.println(buy_addr);
+//        System.out.println(payment);
 
         //order에 insert
-//        ItemDto itemDto=itemService.getItemData(item_num);
         OrderDto orderDto=new OrderDto();
         orderDto.setSell_user(sell_user);
         orderDto.setItem_num(item_num);
@@ -167,7 +166,6 @@ public class BuyNowController {
         BuyNowDto buyNowDto=new BuyNowDto();
         buyNowDto.setUser_num(user_num);
         buyNowDto.setItem_num(item_num);
-        System.out.println("아이템:"+buyNowDto.getItem_num());
         buyNowDto.setSell_num(sell_num);
         buyNowDto.setBuynow_price(Integer.parseInt(wish_price));
         if(delivery.equals("fast")){

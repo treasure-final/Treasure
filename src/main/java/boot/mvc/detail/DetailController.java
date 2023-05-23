@@ -28,6 +28,7 @@ public class DetailController {
 
 		List<ItemDto> list = Dservice.getAllData();
 		ItemDto dto = Dservice.DetailgetData(item_num);
+		
 		List<Map<String, Object>> groupedBuyData = Dservice.getBuyBidGroupedData(item_num);
 		List<Map<String, Object>> groupedSellData = Dservice.getSellBidGroupedData(item_num);
 		List<Map<String, Object>> getPurchaseData = Dservice.getPurchaseData(item_num);
@@ -49,24 +50,12 @@ public class DetailController {
 	@ResponseBody
 	@GetMapping("/item/getPurchaseRecentPriceSize")
 	public ResponseEntity<Map<String, Integer>> getPurchaseRecentPriceSize(@RequestParam("item_num") String item_num, @RequestParam("buy_size") String buy_size) {
-	    Integer recentPrice = Dservice.getPurchaseRecentPriceSize(item_num, buy_size);
+		Integer recentPrice = Dservice.getPurchaseRecentPriceSize(item_num, buy_size);
 
-	    Map<String, Integer> response = new HashMap<>();
-	    response.put("purchase_total_price", recentPrice);
+		Map<String, Integer> response = new HashMap<>();
+		response.put("purchase_total_price", recentPrice);
 
-	    return ResponseEntity.ok(response);
+		return ResponseEntity.ok(response);
 	}
-//	@GetMapping("/item/detail")
-//	public ModelAndView DetailgetData(@RequestParam String item_num) {
-//		ModelAndView mview = new ModelAndView();
-//
-//		ItemDto dto = Dservice.DetailgetData(item_num);
-//
-//		mview.addObject("Ddto", dto);
-//
-//		mview.setViewName("/item/detail");
-//
-//		return mview;
-//	}
 
 }

@@ -1,5 +1,6 @@
 package boot.mvc.comment;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,8 +40,9 @@ public class CommentController {
 
 	@ResponseBody
 	@GetMapping("/comment/list")
-	public List<Map<String, Object>> getCommentsWithUserInfo(String board_id) {
-		return Cservice.getCommentsWithUserInfo(board_id);
+	public List<Map<String, Object>> getCommentsWithUserInfo(Integer board_id) {
+		
+	    return Cservice.getCommentsWithUserInfo(board_id);
 	}
 
 }

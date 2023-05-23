@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import boot.mvc.buy_bid.BuyBidDto;
 import boot.mvc.buy_bid.BuyBidService;
-import boot.mvc.purchase.PurchaseDto;
-import boot.mvc.purchase.PurchaseService;
 import boot.mvc.sell_total.SellTotalDto;
 import boot.mvc.sell_total.SellTotalService;
 import boot.mvc.user.UserService;
@@ -25,9 +23,6 @@ public class SellNowController {
 
 	@Autowired
 	UserService userService;	
-	
-	@Autowired
-	PurchaseService purchaseService;
 	
 	@Autowired 
 	BuyBidService buyBidService;
@@ -113,21 +108,10 @@ public class SellNowController {
         if(test_result.equals("합격")) {
         	
         	// purchase insert하기
-        	PurchaseDto purchaseDto = new PurchaseDto();
         	System.out.println("purchase insert : " + selltotal_num);
         	
         	BuyBidDto buyBidDto = buyBidService.getDataOfBuyBid(buy_num);
         	
-        	purchaseDto.setItem_num(item_num);
-        	purchaseDto.setBuy_bid_num(buy_num);
-        	purchaseDto.setSelltotal_num(selltotal_num);
-        	purchaseDto.setPurchase_addr(buyBidDto.getBuy_addr());
-        	purchaseDto.setPurchase_wishprice(Integer.parseInt(buyBidDto.getBuy_wishprice()));
-        	purchaseDto.setPurchase_delivery("빠른배송");
-        	purchaseDto.setPurchase_total_price(totalPrice);
-        	purchaseDto.setPurchase_status(0);
-        	
-        	purchaseService.insertPurchase(purchaseDto);
         	
         }
         

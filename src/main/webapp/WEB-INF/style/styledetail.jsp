@@ -203,6 +203,8 @@ div.all {
 </style>
 </head>
 <body>
+	<c:set var="root" value="<%=request.getContextPath()%>" />
+	<input type="text" class="board_id" value="${board_id }">
 	<div id="content">
 		<c:forEach items="${DetailList }" var="Bdto">
 			<div class="post">
@@ -288,6 +290,7 @@ div.all {
 			<span class="dot" onclick="currentSlide(3)"></span>
 		</div> -->
 	</div>
+	
 	<script>
 		let slideIndex = 1;
 		showSlides(slideIndex);

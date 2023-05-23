@@ -24,7 +24,7 @@ public class CommentService implements CommentServiceInter {
 	}
 
 	@Override
-	public List<Map<String, Object>> getCommentsWithUserInfo(String board_id) {
+	public List<Map<String, Object>> getCommentsWithUserInfo(Integer board_id) {
 		// TODO Auto-generated method stub
 		return mapper.getCommentsWithUserInfo(board_id);
 	}

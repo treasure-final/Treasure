@@ -96,7 +96,7 @@ body {
 		<div class="stylemain">
 			<c:forEach items="${list }" var="a">
 				<div class="stylebox">
-					<div id="stylepho" onclick="scrollToDetail(${a.board_id})">
+					<div id="stylepho" onclick="location.href='/style/detail?board_id=${a.board_id}'">
 						<!-- 클릭 이벤트에 scrollToDetail 함수 호출 추가 -->
 						<img alt="스타일사진 나오는곳" src="../img/item_image/${a.board_image}"
 							style="width: 200px; height: 150px;"

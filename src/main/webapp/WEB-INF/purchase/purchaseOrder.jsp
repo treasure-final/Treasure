@@ -311,11 +311,11 @@
                         $.ajax({
                             url:"orderproc",
                             type: "post",
-                            data:{"item_num":${item_num},
-                                "size":${size},
+                            data:{"item_num":'${item_num}',
+                                "size":'${size}',
                                 "wish_price":${price},
-                                "delivery":${deliveryWay},
-                                "buy_addr":${userAddr},
+                                "delivery":'${deliveryWay}',
+                                "buy_addr":'${userAddr}',
                                 "payment":pgName},
                             success:function(data) {
                                 alert(msg);

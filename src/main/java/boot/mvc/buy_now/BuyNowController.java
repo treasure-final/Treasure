@@ -40,7 +40,6 @@ public class BuyNowController {
         ModelAndView mv=new ModelAndView();
         ItemDto dto=itemService.getItemData(item_num);
         List<SellBidDto> buyNowPrice=service.getBuyNowPrice(item_num);
-        System.out.println(buyNowPrice.size());
 
         mv.addObject("item_num",item_num);
         mv.addObject("dto",dto);
@@ -59,16 +58,29 @@ public class BuyNowController {
         mv.addObject("dto", dto);
         mv.addObject("size", size);
         mv.addObject("deliveryWay", deliveryWay);
-        mv.addObject("price", price.substring(3, price.length()));
-//      System.out.println(size);
 
+        if(price.contains("ONE SIZE")) {
+            mv.addObject("price", price.substring(8, price.length()));
+        } else if(price.contains("XXXL")) {
+            mv.addObject("price", price.substring(4, price.length()));
+        } else if(price.contains("XXL")) {
+            mv.addObject("price", price.substring(3, price.length()));
+        } else if(price.contains("XS") || price.contains("XL")) {
+            mv.addObject("price", price.substring(2, price.length()));
+        } else if(price.contains("S") || price.contains("M") || price.contains("L")) {
+            mv.addObject("price", price.substring(1, price.length()));
+        } else if(price!=null) {
+            mv.addObject("price", price.substring(3, price.length()));
+        }  else {
+            mv.addObject("price", price);
+        }
         mv.setViewName("/purchase/purchaseAgree");
         return mv;
     }
 
     //구매입찰/즉시구매 선택
     @GetMapping("/buy/type")
-    public ModelAndView selectType(String item_num, String size, String deliveryWay,String price) {
+    public ModelAndView selectType(String item_num, String size, String deliveryWay, String price) {
         ModelAndView mv = new ModelAndView();
 
         ItemDto dto=itemService.getItemData(item_num);
@@ -83,7 +95,7 @@ public class BuyNowController {
 
     //구매/결제
     @GetMapping("/buy/order")
-    public ModelAndView buyOrder(String item_num, String price, String orderPrice,
+    public ModelAndView buyOrder(String item_num, String orderPrice, String price,
                                  HttpSession session, String size, String deadline, String deliveryWay, String buyType) {
         ModelAndView mv = new ModelAndView();
         String loginEmail = (String) session.getAttribute("loginEmail");
@@ -92,11 +104,6 @@ public class BuyNowController {
         UserDto userDto = userService.getUserNumData(userNum);
         ItemDto dto=itemService.getItemData(item_num);
         mv.addObject("dto", dto);
-        if(orderPrice!=null) {
-            mv.addObject("price", orderPrice.substring(3, orderPrice.length()));
-        } else {
-            mv.addObject("price", price);
-        }
 
         mv.addObject("deadline", deadline);
         mv.addObject("item_num", item_num);

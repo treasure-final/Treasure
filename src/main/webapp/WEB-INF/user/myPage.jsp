@@ -221,7 +221,7 @@ div.main {
                 <br><input type="button" class="profile-btn" value="프로필 수정" align="left" onclick="location.href='/user/myProfile'">
                 <input type="button" class="profile-btn" value="내 스타일" align="left" style="width: 80px " onclick="location.href='/style/mystyle'">
             </div>
-        </div>f
+        </div>
         <div style="clear: left"></div>
         <span style="font-size: 16px; font-weight: bold">판매 내역</span>
         <div class="list-box" style="background-color: #f2f9f6;">

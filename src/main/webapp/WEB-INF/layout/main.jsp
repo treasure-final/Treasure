@@ -11,11 +11,15 @@
             rel="stylesheet">
     <title>Treasure</title>
     <style>
+
         .container {
             width: 100%;
             margin: 100px 0px 0px 0px;
             opacity: 0.9;
+        }
 
+        #menulist, #searchinput {
+            margin-top: -13px;
         }
 
         #slider {

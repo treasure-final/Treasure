@@ -138,7 +138,7 @@
     </style>
     <script>
         $(function () {
-            if("${price}"=="구매입찰") {
+            if("${price}".includes("구매입찰")) {
                 $("#buy-immediate").attr("disabled", true);
                 $("#buy-immediate").css("background-color", "#e3e3e3");
                 $("#buy-immediate").css("cursor", "unset");
@@ -146,7 +146,7 @@
                 $("#buy-bid").css("background-color", "#e3e3e3")
                     .css("color", "black");
             }
-            if("${price}"=="구매입찰") {
+            if("${price}".includes("구매입찰")) {
                 $("#result-immediate").hide();
                 $("#result-bid").show();
             }else {
@@ -328,7 +328,12 @@
              style="border-top: 1px solid #b9b9b9; width: 90%; float: left; height: 40%;">
             <div class="price-info" align="center">
                 <div style="opacity: 0.7; font-size: 14px;">즉시 구매가</div>
-                ${price}
+                <c:if test="${price.contains('구매입찰')}">
+                    구매입찰
+                </c:if>
+                <c:if test="${!price.contains('구매입찰')}">
+                    ${price}
+                </c:if>
             </div>
             <div class="price-info" align="center" style="border-left: 1px solid #b9b9b9">
                 <div style="opacity: 0.7; font-size: 14px;">즉시 판매가</div>

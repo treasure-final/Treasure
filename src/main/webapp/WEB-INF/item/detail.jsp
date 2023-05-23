@@ -223,7 +223,7 @@ select {
 	});
 	
 	function tabContentChange(type, item_num, size) {
-		// alert(type + ", " + size)
+		 alert(type + ", " + size)
 		
 		$.ajax({
 			url : '/item/getTabContent',
@@ -233,9 +233,129 @@ select {
 				"item_num" : item_num,
 				"size" : size
 			},
-			dataType : 'text',
+			dataType : 'json',
 			success : function(res) {
-				alert("성공")
+				var tabType = ""; 
+				var s = '';
+				
+				if(res.length == 0){
+					s += '<div class="p-2 mb-1" style="text-align: center;">';
+					s += '<div class="d-flex" style="padding: 5px; height: 20vh; line-height: 25vh;" >';
+					s += '<span class="w-100" style="opacity: 0.4; font-size: 1.2em;"><i class="fa-solid fa-chart-line"></i>'
+					
+					if(type == "체결 거래") {
+						tabType = "tab-deal-null"
+						s += ' 체결된 거래가 아직 없습니다';
+					}
+					else if(type == "구매 입찰") {
+						tabType = "tab-buy-null"
+						s += ' 구매 입찰 내역이 아직 없습니다';
+					}
+					else {
+						tabType = "tab-sell-null"
+						s += ' 판매 입찰 내역이 아직 없습니다';
+					}
+					
+					s += '</span>';
+					s += '</div>';
+					s += '</div>';					
+				} else {
+					
+					s += '<div class="p-2 mb-1" style="height: 25vh;">';
+					s += '<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">';
+					s += '<div class="col-6">';
+					s += '<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 20px">사이즈<span>';
+					s += '</div>';
+					s += '<div class="col-3">';
+					s += '<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 35px">';
+					
+					if(type == "체결 거래") {
+						tabType = "tab-deal-null"
+						s += '거래가';
+					}
+					else if(type == "구매 입찰") {
+						tabType = "tab-buy"
+						s += '구매 희망가';
+					}
+					else {
+						tabType = "tab-sell"
+						s += '판매 희망가';
+					}
+					
+					s += '</span>';
+					s += '</div>';
+					s += '<div class="col-3">';
+					s += '<span style="font-size: 0.8em; color: #a0a0a0; margin-left: 30px">';
+					
+					if(type == "체결 거래") {
+						s += '거래일';
+					}
+					else {
+						s += '수량';
+					}
+					
+					s += '</span>';
+					s += '</div>';
+					s += '</div>';
+					
+					s += '<hr class="mt-0 mb-0">';	
+					
+					$.each(res, function(i, item) {
+						
+						if (i >= 5) {
+							return false; // 반복 종료
+						}
+
+						s += '<div class="d-flex" id="size_'+ item.size +'" style="padding: 5px; text-align: center; margin-right: 20px;">';
+						s += '<div class="col-6">';																							
+						s += '<span style="font-size: 0.9em; color: #666; margin-right: 25px">' + item.size + '</span>';																									
+						s += '</div>';
+						s += '<div class="col-4">';
+						s += '<span style="font-size: 0.9em; color: #666; float: right; margin-right: 80px">';
+						s += item.price +"원";
+						s += '</span>';
+						s += '</div>';
+						s += '<div class="col-2">';
+						s += '<span style="font-size: 0.9em; color: #666; margin-right: 30px">';
+						
+						if(type == "체결 거래") {
+							s += item.date;
+						} else
+							s += item.count;
+						
+						s += '</span>';
+						s += '</div>';
+																																	
+						
+						/* if() {
+						
+							s += '<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px;">';
+							s += '<div class="col-6">';																						
+							s += '<span style="font-size: 0.9em; color: #666; margin-right: 25px">-</span>';																									
+							s += '</div>';
+							s += '<div class="col-4">';
+							s += '<span style="font-size: 0.9em; color: #666; float: right; margin-right: 105px">-</span>';
+							s += '</div>';
+							s += '<div class="col-2">';
+							s += '<span style="font-size: 0.9em; color: #666; margin-right: 20px">-</span>';
+							s += '</div>';
+							s += '</div>';	
+										
+						} */
+																			
+						s += '</div>';
+												
+					}); 
+					
+					s += '<div class="mt-3" style="padding-top: 10px">';
+					s += '<button type="button" class="btn btn-outline-detail w-100" style="margin-top: 40px;" data-bs-toggle="modal" data-bs-target="#detailModal">';
+					s += '체결 내역 더보기';
+					s += '</button>';						
+					s += '</div>';
+				}
+				
+				$("." + tabType).html(s);
+				
 			},
 			error : function(xhr, status, error) {
 				// 에러 처리
@@ -324,11 +444,6 @@ select {
 		option.value = selectedValue;
 		option.text = selectedValue;
 		selectElement2.add(option);
-
-		// 선택한 값을 두 번째 select 요소에서 선택 상태로 설정
-		/* selectElement2.value = selectedValue;
-		$("#size_" + selectedValue).removeClass("d-flex");
-		$("#size_" + selectedValue).css("display", "none"); */
 
 		// 선택한 값을 두 번째 select 요소에서 선택 상태로 설정
 		selectElement2.value = selectedValue;
@@ -894,15 +1009,16 @@ select {
 												<div class="tab-content">
 													<div class="tab-pane fade show active" id="deal" role="tabpanel">
 													
-													<c:if test="${getOrderData.size() == 0}">
+													<%-- <c:if test="${getOrderData.size() == 0}">
 														<div class="p-2 mb-1" style="text-align: center;">
 															<div class="d-flex" style="padding: 5px; height: 20vh; line-height: 25vh;" >
 																<span class="w-100" style="opacity: 0.4; font-size: 1.2em;"><i class="fa-solid fa-chart-line"></i> 체결된 거래가 아직 없습니다</span>
 															</div>
 														</div>																										
-													</c:if>
-															
-													<c:if test="${getOrderData.size() > 0}">		
+													</c:if> --%>
+													<div class="tab-deal-null"></div>
+													<div class="tab-deal"></div>
+													<%-- <c:if test="${getOrderData.size() > 0}">		
 														<div class="p-2 mb-1" style="height: 17vh;">
 															<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
 																<div class="col-6">
@@ -963,7 +1079,7 @@ select {
 																		</div>
 																	</div>		
 																</c:forEach>
-															</c:if>
+															</c:if> 
 																													
 														</div>
 																										
@@ -972,7 +1088,7 @@ select {
 																data-bs-target="#detailModal"
 															>체결 내역 더보기</button>
 														</div>
-													</c:if>
+													</c:if>--%>
 														
 													</div>
 													<div class="tab-pane fade" id="sellBid" role="tabpanel">
@@ -984,7 +1100,8 @@ select {
 															</div>
 														</div>																										
 													</c:if>
-																														
+													<div class="tab-sell-null"></div>		
+													<div class="tab-sell"></div>																	
 													<c:if test="${groupedSellData.size() > 0}">															
 														<div class="p-2 mb-1" style="height: 17vh;">
 															<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
@@ -1055,7 +1172,8 @@ select {
 															</div>
 														</div>																										
 													</c:if>
-															
+													<div class="tab-buy-null"></div>	
+													<div class="tab-buy"></div>	
 													<c:if test="${groupedBuyData.size() > 0}">
 														<div class="p-2 mb-1" style="height: 17vh;">
 															<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">

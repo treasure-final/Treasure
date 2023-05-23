@@ -179,18 +179,42 @@ public class DetailController {
 		TabContentDto tabContentDto = new TabContentDto();
 		
 		if(type.equals("체결 거래")) {
-			dataList = Dservice.getBuyBidGroupedData(item_num, size);
+			dataList = Dservice.getOrderData(item_num, size);
 			
 			for (Map<String, Object> data : dataList) {
-				tabContentDto.setDate(data.get("order_date").toString());
-				//tabContentDto.setPrice(data.get("wish_price"));
+								
+				LocalDateTime dateTime = LocalDateTime.parse(data.get("order_date").toString());
+		        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+		        String formattedDateTime = dateTime.format(formatter);
+				
+		        tabContentDto.setDate(formattedDateTime);
+				tabContentDto.setPrice(String.format("%,d", (int)data.get("wish_price")));
+				tabContentDto.setSize(data.get("size").toString());
+				
+				content.add(tabContentDto);
 			}
 		}
 		else if(type.equals("판매 입찰")) {
 			dataList = Dservice.getSellBidGroupedData(item_num, size);
+			
+			for (Map<String, Object> data : dataList) {
+				tabContentDto.setSize(data.get("sell_size").toString());
+				tabContentDto.setPrice(String.format("%,d", (int)data.get("sell_wishprice")));
+				tabContentDto.setCount(data.get("count").toString());
+				
+				content.add(tabContentDto);
+			}
 		}
 		else {
-			dataList = Dservice.getOrderData(item_num, size);
+			dataList = Dservice.getBuyBidGroupedData(item_num, size);
+			
+			for (Map<String, Object> data : dataList) {
+				tabContentDto.setSize(data.get("buy_size").toString());
+				tabContentDto.setPrice(String.format("%,d", (int)data.get("buy_wishprice")));
+				tabContentDto.setCount(data.get("count").toString());
+				
+				content.add(tabContentDto);
+			}
 		}
 		
 		return content;

@@ -15,4 +15,6 @@ public interface ItemMapperInter {
    public List<ItemDto> getSearhAllData(Map<String, String> map); 
    public List<ItemDto> getItemSort();
    public ItemDto getItemData(String item_num);
+   public List<ItemDto> searchItems(String searchText);
+
 }

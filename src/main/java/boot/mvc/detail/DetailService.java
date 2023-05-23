@@ -1,5 +1,9 @@
 package boot.mvc.detail;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +17,53 @@ public class DetailService implements DetailServiceInter {
 
 	@Override
 	public ItemDto DetailgetData(String item_num) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated
+		// method stub
 		return mapper.DetailgetData(item_num);
 	}
 
+	@Override
+	public List<ItemDto> getAllData() {
+		// TODO Auto-generated
+		// method stub
+		return mapper.getAllData();
+	}
+
+	@Override
+	public List<Map<String, Object>> getBuyBidGroupedData(String item_num) {
+		// TODO Auto-generated
+		// method stub
+		return mapper.getBuyBidGroupedData(item_num);
+	}
+
+	@Override
+	public List<Map<String, Object>> getSellBidGroupedData(String item_num) {
+		// TODO Auto-generated
+		// method stub
+		return mapper.getSellBidGroupedData(item_num);
+	}
+
+	@Override
+	public List<Map<String, Object>> getPurchaseData(String item_num) {
+		// TODO Auto-generated
+		// method stub
+		return mapper.getPurchaseData(item_num);
+	}
+
+	@Override
+	public String getPurchaseRecentPriceAll(String item_num) {
+		// TODO Auto-generated
+		// method stub
+		return mapper.getPurchaseRecentPriceAll(item_num);
+	}
+
+	@Override
+	public int getPurchaseRecentPriceSize(String item_num, String buy_size) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("item_num", item_num);
+		map.put("buy_size", buy_size);
+		
+		return mapper.getPurchaseRecentPriceSize(map);
+	}
 }

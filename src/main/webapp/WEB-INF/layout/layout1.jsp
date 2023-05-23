@@ -13,6 +13,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+
 <link
 	href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
 	rel="stylesheet">
@@ -69,41 +70,24 @@ div.layout div.footer {
 	bottom: .4rem;
 }
 
-.btns>div {
-	padding: .6rem 1.5rem;
-	background: #111;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: pointer;
-	border-radius: 5px;
-	transition: .2s;
-	color: #fff;
-	margin-right: .4rem;
-}
 
-d.moveTopBtn:hover {
-	color: white;
-	background: #747f55;
-}
+        .btns>div {
+            padding: .6rem 1.5rem;
+            background: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: .2s;
+            color: #fff;
+            margin-right: .4rem;
+        }
 
-.btns>div {
-	padding: .6rem 1.5rem;
-	background: #111;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	cursor: pointer;
-	border-radius: 5px;
-	transition: .2s;
-	color: #fff;
-	margin-right: .4rem;
-}
-
-.moveTopBtn:hover {
-	color: white;
-	background: #747f55;
-}
+        .moveTopBtn:hover {
+            color: white;
+            background: #747f55;
+        }
 
 /* 글꼴 적용*/
 @font-face {

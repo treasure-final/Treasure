@@ -15,159 +15,169 @@
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script type="application/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js"
             charset="utf-8"></script>
-    <style>
-        @font-face {
-            font-family: "GmarketSansMedium";
-            src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff") format("woff");
-            font-weight: normal;
-            font-style: normal;
-        }
-
-        div.main {
-            font-family: "GmarketSansMedium";
-            font-size: 13px;
-            padding: 0;
-            margin: 0;
-            border: none;
-        }
-
-        .wrapper {
-            width: 100%;
-            margin-bottom: 300px;
-        }
-
-        .container {
-            width: 82%;
-            height: 1200px;
-            padding: 40px;
-            box-sizing: border-box;
-            margin-left: 0px;
-            margin-top: 30px;
-            float: left;
-        }
-
-        .side {
-            width: 13%;
-            height: 500px;
-            margin-left: 45px;
-            margin-top: 70px;
-            float: left;
-        }
-
-        #side-top {
-            margin-bottom: 30px;
-            line-height: 30px;
-        }
-
-        #side-bottom {
-            line-height: 30px;
-        }
-
-        .side-title {
-            font-size: 20px;
-            margin-bottom: 30px;
-            font-weight: bold;
-        }
-
-        .sub-title {
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .sub-menu {
-            opacity: 0.5;
-            cursor: pointer;
-        }
-
-        #profile-info {
-            border: 1px solid #e3e3e3;
-            border-radius: 10px;
-            height: 150px;
-            margin-bottom: 45px;
-            display: flex;
-        }
-        
-
-        .list-box {
-            height: 80px;
-            margin-top: 16px;
-            border-radius: 10px;
-            margin-bottom: 40px;
-            padding-top: 20px;
-        }
-
-        .list-box>div {
-            padding: 1% 7%;
-            margin-right: 20px;
-            margin-left: 20px;
-            font-size: 14px;
-            opacity: 0.7;
-            float: left;
-        }
-
-        .item-list {
-            height: 200px;
-            text-align: center;
-            line-height: 200px;
-            margin-bottom: 40px;
-            opacity: 0.5;
-        }
-
-        .addView {
-            margin-left: 775px;
-            opacity: 0.5;
-            cursor: pointer;
-        }
-        
-                .image-wrapper {
-  width: 110px;
-  height: 110px;
-  overflow: hidden;
-  border-radius: 50%;
-  background-color: yellow;
-  margin-top: 17px;
-  margin-left: 17px;
+<style>
+@font-face {
+	font-family: "GmarketSansMedium";
+	src:
+		url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+		format("woff");
+	font-weight: normal;
+	font-style: normal;
 }
-        
-        #profile-img {
-            
-            height: 100%;
-            width: 100%;
-            
-            border-radius: 50%;
-        }
 
-        #profile-content {
-            margin-left: 20px;
-            margin-top: 35px;
-            float: left;
-            font-size: 12px;
-            line-height: 20px;
-        }
+div.main {
+	font-family: "GmarketSansMedium";
+	font-size: 13px;
+	padding: 0;
+	margin: 0;
+	border: none;
+}
 
-        .profile-btn {
-            border: 1px solid #e3e3e3;
-            background-color: #fff;
-            border-radius: 10px;
-            width: 100px;
-            height: 35px;
-            margin-top: 8px;
-            padding-left: 14px;
-            font-size: 12px;
-            color: black;
-            cursor: pointer;
-        }
+.wrapper {
+	width: 1300px;
+	margin-bottom: 100px;
+}
 
-        .profile-btn:hover {
-            background-color: #f3f3f3;
-        }
+.container {
+	width: 82%;
+	height: 1000px;
+	padding: 40px;
+	box-sizing: border-box;
+	margin-left: 0px;
+	margin-top: 30px;
+	float: left;
+}
 
-        .box2 >div {
-            margin-left: 45px;
-        }
-    </style>
+.side {
+	width: 13%;
+	height: 500px;
+	margin-left: 45px;
+	margin-top: 70px;
+	float: left;
+}
 
-    
+#side-top {
+	margin-bottom: 30px;
+	line-height: 30px;
+}
+
+#side-bottom {
+	line-height: 30px;
+}
+
+.side-title {
+	font-size: 20px;
+	margin-bottom: 30px;
+	font-weight: bold;
+}
+
+.sub-title {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.sub-menu {
+	opacity: 0.5;
+	cursor: pointer;
+}
+
+#profile-info {
+	border: 1px solid #e3e3e3;
+	border-radius: 10px;
+	height: 150px;
+	margin-bottom: 45px;
+	display: flex;
+}
+
+.list-box {
+	height: 80px;
+	margin-top: 16px;
+	border-radius: 10px;
+	margin-bottom: 40px;
+	padding-top: 20px;
+}
+
+.list-box>div {
+	padding: 1% 7%;
+	margin-right: 20px;
+	margin-left: 20px;
+	font-size: 14px;
+	opacity: 0.7;
+	float: left;
+}
+
+.list-box2 {
+	height: 80px;
+	margin-top: 16px;
+	border-radius: 10px;
+	margin-bottom: 40px;
+	padding-top: 20px;
+}
+
+.list-box2>div {
+	padding: 1% 7%;
+	margin-right: 20px;
+	margin-left: 20px;
+	font-size: 14px;
+	opacity: 0.7;
+	float: left;
+}
+
+.item-list {
+	height: 200px;
+	text-align: center;
+	line-height: 200px;
+	margin-bottom: 40px;
+	opacity: 0.5;
+}
+
+.image-wrapper {
+	width: 110px;
+	height: 110px;
+	overflow: hidden;
+	border-radius: 50%;
+	background-color: yellow;
+	margin-top: 17px;
+	margin-left: 17px;
+}
+
+#profile-img {
+	height: 100%;
+	width: 100%;
+	border-radius: 50%;
+}
+
+#profile-content {
+	margin-left: 20px;
+	margin-top: 35px;
+	float: left;
+	font-size: 12px;
+	line-height: 20px;
+}
+
+.profile-btn {
+	border: 1px solid #e3e3e3;
+	background-color: #fff;
+	border-radius: 10px;
+	width: 100px;
+	height: 35px;
+	margin-top: 8px;
+	padding-left: 14px;
+	font-size: 12px;
+	color: black;
+	cursor: pointer;
+}
+
+.profile-btn:hover {
+	background-color: #f3f3f3;
+}
+
+.box2>div {
+	margin-left: 45px;
+}
+</style>
+
+
 </head>
 <body>
 <form action="">
@@ -209,38 +219,27 @@
             <div id="profile-content"><b style="font-size: 16px; opacity: 1">${dto.user_name }</b>
                 <br><span style="opacity: 0.5">${dto.user_email }</span>
                 <br><input type="button" class="profile-btn" value="프로필 수정" align="left" onclick="location.href='/user/myProfile'">
-                <input type="button" class="profile-btn" value="내 스타일" align="left" style="width: 80px">
+                <input type="button" class="profile-btn" value="내 스타일" align="left" style="width: 80px " onclick="location.href='/style/mystyle'">
             </div>
-        </div>
+        </div>f
         <div style="clear: left"></div>
-        <span style="font-size: 16px; font-weight: bold">보관 판매 내역</span>
-        <span class="addView">더보기 ></span>
-        <div class="list-box " style="background-color: #f2f9f6;">
-            <div align="center" style="margin-left: 45px">발송요청<br><b style="color: green">0</b></div>
-            <div align="center" style="border-left: 2px solid #e3e3e3; ">검수대기<br>0</div>
-            <div align="center">검수 중<br>0</div>
-            <div align="center">검수완료<br>0</div>
+        <span style="font-size: 16px; font-weight: bold">판매 내역</span>
+        <div class="list-box" style="background-color: #f2f9f6;">
+            <div align="center" style="margin-left: 45px; cursor: pointer;" id="total">전체<br><b style="color: green">0</b></div>
+            <div align="center" style="border-left: 2px solid #e3e3e3; margin-left: 45px; cursor: default;">입찰 중<br>0</div>
+            <div align="center" style="margin-left: 30px; cursor: default;">진행 중<br>0</div>
+            <div align="center" style="margin-left: 30px; cursor: default;">종료<br>0</div>
         </div>
 
         <span style="font-size: 16px; font-weight: bold">구매 내역</span>
-        <span class="addView" style="margin-left: 815px">더보기 ></span>
-        <div class="list-box box2" style="background-color: #fafafa;">
-            <div align="center" style="margin-left: 45px">전체<br><b style="color: red">0</b></div>
-            <div align="center" style="border-left: 2px solid #e3e3e3; ">입찰 중<br>0</div>
-            <div align="center" style="margin-left: 30px">진행 중<br>0</div>
-            <div align="center" style="margin-left: 30px">종료<br>0</div>
+        <div class="list-box box2" style="background-color: rgb(254, 247, 246);">
+            <div align="center" style="margin-left: 45px; cursor: pointer;">전체<br><b style="color: red">0</b></div>
+            <div align="center" style="border-left: 2px solid #e3e3e3; cursor: default; ">입찰 중<br>0</div>
+            <div align="center" style="margin-left: 30px; cursor: default;">진행 중<br>0</div>
+            <div align="center" style="margin-left: 30px; cursor: default;">종료<br>0</div>
         </div>
-        <div class="item-list">거래 내역이 없습니다.</div>
+        
 
-        <span style="font-size: 16px; font-weight: bold">판매 내역</span>
-        <span class="addView" style="margin-left: 815px">더보기 ></span>
-        <div class="list-box box2" style="background-color: #fafafa;">
-            <div align="center" style="margin-left: 45px">전체<br><b style="color: red">0</b></div>
-            <div align="center" style="border-left: 2px solid #e3e3e3; ">입찰 중<br>0</div>
-            <div align="center" style="margin-left: 30px">진행 중<br>0</div>
-            <div align="center" style="margin-left: 30px">종료<br>0</div>
-        </div>
-        <div class="item-list">거래 내역이 없습니다.</div>
 
     </div>
 
@@ -248,6 +247,14 @@
 </div>
 
 </form>
+
+<script type="text/javascript">
+$("#total").click(function(){
+	
+	location.href="/user/sellHistory";
+});
+
+</script>
 </body>
 </html>
 

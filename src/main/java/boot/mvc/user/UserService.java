@@ -89,7 +89,7 @@ public class UserService implements UserServiceInter {
         mapper.updateTemporarilyPass(map);
     }
 
-    
+
     //스타일리스트에서 씀
 	@Override
 	public String getName(String user_email) {
@@ -104,5 +104,6 @@ public class UserService implements UserServiceInter {
 	}
 
 	
+
 
 }

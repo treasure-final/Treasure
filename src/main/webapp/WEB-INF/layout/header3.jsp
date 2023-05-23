@@ -6,10 +6,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link
 	href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
 	rel="stylesheet"
 >
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="hangul.js" type="text/javascript"></script>
+<!-- or from CDN -->
+<script src="https://unpkg.com/hangul-js" type="text/javascript"></script>
+<script src="/assets/js/data.js"></script>
 <title></title>
 <style type="text/css">
 #title {
@@ -24,14 +32,15 @@
 
 #menulist {
 	margin-top: 28.5px;
-	margin-left: 40px; font-size : 18px;
+	margin-left: 40px;
+	font-size: 18px;
 	float: left;
 	font-size: 18px;
 }
 
 #infostate {
 	position: absolute;
-	right:-1.5px;
+	right: -1.5px;
 	margin-right: 40px;
 	top: 37.5px;
 }
@@ -84,19 +93,26 @@ a:hover {
 			<div id="menulist">
 				<ul class="tul">
 					<li style="margin-right: 40px;">
-						<a href="#">
+						<a href="/">
 							<b>Home</b>
 						</a>
 					</li>
 					<li style="margin-right: 40px;">
-						<a href="#">Style</a>
+						<a href="/style/stylelist">Style</a>
 					</li>
 					<li style="margin-right: 40px;">
 						<a href="/item/itemlist">Shop</a>
 					</li>
-					<li style="margin-right: 40px;">
-						<a href="/user/myPage">My</a>
-					</li>
+					<c:if test="${not empty loginOk}">
+						<li style="margin-right: 40px;">
+							<a href="/user/myPage">My</a>
+						</li>
+					</c:if>
+					<c:if test="${empty loginOk}">
+						<li style="margin-right: 40px;">
+							<a id="noLoginMy">My</a>
+						</li>
+					</c:if>
 				</ul>
 			</div>
 			<div id="infostate">
@@ -118,5 +134,11 @@ a:hover {
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		document.getElementById("noLoginMy").addEventListener("click", function() {
+			alert("로그인 후 이용 가능합니다");
+			window.location.href = "/user/loginForm";
+		});
+	</script>
 </body>
 </html>

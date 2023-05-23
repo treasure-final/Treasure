@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 @Alias("BoardDto")
 public class BoardDto {
-private int board_id;	
+private int board_id;   
 private int user_num;
 private int item_num;
 private String board_content;
@@ -23,4 +23,5 @@ private String myid;
 private String name;
 private MultipartFile upload; 
 private String myphoto;
+private String dimage;
 }

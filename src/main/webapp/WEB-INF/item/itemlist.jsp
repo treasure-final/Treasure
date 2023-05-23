@@ -15,14 +15,13 @@
     <link
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
             rel="stylesheet">
+
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 
     <title></title>
 
-    <script type="text/javascript">
 
 
-    </script>
 
 
     <style type="text/css">
@@ -200,7 +199,11 @@
             <li style="margin-right: 40px;"><a class="bag" href="itemck?ck=bag">잡화</a></li>
         </ul>
     </div>
+
+
     <div class="Kategorie" style=" width: 200px; float: left; ">
+
+
         <form action="itemck" method="get">
 
 
@@ -276,6 +279,9 @@
             <br><br>
 
 
+
+
+
             <b style="font-size: 20px;">카테고리</b>
             <br>
             <br>
@@ -334,4 +340,9 @@
         </div>
     </div>
 </div>
+
 </body>
+
+
+</html>
+

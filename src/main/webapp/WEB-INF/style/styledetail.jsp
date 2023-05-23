@@ -204,8 +204,8 @@ div.all {
 </head>
 <body>
 	<c:set var="root" value="<%=request.getContextPath()%>" />
-	<input type="text" class="board_id" value="${board_id }">
 	<div id="content">
+	<input type="text" class="board_id" value=${board_id }>
 		<c:forEach items="${DetailList }" var="Bdto">
 			<div class="post">
 				<div class="profile">

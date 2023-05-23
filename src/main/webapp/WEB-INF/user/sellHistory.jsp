@@ -162,12 +162,20 @@ div.main {
 
 $(function(){
 	
-	$(document).on("click", "#sellBid", function() {
-		  location.href = "/user/sellSuccess";
+	
+	$(document).on("click", ".sellBid", function() {
+		
+		var sell_num=$(this).attr("sell_num");
+		
+		  location.href = "/user/sellSuccess?sell_num="+sell_num;
 		});
 	
-	$(document).on("click", "#sellNow", function() {
-		  location.href = "/user/sellNowSuccess";
+	
+	$(document).on("click", ".sellNow", function() {
+		
+		var sellnow_num=$(this).attr("sell_num");
+		
+		  location.href = "/user/sellNowSuccess?sellnow_num="+sellnow_num;
 		});
 
 });
@@ -234,7 +242,7 @@ $(function(){
             </c:if>
 	           
             <c:if test="${sellTotalDto.sell_num == null && sellTotalDto.sellnow_num != null && sellTotalDto.sellNowDto.test_result eq '합격' }">
-	 		<div class="sell-content" id="sellNow">            
+	 		<div class="sell-content sellNow" sellnow_num=${sellTotalDto.sellnow_num }>            
 	        	<div style="width: 600px; display: flex; font-size: 15px;">
 	                <img class="sellImg" src="../img/item_image/${sellTotalDto.itemDto.item_image}">
 	                <div class="sellDescription">
@@ -268,7 +276,7 @@ $(function(){
             </c:if>
             
             <c:if test="${sellTotalDto.sellnow_num == null && sellTotalDto.sell_num != null  && sellTotalDto.sellBidDto.test_result eq '합격'}">
-			<div class="sell-content" id="sellBid">            
+			<div class="sell-content sellBid" sell_num="${sellTotalDto.sell_num }">            
 	            <div style="width: 600px; display: flex; font-size: 15px;">
 	                <img class="sellImg" src="../img/item_image/${sellTotalDto.itemDto.item_image}">
 	                <div class="sellDescription">
@@ -330,7 +338,7 @@ $(function(){
 	                        };
 	                       
 	                   if(sellTotalDto.sell_num == null && sellTotalDto.sellnow_num != null && sellTotalDto.sellNowDto.test_result === '합격'){	                      
-	                       html += '<div class="sell-content" id="sellNow">';
+	                       html += '<div class="sell-content sellNow" sellnow_num='+sellTotalDto.sellnow_num+'>';
 	                              html += '   <div style="width: 600px; display: flex; font-size: 15px;">';
 	                              html += '       <img class="sellImg" src="../img/item_image/' + sellTotalDto.itemDto.item_image + '">';
 	                              html += '       <div class="sellDescription">';
@@ -366,7 +374,7 @@ $(function(){
 	                   };
 	                   
 	                   if(sellTotalDto.sellnow_num == null && sellTotalDto.sell_num != null  && sellTotalDto.sellBidDto.test_result === '합격'){
-	                      	html += '<div class="sell-content" id="sellBid">';
+	                      	html += '<div class="sell-content sellBid" sell_num='+sellTotalDto.sell_num+'>';
 	                           html += '   <div style="width: 600px; display: flex; font-size: 15px;">';
 	                           html += '       <img class="sellImg" src="../img/item_image/' + sellTotalDto.itemDto.item_image + '">';
 	                           html += '       <div class="sellDescription">';

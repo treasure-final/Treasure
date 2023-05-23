@@ -546,10 +546,19 @@ public class UserController {
     }
     
     @GetMapping("/user/sellSuccess")
-    public String sellSuccsee() {
+    public String sellSuccsee(HttpSession session, Model model) {
+    	
+    	String loginEmail = (String) session.getAttribute("loginEmail");
+        String user_num = service.findEmailUserNum(loginEmail);
+        
+        
+        
+        
+
   	
     	return "/user/sellSuccess";
     }
+    
     
     @GetMapping("/user/sellNowSuccess")
     public String sellNowSuccess() {

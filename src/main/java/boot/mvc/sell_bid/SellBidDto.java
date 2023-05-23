@@ -29,6 +29,13 @@ public class SellBidDto {
 	private String sell_status;
 	private String test_result;
 	private ItemDto itemDto;
+	private String return_name;
+	private String return_phone;
+	private String return_addr;
+	private String account_bank;
+	private String account_number;
+	private String penaltypay_bank;
+	private String penaltypay_number;
 	
 	 public ItemDto getItemDto() {
 	        return itemDto;

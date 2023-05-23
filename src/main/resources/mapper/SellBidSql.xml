@@ -32,5 +32,9 @@
 	<select id="getSellBidSuccessCount" parameterType="String" resultType="int">
 		select count(*) from sell_bid where user_num=${user_num} and sell_status='판매완료' or sell_status='판매불가'
 	</select>
+	
+	<select id="getSellBidDataOfSellNum" resultType="SellBidDto" parameterType="String">
+		select * from sell_bid where sell_num=#{sell_num}
+	</select>
 
 </mapper>

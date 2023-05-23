@@ -44,4 +44,10 @@ public class SellBidService implements SellBidServiceInter {
 		// TODO Auto-generated method stub
 		return mapper.getSellBidSuccessCount(user_num);
 	}
+
+	@Override
+	public SellBidDto getSellBidDataOfSellNum(String sell_num) {
+		// TODO Auto-generated method stub
+		return mapper.getSellBidDataOfSellNum(sell_num);
+	}
 }

@@ -122,7 +122,8 @@ div.main {
 	text-align: center;
 	margin: 30px 3px 30px 3px;
 	border: 1px solid #e3e3e3;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, .12);	
+	box-shadow: 0 2px 4px rgba(0, 0, 0, .12);
+	cursor: pointer;	
 }
 
 .profilebtn:hover {
@@ -157,11 +158,11 @@ div.main {
 		
 		<div class="success-content">
 			<div class="item-info">
-				<img style="width: 150px; height: 150px; border-radius: 15px;" src="../img/item_image/12.png">
+				<img style="width: 150px; height: 150px; border-radius: 15px;" src="../img/item_image/${itemDto.item_image}">
 					<div class="desscription">
-	                    <div>Nike ACG Storm-Fit ADV Cascade Rains Full Zip Jacket Black - Asia</div>
-	                    <div style="opacity: 0.5;">나이키 ACG 스톰핏 ADV 케스케이드 레인 풀 집 자켓 블랙 - 아시아</div>
-	                    <div>XL</div>
+	                    <div>${itemDto.item_engname }</div>
+	                    <div style="opacity: 0.5;">${itemDto.item_korname }</div>
+	                    <div>${buyBidDto.buy_size }</div>
 	                </div>
 			</div>
 			
@@ -175,16 +176,16 @@ div.main {
 					<div style="font-size: 14px; opacity: 0.6;">검수비</div>
 				</div>
 				
-				<div style="margin-bottom: 20px; margin-left: 600px; text-align: right;">
-					<div style=" font-size: 17px; margin-bottom: 8px;">5,000,000 원</div>
+				<div style="margin-bottom: 20px; margin-left: 550px; text-align: right; width: 200px;">
+					<div style=" font-size: 17px; margin-bottom: 8px;"><fmt:formatNumber value="${buyBidDto.buy_wishprice }" pattern="#,###"/> 원</div>
 					<div style=" font-size: 14px; opacity: 0.6;">-3,000 원</div>
-					<div style=" font-size: 14px; opacity: 0.6;">-150,000 원</div>
+					<div style=" font-size: 14px; opacity: 0.6;">-<fmt:formatNumber value="${buyBidDto.buy_wishprice *0.2 }" pattern="#,###"/> 원</div>
 				</div>
 				</div>
 				
 				<div style="display: flex;">
 				<div style=" font-size: 18px;">정산 금액</div>
-				<div style="font-size: 20px; color: red; font-weight: bold; margin-left: 580px; text-align: right;">3,800,000 원</div>
+				<div style="font-size: 20px; color: red; font-weight: bold; margin-left: 547px; text-align: right; width: 203px;"><fmt:formatNumber value="${sellNowDto.sellnow_totalprice }" pattern="#,###"/> 원</div>
 				</div>			
 			</div>
 			
@@ -201,9 +202,9 @@ div.main {
 					</div>
 					
 					<div style="font-size: 15px; margin-left: 100px; padding: 5px;">
-						<div>주하랑</div>
-						<div>01052409805</div>
-						<div>경기도 성남시 수정구 고등로33 303동 1504호</div>
+						<div>${sellNowDto.return_name }</div>
+						<div>${sellNowDto.return_phone }</div>
+						<div>${sellNowDto.return_addr }</div>
 					</div>
 				</div>				
 			</div>
@@ -219,8 +220,8 @@ div.main {
 					</div>
 					
 					<div style="font-size: 15px; margin-left: 100px; padding: 5px;">
-							<div>카카오뱅크</div>
-							<div>1234567890205</div>
+							<div>${sellNowDto.account_bank }</div>
+							<div>${sellNowDto.account_number }</div>
 					</div>			
 				</div>
 			</div>
@@ -236,8 +237,8 @@ div.main {
 					</div>
 					
 					<div style="font-size: 15px; margin-left: 100px; padding: 5px;">
-							<div>카카오뱅크</div>
-							<div>1234567890205</div>
+							<div>${sellNowDto.penaltypay_bank }</div>
+							<div>${sellNowDto.penaltypay_number }</div>
 					</div>			
 				</div>
 			</div>
@@ -246,7 +247,7 @@ div.main {
 			
 			<div class="inputday" style="display: flex;">
 				<div style="font-size: 18px; margin-bottom: 15px;">판매 접수일</div>
-				<div style="font-size: 15px; margin-left: 83px;">2023/05/23</div>
+				<div style="font-size: 15px; margin-left: 83px;"><fmt:formatDate value="${sellNowDto.sellnow_inputday }" pattern="yyyy/MM/dd"/></div>
 			</div>
 
 		

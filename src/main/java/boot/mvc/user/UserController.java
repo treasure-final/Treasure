@@ -436,6 +436,7 @@ public class UserController {
         return checkEmail;
     }
     
+    //일반 sell내역
     @GetMapping("/user/sellHistory")
     public String sellHistory(Model model, HttpSession session, @RequestParam(defaultValue = "0") int offset) {
 
@@ -484,7 +485,7 @@ public class UserController {
         return "/user/sellHistory";
     }
     
-    //무한스크롤 ajax
+    //리스트 무한스크롤 ajax
     @GetMapping("/user/sellHistoryScroll")
     @ResponseBody
     public List<SellTotalDto> sellHistoryScroll(HttpSession session, int offset){
@@ -527,6 +528,98 @@ public class UserController {
     	return list;   	    	
     }
     
+    //판매입찰 상세
+    @GetMapping("/user/sellSuccess")
+    public String sellSuccsee(Model model, String sell_num) {
+    	
+    	SellBidDto sellBidDto=sellBiService.getSellBidDataOfSellNum(sell_num);
+    	
+    	String sell_addr = sellBidDto.getSell_addr();
+    	
+        String[] addressParts = sell_addr.split(",");
+        String name = addressParts[0].trim();
+        String phone = addressParts[1].trim();
+        String addr = addressParts[2].trim();
+        
+        sellBidDto.setReturn_name(name);
+        sellBidDto.setReturn_phone(phone);
+        sellBidDto.setReturn_addr(addr);
+        
+        String sell_account=sellBidDto.getSell_account();
+        
+        String[] accountParts = sell_account.split(" ");
+        String bank = accountParts[0];
+        String number = accountParts[1];
+        
+        sellBidDto.setAccount_bank(bank);
+        sellBidDto.setAccount_number(number);
+        
+        String sell_penaltypay=sellBidDto.getSell_penaltypay();
+        
+        String[] penaltypayParts = sell_penaltypay.split(" ");
+        String pbank = penaltypayParts[0];
+        String pnumber = penaltypayParts[1];
+        
+        sellBidDto.setPenaltypay_bank(pbank);
+        sellBidDto.setPenaltypay_number(pnumber);
+    	
+    	String item_num=sellBidDto.getItem_num();
+		ItemDto itemDto=itemService.getItemData(item_num);
+    	
+    	model.addAttribute("sellBidDto", sellBidDto);
+    	model.addAttribute("itemDto", itemDto);
+
+    	return "/user/sellSuccess";
+    }
+    
+    //즉시판매 상세
+    @GetMapping("/user/sellNowSuccess")
+    public String sellNowSuccess(Model model, String sellnow_num) {
+    	
+    	SellNowDto sellNowDto=sellNowService.getSellNowDataOfSellNowNum(sellnow_num);
+    	
+    	String sellnow_addr = sellNowDto.getSellnow_addr();
+    	
+        String[] addressParts = sellnow_addr.split(",");
+        String name = addressParts[0].trim();
+        String phone = addressParts[1].trim();
+        String addr = addressParts[2].trim();
+        
+        sellNowDto.setReturn_name(name);
+        sellNowDto.setReturn_phone(phone);
+        sellNowDto.setReturn_addr(addr);
+        
+        String sellnow_account=sellNowDto.getSellnow_account();
+        
+        String[] accountParts = sellnow_account.split(" ");
+        String bank = accountParts[0];
+        String number = accountParts[1];
+        
+        sellNowDto.setAccount_bank(bank);
+        sellNowDto.setAccount_number(number);
+        
+        String sellnow_penaltypay=sellNowDto.getSellnow_penaltypay();
+        
+        String[] penaltypayParts = sellnow_penaltypay.split(" ");
+        String pbank = penaltypayParts[0];
+        String pnumber = penaltypayParts[1];
+        
+        sellNowDto.setPenaltypay_bank(pbank);
+        sellNowDto.setPenaltypay_number(pnumber);
+        
+    	String item_num=sellNowDto.getItem_num();
+		ItemDto itemDto=itemService.getItemData(item_num);
+		
+		String buy_num = sellNowDto.getBuy_num();
+		BuyBidDto buyBidDto = buyBidService.getDataOfBuyBid(buy_num);
+		
+		model.addAttribute("sellNowDto", sellNowDto);
+		model.addAttribute("itemDto", itemDto);
+		model.addAttribute("buyBidDto", buyBidDto);
+  	
+    	return "/user/sellNowSuccess";
+    }
+    
 
     @GetMapping("/user/buyHistory")
     public String sellHistory(HttpSession session, Model model) {
@@ -545,24 +638,5 @@ public class UserController {
         return "/user/buyHistory";
     }
     
-    @GetMapping("/user/sellSuccess")
-    public String sellSuccsee(HttpSession session, Model model) {
-    	
-    	String loginEmail = (String) session.getAttribute("loginEmail");
-        String user_num = service.findEmailUserNum(loginEmail);
-        
-        
-        
-        
 
-  	
-    	return "/user/sellSuccess";
-    }
-    
-    
-    @GetMapping("/user/sellNowSuccess")
-    public String sellNowSuccess() {
-  	
-    	return "/user/sellNowSuccess";
-    }
 }

@@ -13,4 +13,5 @@ public interface SellBidMapperInter {
 	public SellBidDto getSellBidData(String user_num, String sell_num);
 	public int getSellBidCount(String user_num);
 	public int getSellBidSuccessCount(String user_num);
+	public SellBidDto getSellBidDataOfSellNum(String sell_num);
 }

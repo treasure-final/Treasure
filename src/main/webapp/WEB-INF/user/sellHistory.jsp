@@ -173,7 +173,7 @@ $(function(){
 	
 	$(document).on("click", ".sellNow", function() {
 		
-		var sellnow_num=$(this).attr("sell_num");
+		var sellnow_num=$(this).attr("sellnow_num");
 		
 		  location.href = "/user/sellNowSuccess?sellnow_num="+sellnow_num;
 		});

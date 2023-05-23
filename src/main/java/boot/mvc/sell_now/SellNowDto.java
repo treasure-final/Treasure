@@ -27,6 +27,13 @@ public class SellNowDto {
 	@JsonFormat(pattern = "yyyy/MM/dd", timezone = "Asia/Seoul")
 	private Timestamp sellnow_inputday;
 	private ItemDto itemDto;
+	private String return_name;
+	private String return_phone;
+	private String return_addr;
+	private String account_bank;
+	private String account_number;
+	private String penaltypay_bank;
+	private String penaltypay_number;
 	
 	public ItemDto getItemDto() {
 		return itemDto;

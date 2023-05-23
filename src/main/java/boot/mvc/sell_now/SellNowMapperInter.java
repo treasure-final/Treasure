@@ -11,5 +11,6 @@ public interface SellNowMapperInter {
 	//getDta
 	public SellNowDto getSellNowData(String user_num, String sellnow_num);
 	public int getSellNowdSuccessCount(String user_num);
+	public SellNowDto getSellNowDataOfSellNowNum(String sellnow_num);
 
 }

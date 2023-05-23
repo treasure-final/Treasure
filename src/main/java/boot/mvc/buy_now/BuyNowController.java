@@ -41,7 +41,6 @@ public class BuyNowController {
         ItemDto dto=itemService.getItemData(item_num);
         List<SellBidDto> buyNowPrice=service.getBuyNowPrice(item_num);
         System.out.println(buyNowPrice.size());
-//      System.out.println(item_num);
 
         mv.addObject("item_num",item_num);
         mv.addObject("dto",dto);

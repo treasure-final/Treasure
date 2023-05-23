@@ -166,7 +166,7 @@ public class DetailController {
 			
 		}
 		
-		// System.out.println(type + "," + period + ", " + size + ", " + item_num + ", " + start + ", " + end + ", " + chartData.size()); 
+		 System.out.println(type + "," + period + ", " + size + ", " + item_num + ", " + start + ", " + end + ", " + chartData.size()); 
 			
 		return map;
 	}

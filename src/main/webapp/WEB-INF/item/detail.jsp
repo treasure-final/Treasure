@@ -115,7 +115,7 @@ select {
 </style>
 <script type="text/javascript">
 	$(function() {
-		var item_num = $(".item_num").val();
+		item_num = $(".item_num").val();
 		
 		getChartData("체결 거래", item_num, "전체", "all");
 
@@ -132,19 +132,23 @@ select {
 			$(".chart-size").attr("size", buy_size);
 			
 			sendPurchaseRecentPriceSizeRequest(item_num, buy_size);
-		});
+			
+			// 차트 변경
+			type = $(".chart-type").val();
+	    	if(type == "")
+	    		type = "체결 거래";
+		    	
+			period = $(".chart-period").val();
+	    	if(period == "")
+	    		period = "전체";
 
-	    /* 시세 부분 안보이게 */
-	    /*  
-	    size1 = '${groupedBuyData.size()}';
-	    size2 = '${groupedSellData.size()}';
-	    size3 = '${getOrderData.size()}';
-	    
-	    if (size1 == 0 || size2 == 0 || size3 == 0) {
-	    	$(".price-chart").removeClass("d-flex");
-	        $(".price-chart").css("display", "none");
-	    }  
-	    */
+	    	if(buy_size == "모든 사이즈" || buy_size == "")
+	    		buy_size = "all";
+	
+	    	// alert("sizeselect : " +type + "," +item_num + ","+ period + "," + buy_size);
+			getChartData(type, item_num, period, buy_size);
+			
+		});
 	    
 	    // 시세 차트 tab
 	    $(".chart-tab").click(function () {
@@ -154,18 +158,19 @@ select {
 	    	$(".chart-period").val(period);
 	    	
 	    	size = $(".chart-size").val();
-	    	if(size == "")
+	    	if(size == "모든 사이즈" || size == "")
 	    		size = "all";
 	    		
 	    	type = $(".chart-type").val();
 	    	if(type == "")
 	    		type = "체결 거래";
 	    	
-	    	//alert(period + "," + size + "," + type)
-	    	if ($("#all").hasClass("show")) {
+	    	// alert(period + "," + size + "," + type)
+	    	 if (period != "전체" && $("#all").hasClass("show")) {
 		        $("#all").removeClass("show active");
 		    }
-	    	 
+	    	
+	    	// alert("chart-tab : " + type + "," +item_num + ","+ period + "," + size)
 	    	getChartData(type, item_num, period, size);
 				
 		});    
@@ -182,15 +187,63 @@ select {
 	    		period = "전체";
 	    	
 	    	size = $(".chart-size").val();
-	    	if(size == "")
+	    	if(size == "모든 사이즈" || size == "")
 	    		size = "all";
 	    		
-	    	//alert(type + "," +item_num + ","+ period + "," + size)
+	    	// alert("chart-btn : " + type + "," +item_num + ","+ period + "," + size)
 	    	
 	    	getChartData(type, item_num, period, size);
 	    });
+
+	    // 시세 모달에서 사이즈 변경
+	    $("#size-select2").on("change", function() {
+	        var size = $(this).val();
+	        $("#modal-size").val(size);
+	        tab = $("#modal-tab").val();
+				
+	        if(tab == "")
+	        	tab = "deal";
+	        // alert(size + ", " + tab);
+	        modalSizeChange(tab, size);
+	    });
+	    
+	    // 시세 모달에서 탭 변경
+	    $(".modal-btn").click(function() {
+			var tab = $(this).attr("aria-controls");
+			$("#modal-tab").val(tab);
+			
+			size =  $("#modal-size").val();
+			if(size == "")
+				size = "모든 사이즈";
+			
+			//alert(size + ", " + tab);
+			modalSizeChange(tab, size);
+		});
 	    
 	});
+	
+	function modalSizeChange(tab, size) {
+		alert(tab + ", " + size)
+		
+        if(size == "모든 사이즈")
+        	$("."+ tab + " .m_size").css("display", "flex");
+        else {	        	
+        	$("."+ tab + " .m_size").removeClass("d-flex");
+        	$("."+ tab + " .m_size").css("display", "none");
+        	
+        	var count = $("."+ tab + " .m_size_"+size).length;
+        	alert(count)
+        	if(count == 0) {
+        		alert("0개")
+        		$("."+ tab + " .modal-ori").css("display", "none");
+        		$("."+ tab + " .modal-scroll").css("overflow-y", "none");
+        		$("."+ tab + " .modal-null").css("display", "block");
+        	} else {	        		
+        		$("."+ tab + " .m_size_"+size).css("display", "flex");
+        	}
+        }
+	    
+	}
 	
 	function sendPurchaseRecentPriceSizeRequest(item_num, buy_size) {
 		
@@ -256,10 +309,11 @@ select {
     		period = "전체";
     	
     	size = $(".chart-size").val();
-    	if(size == "")
+    	if(size == "모든 사이즈" || size == "")
     		size = "all";
     	
     	item_num = $(".item_num").val();	
+    	// alert("handleSizeSelect : " +type + "," +item_num + ","+ period + "," + size);
 		getChartData(type, item_num, period, size);
 	}
 	
@@ -270,7 +324,8 @@ select {
 	var myChartAll = null;
 	
 	function getChartData(type, item_num, period, size) {
-
+		 // alert(type + "," +item_num + ","+ period + "," + size);
+		
     	$.ajax({
 			url : '/item/getChartData',
 			type : 'get',
@@ -284,9 +339,17 @@ select {
 			success : function(res) {
 				console.log(res);
 				
-				if(res.date.length == 0)
-					//alert("0");
+				if(res.date.length == 0) {
+					console.log("데이터 0개");
+					
+					$(".price-chart").removeClass("d-flex");
+					$(".price-chart").css("display", "none");
+				}
 				else {
+					
+					//$(".price-chart").addClass("d-flex");
+					$(".price-chart").css("display", "flex");
+					
 					var myChart = null; // 차트 객체를 저장할 변수
 		            var chart = null; // 차트의 ID를 저장할 변수
 	
@@ -337,15 +400,22 @@ select {
 						var day = dateObj.getDate().toString().padStart(2, '0');
 						var formattedDate = year + '/' + month + '/' + day;
 						
-						  console.log("date[" + i + "]: " + formattedDate);
-						  monthList.push(formattedDate);
+						console.log("date[" + i + "]: " + formattedDate);
+						monthList.push(formattedDate);			
+						
 					});
 	
 					$.each(res.wish_price, function(i, price) {
 						console.log("wish_price[" + i + "]: " + price);
 						monthData.push(price); 
 					});
-										
+										  
+				    if (res.date.length == 1) {
+					    // 직선을 생성하기 위해 데이터 포인트를 중복해서 추가
+				    	monthList.push(monthList[0]);
+				        monthData.push(monthData[0]);
+					}
+				    
 					var canvas = document.createElement('canvas');
 		            canvas.id = chart;
 		            var ctx = canvas.getContext('2d');
@@ -363,7 +433,7 @@ select {
 								data : monthData,
 								borderColor : 'rgba(255, 99, 132, 1)',
 								borderWidth : 1,
-								pointStyle : true
+								pointStyle : false
 							} ]
 						},
 	
@@ -1016,6 +1086,9 @@ select {
 													</div>													
 												</div>
 												<div class="modal" id="detailModal" tabindex="-1">
+													<input type="hidden" id="modal-tab" value="">
+													<input type="hidden" id="modal-size" value="">
+												
 													<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 														<div class="modal-content">
 															<div class="modal-header">
@@ -1042,8 +1115,7 @@ select {
 
 																			<select class="form-select size-select" id="size-select2"
 																				aria-label="size-select"
-																				style="border: 0px; font-size: 1em; float: right; color: #666;"
-																			>
+																				style="border: 0px; font-size: 1em; float: right; color: #666;">
 																				<option selected>모든 사이즈</option>
 																				
 																				<c:choose>
@@ -1071,27 +1143,27 @@ select {
 																	<div class="nav-align-top mb-4">
 																		<ul class="nav nav-pills mb-2 nav-fill" role="tablist">
 																			<li class="nav-item">
-																				<button type="button" class="btn btn-detail active w-100" role="tab"
+																				<button type="button" class="btn btn-detail modal-btn active w-100" role="tab"
 																					data-bs-toggle="tab" data-bs-target="#dealModal" aria-controls="deal"
 																					aria-selected="true" style="font-size: 0.9rem;"
 																				>체결 거래</button>
 																			</li>
 																			<li class="nav-item">
-																				<button type="button" class="btn btn-detail w-100" role="tab"
+																				<button type="button" class="btn btn-detail modal-btn w-100" role="tab"
 																					data-bs-toggle="tab" data-bs-target="#sellBidModal" aria-controls="sellBid"
 																					aria-selected="false" style="font-size: 0.9rem;"
 																				>판매 입찰</button>
 																			</li>
 																			<li class="nav-item">
-																				<button type="button" class="btn btn-detail w-100" role="tab"
+																				<button type="button" class="btn btn-detail modal-btn w-100" role="tab"
 																					data-bs-toggle="tab" data-bs-target="#buyBidModal" aria-controls="buyBid"
 																					aria-selected="false" style="font-size: 0.9rem;"
 																				>구매 입찰</button>
 																			</li>
 																		</ul>
-																		<div class="tab-content" style="overflow-y: scroll;">
+																		<div class="tab-content deal modal-scroll" style="overflow-y: scroll;">
 																			<div class="tab-pane fade show active" id="dealModal" role="tabpanel">
-																				<div class="p-2 mb-1" style="height: 17vh;">
+																				<div class="p-2 mb-1 deal modal-ori" style="height: 17vh;">
 																					<div class="d-flex">
 																						<div class="col-6">
 																							<span style="font-size: 0.8em; color: #a0a0a0; margin-left: 15px;">사이즈</span>
@@ -1106,7 +1178,7 @@ select {
 																					<hr class="mt-0 mb-0">
 																					
 																					<c:forEach items="${getOrderData }" var="p">
-																						<div class="d-flex" id="size_${p.size }">
+																						<div class="d-flex deal m_size m_size_${p.size }">
 																							<div class="col-6">																							
 																								<span style="font-size: 0.9em; color: #666; margin-left: 15px;">${p.size }</span>																											
 																							</div>
@@ -1131,11 +1203,17 @@ select {
 																							</div>
 																						</div>
 																					</c:forEach>
-	
+																					
+																					<div class="p-2 mb-1 deal modal-null" style="text-align: center; height: 17vh; display: none;">
+																						<div class="d-flex" style="padding: 5px;" >
+																							<span class="w-100" style="opacity: 0.4; font-size: 1.1em; line-height: 17vh;"><i class="fa-solid fa-chart-line"></i> 체결된 거래가 아직 없습니다</span>
+																						</div>
+																					</div>	
+																				
 																				</div>
 																			</div>
 																			<div class="tab-pane fade" id="sellBidModal" role="tabpanel">
-																				<div class="p-2 mb-1" style="height: 17vh;">
+																				<div class="p-2 mb-1 sellBid modal-ori" style="height: 17vh;">
 																					<div class="d-flex">
 																						<div class="col-6">
 																							<span style="font-size: 0.8em; color: #a0a0a0; margin-left: 15px;">사이즈</span>
@@ -1147,10 +1225,11 @@ select {
 																							<span style="font-size: 0.8em; color: #a0a0a0;">수량</span>
 																						</div>
 																					</div>
+																					
 																					<hr class="mt-0 mb-0">
 																					
 																					<c:forEach items="${groupedSellData }" var="s">
-																						<div class="d-flex" id="size_${p.buy_size }">
+																						<div class="d-flex sellBid m_size m_size_${s.sell_size }">
 																							<div class="col-6">																							
 																								<span style="font-size: 0.9em; color: #666; margin-left: 15px;">${s.sell_size }</span>																											
 																							</div>
@@ -1164,11 +1243,18 @@ select {
 																							</div>
 																						</div>
 																					</c:forEach>
-																				
+	
 																				</div>
+																				
+																				<div class="p-2 mb-1 sellBid modal-null" style="text-align: center; height: 17vh; display: none;">
+																					<div class="d-flex" style="padding: 5px;" >
+																						<span class="w-100" style="opacity: 0.4; font-size: 1.1em; line-height: 17vh;"><i class="fa-solid fa-chart-line"></i> 판매 입찰 내역이 아직 없습니다</span>
+																					</div>
+																				</div>
+																				
 																			</div>
 																			<div class="tab-pane fade" id="buyBidModal" role="tabpanel">
-																				<div class="p-2 mb-1" style="height: 17vh;">
+																				<div class="p-2 mb-1 buyBid modal-ori" style="height: 17vh;">
 																					<div class="d-flex">
 																						<div class="col-6">
 																							<span style="font-size: 0.8em; color: #a0a0a0; margin-left: 15px;">사이즈</span>
@@ -1183,7 +1269,7 @@ select {
 																					<hr class="mt-0 mb-0">
 																					
 																					<c:forEach items="${groupedBuyData }" var="g">
-																						<div class="d-flex" id="size_${p.buy_size }">
+																						<div class="d-flex buyBid m_size m_size_${g.buy_size }">
 																							<div class="col-6">																							
 																								<span style="font-size: 0.9em; color: #666; margin-left: 15px;">${g.buy_size }</span>																										
 																							</div>
@@ -1199,6 +1285,13 @@ select {
 																					</c:forEach>
 																																																												
 																				</div>
+																				
+																				<div class="p-2 mb-1 buyBid modal-null" style="text-align: center; height: 17vh; display: none;">
+																					<div class="d-flex" style="padding: 5px;" >
+																						<span class="w-100" style="opacity: 0.4; font-size: 1.1em; line-height: 17vh;"><i class="fa-solid fa-chart-line"></i> 구매 입찰 내역이 아직 없습니다</span>
+																					</div>
+																				</div>
+																				
 																			</div>
 																		</div>
 																	</div>

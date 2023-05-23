@@ -326,15 +326,19 @@ public class UserController {
     public String myinfo(Model model, HttpSession session) {
 
         String loginEmail = (String) session.getAttribute("loginEmail");
-        //System.out.println(loginEmail);
-
         String user_num = service.findEmailUserNum(loginEmail);
-        //System.out.println(user_num);
 
         UserDto dto = service.getUserNumData(user_num);
 
+        List<BuyBidDto> itemBuyBidJoinList = buyBidService.getItemInfoByBuyBid(user_num);
+        List<BuyNowDto> purchaseIngList = buyNowService.getDataByStatus0(user_num);
+        List<BuyNowDto> purchaseEndList = buyNowService.getDataByStatus1(user_num);
+
         model.addAttribute("dto", dto);
         model.addAttribute("user_num", user_num);
+        model.addAttribute("bidSize", itemBuyBidJoinList.size());
+        model.addAttribute("ingSize", purchaseIngList.size());
+        model.addAttribute("endSize", purchaseEndList.size());
 
         return "/user/myPage";
     }

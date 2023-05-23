@@ -1,6 +1,7 @@
 package boot.mvc.comment;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -9,6 +10,7 @@ public interface CommentMapperInter {
 	
 	public void InsertComment(CommentDto CDto);
 	
-	public List<CommentDto> getCommentsByBoardId(String boardId);
+	 List<Map<String, Object>> getCommentsWithUserInfo(String board_id);
+	
 	
 }

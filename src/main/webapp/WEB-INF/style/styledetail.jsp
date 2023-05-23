@@ -200,167 +200,6 @@ div.all {
 .styletable {
 	text-align: left;
 }
-
-@import "bourbon";
-
-$
-heart_size: 15px ; $heart_color: #c8c8c8 ; $heart_color--hover: #ff5454 ; .heart {
-	background: $heart_color;
-	cursor: pointer; @ include size($heart_size); @ include transition(.2s);
-	transform: rotate(45deg);
-	&.
-	liked
-	{
-	background
-	:
-	lighten(
-	$
-	
-	
-	heart_color--hover
-	,
-	5%
-	);
-}
-
-&
-.liking {
-	animation: pump 750ms;
-}
-
-&
-:hover {
-	background: darken($ heart_color--hover, 5%);
-	transform: rotate(45deg) scale(1.2)
-}
-
-&
-::before, &::after {
-	content: ""; @ include size(inherit);
-	border-radius: 50%;
-	background: inherit;
-}
-
-&
-::before { @include position(absolute, 0 null null ($heart_size/-2));
-	
-}
-
-&
-::after { @include position(absolute, ($heart_size/-2) null null null);
-	
-}
-
-}
-.container { @include position(absolute, 50% null null 50%); @include transform(translate(-50%, -50%));
-	
-}
-
-@
-keyframes pump { 0% {
-	transform: rotate(45deg) scale(1.2);
-	background: $heart_color--hover;
-}
-50
-
-
-%
-{
-transform
-
-
-:
-
-
-rotate
-(
-
-
-45deg
-
-
-)
-
-
-scale
-(
-
-
-1
-.8
-
-
-)
-;
-
-
-background
-
-
-:
-
-
-$
-heart_color--hover
-;
-
-
-}
-100
-
-
-%
-{
-transform
-
-
-:
-
-
-rotate
-(
-
-
-45deg
-
-
-)
-
-
-scale
-(
-
-
-1
-
-
-)
-;
-
-
-background
-
-
-:
-
-
-lighten
-(
-
-
-$
-heart_color--hover
-,
-5
-%
-
-
-)
-;
-
-
-}
-}
 </style>
 </head>
 <body>
@@ -432,13 +271,16 @@ heart_color--hover
 			<div class="container">
 				<div class="heart"></div>
 			</div>
-			<c:forEach items="${comments}" var="c">
-                <div class="comment">${c.comment_content}</div>
-                <div class="commentspace">${c.user_nickname}</div>
-                <div class="commentspace">${c.comment_writeday}</div>
-            </c:forEach>
 		</c:forEach>
-		<br>
+		<div class="comments">
+			<c:forEach items="${commentList}" var="comment">
+				<div class="comment">
+					<span class="nickname">${comment.user_nickname}</span>
+					<span class="time" style="color: gray">${comment.comment_writeday}</span>
+					<p>${comment.comment_content}</p>
+				</div>
+			</c:forEach>
+		</div>
 		<!-- 점 -->
 		<!-- <div style="text-align: center">
 			<span class="dot" onclick="currentSlide(1)"></span>
@@ -461,7 +303,7 @@ heart_color--hover
 		function showSlides(n) {
 			let i;
 			let slides = document.getElementsByClassName("mySlides");
-			let dots = document.getElementsByClassName("dot");
+			/* let dots = document.getElementsByClassName("dot"); */
 			if (n > slides.length) {
 				slideIndex = 1
 			}
@@ -471,11 +313,12 @@ heart_color--hover
 			for (i = 0; i < slides.length; i++) {
 				slides[i].style.display = "none";
 			}
-			for (i = 0; i < dots.length; i++) {
+		/* 	for (i = 0; i < dots.length; i++) {
 				dots[i].className = dots[i].className.replace(" active", "");
-			}
+			} */
 			slides[slideIndex - 1].style.display = "block";
 			/* dots[slideIndex - 1].className += " active"; */
+			
 		}
 		$(document).ready(function() {
 			var page = 1;
@@ -515,6 +358,57 @@ heart_color--hover
 					}
 				});
 			}
+			function loadComments(board_id) {
+				$.ajax({
+					url: '/comment/list',
+					type: 'GET',
+					data: {
+						"board_id": board_id
+					},
+					dataType:'json',
+					success: function(response) {
+						var comments = response;
+						var html = '';
+
+						for (var i = 0; i < comments.length; i++) {
+							html += '<div class="comment">';
+							html += '<span class="nickname">' + comments[i].user_nickname + '</span><br>';
+							html += '<span class="time" style="color: gray">' + comments[i].comment_writeday + '</span><br>';
+							html += '<span class="content">' + comments[i].comment_content + '</span>';
+							html += '</div>';
+						}
+
+						$('.comments').html(html);
+					},
+					error:function(request,status,error){
+				        console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+				       }
+				});
+			}
+
+			// 페이지 로딩 시 댓글 불러오기
+			loadComments(${board_id});
+
+			// 댓글 등록
+			$('#commentForm').submit(function(e) {
+				e.preventDefault();
+
+				var formData = $(this).serialize();
+
+				$.ajax({
+					url: '/comment/add',
+					type: 'POST',
+					data: formData,
+					success: function(response) {
+						// 등록 성공 시 댓글을 다시 불러옴
+						loadComments(${board_id});
+						$('#commentContent').val('');
+					},
+					error: function() {
+						alert('댓글 등록 중에 오류가 발생했습니다.');
+					}
+				});
+			});
 		});
 		$('.heart').on('click', function() {
 			  el = $(this);

@@ -6,10 +6,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link
-	href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-	rel="stylesheet"
->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+	rel="stylesheet">
 <title></title>
 <style type="text/css">
 @font-face {
@@ -60,7 +58,7 @@ body {
 }
 
 #styledata {
-	width: 200px;;
+	width: 200px;
 	height: 180px;
 	margin-top: 10%;
 	position: absolute;
@@ -96,20 +94,29 @@ body {
 		</div>
 		<br>
 		<div class="stylemain">
-			<div class="stylebox">
-				<div id="stylepho">
-					<img alt="스타일사진 나오는곳" src="../img/item_image/1.png" style="width: 200px; height: 150px;"
-						onclick="location.href='/style/detail'"
-					>
+			<c:forEach items="${list }" var="a">
+				<div class="stylebox">
+					<div id="stylepho" onclick="scrollToDetail(${a.board_id})">
+						<!-- 클릭 이벤트에 scrollToDetail 함수 호출 추가 -->
+						<img alt="스타일사진 나오는곳" src="../img/item_image/${a.board_image}"
+							style="width: 200px; height: 150px;"
+						>
+					</div>
+					<span id="styledata">
+						<img alt="회원프로필사진" src="">
+						<br>
+						회원닉네임
+						<img alt="좋아요표시" src="">
+					</span>
 				</div>
-				<span id="styledata">
-					<img alt="회원프로필사진" src="">
-					<br>
-					회원닉네임
-					<img alt="좋아요 하트 " src="">
-				</span>
-			</div>
+			</c:forEach>
 		</div>
 	</div>
+	<script type="text/javascript">
+		function scrollToDetail(board_id) {
+			// 상세 내용을 보여주는 페이지로 이동
+			window.location.href = "/style/detail?board_id=" + board_id;
+		}
+	</script>
 </body>
 </html>

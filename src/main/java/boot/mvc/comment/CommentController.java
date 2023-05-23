@@ -1,6 +1,7 @@
 package boot.mvc.comment;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,7 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import boot.mvc.user.UserDto;
@@ -26,24 +29,18 @@ public class CommentController {
 	UserService Uservice;
 
 	@PostMapping("/comment/insert")
-	public void insert(@ModelAttribute CommentDto Cdto, HttpSession session) {
-		String userid = (String) session.getAttribute("");
-
-		UserDto udto = Uservice.getUserNumData(userid);
-
-		String nickname = udto.getUser_nickname();
-
-		Cservice.InsertComment(Cdto);
+	public void insert(@ModelAttribute CommentDto commentDto, HttpSession session) {
+		String userId = (String) session.getAttribute("userId");
+		UserDto userDto = Uservice.getUserNumData(userId);
+		String nickname = userDto.getUser_nickname();
+		commentDto.setUser_num(userDto.getUser_num());
+		Cservice.InsertComment(commentDto);
 	}
 
-	@GetMapping("/board/comment")
-	public String comment(Model model, @RequestParam("board_id") String boardId) {
-	    // 댓글 조회 기능 사용 예시
-	    List<CommentDto> comments = Cservice.getCommentsByBoardId(boardId);
-	    
-	    model.addAttribute("comments", comments);
-
-	    return "/style/styledetail";
+	@ResponseBody
+	@GetMapping("/comment/list")
+	public List<Map<String, Object>> getCommentsWithUserInfo(String board_id) {
+		return Cservice.getCommentsWithUserInfo(board_id);
 	}
 
 }

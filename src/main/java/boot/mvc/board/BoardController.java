@@ -1,25 +1,28 @@
 package boot.mvc.board;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class BoardController {
 
 	@Autowired
 	BoardService service;
-	
+
 	@GetMapping("/style/stylelist")
-	public String list()
-	{
+	public String list(Model model) {
+		List<BoardDto> list = service.getAllList();
+		model.addAttribute("list", list);
 		return "/style/stylelist";
 	}
-	
+
 	@GetMapping("/style/writestyleform")
-	public String writeform()
-	{
+	public String writeform() {
 		return "/style/writestyleform";
 	}
 }

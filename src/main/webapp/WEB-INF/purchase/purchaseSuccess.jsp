@@ -224,13 +224,14 @@
             <img src="/img/item_image/${dto.item_image}" class="order_image">
         </div>
         <div style="display:flex; justify-content: center; margin-bottom: 100px;">
-        <span style="margin-bottom: 20px; font-size: 12pt; color: dimgray;">결제는 거래가 성사되는 시점에 등록하신 결제 정보로 자동 처리됩니다.</span>
+        <span style="margin-bottom: 20px; font-size: 12pt; color: dimgray;">구매한 상품은 전문가 검수 완료 후, 안전하게 배송될 예정입니다.</span>
         </div>
         <div style="font-size: 16pt;">
-        <span>총 결제금액</span><span style="float: right; color: #ff6961;"><fmt:formatNumber value="${purchaseDto.purchase_total_price}" pattern="###,###,###"/></span>
+        <span>총 결제금액</span><span style="float: right;"><b style="color: #ff6961; font-style: italic;"><fmt:formatNumber value="${purchaseDto.purchase_total_price}" pattern="###,###,###"/></b>원</span>
         </div>
         <div style=" margin-bottom: 50px;">
-        <span>구매 가격</span><span style="float: right;"><fmt:formatNumber value="${purchaseDto.purchase_wishprice}" pattern="###,###,###"/> </span>
+        <span>구매 가격</span><span style="float: right;"><fmt:formatNumber value="${purchaseDto.purchase_wishprice}" pattern="###,###,###"/></span><br>
+        <span>배송비</span><span style="float: right;"><fmt:formatNumber value="${purchaseDto.purchase_wishprice}" pattern="#,###"/></span>
         </div>
         <div style="border: none; height: 1px; background: gray; margin-bottom: 50px;"></div>
             <div class="orderInfo">

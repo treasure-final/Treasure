@@ -250,7 +250,7 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
           <ul class="item-info">
              <li style="font-weight: bold;">${itemDto.item_modelnum }</li>
              <li>${itemDto.item_engname }</li>
-             <li>${itemDto.item_korname }</li>
+             <li style="opacity: 0.6">${itemDto.item_korname }</li>
              <li>${size }</li>
           </ul>
        </div>

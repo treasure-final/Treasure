@@ -77,7 +77,14 @@ div.main {
 
 .sub-menu {
 	opacity: 0.5;
+}
+
+.subsub-menu{
 	cursor: pointer;
+}
+
+.subsub-menu:hover{
+	color: #747f55;
 }
 
 #profile-info {
@@ -176,6 +183,16 @@ div.main {
 }
 </style>
 
+<script type="text/javascript">
+$(function(){
+	
+	$(".notready").click(function(){
+		
+		alert("서비스 준비 중입니다")
+	});
+})
+</script>
+
 
 </head>
 <body>
@@ -189,21 +206,21 @@ div.main {
         <div id="side-top">
             <div class="sub-title">쇼핑 정보</div>
             <div class="sub-menu">
-                <div>구매 내역</div>
-                <div>판매 내역</div>
-                <div>보관 판매</div>
-                <div>관심 상품</div>
+                <div class="subsub-menu" onclick="location.href='/user/buyHistory'">구매 내역</div>
+                <div class="subsub-menu" onclick="location.href='/user/sellHistory'">판매 내역</div>
+                <div class="subsub-menu notready">보관 판매</div>
+                <div class="subsub-menu notready">관심 상품</div>
             </div>
         </div>
         <div id="side-bottom">
             <div class="sub-title">내 정보</div>
             <div class="sub-menu">
-                <div>프로필 정보</div>
-                <div>주소록</div>
-                <div>결제 정보</div>
-                <div>판매 정산 계좌</div>
-                <div>현금영수증 정보</div>
-                <div>포인트</div>
+                <div class="subsub-menu" onclick="location.href='/user/myProfile'">프로필 정보</div>
+                <div class="subsub-menu notready">주소록</div>
+                <div class="subsub-menu notready">결제 정보</div>
+                <div class="subsub-menu notready">판매 정산 계좌</div>
+                <div class="subsub-menu notready">현금영수증 정보</div>
+                <div class="subsub-menu notready">포인트</div>
             </div>
         </div>
     </div>
@@ -224,18 +241,18 @@ div.main {
         <div style="clear: left"></div>
         <span style="font-size: 16px; font-weight: bold">판매 내역</span>
         <div class="list-box" style="background-color: #f2f9f6;">
-            <div align="center" style="margin-left: 45px; cursor: pointer;" id="total">전체<br><b style="color: green">0</b></div>
-            <div align="center" style="border-left: 2px solid #e3e3e3; margin-left: 45px; cursor: default;">입찰 중<br>0</div>
-            <div align="center" style="margin-left: 30px; cursor: default;">진행 중<br>0</div>
-            <div align="center" style="margin-left: 30px; cursor: default;">종료<br>0</div>
+            <div align="center" style="margin-left: 45px; cursor: pointer;" id="total">전체<br><b style="color: green">${sellTotalCount }</b></div>
+            <div align="center" style="border-left: 2px solid #e3e3e3; margin-left: 45px; cursor: default;">입찰 중<br>${sellBidIngCount }</div>
+            <div align="center" style="margin-left: 30px; cursor: default;">진행 중<br>${ingSize}</div>
+            <div align="center" style="margin-left: 30px; cursor: default;">종료<br>${sellSuccessCount }</div>
         </div>
 
         <span style="font-size: 16px; font-weight: bold">구매 내역</span>
         <div class="list-box box2" style="background-color: rgb(254, 247, 246);">
-            <div align="center" style="margin-left: 45px; cursor: pointer;" id="buyTotal">전체<br><b style="color: red">0</b></div>
-            <div align="center" style="border-left: 2px solid #e3e3e3; cursor: default; ">입찰 중<br>0</div>
-            <div align="center" style="margin-left: 30px; cursor: default;">진행 중<br>0</div>
-            <div align="center" style="margin-left: 30px; cursor: default;">종료<br>0</div>
+            <div align="center" style="margin-left: 45px; cursor: pointer;" id="buyTotal">전체<br><b style="color: red">${bidSize+ingSize+endSize}</b></div>
+            <div align="center" style="border-left: 2px solid #e3e3e3; cursor: default; ">입찰 중<br>${bidSize}</div>
+            <div align="center" style="margin-left: 30px; cursor: default;">진행 중<br>${ingSize}</div>
+            <div align="center" style="margin-left: 30px; cursor: default;">종료<br>${endSize}</div>
         </div>
         
 

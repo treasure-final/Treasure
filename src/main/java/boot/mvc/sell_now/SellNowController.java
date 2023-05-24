@@ -1,20 +1,18 @@
 package boot.mvc.sell_now;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import boot.mvc.buy_bid.BuyBidDto;
 import boot.mvc.buy_bid.BuyBidService;
-import boot.mvc.buy_now.BuyNowDto;
 import boot.mvc.buy_now.BuyNowService;
 import boot.mvc.order.OrderDto;
 import boot.mvc.order.OrderService;
@@ -45,7 +43,7 @@ public class SellNowController {
 	
 	@PostMapping("/sell/insertSellNow")
 	@ResponseBody
-	public String sellNow(@RequestParam String item_num,
+	public Map<String, String> sellNow(@RequestParam String item_num,
 			@RequestParam String buy_num,
 			@RequestParam int totalPrice,
 			@RequestParam String name, 
@@ -56,6 +54,8 @@ public class SellNowController {
 			@RequestParam String penaltypay1, 
 			@RequestParam String penaltypay2,
 			HttpSession session) {
+		
+		Map<String, String> map=new HashMap<>();
 		
 		String loginEmail = (String) session.getAttribute("loginEmail");
 	      
@@ -130,6 +130,10 @@ public class SellNowController {
             
         }
         
-		return loginEmail;
+        map.put("sellnow_num", sellnow_num);
+        map.put("loginEmail", loginEmail);
+        map.put("user_num", user_num);
+        
+		return map;
 	}
 }

@@ -97,6 +97,7 @@ input[type="checkbox"]+label {
 	border: 2px solid #747f55;
 	position: relative;
 	margin-right: 5px;
+	cursor: pointer;
 }
 
 input[id="agree1"]:checked+label::after, input[id="agree2"]:checked+label::after
@@ -110,6 +111,7 @@ input[id="agree1"]:checked+label::after, input[id="agree2"]:checked+label::after
 	position: absolute;
 	left: 0;
 	top: 0;
+	cursor: pointer;
 }
 
 .agree {
@@ -135,6 +137,7 @@ input[id="agree1"]:checked+label::after, input[id="agree2"]:checked+label::after
 	text-align: center;
 	margin-bottom: 50px;
 	border: 1px solid #747f55;
+	cursor: pointer;
 }
 
 #join-button:hover {

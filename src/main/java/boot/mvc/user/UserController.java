@@ -529,7 +529,7 @@ public class UserController {
     }
     
     //판매입찰 상세
-    @GetMapping("/user/sellSuccess")
+    @GetMapping("/user/sellSuccess"	)
     public String sellSuccsee(Model model, String sell_num) {
     	
     	SellBidDto sellBidDto=sellBiService.getSellBidDataOfSellNum(sell_num);

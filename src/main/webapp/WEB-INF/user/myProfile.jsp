@@ -248,6 +248,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	text-align: center;
 	margin: 30px 3px 30px 3px;
 	border: 1px solid #e3e3e3;
+	cursor: pointer;
 
 }
 

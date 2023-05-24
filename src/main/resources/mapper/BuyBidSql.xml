@@ -68,4 +68,9 @@
                             on b.item_num = i.item_num
         where user_num = #{user_num};
     </select>
+
+    <!-- 방금 insert된 sell_num 가져오기 -->
+    <select id="getNowinsertBuyBidNum" resultType="String">
+        select count(LAST_INSERT_ID()) from buy_bid
+    </select>
 </mapper>

@@ -15,4 +15,5 @@ public interface BuyBidMapperInter {
     public void updateBuyStatus(String buy_num);
     public List<BuyBidDto> getBuyBidData(String user_num);
     public List<BuyBidDto> getItemInfoByBuyBid(String user_num);
+    public String getNowinsertBuyBidNum();
 }

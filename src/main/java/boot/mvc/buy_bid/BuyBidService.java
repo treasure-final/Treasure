@@ -47,4 +47,9 @@ public class BuyBidService implements BuyBidServiceInter {
 	public List<BuyBidDto> getItemInfoByBuyBid(String user_num) {
 		return mapper.getItemInfoByBuyBid(user_num);
 	}
+
+	@Override
+	public String getNowinsertBuyBidNum() {
+		return mapper.getNowinsertBuyBidNum();
+	}
 }

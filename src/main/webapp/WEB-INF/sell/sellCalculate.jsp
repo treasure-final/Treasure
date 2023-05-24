@@ -45,12 +45,13 @@ div.main {
 }
 
 .container {
-   width: 820px;
-   padding: 40px;
-   box-sizing: border-box;
-   margin: 50px auto;
-   line-height: 30px;
-   background-color: #ffffff;
+	width: 820px;
+	padding: 40px;
+	box-sizing: border-box;
+	margin: 50px auto;
+	line-height: 30px;
+	background-color: #ffffff;
+
 }
 
 .right-td {

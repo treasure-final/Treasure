@@ -1,7 +1,6 @@
 package boot.mvc.user;
 
 import org.apache.ibatis.annotations.Mapper;
-
 import java.util.Map;
 
 @Mapper
@@ -20,7 +19,9 @@ public interface UserMapperInter {
     public int checkEmailByUserInfo(Map<String, String> map);
 
     public String findEmailByUserInfo(String hp);
-    
+
+    public UserDto findByUserEmail(String Email);
+
     //카카오 정보 추가 입력
     public void kakaoUserInfoUpdate(UserDto dto);
     

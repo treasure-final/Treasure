@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -218,10 +218,9 @@ public class UserController {
 
     }
 
-
     @PostMapping("/user/loginProc")
     public String loginProc(String email, String password,
-                            HttpSession session, @RequestParam(required = false) String saveOk) {
+                                    HttpSession session, @RequestParam(required = false) String saveOk) {
 
         int check = service.checkIdAndPassword(email, password);
         if (check == 1) {
@@ -229,9 +228,8 @@ public class UserController {
             session.setAttribute("loginOk", "loginOk");
             session.setAttribute("saveOk", saveOk);
             return "redirect:/";
-        } else {
-            return "redirect:/user/loginForm";
         }
+        return "redirect:/user/loginForm";
     }
 
     @GetMapping("/user/loginError")
@@ -471,19 +469,48 @@ public class UserController {
     }
 
     @GetMapping("/user/buyHistory")
-    public String sellHistory(HttpSession session, Model model) {
+    public String sellHistory(HttpSession session, Model model, @RequestParam(defaultValue = "0") int offset) {
 
         String loginEmail = (String) session.getAttribute("loginEmail");
         String user_num = service.findEmailUserNum(loginEmail);
 
+        List<BuyBidDto> list = buyBidService.getListBuyBidTotal(user_num, offset);
+        for (BuyBidDto buyBidDto : list) {
+            String item_num = buyBidDto.getItem_num();
+            ItemDto itemDto = itemService.getItemData(item_num);
+            buyBidDto.setItemDto(itemDto);
+        }
+
+        int buyBidTotalCount = buyBidService.getTotalBuyBidCount(user_num);
+
         List<BuyBidDto> itemBuyBidJoinList = buyBidService.getItemInfoByBuyBid(user_num);
         List<BuyNowDto> purchaseIngList = buyNowService.getDataByStatus0(user_num);
         List<BuyNowDto> purchaseEndList = buyNowService.getDataByStatus1(user_num);
+        List<BuyBidDto> buyBidDtoList = buyBidService.getListBuyBidTotal(user_num, offset);
 
-        model.addAttribute("itemBuyBidJoinList", itemBuyBidJoinList);
+        model.addAttribute("offset", offset);
+        model.addAttribute("itemBuyBidJoinList", list);
         model.addAttribute("purchaseIngList", purchaseIngList);
         model.addAttribute("purchaseEndList", purchaseEndList);
 
         return "/user/buyHistory";
+    }
+
+    //리스트 무한스크롤 ajax
+    @GetMapping("/user/buyHistoryScroll")
+    @ResponseBody
+    public List<BuyBidDto> buyHistoryScroll(HttpSession session, int offset) {
+
+        String loginEmail = (String) session.getAttribute("loginEmail");
+        String user_num = service.findEmailUserNum(loginEmail);
+
+        List<BuyBidDto> list = buyBidService.getListBuyBidTotal(user_num, offset);
+        for (BuyBidDto buyBidDto : list) {
+            String item_num = buyBidDto.getItem_num();
+            ItemDto itemDto = itemService.getItemData(item_num);
+
+            buyBidDto.setItemDto(itemDto);
+        }
+        return list;
     }
 }

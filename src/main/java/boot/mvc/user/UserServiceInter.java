@@ -41,5 +41,6 @@ public interface UserServiceInter {
 
 	public String getUserPhoto(String user_email);
 
+    public UserDto findByUserEmail(String Email);
 
 }

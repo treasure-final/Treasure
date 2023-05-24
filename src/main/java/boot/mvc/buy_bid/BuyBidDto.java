@@ -22,4 +22,10 @@ public class BuyBidDto {
     private Timestamp buy_inputday;
     private Timestamp buy_modifyday;
     private ItemDto itemDto;
+    public ItemDto getItemDto() {
+        return itemDto;
+    }
+    public void setItemDto(ItemDto itemDto) {
+        this.itemDto = itemDto;
+    }
 }

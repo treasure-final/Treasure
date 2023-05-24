@@ -113,18 +113,33 @@ public class BuyNowController {
     }
 
     @GetMapping("/buy/ordersuccess")
-    public ModelAndView ordersuccess(String item_num, HttpSession session,String size) {
+    public ModelAndView ordersuccess(String sell_num, HttpSession session,String size) {
         ModelAndView mv=new ModelAndView();
 
-        ItemDto dto=itemService.getItemData(item_num);
-        mv.addObject("dto", dto);
+        BuyNowDto buyNowDto=service.getBuyNowData(sell_num);
+        ItemDto itemDto=itemService.getItemData(buyNowDto.getItem_num());
+        String orderNum=orderService.getNowinsertOrderNum();
+        System.out.println("orderNum"+orderNum);
+        OrderDto orderDto=orderService.getOrderData(orderNum);
+
         String loginEmail = (String) session.getAttribute("loginEmail");
         String userNum = userService.findEmailUserNum(loginEmail);
         UserDto userDto = userService.getUserNumData(userNum);
 
+        if(buyNowDto.getDelivery().equals("빠른배송")) {
+            int delivery=5000;
+            mv.addObject("delivery",delivery);
+        } else {
+            int delivery=3000;
+            mv.addObject("delivery",delivery);
+        }
+
+        mv.addObject("buyNowDto",buyNowDto);
+        mv.addObject("orderDto",orderDto);
+        mv.addObject("itemDto", itemDto);
         mv.addObject("userName", userDto.getUser_name());
         mv.addObject("userPhone", userDto.getUser_hp());
-        mv.addObject("size", size);
+        mv.addObject("size", orderDto.getSize());
 
         mv.setViewName("/purchase/purchaseSuccess");
         return mv;
@@ -152,15 +167,6 @@ public class BuyNowController {
 //        System.out.println(buy_addr);
 //        System.out.println(payment);
 
-        //order에 insert
-        OrderDto orderDto=new OrderDto();
-        orderDto.setSell_user(sell_user);
-        orderDto.setItem_num(item_num);
-        orderDto.setBuy_user(user_num);
-        orderDto.setSize(size);
-        orderDto.setWish_price(Integer.parseInt(wish_price));
-        orderService.insertOrder(orderDto);
-
         //buy_now에 insert
         BuyNowDto buyNowDto=new BuyNowDto();
         buyNowDto.setUser_num(user_num);
@@ -184,6 +190,15 @@ public class BuyNowController {
         //sell_bid에서 판매상태 '판매완료'로 변경
         service.updateSellStatus(sell_num);
 
-        return item_num;
+        //order에 insert
+        OrderDto orderDto=new OrderDto();
+        orderDto.setSell_user(sell_user);
+        orderDto.setItem_num(item_num);
+        orderDto.setBuy_user(user_num);
+        orderDto.setSize(size);
+        orderDto.setWish_price(Integer.parseInt(wish_price));
+        orderService.insertOrder(orderDto);
+
+        return sell_num;
     }
 }

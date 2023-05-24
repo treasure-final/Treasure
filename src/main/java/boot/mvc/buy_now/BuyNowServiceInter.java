@@ -11,4 +11,6 @@ public interface BuyNowServiceInter {
     public List<BuyNowDto> getDataByStatus1(String user_num);
     public void insertBuyNow(BuyNowDto buyNowDto);
     public void updateSellStatus(String sell_num);
+    public BuyNowDto getBuyNowData(String sell_num);
+
 }

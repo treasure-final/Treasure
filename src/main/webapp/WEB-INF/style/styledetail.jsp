@@ -210,14 +210,14 @@ div.all {
 	width: 50%;
 }
 
-#comment_submit {
-	width: 10%;
+#comment_submit, #nologinwrite {
+	width: 5%;
 	background-color: white;
 	padding: 0px;
 }
 
 #comment_content {
-	width: 60%;
+	width: 47%;
 	padding: 10px;
 	border-radius: 10px;
 }
@@ -240,17 +240,11 @@ th.table_comment_writeday {
 	color: gray
 }
 </style>
-<script type="text/javascript">
-$(function(){
-	
-})
-
-</script>
 </head>
 <body>
-<c:set var="loginOk" value="${sessionScope.loginOk}"/>
+	<c:set var="loginOk" value="${sessionScope.loginOk}" />
 	<div id="content">
-		<input type="hidden" value=${bdto.board_id } id="board_id">
+		<input type="hidden" value=${bdto.board_id } id="board_id">	
 		<c:forEach items="${DetailList }" var="Bdto">
 			<input type="hidden" value="${Bdto.board_id }" class="board_id">
 			<div class="post">
@@ -262,14 +256,13 @@ $(function(){
 									style="border-radius: 100px; max-width: 35px; max-height: 35px"
 								>
 							</th>
-							<th width="60px" align="center">
+							<th width="100px">
 								<span class="nickname">${Bdto.user_name }</span>
 							</th>
 						</tr>
 						<tr>
 							<th>
 								<span class="time" style="color: gray">
-									&nbsp;
 									<fmt:parseDate var="dateFormatter" value="${Bdto.board_writeday}"
 										pattern="yyyy-MM-dd'T'HH:mm:ss"
 									/>
@@ -308,6 +301,7 @@ $(function(){
 						<img src="../../img/style_image/${Bdto.board_image }"
 							style="width: 100%; height: 100%; border-radius: 10px"
 						>
+						
 					</div>
 					<a class="prev" onclick="plusSlides(-1)">❮</a>
 					<a class="next" onclick="plusSlides(1)">❯</a>
@@ -326,9 +320,9 @@ $(function(){
 			<br>
 			<hr width="35%">
 			<div class="comment" id="comment_${Bdto.board_id}"></div>
-			<!-- 댓글 작성 폼 -->
-			<form id="commentForm_${Bdto.board_id}" class="commentform">
+			<div>
 				<input type="hidden" name="board_id" value="${Bdto.board_id}">
+				<form id="comment-form">
 				<input id="comment_content" type="text" name="comment_content">
 				<c:if test="${not empty loginOk}">
 					<input id="comment_submit" type="submit" value="작성">
@@ -336,7 +330,8 @@ $(function(){
 				<c:if test="${empty loginOk}">
 					<input id="nologinwrite" type="button" value="작성" style="padding: 10px 30px">
 				</c:if>
-			</form>
+				</form>
+			</div>
 		</c:forEach>
 		<script type="text/javascript">
 		$(document).ready(function() {
@@ -376,6 +371,29 @@ $(function(){
 		               }
 		        });
 		    }
+		    // AJAX를 사용하여 댓글 양식 제출
+		    $("#comment-form").submit(function(event) {
+		      event.preventDefault();
+		      var board_id = $("#board_id").val();
+		      var comment_content = $("#comment_content").val();
+
+		      $.ajax({
+		        url: "/comment/insert",
+		        type: "POST",
+		        data: {
+		          "board_id": board_id,
+		          "comment_content": comment_content
+		        },
+		        success: function(response) {
+		          // 댓글 제출 후 댓글 섹션 새로고침 및 입력 필드 초기화
+		          $("#comment_content").val("");
+		          loadComments(board_id);
+		        },
+		        error: function(request, status, error) {
+		          console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+		        }
+		      });
+		    });
 		})
 		</script>
 		<!-- 점 -->
@@ -455,28 +473,7 @@ $(function(){
 					}
 				});
 			}
-		});
-
-		// 댓글 등록
-		/* $('#commentForm').submit(function(e) {
-			e.preventDefault();
-
-			var formData = $(this).serialize();
-
-			$.ajax({
-				url: '/comment/add',
-				type: 'POST',
-				data: formData,
-				success: function(response) {
-					// 등록 성공 시 댓글을 다시 불러옴
-					loadComments(${board_id});
-					$('#commentContent').val('');
-				},
-				error: function() {
-					alert('댓글 등록 중에 오류가 발생했습니다.');
-				}
-			});
-		}); */
+		})
 		$('.heart').on('click', function() {
 			  el = $(this);
 			  if (el.hasClass('liked') ) {

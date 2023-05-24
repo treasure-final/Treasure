@@ -14,6 +14,5 @@ public class CommentDto {
 	private String user_num;
 	private int board_id;
 	private String myid;
-	private String name;
 	private Timestamp comment_writeday;
 }

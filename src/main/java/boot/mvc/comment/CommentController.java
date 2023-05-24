@@ -22,9 +22,14 @@ public class CommentController {
 	@PostMapping("/comment/insert")
 	public String insert(@ModelAttribute CommentDto cdto, HttpSession session,String board_id) {
 		
-		String name = (String)session.getAttribute("loginEmail");
-		cdto.setMyid(name);
-		System.out.println(name);
+		String loginEmail = (String)session.getAttribute("loginEmail");
+		String user_num = uservice.findEmailUserNum(loginEmail);
+		
+		cdto.setMyid(loginEmail);
+		cdto.setUser_num(user_num);
+		
+		System.out.println(loginEmail);
+		System.out.println(user_num);
 		
 		cservice.InsertComment(cdto);
 		return "redirect:/style/styledetail?board_id="+board_id;

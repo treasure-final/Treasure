@@ -5,13 +5,5 @@
 	<insert id="insertComment" parameterType="CommentDto">
 		insert into comment(comment_content,user_num,board_id,comment_writeday) values (#{comment_content},#{user_num},#{board_id},now())
 	</insert>
-	<!-- 댓글 수정 -->
-	<update id="UpdateComment" parameterType="String">
-		update comment set comment_content=#{comment_content}, comment_writeday=now() where comment_id=#{comment_id}
-	</update>
-	<!-- 댓글 삭제 -->
-	<delete id="DeleteComment" parameterType="String">
-		delete from comment where comment_id=#{comment_id}
-	</delete>
 	
 </mapper>

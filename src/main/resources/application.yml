@@ -1,6 +1,6 @@
 # tomcat port
 server:
-  port: 9010
+  port: 8080
   
 # jsp 
 spring:
@@ -18,10 +18,9 @@ spring:
     url: jdbc:mysql://treasure.ckanwu0dfli3.ap-northeast-2.rds.amazonaws.com:3306/treasure?serverTimezone=Asia/Seoul
     username: treasure
     password: 7YiVzLxFFLbieig
-    
+
 # mybatis
 mybatis:
   type-aliases-package: boot.mvc.*
   mapper-locations:
   - /mapper/**/*.xml
-  

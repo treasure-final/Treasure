@@ -39,7 +39,6 @@ div.main {
 
 .login-wrapper {
 	width: 480px;
-	height: 800px;
 	padding: 40px;
 	box-sizing: border-box;
 	margin-left: 33%;

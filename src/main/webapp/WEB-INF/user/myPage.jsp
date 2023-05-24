@@ -40,7 +40,6 @@ div.main {
 
 .container {
 	width: 82%;
-	height: 1000px;
 	padding: 40px;
 	box-sizing: border-box;
 	margin-left: 0px;

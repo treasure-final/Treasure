@@ -315,7 +315,7 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
     });
     
     $("#agree-back").click(function(){
-    	history.back();
+       history.back();
     });
 
 </script>

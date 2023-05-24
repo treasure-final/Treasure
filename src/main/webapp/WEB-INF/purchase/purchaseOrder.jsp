@@ -22,7 +22,7 @@
     <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"
-    />
+    >
     <script type="application/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.2.js"
             charset="utf-8"></script>
     <style>
@@ -313,7 +313,7 @@
                             type: "post",
                             data:{"item_num":'${item_num}',
                                 "size":'${size}',
-                                "wish_price": '${price}',
+                                "wish_price":'${price}',
                                 "delivery":'${deliveryWay}',
                                 "buy_addr":'${userAddr}',
                                 "payment":pgName},
@@ -557,7 +557,7 @@
         <div class="select-box">
             <img src="../../img/iconmonstr-building-5-240.png" class="typeImg" style="float: left">
             <div style="margin-top: 18px; margin-left: 65px; width: 300px; height: 55px; line-height: 20px">
-                창고보관 첫 30일 무료
+                창고보관 첫 30일
                 <br><span style="opacity: 0.6;">배송 없이 창고에 보관 ・ 빠르게 판매 가능</span></div>
         </div>
     </div>

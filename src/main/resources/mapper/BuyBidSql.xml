@@ -73,7 +73,7 @@
         SELECT bd.*, i.*
         FROM buy_bid bd
                  LEFT JOIN item i ON bd.item_num = i.item_num
-        WHERE bd.user_num = #{user_num} order by buy_num desc limit 6 offset #{offset}
+        WHERE bd.user_num = #{user_num} order by buy_num asc limit 6 offset #{offset}
     </select>
 
     <select id="getTotalBuyBidCount" parameterType="String" resultType="int">

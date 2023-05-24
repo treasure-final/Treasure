@@ -482,13 +482,11 @@ public class UserController {
         }
 
         int buyBidTotalCount = buyBidService.getTotalBuyBidCount(user_num);
-
-        List<BuyBidDto> itemBuyBidJoinList = buyBidService.getItemInfoByBuyBid(user_num);
         List<BuyNowDto> purchaseIngList = buyNowService.getDataByStatus0(user_num);
         List<BuyNowDto> purchaseEndList = buyNowService.getDataByStatus1(user_num);
-        List<BuyBidDto> buyBidDtoList = buyBidService.getListBuyBidTotal(user_num, offset);
 
         model.addAttribute("offset", offset);
+        model.addAttribute("buyBidTotalCount", buyBidTotalCount);
         model.addAttribute("itemBuyBidJoinList", list);
         model.addAttribute("purchaseIngList", purchaseIngList);
         model.addAttribute("purchaseEndList", purchaseEndList);
@@ -497,7 +495,7 @@ public class UserController {
     }
 
     //리스트 무한스크롤 ajax
-    @GetMapping("/user/buyHistoryScroll")
+    @GetMapping("/user/buyBidHistoryScroll")
     @ResponseBody
     public List<BuyBidDto> buyHistoryScroll(HttpSession session, int offset) {
 
@@ -508,8 +506,10 @@ public class UserController {
         for (BuyBidDto buyBidDto : list) {
             String item_num = buyBidDto.getItem_num();
             ItemDto itemDto = itemService.getItemData(item_num);
-
             buyBidDto.setItemDto(itemDto);
+        }
+        for (int i=0; i<list.size(); i++) {
+            System.out.println(list.get(i));
         }
         return list;
     }

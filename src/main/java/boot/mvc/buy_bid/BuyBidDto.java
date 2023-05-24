@@ -1,6 +1,7 @@
 package boot.mvc.buy_bid;
 
 import boot.mvc.item.ItemDto;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.ibatis.type.Alias;
 
 import lombok.Data;
@@ -19,6 +20,7 @@ public class BuyBidDto {
     private String buy_size;
     private String buy_addr;
     private int buy_deadline;
+    @JsonFormat(pattern = "yyyy/MM/dd", timezone = "Asia/Seoul")
     private Timestamp buy_inputday;
     private Timestamp buy_modifyday;
     private ItemDto itemDto;

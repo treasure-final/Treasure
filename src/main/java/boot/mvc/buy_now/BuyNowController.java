@@ -104,7 +104,8 @@ public class BuyNowController {
         UserDto userDto = userService.getUserNumData(userNum);
         ItemDto dto=itemService.getItemData(item_num);
         mv.addObject("dto", dto);
-
+        mv.addObject("price", price);
+        mv.addObject("orderPrice", orderPrice);
         mv.addObject("deadline", deadline);
         mv.addObject("item_num", item_num);
         mv.addObject("buyType", buyType);
@@ -117,6 +118,7 @@ public class BuyNowController {
         mv.setViewName("/purchase/purchaseOrder");
 
         return mv;
+
     }
 
     @GetMapping("/buy/ordersuccess")

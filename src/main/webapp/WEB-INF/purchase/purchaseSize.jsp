@@ -158,7 +158,8 @@ div.main {
 }
 
 img.buy_item_image {
-	width: 200px;
+	width: 170px;
+	border-radius: 20px;
 }
 
 span.buy_brand {
@@ -270,8 +271,9 @@ div.buy_size:hover {
 		<div class="hr"></div>
 		<div style="display: flex;">
 			<img src="/img/item_image/${dto.item_image}" class="buy_item_image">
-			<div style="flex-direction: column; padding: 20px; margin-top: 55px; line-height: 22px;">
-				<span class="buy_brand">${dto.item_modelnum}</span><br>
+			<div style="flex-direction: column; padding: 20px; margin-top: 8px; line-height: 30px;">
+				<c:if test="${dto.item_engname.length() < 40}"><div style="margin-top: 10px;"></div></c:if>
+				<span class="buy_brand">${dto.item_brandname}</span><br>
 				<span style="font-size: 14px;">${dto.item_engname}</span><br>
 				<span class="buy_title" style="opacity: 0.6;">${dto.item_korname}</span>
 				<br>

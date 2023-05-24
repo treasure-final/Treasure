@@ -20,10 +20,8 @@
 
     <title></title>
 
-    <script type="text/javascript">
 
 
-    </script>
 
 
     <style type="text/css">
@@ -203,7 +201,9 @@
         </ul>
     </div>
 
+
     <div class="Kategorie" style=" width: 200px; float: left; ">
+
 
         <form action="itemck" method="get">
 
@@ -275,11 +275,12 @@
                 <span style="vertical-align: top;">Wooyoungmi</span></label>
             <br>
 
-            <label><input type="radio" name="brand" value="Porter"><span
-                    style="vertical-align: top;">Porter</span></label>
-
+            
 
             <br><br>
+
+
+
 
 
             <b style="font-size: 20px;">카테고리</b>
@@ -340,5 +341,9 @@
         </div>
     </div>
 </div>
+
 </body>
+
+
 </html>
+

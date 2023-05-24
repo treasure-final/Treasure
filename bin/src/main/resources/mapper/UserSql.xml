@@ -84,4 +84,8 @@
         select user_photo from user where user_email=#{user_email}
     </select>
 
+    <select id="findByUserEmail" parameterType="String" resultType="UserDto">
+        select * from user where user_email=#{user_email}
+    </select>
+
 </mapper>

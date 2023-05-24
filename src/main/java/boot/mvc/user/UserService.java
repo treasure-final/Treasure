@@ -3,8 +3,7 @@ package boot.mvc.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class UserService implements UserServiceInter {
@@ -25,7 +24,6 @@ public class UserService implements UserServiceInter {
     @Override
     public void insertJoinUser(UserDto dto) {
         mapper.insertJoinUser(dto);
-
     }
 
     //이메일 중복 체크
@@ -89,17 +87,22 @@ public class UserService implements UserServiceInter {
         mapper.updateTemporarilyPass(map);
     }
 
-    //스타일리스트에서 씀
-    @Override
-    public String getName(String user_email) {
-        // TODO Auto-generated method stub
-        return mapper.getName(user_email);
-    }
 
-    @Override
-    public String getUserPhoto(String user_email) {
+    //스타일리스트에서 씀
+	@Override
+	public String getName(String user_email) {
+		// TODO Auto-generated method stub
+		return mapper.getName(user_email);
+	}
+
+	@Override
+	public String getUserPhoto(String user_email) {
         // TODO Auto-generated method stub
         return mapper.getUserPhoto(user_email);
     }
 
+    @Override
+    public UserDto findByUserEmail(String Email) {
+        return mapper.findByUserEmail(Email);
+    }
 }

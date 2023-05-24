@@ -112,6 +112,12 @@ select {
 	background-color: #fff;
 	padding: 30px;
 }
+
+hr {
+	background-color : rgba(34, 34, 34, 0.1);
+	height:1px;
+    border:0;
+}
 </style>
 <script type="text/javascript">
 	$(function() {
@@ -222,6 +228,24 @@ select {
 	    
 	});
 	
+	function loginCheck(type) {
+		var item_num = '${item_num}';
+		var loginOk = '${sessionScope.loginOk}';
+		
+		if(loginOk != "") {
+			if(type == "buy")
+				location.href='${root}/buy/select?item_num=' + item_num;
+			else
+				location.href='${root}/sell/sellSize?item_num=' + item_num;
+		} else {
+		
+			if(confirm("로그인이 필요한 서비스입니다\n로그인 화면으로 이동하려면 확인을 클릭해주세요")) {
+				location.href='${root}/user/loginForm';
+			} 
+		}
+		
+	}
+	
 	function tabContentChange(type, item_num, size) {
 		// alert(type + ", " + size)
 		
@@ -244,14 +268,20 @@ select {
 					s += '<span class="w-100" style="opacity: 0.4; font-size: 1.2em;"><i class="fa-solid fa-chart-line"></i>'
 					
 					if(type == "체결 거래") {
+						$(".tab-deal").css("display", "none");
+						$(".tab-deal-null").css("display", "block");
 						tabType = "tab-deal-null"
 						s += ' 체결된 거래가 아직 없습니다';
 					}
 					else if(type == "구매 입찰") {
+						$(".tab-buy").css("display", "none");
+						$(".tab-buy-null").css("display", "block");
 						tabType = "tab-buy-null"
 						s += ' 구매 입찰 내역이 아직 없습니다';
 					}
 					else {
+						$(".tab-sell").css("display", "none");
+						$(".tab-sell-null").css("display", "block");
 						tabType = "tab-sell-null"
 						s += ' 판매 입찰 내역이 아직 없습니다';
 					}
@@ -270,14 +300,20 @@ select {
 					s += '<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 35px">';
 					
 					if(type == "체결 거래") {
-						tabType = "tab-deal-null"
+						$(".tab-deal-null").css("display", "none");
+						$(".tab-deal").css("display", "block");
+						tabType = "tab-deal"
 						s += '거래가';
 					}
 					else if(type == "구매 입찰") {
+						$(".tab-buy-null").css("display", "none");
+						$(".tab-buy").css("display", "block");
 						tabType = "tab-buy"
 						s += '구매 희망가';
 					}
 					else {
+						$(".tab-sell-null").css("display", "none");
+						$(".tab-sell").css("display", "block");
 						tabType = "tab-sell"
 						s += '판매 희망가';
 					}
@@ -346,7 +382,7 @@ select {
 					}
 					
 					s += '<div>';
-					s += '<button type="button" class="btn btn-outline-detail w-100" style="margin-top: 30px;" data-bs-toggle="modal" data-bs-target="#detailModal">';
+					s += '<button type="button" class="btn btn-outline-detail w-100" style="margin-top: 20px;" data-bs-toggle="modal" data-bs-target="#detailModal">';
 					
 					if(type == "체결 거래") 
 						s += '체결 내역 더보기';
@@ -730,13 +766,13 @@ select {
 											<div class="mb-4">
 												<button type="button" class="btn btn-detail btn-lg w-100"
 													style="width: 290px; height: 7vh; margin-top: 70px; margin-left: 40px"
-													onclick="location.href='/buy/select?item_num=${item_num}'"
+													onclick="loginCheck('buy')"
 												>구매</button>
 											</div>
 											<div>
 												<button type="button" class="btn btn-outline-detail btn-lg w-100"
 													style="height: 7vh; width: 290px; margin-left: 40px;"
-													onclick="location.href='/sell/sellSize?item_num=${item_num}'"
+													onclick="loginCheck('sell')"
 												>판매</button>
 											</div>
 										</div>
@@ -1011,7 +1047,7 @@ select {
 										</div>
 									</div>
 									<!-- 체결 내역 -->
-									<div class="d-flex pe-2 mb-3">
+									<div class="d-flex pe-2 mb-5">
 										<div class="col-xl-12">
 											<div class="nav-align-top mb-4">
 												<ul class="nav nav-pills mb-2 nav-fill" role="tablist">
@@ -1485,8 +1521,7 @@ select {
 		<div class="d-flex">
 			<div class="col-11 align-self-center">
 				<span class="fs-4">
-					<b>${Ddto.item_brandname }</b>
-					의 다른 상품
+					<b>${Ddto.item_brandname }</b>의 다른 상품
 				</span>
 			</div>
 			<div class="col-1 align-self-center">
@@ -1496,14 +1531,14 @@ select {
 				</span>
 			</div>
 		</div>
-		<div class="mt-4 mb-lg-5" style="height: 40vh;">
+		<div class="mt-4 mb-lg-5" style="height: 35vh;">
 			<c:forEach items="${list }" var="a">
 				<c:if
 					test="${a.item_brandname==Ddto.item_brandname && a.item_category==Ddto.item_category && a.item_num!=Ddto.item_num}"
 				>
 					<a href='/item/detail?item_num=${a.item_num }'>
 						<img alt="" src="/assets/images/${a.item_image }"
-							style="border: 1px solid gray; border-radius: 10px; height: 200px; width: 212px;"
+							style="border: 1px solid rgba(34, 34, 34, 0.1); border-radius: 10px; height: 250px; width: 250px; margin-right: 5px;"
 						>
 					</a>
 				</c:if>

@@ -31,6 +31,7 @@ public class DetailService implements DetailServiceInter {
 	}
 
 	@Override
+<<<<<<< HEAD
 	public List<Map<String, Object>> getBuyBidGroupedData(String item_num) {
 		// TODO Auto-generated
 		// method stub
@@ -60,12 +61,81 @@ public class DetailService implements DetailServiceInter {
 
 	public int getOrderRecentPriceSize(String item_num, String buy_size) {
 
+=======
+	public List<Map<String, Object>> getBuyBidGroupedData(String item_num, String size) {
+>>>>>>> ddb1c889d0d516a5eb2968ca6c80ea96077bbc76
 		Map<String, Object> map = new HashMap<>();
-
+		
 		map.put("item_num", item_num);
-		map.put("buy_size", buy_size);
+		map.put("size", size);
+		
+		return mapper.getBuyBidGroupedData(map);
+	}
 
-		return mapper.getOrderRecentPriceSize(map);
+	@Override
+	public List<Map<String, Object>> getSellBidGroupedData(String item_num, String size) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("item_num", item_num);
+		map.put("size", size);
+			
+		return mapper.getSellBidGroupedData(map);
+	}
+
+	@Override
+	public List<Map<String, Object>> getOrderData(String item_num, String size) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("item_num", item_num);
+		map.put("size", size);
+		
+		return mapper.getOrderData(map);
+	}
+	
+	@Override
+	public List<Integer> getOrderRecentPrice(String item_num, String size) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("item_num", item_num);
+		map.put("size", size);
+		
+		return mapper.getOrderRecentPrice(map);
+	}
+
+	@Override
+	public List<Map<String, Object>> getOrderChartData(String size, String item_num, String start, String end) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("size", size);
+		map.put("item_num", item_num);
+		map.put("start", start);
+		map.put("end", end);
+		
+		return mapper.getOrderChartData(map);
+	}
+
+	@Override
+	public List<Map<String, Object>> getSellChartData(String size, String item_num, String start, String end) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("size", size);
+		map.put("item_num", item_num);
+		map.put("start", start);
+		map.put("end", end);
+		
+		return mapper.getSellChartData(map);
+	}
+
+	@Override
+	public List<Map<String, Object>> getBuyChartData(String size, String item_num, String start, String end) {
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("size", size);
+		map.put("item_num", item_num);
+		map.put("start", start);
+		map.put("end", end);
+		
+		return mapper.getBuyChartData(map);
 	}
 
 }

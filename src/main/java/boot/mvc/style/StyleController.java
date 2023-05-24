@@ -41,7 +41,7 @@ public class StyleController {
 	public ModelAndView detail(int board_id, @RequestParam(defaultValue = "0") int offset) {
 		ModelAndView mview = new ModelAndView();
 
-		List<BoardDto> list=Bservice.getListBoard(null, offset);
+		List<BoardDto> list=Bservice.getList();
 		for (BoardDto boarddto : list) {
 			
         }

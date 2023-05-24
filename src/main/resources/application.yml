@@ -24,6 +24,10 @@ spring:
 mybatis:
   type-aliases-package: boot.mvc.*
   mapper-locations:
+<<<<<<< HEAD
   
   
   - /mapper/**/*.xml
+=======
+    - /mapper/**/*.xml
+>>>>>>> ddb1c889d0d516a5eb2968ca6c80ea96077bbc76

@@ -27,9 +27,7 @@
 <!--chart.js  -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0"></script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"
-></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 @font-face {
 	font-family: "GmarketSansMedium";
@@ -114,6 +112,7 @@ select {
 	background-color: #fff;
 	padding: 30px;
 }
+<<<<<<< HEAD
 </style>
 <script type="text/javascript">
 		$(function() {
@@ -149,8 +148,45 @@ select {
 				});
 			});
 >>>>>>> 4a6b9b8410cce1104f88b0ec4b45414c23028f99
+=======
 
+hr {
+	background-color : rgba(34, 34, 34, 0.1);
+	height:1px;
+    border:0;
+}
+</style>
+<script type="text/javascript">
+	$(function() {
+		item_num = $(".item_num").val();
+		
+		getChartData("체결 거래", item_num, "전체", "all");  // 차트
+		tabContentChange("체결 거래", item_num, "all");     // 체결 거래 탭
+		sendPurchaseRecentPriceSizeRequest(item_num, "모든 사이즈");
+		
+		// 모달창에서 사이즈 선택
+		$(".sizeselect").click(function() {
+			var buy_size = $(this).find(".size").text();
+			//alert(buy_size)
+			$(".size-text").text(buy_size);
+			$(".size-select").val(buy_size);
+			$("#sizeModal").modal("hide");
+>>>>>>> ddb1c889d0d516a5eb2968ca6c80ea96077bbc76
 
+			$(".chart-size").val(buy_size);
+			
+			sendPurchaseRecentPriceSizeRequest(item_num, buy_size);
+			
+			// 차트 변경
+			type = $(".chart-type").val();
+	    	if(type == "")
+	    		type = "체결 거래";
+		    	
+			period = $(".chart-period").val();
+	    	if(period == "")
+	    		period = "전체";
+
+<<<<<<< HEAD
 <<<<<<< HEAD
 			// 선택한 값을 두 번째 select 요소에 옵션으로 추가
 			var option = document.createElement("option");
@@ -164,8 +200,62 @@ select {
 			sendPurchaseRecentPriceSizeRequest1(item_num, buy_size);
 =======
 >>>>>>> 4a6b9b8410cce1104f88b0ec4b45414c23028f99
+=======
+	    	if(buy_size == "모든 사이즈" || buy_size == "")
+	    		buy_size = "all";
+	
+	    	// alert("sizeselect : " +type + "," +item_num + ","+ period + "," + buy_size);
+			getChartData(type, item_num, period, buy_size);
+			tabContentChange(type, item_num, buy_size);
+>>>>>>> ddb1c889d0d516a5eb2968ca6c80ea96077bbc76
 		});
+	    
+	    // 시세 차트 tab
+	    $(".chart-tab").click(function () {
+	    	item_num = $(".item_num").val();
+	    	
+	    	period = $(this).text();	    		
+	    	$(".chart-period").val(period);
+	    	
+	    	size = $(".chart-size").val();
+	    	if(size == "모든 사이즈" || size == "")
+	    		size = "all";
+	    		
+	    	type = $(".chart-type").val();
+	    	if(type == "")
+	    		type = "체결 거래";
+	    	
+	    	// alert(period + "," + size + "," + type)
+	    	 if (period != "전체" && $("#all").hasClass("show")) {
+		        $("#all").removeClass("show active");
+		    }
+	    	
+	    	// alert("chart-tab : " + type + "," +item_num + ","+ period + "," + size)
+	    	getChartData(type, item_num, period, size);	    	
+		});    
+	
+	    // 체결 거래, 판매 입찰, 구매 입찰 버튼
+	    $(".chart-btn").click(function() {
+	    	item_num = $(".item_num").val();
+	    	
+	    	type = $(this).text();
+	    	$(".chart-type").val(type);
+	    	
+	    	period = $(".chart-period").val();
+	    	if(period == "")
+	    		period = "전체";
+	    	
+	    	size = $(".chart-size").val();
+	    	if(size == "모든 사이즈" || size == "")
+	    		size = "all";
+	    		
+	    	// alert("chart-btn : " + type + "," +item_num + ","+ period + "," + size)
+	    	
+	    	getChartData(type, item_num, period, size);
+	    	tabContentChange(type, item_num, size);
+	    });
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	function sendPurchaseRecentPriceSizeRequest1(item_num, buy_size) {
 		$.ajax({
@@ -212,37 +302,316 @@ select {
 					// 응답 데이터 처리
 					// response는 서버에서 반환하는 최근 거래 가격
 >>>>>>> 4a6b9b8410cce1104f88b0ec4b45414c23028f99
-
-					if(response != 0) {
-						// 숫자 포맷팅 및 업데이트
-						const formatter = new Intl.NumberFormat('ko-KR');
-						const formattedValue = formatter.format(Number(response));
-						$(".ChangeRecentPriceSize").text(formattedValue);
-					} else
-						$(".ChangeRecentPriceSize").text("-");
-				},
-				error : function(xhr, status, error) {
-					// 에러 처리
-					console.error("AJAX 요청 에러:", error);
-				}
-			});
+=======
+	    // 시세 모달에서 사이즈 변경
+	    $("#size-select2").on("change", function() {
+	        var size = $(this).val();
+	        $("#modal-size").val(size);
+	        tab = $("#modal-tab").val();
+				
+	        if(tab == "")
+	        	tab = "deal";
+	        // alert(size + ", " + tab);
+	        modalSizeChange(tab, size);
+	    });
+	    
+	    // 시세 모달에서 탭 변경
+	    $(".modal-btn").click(function() {
+			var tab = $(this).attr("aria-controls");
+			$("#modal-tab").val(tab);
+			
+			size =  $("#modal-size").val();
+			if(size == "")
+				size = "모든 사이즈";
+			
+			//alert(size + ", " + tab);
+			modalSizeChange(tab, size);
+		});
+	    
+	});
+	
+	function loginCheck(type) {
+		var item_num = '${item_num}';
+		var loginOk = '${sessionScope.loginOk}';
+		
+		if(loginOk != "") {
+			if(type == "buy")
+				location.href='${root}/buy/select?item_num=' + item_num;
+			else
+				location.href='${root}/sell/sellSize?item_num=' + item_num;
+		} else {
+		
+			if(confirm("로그인이 필요한 서비스입니다\n로그인 화면으로 이동하려면 확인을 클릭해주세요")) {
+				location.href='${root}/user/loginForm';
+			} 
 		}
+		
+	}
+	
+	function tabContentChange(type, item_num, size) {
+		// alert(type + ", " + size)
+		
+		$.ajax({
+			url : '/item/getTabContent',
+			type : 'GET',
+			data : {
+				"type" : type,
+				"item_num" : item_num,
+				"size" : size
+			},
+			dataType : 'json',
+			success : function(res) {
+				var tabType = ""; 
+				var s = '';
+				
+				if(res.length == 0){
+					s += '<div class="p-2 mb-1" style="text-align: center;">';
+					s += '<div class="d-flex" style="padding: 5px; height: 20vh; line-height: 25vh;" >';
+					s += '<span class="w-100" style="opacity: 0.4; font-size: 1.2em;"><i class="fa-solid fa-chart-line"></i>'
+					
+					if(type == "체결 거래") {
+						$(".tab-deal").css("display", "none");
+						$(".tab-deal-null").css("display", "block");
+						tabType = "tab-deal-null"
+						s += ' 체결된 거래가 아직 없습니다';
+					}
+					else if(type == "구매 입찰") {
+						$(".tab-buy").css("display", "none");
+						$(".tab-buy-null").css("display", "block");
+						tabType = "tab-buy-null"
+						s += ' 구매 입찰 내역이 아직 없습니다';
+					}
+					else {
+						$(".tab-sell").css("display", "none");
+						$(".tab-sell-null").css("display", "block");
+						tabType = "tab-sell-null"
+						s += ' 판매 입찰 내역이 아직 없습니다';
+					}
+					
+					s += '</span>';
+					s += '</div>';
+					s += '</div>';					
+				} else {
+					
+					s += '<div class="p-2 mb-1" style="height: 25vh;">';
+					s += '<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">';
+					s += '<div class="col-6">';
+					s += '<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 20px">사이즈<span>';
+					s += '</div>';
+					s += '<div class="col-3">';
+					s += '<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 35px">';
+					
+					if(type == "체결 거래") {
+						$(".tab-deal-null").css("display", "none");
+						$(".tab-deal").css("display", "block");
+						tabType = "tab-deal"
+						s += '거래가';
+					}
+					else if(type == "구매 입찰") {
+						$(".tab-buy-null").css("display", "none");
+						$(".tab-buy").css("display", "block");
+						tabType = "tab-buy"
+						s += '구매 희망가';
+					}
+					else {
+						$(".tab-sell-null").css("display", "none");
+						$(".tab-sell").css("display", "block");
+						tabType = "tab-sell"
+						s += '판매 희망가';
+					}
+					
+					s += '</span>';
+					s += '</div>';
+					s += '<div class="col-3">';
+					s += '<span style="font-size: 0.8em; color: #a0a0a0; margin-left: 30px">';
+					
+					if(type == "체결 거래") {
+						s += '거래일';
+					}
+					else {
+						s += '수량';
+					}
+					
+					s += '</span>';
+					s += '</div>';
+					s += '</div>';
+					
+					s += '<hr class="mt-0 mb-0">';	
+					
+					$.each(res, function(i, dto) {
+						console.log(i + ":" +dto.date)
+						if (i >= 5) {
+							return false; // 반복 종료
+						}
 
-		function handleSizeSelect() {
-			var selectElement = document.getElementById("size-select");
-			var selectElement2 = document.getElementById("size-select2");
-			var selectedValue = selectElement.value;
-			var sizeTextElement = document.querySelector(".size-text");
+						s += '<div class="d-flex" id="size_'+ dto.size +'" style="padding: 5px; text-align: center; margin-right: 20px;">';
+						s += '<div class="col-6">';																							
+						s += '<span style="font-size: 0.9em; color: #666; margin-right: 20px">' + dto.size + '</span>';																									
+						s += '</div>';
+						s += '<div class="col-4">';
+						s += '<span style="font-size: 0.9em; color: #666; float: right; margin-right: 90px">';
+						s += dto.price +"원";
+						s += '</span>';
+						s += '</div>';
+						s += '<div class="col-2">';
+						s += '<span style="font-size: 0.9em; color: #666; margin-right: 15px">';
+						
+						if(type == "체결 거래") {
+							s += dto.date;
+						} else
+							s += dto.count;
+						
+						s += '</span>';
+						s += '</div>';																			
+						s += '</div>';
+												
+					}); 
+					
+					for(var i = res.length; i < 5; i++) {
+>>>>>>> ddb1c889d0d516a5eb2968ca6c80ea96077bbc76
 
-			// 선택된 값을 size-text 요소에 삽입
-			sizeTextElement.innerHTML = selectedValue;
+						s += '<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px;">';
+						s += '<div class="col-6">';																						
+						s += '<span style="font-size: 0.9em; color: #666; margin-right: 25px">-</span>';																									
+						s += '</div>';
+						s += '<div class="col-4">';
+						s += '<span style="font-size: 0.9em; color: #666; float: right; margin-right: 120px">-</span>';
+						s += '</div>';
+						s += '<div class="col-2">';
+						s += '<span style="font-size: 0.9em; color: #666; margin-right: 15px">-</span>';
+						s += '</div>';
+						s += '</div>';	
+						
+					}
+					
+					s += '<div>';
+					s += '<button type="button" class="btn btn-outline-detail w-100" style="margin-top: 20px;" data-bs-toggle="modal" data-bs-target="#detailModal">';
+					
+					if(type == "체결 거래") 
+						s += '체결 내역 더보기';
+					else
+						s += '입찰 내역 더보기';
+					
+					s += '</button>';						
+					s += '</div>';
+				}
+				
+				$("." + tabType).html(s);
+				
+			},
+			error : function(xhr, status, error) {
+				// 에러 처리
+				console.error("AJAX 요청 에러:", error);
+			}
+		});
+	}
+	
+	function modalSizeChange(tab, size) {
+		// alert(tab + ", " + size)
+		
+        if(size == "모든 사이즈") {
+        	count = $("." + tab + ".m_size").length;     		
+        }
+        else {	        	
+        	$("."+ tab + ".m_size").removeClass("d-flex");
+        	$("."+ tab + ".m_size").css("display", "none");
+        		
+			count = $("." + tab + ".m_size.m_size_" + size).length;    	
+        }
+	    
+		if(count == 0) {
+    		$("."+ tab + ".modal-ori").css("display", "none");
+    		$("."+ tab + ".modal-scroll").css("overflow-y", "hidden");
+    		$("."+ tab + ".modal-null").css("display", "block");
+    	} else {	
+    		 if(size == "모든 사이즈") {
+   	        	$("."+ tab + ".modal-ori").css("display", "block");
+   	        	$("."+ tab + ".m_size").addClass("d-flex");
+   	        	$("."+ tab + ".m_size").css("display", "flex");
+   	        	$("."+ tab + ".modal-null").css("display", "none");
+   	        	$("."+ tab + ".modal-scroll").css("overflow-y", "scroll");
+    		 } else {
+	    		$("."+ tab + ".m_size.m_size_"+size).css("display", "flex");
+	    		$("."+ tab + ".modal-ori").css("display", "block");
+	    		$("."+ tab + ".modal-scroll").css("overflow-y", "scroll");
+	    		$("."+ tab + ".modal-null").css("display", "none");
+    		 }
+    	}
+		
+		
+	}
+	
+	function sendPurchaseRecentPriceSizeRequest(item_num, buy_size) {
+		if(buy_size == "모든 사이즈")
+			buy_size = "all";
+		
+		$.ajax({
+			url : '/item/getOrderRecentPrice',
+			type : 'GET',
+			data : {
+				"item_num" : item_num,
+				"buy_size" : buy_size
+			},
+			dataType : 'json',
+			success : function(res) {
 
-			// 선택한 값을 두 번째 select 요소에 옵션으로 추가
-			var option = document.createElement("option");
-			option.value = selectedValue;
-			option.text = selectedValue;
-			selectElement2.add(option);
+				// alert(res.recentPrice + ", " + res.percentChange)
+				
+				if(res.recentPrice != 0) {
+					// 숫자 포맷팅 및 업데이트
+		            const formatter = new Intl.NumberFormat('ko-KR');
+		            const formattedValue = formatter.format(Number(res.recentPrice));
+		            $(".ChangeRecentPrice").text(formattedValue);
+  
+		            if(res.percentChange < 0) {
+		            	 $(".ChangeRecentPrice-span").css("color", "#ec0b00");
+		            	 $("#ChangeRecentPrice-i").html('<i class="fa fa-caret-down me-1" id="ChangeRecentPrice-i"></i>');
+		            	 $(".price-change").text(res.priceChange);
+		            	 $(".percent-change").text(res.percentChange);
+		            } else if(res.percentChange > 0) {
+		            	 $(".ChangeRecentPrice-span").css("color", "green");
+		            	 $("#ChangeRecentPrice-i").html('<i class="fa fa-caret-up me-1" id="ChangeRecentPrice-i"></i>');
+		            	 $(".price-change").text(res.priceChange);
+		            	 $(".percent-change").text(res.percentChange);
+		            } else {
+		            	$(".ChangeRecentPrice-span").css("opacity", " 0.6");
+		            	$("#ChangeRecentPrice-i").html('<i class="me-5" id="ChangeRecentPrice-i"></i>');
+		            	$(".price-change").text(0);
+		            	$(".percent-change").text(0);
+		            }
+		            
+		            $(".ChangeRecentPrice-span").css("display", "block");
+		            
+				} else {
+					$(".ChangeRecentPrice").text("-");
+					$(".ChangeRecentPrice-span").css("display", "none");
+				}
+			},
+			error : function(xhr, status, error) {
+				// 에러 처리
+				console.error("AJAX 요청 에러:", error);
+			}
+		});
+	}
+  
+	function handleSizeSelect() {
+		var selectElement = document.getElementById("size-select");
+		var selectElement2 = document.getElementById("size-select2");
+		var selectedValue = selectElement.value;
+		var sizeTextElement = document.querySelector(".size-text");
 
+		$(".chart-size").val(selectedValue);
+		
+		// 선택된 값을 size-text 요소에 삽입
+		sizeTextElement.innerHTML = selectedValue;
+
+		// 선택한 값을 두 번째 select 요소에 옵션으로 추가
+		var option = document.createElement("option");
+		option.value = selectedValue;
+		option.text = selectedValue;
+		selectElement2.add(option);
+
+<<<<<<< HEAD
 			// 선택한 값을 두 번째 select 요소에서 선택 상태로 설정
 			selectElement2.value = selectedValue;
 
@@ -254,6 +623,194 @@ select {
 			selectElement2.value = selectedValue;
 		}
 	</script>
+=======
+		// 선택한 값을 두 번째 select 요소에서 선택 상태로 설정
+		selectElement2.value = selectedValue;
+	
+		// 차트 변경
+		type = $(".chart-type").val();
+    	if(type == "")
+    		type = "체결 거래";
+	    	
+		period = $(".chart-period").val();
+    	if(period == "")
+    		period = "전체";
+    	
+    	size = $(".chart-size").val();
+    	
+    	sendPurchaseRecentPriceSizeRequest(item_num, size);
+    	if(size == "모든 사이즈" || size == "")
+    		size = "all";
+    	
+    	item_num = $(".item_num").val();	
+    	// alert("handleSizeSelect : " +type + "," +item_num + ","+ period + "," + size);
+    	
+    	sendPurchaseRecentPriceSizeRequest(item_num, size);
+		getChartData(type, item_num, period, size);
+		tabContentChange(type, item_num, size);
+	}
+	
+	var myChart1 = null;
+	var myChart3 = null;
+	var myChart6 = null;
+	var myChart12 = null;
+	var myChartAll = null;
+	
+	function getChartData(type, item_num, period, size) {
+		 // alert(type + "," +item_num + ","+ period + "," + size);
+		
+    	$.ajax({
+			url : '/item/getChartData',
+			type : 'get',
+			data : {
+				"type" : type,
+				"item_num" : item_num,
+				"size" : size,
+				"period" : period
+			},
+			dataType : 'json',
+			success : function(res) {
+				console.log(res);
+				
+				if(res.date.length == 0) {
+					console.log("데이터 0개");
+					
+					$(".price-chart").removeClass("d-flex");
+					$(".price-chart").css("display", "none");
+				}
+				else {
+					
+					//$(".price-chart").addClass("d-flex");
+					$(".price-chart").css("display", "flex");
+					
+					var myChart = null; // 차트 객체를 저장할 변수
+		            var chart = null; // 차트의 ID를 저장할 변수
+	
+		            if (period == '1개월') {
+		                if (myChart1) {
+		                    myChart1.destroy(); // 이전 차트 제거
+		                }
+	
+		                chart = 'myChart1';
+		                myChart = myChart1;
+		            } else if (period == '3개월') {
+		                if (myChart3) {
+		                    myChart3.destroy(); // 이전 차트 제거
+		                }
+	
+		                chart = 'myChart3';
+		                myChart = myChart3;
+		            } else if (period == '6개월') {
+		                if (myChart6) {
+		                    myChart6.destroy(); // 이전 차트 제거
+		                }
+	
+		                chart = 'myChart6';
+		                myChart = myChart6;
+		            } else if (period == '1년') {
+		                if (myChart12) {
+		                    myChart12.destroy(); // 이전 차트 제거
+		                }
+	
+		                chart = 'myChart12';
+		                myChart = myChart12;
+		            } else {
+		                if (myChartAll) {
+		                    myChartAll.destroy(); // 이전 차트 제거
+		                }
+	
+		                chart = 'myChartAll';
+		                myChart = myChartAll;
+		            }
+					
+					var monthList = [];
+					var monthData = [];
+					
+					$.each(res.date, function(i, date) {
+						var dateObj = new Date(date);
+						var year = dateObj.getFullYear();
+						var month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+						var day = dateObj.getDate().toString().padStart(2, '0');
+						var formattedDate = year + '/' + month + '/' + day;
+						
+						console.log("date[" + i + "]: " + formattedDate);
+						monthList.push(formattedDate);			
+						
+					});
+	
+					$.each(res.wish_price, function(i, price) {
+						console.log("wish_price[" + i + "]: " + price);
+						monthData.push(price); 
+					});
+										  
+				    if (res.date.length == 1) {
+					    // 직선을 생성하기 위해 데이터 포인트를 중복해서 추가
+				    	monthList.push(monthList[0]);
+				        monthData.push(monthData[0]);
+					}
+				    
+					var canvas = document.createElement('canvas');
+		            canvas.id = chart;
+		            var ctx = canvas.getContext('2d');
+		          
+		            var existingCanvas = document.getElementById(chart);
+		            if (existingCanvas) {
+		                existingCanvas.parentNode.replaceChild(canvas, existingCanvas);
+		            }
+					
+					myChart = new Chart(ctx, {
+						type : 'line',
+						data : {
+							labels : monthList,
+							datasets : [ {
+								data : monthData,
+								borderColor : 'rgba(255, 99, 132, 1)',
+								borderWidth : 1,
+								pointStyle : false
+							} ]
+						},
+	
+						options : {
+							responsive : false,
+							scales : {
+								x : {
+									ticks : {
+										maxRotation : 0,
+									},
+									display : false,
+									grid : {
+										display : false
+									}
+								},
+								y : {
+									position : 'right',// `axis` is determined by the position as `'y'`
+	
+									grid : {
+										display : false
+									}
+								}
+	
+							},
+							responsive : true,
+							plugins : {
+								legend : {
+									display : false
+								}
+	
+							}
+						}
+					});
+				}
+								
+			},
+			error : function(xhr, status, error) {
+				// 에러 처리
+				console.error("AJAX 요청 에러:", error);
+			}
+		});
+		
+	}
+>>>>>>> ddb1c889d0d516a5eb2968ca6c80ea96077bbc76
 </script>
 </head>
 <body>
@@ -278,19 +835,15 @@ select {
 												style="position: relative; bottom: 50px"
 											>
 										</div>
+<<<<<<< HEAD
 										<%-- <div class="carousel-item" data-bs-interval="4000" data-bs-pause="hover">
                                        <img src="/assets/images/${Ddto.item_image }" class="d-block w-100" alt="..."
+=======
+>>>>>>> ddb1c889d0d516a5eb2968ca6c80ea96077bbc76
 
-                                          style="position: relative; bottom: 50px"
-                                       >
-                                       <div class="carousel-caption d-none d-md-block"></div>
-                                    </div>
-                                    <div class="carousel-item" data-bs-interval="4000" data-bs-pause="hover">
-                                       <img src="/assets/images/1.png" class="d-block w-100" alt="..."
-                                          style="position: relative; bottom: 50px"
-                                       >
-                                       <div class="carousel-caption d-none d-md-block"></div>
+									</div>
 
+<<<<<<< HEAD
                                     </div> --%>
 									</div>
 									<!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
@@ -305,6 +858,8 @@ select {
                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                    <span class="visually-hidden">Next</span>
                                 </button> -->
+=======
+>>>>>>> ddb1c889d0d516a5eb2968ca6c80ea96077bbc76
 								</div>
 							</div>
 						</div>
@@ -350,13 +905,16 @@ select {
 											<div class="mb-4">
 												<button type="button" class="btn btn-detail btn-lg w-100"
 													style="width: 290px; height: 7vh; margin-top: 70px; margin-left: 40px"
-													onclick="location.href='/buy/select?item_num=${item_num}'"
+
+													onclick="loginCheck('buy')"
 												>구매</button>
 											</div>
 											<div>
 												<button type="button" class="btn btn-outline-detail btn-lg w-100"
 													style="height: 7vh; width: 290px; margin-left: 40px;"
-													onclick="location.href='/sell/sellSize?item_num=${item_num}'"
+
+													onclick="loginCheck('sell')"
+
 												>판매</button>
 											</div>
 										</div>
@@ -384,25 +942,33 @@ select {
 															<div class="d-flex row col-12">
 																<!-- 카테고리 별 사이즈 -->
 																<c:if test="${Ddto.item_category != 'bag'}">
-																	<div class="col-4 p-2">
+
+																	<div class="col-4 p-2">																
+																		
+
 																		<button type="button" class="btn btn-outline-detail btn-lg w-100 sizeselect"
 																			style="height: 10vh;"
 																		>
 																			<span class="size" style="font-size: 0.9rem;">모든 사이즈</span>
 																			<br>
+
+																		
 																			<c:if test="${minPrice != 0}">
-																				<span style="font-size: 0.7rem; color: #ec0b00;">
-																					<fmt:formatNumber value="${minPrice}" type="number" />
-																				</span>
+																				<span style="font-size: 0.7rem; color: #ec0b00;"><fmt:formatNumber value="${minPrice}" type="number" /></span>
 																			</c:if>
+																			
+
 																			<c:if test="${minPrice == 0}">
 																				<span style="font-size: 0.7rem; color: black;">구매입찰</span>
 																			</c:if>
 																		</button>
 																	</div>
+
 																</c:if>
+																
 																<c:choose>
-																	<c:when test="${Ddto.item_category == 'shoes'}">
+																	<c:when test="${Ddto.item_category == 'shoes'}">																																
+
 																		<c:forEach var="size" begin="220" end="270" step="5">
 																			<div class="col-4 p-2">
 																				<button type="button" class="btn btn-outline-detail btn-lg w-100 sizeselect"
@@ -410,53 +976,60 @@ select {
 																				>
 																					<span class="size" style="font-size: 0.9rem; margin-bottom: 1rem;">${size}</span>
 																					<br>
-																					<c:if test="${priceList.size() != 0}">
-																						<c:forEach var="dto" items="${priceList }">
-																							<c:if test="${dto.sell_size == size}">
-																								<span style="font-size: 0.7rem; color: #ec0b00;">
-																									<fmt:formatNumber value="${dto.sell_wishprice}" type="number" />
-																								</span>
-																							</c:if>
-																							<c:if test="${dto.sell_size != size}">
-																								<span style="font-size: 0.7rem; color: black;">구매입찰</span>
-																							</c:if>
-																						</c:forEach>
+
+																					
+																					<c:if test="${priceList.size() != 0}">																																																							
+																					<c:forEach var="dto" items="${priceList }">																																					
+																						<c:if test="${dto.sell_size == size}">
+																							<span style="font-size: 0.7rem; color: #ec0b00;"><fmt:formatNumber value="${dto.sell_wishprice}" type="number" /></span>
+																						</c:if>	
+																						
+
+																						<c:if test="${dto.sell_size != size}">
+																							<span style="font-size: 0.7rem; color: black;">구매입찰</span>
+																						</c:if>																																									
+																					</c:forEach>
 																					</c:if>
-																					<c:if test="${priceList.size() == 0}">
+																							
+																					<c:if test="${priceList.size() == 0}">																																							
 																						<span style="font-size: 0.7rem; color: black;">구매입찰</span>
-																					</c:if>
+																					</c:if>																												
 																				</button>
 																			</div>
-																		</c:forEach>
+																		</c:forEach>																
 																	</c:when>
-																	<c:when test="${Ddto.item_category == 'bag'}">
+					
+																	<c:when test="${Ddto.item_category == 'bag'}">																																					
 																		<div class="col-4 p-2">
 																			<button type="button" class="btn btn-outline-detail btn-lg w-100 sizeselect"
 																				style="height: 10vh;"
 																			>
-																				<span class="size" style="font-size: 0.9rem; margin-bottom: 1rem;">ONE
-																					SIZE</span>
+																				<span class="size" style="font-size: 0.9rem; margin-bottom: 1rem;">ONE SIZE</span>
 																				<br>
-																				<c:if test="${priceList.size() != 0}">
-																					<c:forEach var="dto" items="${priceList }">
-																						<c:if test="${dto.sell_size == size}">
-																							<span style="font-size: 0.7rem; color: #ec0b00;">
-																								<fmt:formatNumber value="${dto.sell_wishprice}" type="number" />
-																							</span>
-																						</c:if>
-																						<c:if test="${dto.sell_size != size}">
-																							<span style="font-size: 0.7rem; color: black;">구매입찰</span>
-																						</c:if>
-																					</c:forEach>
+																				
+																				<c:if test="${priceList.size() != 0}">																																																							
+																				<c:forEach var="dto" items="${priceList }">																																						
+																					<c:if test="${dto.sell_size == size}">
+																						<span style="font-size: 0.7rem; color: #ec0b00;"><fmt:formatNumber value="${dto.sell_wishprice}" type="number" /></span>
+																					</c:if>	
+																					
+																					<c:if test="${dto.sell_size != size}">
+																						<span style="font-size: 0.7rem; color: black;">구매입찰</span>
+																					</c:if>																																									
+																				</c:forEach>
 																				</c:if>
-																				<c:if test="${priceList.size() == 0}">
-																					<span style="font-size: 0.7rem; color: black;">구매입찰</span>
-																				</c:if>
+
+																						
+																				<c:if test="${priceList.size() == 0}">																																							
+																				<span style="font-size: 0.7rem; color: black;">구매입찰</span>
+																				</c:if>																												
 																			</button>
-																		</div>
+																		</div>																					
 																	</c:when>
+							
 																	<c:otherwise>
-																		<c:set var="otherSize">XS,S,M,L,XL,XXL,XXXL</c:set>
+																		<c:set var="otherSize">XS,S,M,L,XL,XXL,XXXL</c:set>																														
+
 																		<c:forEach var="size" items="${otherSize}" varStatus="i">
 																			<div class="col-4 p-2">
 																				<button type="button" class="btn btn-outline-detail btn-lg w-100 sizeselect"
@@ -464,56 +1037,66 @@ select {
 																				>
 																					<span class="size" style="font-size: 0.9rem; margin-bottom: 1rem;">${size}</span>
 																					<br>
-																					<c:if test="${priceList.size() != 0}">
-																						<c:forEach var="dto" items="${priceList }">
-																							<c:if test="${dto.sell_size == size}">
-																								<span style="font-size: 0.7rem; color: #ec0b00;">
-																									<fmt:formatNumber value="${dto.sell_wishprice}" type="number" />
-																								</span>
-																							</c:if>
-																							<c:if test="${dto.sell_size != size}">
-																								<span style="font-size: 0.7rem; color: black;">구매입찰</span>
-																							</c:if>
-																						</c:forEach>
+
+																					
+																					<c:if test="${priceList.size() != 0}">																																																							
+																					<c:forEach var="dto" items="${priceList }">																																						
+																						<c:if test="${dto.sell_size == size}">
+																							<span style="font-size: 0.7rem; color: #ec0b00;"><fmt:formatNumber value="${dto.sell_wishprice}" type="number" /></span>
+																						</c:if>	
+																						
+																						<c:if test="${dto.sell_size != size}">
+																							<span style="font-size: 0.7rem; color: black;">구매입찰</span>
+																						</c:if>																																									
+																					</c:forEach>
 																					</c:if>
-																					<c:if test="${priceList.size() == 0}">
-																						<span style="font-size: 0.7rem; color: black;">구매입찰</span>
-																					</c:if>
+																							
+																					<c:if test="${priceList.size() == 0}">																																							
+																					<span style="font-size: 0.7rem; color: black;">구매입찰</span>
+																					</c:if>																												
 																				</button>
 																			</div>
-																		</c:forEach>
+																		</c:forEach>																
 																	</c:otherwise>
+			
 																</c:choose>
+						
+
 															</div>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
-									</div>
+
+									</div>									
+
 									<!-- 최근 거래가 -->
 									<div class="d-flex pe-2 mb-5">
 										<div class="heading-section col-9">
 											<span style="font-size: 1.1em; color: #666;">최근 거래가</span>
 										</div>
+
+
 										<div class="heading-section col-3">
 											<span style="font-size: 1.1em; float: right;">
-												<b class="ChangeRecentPriceSize">
+												<b class="ChangeRecentPrice">
+
 													<fmt:formatNumber value="" />
 												</b>
 												<b>원</b>
 											</span>
-											<!-- <span style="font-size: 0.8em; float: right; color: green">
-                                           <i class="fa fa-caret-down me-1"></i>
-                                           <span>3,000</span>
-                                           원 (
-                                           <span>-1.3</span>
-                                           %)
-                                        </span> -->
+
+											<span class="ChangeRecentPrice-span" style="font-size: 0.8em; float: right;">
+												<i id="ChangeRecentPrice-i"></i>
+												<span class="price-change"></span>원 (<span class="percent-change"></span>%)
+											</span>
+
 										</div>
 									</div>
 									<!-- 시세 -->
-									<div class="d-flex pe-2 mb-3">
+									<div class="d-flex pe-2 mb-3 price-chart">
+
 										<div class="heading-section col-9">
 											<span style="font-size: 1.3em; font-weight: 600;">시세</span>
 											<br>
@@ -524,599 +1107,171 @@ select {
 												style="border: 0px; font-size: 1em; float: right; color: #666;"
 												onchange="handleSizeSelect()"
 											>
-												<option>모든 사이즈</option>
+
+												<option>모든 사이즈</option>											
+												
 												<c:choose>
-													<c:when test="${Ddto.item_category == 'shoes'}">
+													<c:when test="${Ddto.item_category == 'shoes'}">																																
 														<c:forEach var="size" begin="220" end="270" step="5">
 															<option value="${size}">${size}</option>
-														</c:forEach>
+														</c:forEach>																
 													</c:when>
-													<c:when test="${Ddto.item_category == 'bag'}">
-														<option value="ONE SIZE">ONE SIZE</option>
+	
+													<c:when test="${Ddto.item_category == 'bag'}">																																																							
+														<option value="ONE SIZE">ONE SIZE</option>																																				
 													</c:when>
+			
 													<c:otherwise>
-														<c:set var="otherSize">XS,S,M,L,XL,XXL,XXXL</c:set>
+														<c:set var="otherSize">XS,S,M,L,XL,XXL,XXXL</c:set>																														
 														<c:forEach var="size" items="${otherSize}" varStatus="i">
 															<option value="${size}">${size}</option>
-														</c:forEach>
+														</c:forEach>																
 													</c:otherwise>
 												</c:choose>
+		
+
 											</select>
 										</div>
 									</div>
 									<!-- 시세 그래프 -->
-									<div class="d-flex pe-2 mb-1">
+
+									<div class="d-flex pe-2 mb-1 price-chart">
+									<input type="hidden" class="chart-size" value="">
+									<input type="hidden" class="chart-period" value="">
+									<input type="hidden" class="chart-type" value="">
+
 										<div class="col-xl-12">
 											<div class="nav-align-top mb-4">
 												<ul class="nav nav-pills mb-3 nav-fill" role="tablist">
 													<li class="nav-item">
-														<button type="button" class="btn btn-detail active w-100" role="tab"
+
+														<button type="button" class="btn btn-detail active w-100 chart-tab" role="tab"
+
 															data-bs-toggle="tab" data-bs-target="#onemonth" aria-controls="onemonth"
 															aria-selected="true" style="border-radius: 20px 0px 0px 20px"
 														>1개월</button>
 													</li>
 													<li class="nav-item">
-														<button type="button" class="btn btn-detail w-100" role="tab" data-bs-toggle="tab"
+
+														<button type="button" class="btn btn-detail w-100 chart-tab" role="tab" data-bs-toggle="tab"
+
 															data-bs-target="#threemonth" aria-controls="threemonth" aria-selected="false"
 															style="border-radius: 0px"
 														>3개월</button>
 													</li>
 													<li class="nav-item">
-														<button type="button" class="btn btn-detail w-100" role="tab" data-bs-toggle="tab"
+
+														<button type="button" class="btn btn-detail w-100 chart-tab" role="tab" data-bs-toggle="tab"
+
 															data-bs-target="#sixmonth" aria-controls="sixmonth" aria-selected="false"
 															style="border-radius: 0px"
 														>6개월</button>
 													</li>
 													<li class="nav-item">
-														<button type="button" class="btn btn-detail w-100" role="tab" data-bs-toggle="tab"
+
+														<button type="button" class="btn btn-detail w-100 chart-tab" role="tab" data-bs-toggle="tab"
+
 															data-bs-target="#oneyear" aria-controls="oneyear" aria-selected="false"
 															style="border-radius: 0px"
 														>1년</button>
 													</li>
 													<li class="nav-item">
-														<button type="button" class="btn btn-detail w-100" role="tab" data-bs-toggle="tab"
+
+														<button type="button" class="btn btn-detail w-100 chart-tab" role="tab" data-bs-toggle="tab"
+
 															data-bs-target="#all" aria-controls="all" aria-selected="false"
 															style="border-radius: 0px 20px 20px 0px"
 														>전체</button>
 													</li>
 												</ul>
 												<div class="tab-content">
-													<div class="tab-pane fade show active" id="onemonth" role="tabpanel">
+													<div class="tab-pane fade" id="onemonth" role="tabpanel">
 														<div style="width: 550px; margin-left: 0px">
 															<canvas id="myChart1" height="100"></canvas>
 														</div>
-														<script>
-														function addZero(i) {
-															var rtn = i + 100;
-															return rtn.toString().replace("1", "/");
-														}
-														var monthList = [];
-														var monthData = [];
-														var today = new Date();
-														for (var i = 30; i >= 0; i--) {
-															var dt = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
-															var year = dt.getFullYear();
-															var mon = addZero(dt.getMonth() + 1);
-															var day = addZero(dt.getDate());
-															var format = year + mon + day;
-															monthList.push(format);
-															monthData.push(Math.floor(Math.random() * 300000));
-														}
-
-														const ctx = document.getElementById('myChart1').getContext('2d');
-														const myChart = new Chart(ctx, {
-															type : 'line',
-															data : {
-																labels : monthList,
-																datasets : [ {
-																	data : monthData,
-																	borderColor : 'rgba(255, 99, 132, 1)',
-																	borderWidth : 1,
-																	pointStyle : false
-																} ]
-															},
-
-															options : {
-																responsive : false,
-																scales : {
-																	x : {
-																		ticks : {
-																			maxRotation : 0,
-																		},
-																		display : false,
-																		grid : {
-																			display : false
-																		}
-																	},
-																	y : {
-																		position : 'right',// `axis` is determined by the position as `'y'`
-
-																		grid : {
-																			display : false
-																		}
-																	}
-
-																},
-																responsive : true,
-																plugins : {
-																	legend : {
-																		display : false
-																	}
-
-																}
-															}
-														});
-													</script>
+														
 													</div>
 													<div class="tab-pane fade" id="threemonth" role="tabpanel">
 														<div style="width: 550px; margin-left: 0px">
 															<canvas id="myChart3" height="100"></canvas>
 														</div>
-														<script>
-														function addZero(i) {
-															var rtn = i + 100;
-															return rtn.toString().replace("1", "/");
-														}
-														var monthList = [];
-														var monthData = [];
-														var today = new Date();
-														for (var i = 90; i >= 0; i--) {
-															var dt = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
-															var year = dt.getFullYear();
-															var mon = addZero(dt.getMonth() + 1);
-															var day = addZero(dt.getDate());
-															var format = year + mon + day;
-															monthList.push(format);
-															monthData.push(Math.floor(Math.random() * 300000));
-														}
-
-														const ctx3 = document.getElementById('myChart3').getContext('2d');
-														const myChart3 = new Chart(ctx3, {
-															type : 'line',
-															data : {
-																labels : monthList,
-																datasets : [ {
-																	data : monthData,
-																	borderColor : 'rgba(255, 99, 132, 1)',
-																	borderWidth : 1,
-																	pointStyle : false
-																} ]
-															},
-
-															options : {
-																responsive : false,
-																scales : {
-																	x : {
-																		ticks : {
-																			maxRotation : 0,
-																		},
-																		display : false,
-																		grid : {
-																			display : false
-																		}
-																	},
-																	y : {
-																		position : 'right',// `axis` is determined by the position as `'y'`
-
-																		grid : {
-																			display : false
-																		}
-																	}
-
-																},
-																responsive : true,
-																plugins : {
-																	legend : {
-																		display : false
-																	}
-
-																}
-															}
-														});
-													</script>
+														
 													</div>
 													<div class="tab-pane fade" id="sixmonth" role="tabpanel">
 														<div style="width: 550px; margin-left: 0px">
 															<canvas id="myChart6" height="100"></canvas>
 														</div>
-														<script>
-														function addZero(i) {
-															var rtn = i + 100;
-															return rtn.toString().replace("1", "/");
-														}
-														var monthList = [];
-														var monthData = [];
-														var today = new Date();
-														for (var i = 189; i >= 0; i--) {
-															var dt = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
-															var year = dt.getFullYear();
-															var mon = addZero(dt.getMonth() + 1);
-															var day = addZero(dt.getDate());
-															var format = year + mon + day;
-															monthList.push(format);
-															monthData.push(Math.floor(Math.random() * 300000));
-														}
-
-														const ctx6 = document.getElementById('myChart6').getContext('2d');
-														const myChart6 = new Chart(ctx6, {
-															type : 'line',
-															data : {
-																labels : monthList,
-																datasets : [ {
-																	data : monthData,
-																	borderColor : 'rgba(255, 99, 132, 1)',
-																	borderWidth : 1,
-																	pointStyle : false
-																} ]
-															},
-
-															options : {
-																responsive : false,
-																scales : {
-																	x : {
-																		ticks : {
-																			maxRotation : 0,
-																		},
-																		display : false,
-																		grid : {
-																			display : false
-																		}
-																	},
-																	y : {
-																		position : 'right',// `axis` is determined by the position as `'y'`
-
-																		grid : {
-																			display : false
-																		}
-																	}
-
-																},
-																responsive : true,
-																plugins : {
-																	legend : {
-																		display : false
-																	}
-
-																}
-															}
-														});
-													</script>
+														
 													</div>
 													<div class="tab-pane fade" id="oneyear" role="tabpanel">
 														<div style="width: 550px; margin-left: 0px">
 															<canvas id="myChart12" height="100"></canvas>
 														</div>
-														<script>
-														function addZero(i) {
-															var rtn = i + 100;
-															return rtn.toString().replace("1", "/");
-														}
-														var monthList = [];
-														var monthData = [];
-														var today = new Date();
-														for (var i = 365; i >= 0; i--) {
-															var dt = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
-															var year = dt.getFullYear();
-															var mon = addZero(dt.getMonth() + 1);
-															var day = addZero(dt.getDate());
-															var format = year + mon + day;
-															monthList.push(format);
-															monthData.push(Math.floor(Math.random() * 300000));
-														}
-
-														const ctx12 = document.getElementById('myChart12').getContext('2d');
-														const myChart12 = new Chart(ctx12, {
-															type : 'line',
-															data : {
-																labels : monthList,
-																datasets : [ {
-																	data : monthData,
-																	borderColor : 'rgba(255, 99, 132, 1)',
-																	borderWidth : 1,
-																	pointStyle : false
-																} ]
-															},
-
-															options : {
-																responsive : false,
-																scales : {
-																	x : {
-																		ticks : {
-																			maxRotation : 0,
-																		},
-																		display : false,
-																		grid : {
-																			display : false
-																		}
-																	},
-																	y : {
-																		position : 'right',// `axis` is determined by the position as `'y'`
-
-																		grid : {
-																			display : false
-																		}
-																	}
-
-																},
-																responsive : true,
-																plugins : {
-																	legend : {
-																		display : false
-																	}
-
-																}
-															}
-														});
-													</script>
+														
 													</div>
-													<div class="tab-pane fade" id="all" role="tabpanel">
+													<div class="tab-pane fade show active" id="all" role="tabpanel">
 														<div style="width: 550px; margin-left: 0px">
 															<canvas id="myChartAll" height="100"></canvas>
 														</div>
-														<script>
-														function addZero(i) {
-															var rtn = i + 100;
-															return rtn.toString().replace("1", "/");
-														}
-														var monthList = [];
-														var monthData = [];
-														var today = new Date();
-														for (var i = 365; i >= 0; i--) {
-															var dt = new Date(today.getFullYear(), today.getMonth(), today.getDate() - i);
-															var year = dt.getFullYear();
-															var mon = addZero(dt.getMonth() + 1);
-															var day = addZero(dt.getDate());
-															var format = year + mon + day;
-															monthList.push(format);
-															monthData.push(Math.floor(Math.random() * 300000));
-														}
-
-														const ctxAll = document.getElementById('myChartAll').getContext('2d');
-														const myChartAll = new Chart(ctxAll, {
-															type : 'line',
-															data : {
-																labels : monthList,
-																datasets : [ {
-																	data : monthData,
-																	borderColor : 'rgba(255, 99, 132, 1)',
-																	borderWidth : 1,
-																	pointStyle : false
-																} ]
-															},
-
-															options : {
-																responsive : false,
-																scales : {
-																	x : {
-																		ticks : {
-																			maxRotation : 0,
-																		},
-																		display : false,
-																		grid : {
-																			display : false
-																		}
-																	},
-																	y : {
-																		position : 'right',// `axis` is determined by the position as `'y'`
-
-																		grid : {
-																			display : false
-																		}
-																	}
-
-																},
-																responsive : true,
-																plugins : {
-																	legend : {
-																		display : false
-																	}
-
-																}
-															}
-														});
-													</script>
+														
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 									<!-- 체결 내역 -->
-									<div class="d-flex pe-2 mb-3">
+
+									<div class="d-flex pe-2 mb-5">
+
 										<div class="col-xl-12">
 											<div class="nav-align-top mb-4">
 												<ul class="nav nav-pills mb-2 nav-fill" role="tablist">
 													<li class="nav-item">
-														<button type="button" class="btn btn-detail active w-100" role="tab"
+
+														<button type="button" class="btn btn-detail active w-100 chart-btn" role="tab"
+
 															data-bs-toggle="tab" data-bs-target="#deal" aria-controls="deal" aria-selected="true"
 															style="border-radius: 20px 0px 0px 20px"
 														>체결 거래</button>
 													</li>
 													<li class="nav-item">
-														<button type="button" class="btn btn-detail w-100" role="tab" data-bs-toggle="tab"
+
+														<button type="button" class="btn btn-detail w-100 chart-btn" role="tab" data-bs-toggle="tab"
+
 															data-bs-target="#sellBid" aria-controls="sellBid" aria-selected="false"
 															style="border-radius: 0px"
 														>판매 입찰</button>
 													</li>
 													<li class="nav-item">
-														<button type="button" class="btn btn-detail w-100" role="tab" data-bs-toggle="tab"
+
+														<button type="button" class="btn btn-detail w-100 chart-btn" role="tab" data-bs-toggle="tab"
+
 															data-bs-target="#buyBid" aria-controls="buyBid" aria-selected="false"
 															style="border-radius: 0px 20px 20px 0px"
 														>구매 입찰</button>
 													</li>
 												</ul>
 												<div class="tab-content">
-													<div class="tab-pane fade show active" id="deal" role="tabpanel">
-														<div class="p-2 mb-1" style="height: 17vh;">
-															<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
-																<div class="col-6">
-																	<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 20px">사이즈</span>
-																</div>
-																<div class="col-3">
-																	<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 35px">거래가</span>
-																</div>
-																<div class="col-3">
-																	<span style="font-size: 0.8em; color: #a0a0a0; margin-left: 30px">거래일</span>
-																</div>
-															</div>
-															<hr class="mt-0 mb-0">
-															<c:forEach items="${getOrderData }" var="p" end="4">
-																<div class="d-flex" id="size_${p.buy_size }"
-																	style="padding: 5px; text-align: center; margin-right: 20px;"
-																>
-																	<div class="col-6">
-																		<span style="font-size: 0.9em; color: #666; margin-right: 25px">${p.buy_size }</span>
-																	</div>
-																	<div class="col-4">
-																		<span style="font-size: 0.9em; color: #666; float: right; margin-right: 80px">
-																			<fmt:formatNumber value="${p.purchase_wishprice }" />
-																			원
-																		</span>
-																	</div>
-																	<div class="col-2">
-																		<span style="font-size: 0.9em; color: #666; margin-right: 30px">
-																			<fmt:parseDate var="dateFormatter" value="${p.purchase_date}"
-																				pattern="yyyy-MM-dd'T'HH:mm:ss"
-																			/>
-																			<fmt:formatDate value="${dateFormatter }" pattern="yyyy/MM/dd" />
-																		</span>
-																	</div>
-																</div>
-															</c:forEach>
-															<c:if test="${getOrderData.size() < 5}">
-																<c:forEach begin="1" end="${5 - getOrderData.size() }">
-																	<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px;">
-																		<div class="col-6">
-																			<span style="font-size: 0.9em; color: #666; margin-right: 25px">-</span>
-																		</div>
-																		<div class="col-4">
-																			<span style="font-size: 0.9em; color: #666; float: right; margin-right: 105px">
-																				- </span>
-																		</div>
-																		<div class="col-2">
-																			<span style="font-size: 0.9em; color: #666; margin-right: 20px"> - </span>
-																		</div>
-																	</div>
-																</c:forEach>
-															</c:if>
-														</div>
-														<div class="mt-4" style="padding-top: 20px">
-															<button type="button" class="btn btn-outline-detail w-100" data-bs-toggle="modal"
-																data-bs-target="#detailModal"
-															>체결 내역 더보기</button>
-														</div>
+
+													<div class="tab-pane fade show active" id="deal" role="tabpanel">																									
+														<div class="tab-deal-null"></div>
+														<div class="tab-deal"></div>																									
 													</div>
-													<div class="tab-pane fade" id="sellBid" role="tabpanel">
-														<div class="p-2 mb-1" style="height: 17vh;">
-															<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
-																<div class="col-6">
-																	<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 20px">사이즈</span>
-																</div>
-																<div class="col-4">
-																	<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 60px">판매 희망가</span>
-																</div>
-																<div class="col-2">
-																	<span style="font-size: 0.8em; color: #a0a0a0;">수량</span>
-																</div>
-															</div>
-															<hr class="mt-0 mb-0">
-															<c:forEach items="${groupedSellData }" var="s" end="4">
-																<div class="d-flex" id="size_${s.sell_size }"
-																	style="padding: 5px; text-align: center; margin-right: 20px;"
-																>
-																	<div class="col-6">
-																		<span style="font-size: 0.9em; color: #666; margin-right: 25px">${s.sell_size }</span>
-																	</div>
-																	<div class="col-4">
-																		<span style="font-size: 0.9em; color: #666; float: right; margin-right: 80px">
-																			<fmt:formatNumber value="${s.sell_wishprice }" />
-																			원
-																		</span>
-																	</div>
-																	<div class="col-2">
-																		<span style="font-size: 0.9em; color: #666; margin-right: 0px">${s.count }</span>
-																	</div>
-																</div>
-															</c:forEach>
-															<c:if test="${groupedSellData.size() < 5}">
-																<c:forEach begin="1" end="${5 - groupedSellData.size() }">
-																	<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px;">
-																		<div class="col-6">
-																			<span style="font-size: 0.9em; color: #666; margin-right: 25px">-</span>
-																		</div>
-																		<div class="col-4">
-																			<span style="font-size: 0.9em; color: #666; float: right; margin-right: 105px">
-																				- </span>
-																		</div>
-																		<div class="col-2">
-																			<span style="font-size: 0.9em; color: #666; margin-right: 0px"> - </span>
-																		</div>
-																	</div>
-																</c:forEach>
-															</c:if>
-														</div>
-														<div class="mt-4" style="padding-top: 20px">
-															<button type="button" class="btn btn-outline-detail w-100" data-bs-toggle="modal"
-																data-bs-target="#detailModal"
-															>입찰 내역 더보기</button>
-														</div>
+													
+													<div class="tab-pane fade" id="sellBid" role="tabpanel">																										
+														<div class="tab-sell-null"></div>		
+														<div class="tab-sell"></div>																														
 													</div>
-													<div class="tab-pane fade" id="buyBid" role="tabpanel">
-														<div class="p-2 mb-1" style="height: 17vh;">
-															<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px">
-																<div class="col-6">
-																	<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 20px">사이즈</span>
-																</div>
-																<div class="col-4">
-																	<span style="font-size: 0.8em; color: #a0a0a0; margin-right: 60px">구매 희망가</span>
-																</div>
-																<div class="col-2">
-																	<span style="font-size: 0.8em; color: #a0a0a0;">수량</span>
-																</div>
-															</div>
-															<hr class="mt-0 mb-0">
-															<c:forEach items="${groupedBuyData }" var="g" end="4">
-																<div class="d-flex" id="size_${g.buy_size }"
-																	style="padding: 5px; text-align: center;"
-																>
-																	<div class="col-6">
-																		<span style="font-size: 0.9em; color: #666; margin-right: 30px">${g.buy_size }</span>
-																	</div>
-																	<div class="col-4">
-																		<span style="font-size: 0.9em; color: #666; float: right; margin-right: 100px">
-																			<fmt:formatNumber value="${g.buy_wishprice }" />
-																			원
-																		</span>
-																	</div>
-																	<div class="col-2">
-																		<span style="font-size: 0.9em; color: #666; margin-right: 30px">${g.count }</span>
-																	</div>
-																</div>
-															</c:forEach>
-															<c:if test="${groupedBuyData.size() < 5}">
-																<c:forEach begin="1" end="${5 - groupedBuyData.size() }">
-																	<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px;">
-																		<div class="col-6">
-																			<span style="font-size: 0.9em; color: #666; margin-right: 25px">-</span>
-																		</div>
-																		<div class="col-4">
-																			<span style="font-size: 0.9em; color: #666; float: right; margin-right: 105px">
-																				- </span>
-																		</div>
-																		<div class="col-2">
-																			<span style="font-size: 0.9em; color: #666; margin-right: 0px"> - </span>
-																		</div>
-																	</div>
-																</c:forEach>
-															</c:if>
-														</div>
-														<div class="mt-4" style="padding-top: 20px">
-															<button type="button" class="btn btn-outline-detail w-100" data-bs-toggle="modal"
-																data-bs-target="#detailModal"
-															>입찰 내역 더보기</button>
-														</div>
-													</div>
+													
+													<div class="tab-pane fade" id="buyBid" role="tabpanel">																										
+														<div class="tab-buy-null"></div>	
+														<div class="tab-buy"></div>	
+													</div>													
 												</div>
+												
 												<div class="modal" id="detailModal" tabindex="-1">
+													<input type="hidden" id="modal-tab" value="">
+													<input type="hidden" id="modal-size" value="">
 													<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 														<div class="modal-content">
 															<div class="modal-header">
@@ -1129,6 +1284,7 @@ select {
 																		<img src="/assets/images/${Ddto.item_image }"
 																			style="height: 8vh; border-radius: 1.3rem;"
 																		>
+
 																	</div>
 																	<div class="p-2 mb-3" style="flex: 0 0 auto; width: 89%;">
 																		<div class="row">
@@ -1140,57 +1296,68 @@ select {
 																			<span style="font-size: 0.6rem; color: #666">${Ddto.item_korname }</span>
 																		</div>
 																		<div class="row col-5">
-																			<select class="form-select size-select2" id="size-select2"
+
+																			<select class="form-select size-select" id="size-select2"
 																				aria-label="size-select"
-																				style="border: 0px; font-size: 1em; float: right; color: #666;"
-																			>
+																				style="border: 0px; font-size: 1em; float: right; color: #666;">
 																				<option selected>모든 사이즈</option>
+																				
 																				<c:choose>
-																					<c:when test="${Ddto.item_category == 'shoes'}">
+																					<c:when test="${Ddto.item_category == 'shoes'}">																																
 																						<c:forEach var="size" begin="220" end="270" step="5">
 																							<option value="${size}">${size}</option>
-																						</c:forEach>
+																						</c:forEach>																
 																					</c:when>
-																					<c:when test="${Ddto.item_category == 'bag'}">
-																						<option value="ONE SIZE">ONE SIZE</option>
+									
+																					<c:when test="${Ddto.item_category == 'bag'}">																																																							
+																						<option value="ONE SIZE">ONE SIZE</option>																																				
 																					</c:when>
+											
 																					<c:otherwise>
-																						<c:set var="otherSize">XS,S,M,L,XL,XXL,XXXL</c:set>
+																						<c:set var="otherSize">XS,S,M,L,XL,XXL,XXXL</c:set>																														
 																						<c:forEach var="size" items="${otherSize}" varStatus="i">
 																							<option value="${size}">${size}</option>
-																						</c:forEach>
+																						</c:forEach>																
 																					</c:otherwise>
 																				</c:choose>
+
 																			</select>
 																		</div>
 																	</div>
 																	<div class="nav-align-top mb-4">
 																		<ul class="nav nav-pills mb-2 nav-fill" role="tablist">
 																			<li class="nav-item">
-																				<button type="button" class="btn btn-detail active w-100" role="tab"
+																				<button type="button" class="btn btn-detail modal-btn active w-100" role="tab"
+
 																					data-bs-toggle="tab" data-bs-target="#dealModal" aria-controls="deal"
 																					aria-selected="true" style="font-size: 0.9rem;"
 																				>체결 거래</button>
 																			</li>
 																			<li class="nav-item">
-																				<button type="button" class="btn btn-detail w-100" role="tab"
+
+																				<button type="button" class="btn btn-detail modal-btn w-100" role="tab"
+
 																					data-bs-toggle="tab" data-bs-target="#sellBidModal" aria-controls="sellBid"
 																					aria-selected="false" style="font-size: 0.9rem;"
 																				>판매 입찰</button>
 																			</li>
 																			<li class="nav-item">
-																				<button type="button" class="btn btn-detail w-100" role="tab"
+
+																				<button type="button" class="btn btn-detail modal-btn w-100" role="tab"
+
 																					data-bs-toggle="tab" data-bs-target="#buyBidModal" aria-controls="buyBid"
 																					aria-selected="false" style="font-size: 0.9rem;"
 																				>구매 입찰</button>
 																			</li>
 																		</ul>
-																		<div class="tab-content" style="overflow-y: scroll;">
-																			<div class="tab-pane fade show active" id="dealModal" role="tabpanel">
-																				<div class="p-2 mb-1" style="height: 17vh;">
+
+																		<div class="tab-content">
+																			<div class="tab-pane fade show active deal modal-scroll" id="dealModal" role="tabpanel"  style="overflow-y: scroll;">
+																				<div class="p-2 mb-1 deal modal-ori" style="height: 17vh;">
 																					<div class="d-flex">
 																						<div class="col-6">
-																							<span style="font-size: 0.8em; color: #a0a0a0;">사이즈</span>
+																							<span style="font-size: 0.8em; color: #a0a0a0; margin-left: 15px;">사이즈</span>
+
 																						</div>
 																						<div class="col-3">
 																							<span style="font-size: 0.8em; color: #a0a0a0;">거래가</span>
@@ -1200,34 +1367,54 @@ select {
 																						</div>
 																					</div>
 																					<hr class="mt-0 mb-0">
+
+																					
 																					<c:forEach items="${getOrderData }" var="p">
-																						<div class="d-flex" id="size_${p.buy_size }">
-																							<div class="col-6">
-																								<span style="font-size: 0.9em; color: #666;">${p.buy_size }</span>
+																						<div class="d-flex deal m_size m_size_${p.size }">
+																							<div class="col-6">																							
+																								<span style="font-size: 0.9em; color: #666; margin-left: 15px;">${p.size }</span>																											
 																							</div>
 																							<div class="col-3">
 																								<span style="font-size: 0.9em; color: #666;">
-																									<fmt:formatNumber value="${p.purchase_wishprice }" />
-																									원
+																									<fmt:formatNumber value="${p.wish_price }" />원
+
 																								</span>
 																							</div>
 																							<div class="col-3">
 																								<span style="font-size: 0.9em; color: #666;">
-																									<fmt:parseDate var="dateFormatter" value="${p.purchase_date}"
-																										pattern="yyyy-MM-dd'T'HH:mm:ss"
-																									/>
-																									<fmt:formatDate value="${dateFormatter }" pattern="yyyy/MM/dd" />
+
+																									<script type="text/javascript">
+																							          var dateTimeString = '${p.order_date }';
+																							          var dateTime = new Date(dateTimeString);
+																							          var year = dateTime.getFullYear();
+																							          var month = (dateTime.getMonth() + 1).toString().padStart(2, '0');
+																							          var day = dateTime.getDate().toString().padStart(2, '0');
+							
+																							          var formattedDate = year + '/' + month + '/' + day;
+																							          document.write(formattedDate);
+																							        </script>			
+
 																								</span>
 																							</div>
 																						</div>
 																					</c:forEach>
+
+						
 																				</div>
+																				
+																				<div class="p-2 mb-1 deal modal-null" style="text-align: center; height: 17vh; display: none;">
+																					<div class="d-flex" style="padding: 5px;" >
+																						<span class="w-100" style="opacity: 0.4; font-size: 1.1em; line-height: 17vh;"><i class="fa-solid fa-chart-line"></i> 체결된 거래가 아직 없습니다</span>
+																					</div>
+																				</div>	
+																					
 																			</div>
-																			<div class="tab-pane fade" id="sellBidModal" role="tabpanel">
-																				<div class="p-2 mb-1" style="height: 17vh;">
+																			<div class="tab-pane fade sellBid modal-scroll" id="sellBidModal" role="tabpanel" style="overflow-y: scroll;">
+																				<div class="p-2 mb-1 sellBid modal-ori" style="height: 17vh;">
 																					<div class="d-flex">
 																						<div class="col-6">
-																							<span style="font-size: 0.8em; color: #a0a0a0;">사이즈</span>
+																							<span style="font-size: 0.8em; color: #a0a0a0; margin-left: 15px;">사이즈</span>
+
 																						</div>
 																						<div class="col-4">
 																							<span style="font-size: 0.8em; color: #a0a0a0;">판매 희망가</span>
@@ -1236,30 +1423,41 @@ select {
 																							<span style="font-size: 0.8em; color: #a0a0a0;">수량</span>
 																						</div>
 																					</div>
+
+																					
 																					<hr class="mt-0 mb-0">
+																					
 																					<c:forEach items="${groupedSellData }" var="s">
-																						<div class="d-flex" id="size_${p.buy_size }">
-																							<div class="col-6">
-																								<span style="font-size: 0.9em; color: #666;">${s.sell_size }</span>
+																						<div class="d-flex sellBid m_size m_size_${s.sell_size }">
+																							<div class="col-6">																							
+																								<span style="font-size: 0.9em; color: #666; margin-left: 15px;">${s.sell_size }</span>																											
 																							</div>
 																							<div class="col-3">
 																								<span style="font-size: 0.9em; color: #666;">
-																									<fmt:formatNumber value="${s.sell_wishprice }" />
-																									원
+																									<fmt:formatNumber value="${s.sell_wishprice }" />원
 																								</span>
 																							</div>
-																							<div class="col-3">
-																								<span style="font-size: 0.9em; color: #666; text-align: center;">${s.count }</span>
+																							<div class="col-3" style="text-align: center;">
+																								<span style="font-size: 0.9em; color: #666;">${s.count }</span>
 																							</div>
 																						</div>
 																					</c:forEach>
+	
 																				</div>
+																				
+																				<div class="p-2 mb-1 sellBid modal-null" style="text-align: center; height: 17vh; display: none;">
+																					<div class="d-flex" style="padding: 5px;" >
+																						<span class="w-100" style="opacity: 0.4; font-size: 1.1em; line-height: 17vh;"><i class="fa-solid fa-chart-line"></i> 판매 입찰 내역이 아직 없습니다</span>
+																					</div>
+																				</div>
+																				
 																			</div>
-																			<div class="tab-pane fade" id="buyBidModal" role="tabpanel">
-																				<div class="p-2 mb-1" style="height: 17vh;">
+																			<div class="tab-pane fade buyBid modal-scroll" id="buyBidModal" role="tabpanel" style="overflow-y: scroll;">
+																				<div class="p-2 mb-1 buyBid modal-ori" style="height: 17vh;">
 																					<div class="d-flex">
 																						<div class="col-6">
-																							<span style="font-size: 0.8em; color: #a0a0a0;">사이즈</span>
+																							<span style="font-size: 0.8em; color: #a0a0a0; margin-left: 15px;">사이즈</span>
+
 																						</div>
 																						<div class="col-4">
 																							<span style="font-size: 0.8em; color: #a0a0a0;">구매 희망가</span>
@@ -1269,23 +1467,33 @@ select {
 																						</div>
 																					</div>
 																					<hr class="mt-0 mb-0">
+
+																					
 																					<c:forEach items="${groupedBuyData }" var="g">
-																						<div class="d-flex" id="size_${p.buy_size }">
-																							<div class="col-6">
-																								<span style="font-size: 0.9em; color: #666;">${g.buy_size }</span>
+																						<div class="d-flex buyBid m_size m_size_${g.buy_size }">
+																							<div class="col-6">																							
+																								<span style="font-size: 0.9em; color: #666; margin-left: 15px;">${g.buy_size }</span>																										
 																							</div>
 																							<div class="col-3">
 																								<span style="font-size: 0.9em; color: #666;">
-																									<fmt:formatNumber value="${g.buy_wishprice }" />
-																									원
+																									<fmt:formatNumber value="${g.buy_wishprice }" />원
 																								</span>
 																							</div>
 																							<div class="col-3" style="text-align: center;">
-																								<span style="font-size: 0.9em; color: #666; text-align: center;">${g.count }</span>
+																								<span style="font-size: 0.9em; color: #666;">${g.count }</span>
 																							</div>
 																						</div>
 																					</c:forEach>
+																																																												
 																				</div>
+																				
+																				<div class="p-2 mb-1 buyBid modal-null" style="text-align: center; height: 17vh; display: none;">
+																					<div class="d-flex" style="padding: 5px;" >
+																						<span class="w-100" style="opacity: 0.4; font-size: 1.1em; line-height: 17vh;"><i class="fa-solid fa-chart-line"></i> 구매 입찰 내역이 아직 없습니다</span>
+																					</div>
+																				</div>
+																				
+
 																			</div>
 																		</div>
 																	</div>
@@ -1512,8 +1720,9 @@ select {
 		<div class="d-flex">
 			<div class="col-11 align-self-center">
 				<span class="fs-4">
-					<b>${Ddto.item_brandname }</b>
-					의 다른 상품
+
+					<b>${Ddto.item_brandname }</b>의 다른 상품
+
 				</span>
 			</div>
 			<div class="col-1 align-self-center">
@@ -1523,14 +1732,18 @@ select {
 				</span>
 			</div>
 		</div>
-		<div class="mt-4 mb-lg-5" style="height: 40vh;">
+
+		<div class="mt-4 mb-lg-5" style="height: 35vh;">
+
 			<c:forEach items="${list }" var="a">
 				<c:if
 					test="${a.item_brandname==Ddto.item_brandname && a.item_category==Ddto.item_category && a.item_num!=Ddto.item_num}"
 				>
 					<a href='/item/detail?item_num=${a.item_num }'>
 						<img alt="" src="/assets/images/${a.item_image }"
-							style="border: 1px solid gray; border-radius: 10px; height: 200px; width: 212px;"
+
+							style="border: 1px solid rgba(34, 34, 34, 0.1); border-radius: 10px; height: 250px; width: 250px; margin-right: 5px;"
+
 						>
 					</a>
 				</c:if>

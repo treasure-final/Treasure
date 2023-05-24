@@ -38,27 +38,19 @@ div.layout div.header {
            height: 80px;
            width: 100%;;
            }
-              */
+        */
 div.layout div.main {
-	position: relative;
-	top: 110px;
+	padding-top: 10em;
 	width: 100%;
+	min-height: 55vh;
 }
 
 div.layout div.footer {
-	position: relative;
+	/* position: relative; */
 	border: 0px solid green;
-	top: 600px;
+	/* top: 600px; */
 	height: 550px;
 	width: 100%;
-}
-
-/* 화면 스크롤 버튼*/
-.btns {
-	display: flex;
-	position: fixed;
-	right: .4rem;
-	bottom: .4rem;
 }
 
 .btns>div {
@@ -92,7 +84,7 @@ body {
 }
 </style>
 </head>
-<body>
+<body style="overflow-x: hidden;">
 	<div class="layout">
 		<div class="header">
 			<tiles:insertAttribute name="header" />

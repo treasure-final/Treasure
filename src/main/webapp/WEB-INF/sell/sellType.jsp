@@ -41,7 +41,7 @@ div.main {
 
 .container {
 	width: 900px;
-	min-height: 55vh;;
+	min-height: 55vh;
 	padding: 40px;
 	box-sizing: border-box;
 	margin: 50px auto;
@@ -77,13 +77,14 @@ div.main {
 	margin-bottom: 50px;
 	margin-top: 30px;
 	border: 1px solid #747f55;
+	cursor: pointer;
 }
 
 #sell-next {
 	font-size: 13px;
 	color: #fff;
 	background-color: #747f55;
-	padding: 12px 30px;
+	padding: 18px 30px;
 	border-radius: 25px;
 	font-weight: 400;
 	text-transform: capitalize;
@@ -97,6 +98,7 @@ div.main {
 	margin-bottom: 50px;
 	margin-top: 30px;
 	border: 1px solid #747f55;
+	cursor: pointer;
 }
 
 #sell-next:hover {
@@ -263,8 +265,8 @@ div.main {
 							"color", "#fff");
 					
 					$("#hopePrice").val("");
-					$(".feeResult").text("-원");
-					$(".totalPrice").text("-원");
+					$(".sellBid.feeResult").text("-원");
+					$(".sellBid.totalPrice").text("-원");
 				});
 		$("#sell-immediate").click(
 				function() {
@@ -306,8 +308,8 @@ div.main {
 				$("#hopePrice").css("border", "2px solid red");
 				$("#hopePrice").val("");	
 				$("#input-fail").css("display", "block");
-				$(".feeResult").text("-원");
-				$(".totalPrice").text("-원");
+				$(".sellBid.feeResult").text("-원");
+				$(".sellBid.totalPrice").text("-원");
 				
 				return;
 				
@@ -355,7 +357,7 @@ div.main {
 			price = parseFloat(obj.replace(/[^0-9]/g, ''));
 		} else 
 			price = price;
-		 
+		
 		var fee = Math.round((price * 0.2) / 1000) * 1000;
 		totalPrice = (price - (fee + 3000));
 		
@@ -368,10 +370,10 @@ div.main {
 		price = uncomma($("#hopePrice").val());
 	
 		if(price < 4000) {
-			$(".feeResult").text("-원");
-			$(".totalPrice").text("-원");
+			$(".sellBid.feeResult").text("-원");
+			$(".sellBid.totalPrice").text("-원");
 		} else {
-			calculatePrice("sell-bid-onclick", price);		
+			calculatePrice("sell-bid", price);		
 		} 
 	}
 </script>
@@ -465,7 +467,7 @@ div.main {
 			<span style="opacity: 0.4;">검수비</span>
 	        <span style="float: right;">3,000원</span><br>
 	        <span style="opacity: 0.4;">수수료</span>	    
-	        <span style="float: right;" class="feeResult">-원</span> 
+	        <span style="float: right;" class="sellBid feeResult">-원</span> 
 		</div>
         
         <div style="padding: 30px 0;">
@@ -492,7 +494,7 @@ div.main {
             
         </div>
         <div class="result-bottom">
-            총 정산금액<span class="totalPrice" id="totalPrice" style="font-size: 14px; margin-left: 500px; float: right;">-원</span>
+            총 정산금액<span class="sellBid totalPrice" id="totalPrice" style="font-size: 14px; margin-left: 500px; float: right;">-원</span>
             <div style="display: flex;">
             <button type="button" id="sell-back" class="sell-back">뒤로가기</button> 
             <button type="button" id="sell-next" onclick="moveOrderPage('bid')">판매 입찰 계속하기</button>

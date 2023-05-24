@@ -46,7 +46,6 @@ div.main {
 
 .container {
 	width: 820px;
-	height: 1300px;
 	padding: 40px;
 	box-sizing: border-box;
 	margin: 50px auto;
@@ -428,7 +427,7 @@ $(function(){
           </ul>
         </div>
         <div id="right-info"
-             style="width: 90%; float: left; height: 40%; margin-top: 20px;">
+             style="width: 90%; float: left; height: 200px; margin-top: 20px;">
             <span style="font-size: 18px;">반송 주소</span>
             <a id="addr-btn" href="#addr-modal" rel="modal:open"> + 새 주소 추가</a>
             <table>
@@ -451,7 +450,7 @@ $(function(){
     
     <!-- 정산 계좌  -->
     <div style="margin-left: 40px;">
-        <div style="border-top: 1px solid #e3e3e3; width: 95%; height: 10%; margin-top: 3px; margin-bottom: 15px;"></div>
+        <div style="border-top: 1px solid #e3e3e3; width: 95%; height: 10%; margin-top: 220px; margin-bottom: 15px;"></div>
         <div style="padding-top: 20px;  font-size: 14px; opacity: 0.4;"></div>
         
         <div style="font-size: 18px;">정산 계좌 정보</div>

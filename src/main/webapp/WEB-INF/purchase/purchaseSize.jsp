@@ -332,10 +332,11 @@ div.buy_size:hover {
 						<c:if test="${fn:length(buyNowPriceDto) ne 0}">
 							<c:forEach items="${buyNowPriceDto}" var="buyPrice" varStatus="i">
 								<c:choose>
-									<c:when test="${buyPrice.sell_size eq key[j.index]}">
+									<c:when test="${fn:contains(buyPrice.sell_size, key)}">
 										<span class="buy_size" style="color: #ec0b00;"><fmt:formatNumber value="${buyPrice.sell_wishprice}" pattern="###,###,###"/></span>
 									</c:when>
 									<c:otherwise>
+										${buyPrice.sell_size}
 										<span class="buy_size" style="color: black;">구매입찰</span>
 									</c:otherwise>
 								</c:choose>

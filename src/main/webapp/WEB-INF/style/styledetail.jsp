@@ -121,7 +121,8 @@ div>img {
 	animation-duration: 1.5s;
 }
 
-@keyframes fade {
+@
+keyframes fade {
 	from {opacity: .4
 }
 
@@ -157,10 +158,9 @@ to {
 }
 
 div.all {
-	width: 50%;
-	height: 600px;
+	max-width: 50%;
+	max-height: 100%;
 	border-radius: 10px;
-	border: 1px solid black;
 }
 /* Slideshow container */
 .slideshow-container {
@@ -183,7 +183,7 @@ div.all {
 	vertical-align: bottom;
 }
 
-.comment {
+.comment, .board_content,form {
 	margin-left: 500px;
 	margin-top: 10px;
 }
@@ -200,10 +200,49 @@ div.all {
 	text-align: left;
 }
 </style>
+<script type="text/javascript">
+$(function(){
+	
+})
+$(document).ready(function() {
+    // 페이지 로드 시 댓글 조회
+    loadComments();
+
+    // 댓글 조회 함수
+    function loadComments() {
+    	var board_id=$("#board_id").val()
+        $.ajax({
+            url: "/comment/load-comments",  // 댓글 조회를 처리하는 URL
+            method: "GET",
+            data: { "board_id": board_id },  // 게시글 ID를 전달
+            dataType:"json",
+            success: function(response) {
+                // 댓글을 성공적으로 가져왔을 때 실행할 코드
+                var comments = response.comments;
+
+                // 가져온 댓글을 표시할 HTML 생성
+                var html = "";
+                for (var i = 0; i < comments.length; i++) {
+                    html += "<div>" + comments[i].comment_content + "</div>";
+                }
+
+                // 댓글을 표시할 요소에 HTML 삽입
+                $(".comment").html(html);
+            },
+            error: function(xhr, status, error) {
+                // AJAX 요청이 실패했을 때 실행할 코드
+                console.error("댓글 조회 오류: " + status + ", " + error);
+            }
+        });
+    }
+});
+</script>
 </head>
 <body>
 	<div id="content">
+		<input type="text" value=${bdto.board_id } id="board_id">
 		<c:forEach items="${DetailList }" var="Bdto">
+			<input type="text" value="${Bdto.board_id }" class="board_id">
 			<div class="post">
 				<div class="profile">
 					<table class="styletable">
@@ -255,14 +294,8 @@ div.all {
 			<div class="slideshow-container" style="width: 80%; margin-left: 500px">
 				<div class="all">
 					<div class="mySlides fade">
-						<img src="../assets/images/1.png" style="width: 100%">
+						<img src="../../img/style_image/${Bdto.board_image }" style="width: 100%; height: 100%; border-radius: 10px">
 					</div>
-					<!-- <div class="mySlides fade">
-					<img src="../assets/images/2.png" style="width: 100%">
-				</div>
-				<div class="mySlides fade">
-					<img src="../assets/images/3.png" style="width: 100%">
-				</div> -->
 					<a class="prev" onclick="plusSlides(-1)">❮</a>
 					<a class="next" onclick="plusSlides(1)">❯</a>
 				</div>
@@ -270,16 +303,17 @@ div.all {
 			<div class="container">
 				<div class="heart"></div>
 			</div>
+			<div class="board_content">${Bdto.board_content }</div>
+			<br>
+			<hr width="35%">
+			<div class="comment" id="comment_${Bdto.board_id}"></div>
+			<!-- 댓글 작성 폼 -->
+			<form id="commentForm_${Bdto.board_id}">
+				<input type="hidden" name="board_id" value="${Bdto.board_id}">
+				<input type="text" name="comment_content">
+				<input type="submit" value="댓글 작성">
+			</form>
 		</c:forEach>
-		<div class="comments">
-			<c:forEach items="${commentList}" var="comment">
-				<div class="comment">
-					<span class="nickname">${comment.user_nickname}</span>
-					<span class="time" style="color: gray">${comment.comment_writeday}</span>
-					<p>${comment.comment_content}</p>
-				</div>
-			</c:forEach>
-		</div>
 		<!-- 점 -->
 		<!-- <div style="text-align: center">
 			<span class="dot" onclick="currentSlide(1)"></span>
@@ -357,58 +391,28 @@ div.all {
 					}
 				});
 			}
-			function loadComments(board_id) {
-				$.ajax({
-					url: '/comment/list',
-					type: 'GET',
-					data: {
-						"board_id": board_id
-					},
-					dataType:'json',
-					success: function(response) {
-						var comments = response;
-						var html = '';
-
-						for (var i = 0; i < comments.length; i++) {
-							html += '<div class="comment">';
-							html += '<span class="nickname">' + comments[i].user_nickname + '</span><br>';
-							html += '<span class="time" style="color: gray">' + comments[i].comment_writeday + '</span><br>';
-							html += '<span class="content">' + comments[i].comment_content + '</span>';
-							html += '</div>';
-						}
-
-						$('.comments').html(html);
-					},
-					error:function(request,status,error){
-				        console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-				       }
-				});
-			}
-
-			// 페이지 로딩 시 댓글 불러오기
-			loadComments(${board_id});
-
-			// 댓글 등록
-			$('#commentForm').submit(function(e) {
-				e.preventDefault();
-
-				var formData = $(this).serialize();
-
-				$.ajax({
-					url: '/comment/add',
-					type: 'POST',
-					data: formData,
-					success: function(response) {
-						// 등록 성공 시 댓글을 다시 불러옴
-						loadComments(${board_id});
-						$('#commentContent').val('');
-					},
-					error: function() {
-						alert('댓글 등록 중에 오류가 발생했습니다.');
-					}
-				});
-			});
 		});
+
+		// 댓글 등록
+		/* $('#commentForm').submit(function(e) {
+			e.preventDefault();
+
+			var formData = $(this).serialize();
+
+			$.ajax({
+				url: '/comment/add',
+				type: 'POST',
+				data: formData,
+				success: function(response) {
+					// 등록 성공 시 댓글을 다시 불러옴
+					loadComments(${board_id});
+					$('#commentContent').val('');
+				},
+				error: function() {
+					alert('댓글 등록 중에 오류가 발생했습니다.');
+				}
+			});
+		}); */
 		$('.heart').on('click', function() {
 			  el = $(this);
 			  if (el.hasClass('liked') ) {

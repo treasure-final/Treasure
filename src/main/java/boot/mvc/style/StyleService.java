@@ -20,4 +20,10 @@ public class StyleService implements StyleServiceInter {
 		// TODO Auto-generated method stub
 		return mapper.StyleDetailList();
 	}
+
+	@Override
+	public BoardDto getData(int board_id) {
+		// TODO Auto-generated method stub
+		return mapper.getData(board_id);
+	}
 }

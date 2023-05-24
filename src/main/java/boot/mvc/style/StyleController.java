@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,12 +23,14 @@ public class StyleController {
 	StyleService SDservice;
 
 	@GetMapping("/style/detail")
-	public ModelAndView detail() {
+	public ModelAndView detail(int board_id) {
 		ModelAndView mview = new ModelAndView();
 
 		List<Map<String, Object>> DetailList = SDservice.StyleDetailList();
+		BoardDto bdto = SDservice.getData(board_id);
 
 		mview.addObject("DetailList", DetailList);
+		mview.addObject("bdto", bdto);
 
 		mview.setViewName("/style/styledetail");
 

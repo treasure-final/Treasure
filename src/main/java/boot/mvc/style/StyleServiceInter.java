@@ -7,4 +7,6 @@ import boot.mvc.board.BoardDto;
 
 public interface StyleServiceInter {
 	public List<Map<String, Object>> StyleDetailList();
+	
+	public BoardDto getData(int board_id);
 }

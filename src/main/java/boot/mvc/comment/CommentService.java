@@ -1,14 +1,10 @@
 package boot.mvc.comment;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import boot.mvc.user.UserDto;
 
 @Service
 public class CommentService implements CommentServiceInter {
@@ -24,10 +20,13 @@ public class CommentService implements CommentServiceInter {
 	}
 
 	@Override
-	public List<Map<String, Object>> getCommentsWithUserInfo(String board_id) {
+	public List<Map<String, Object>> getCommentsByBoardId(int board_id) {
 		// TODO Auto-generated method stub
-		return mapper.getCommentsWithUserInfo(board_id);
+		return mapper.getCommentsByBoardId(board_id);
 	}
+
+
+	
 
 
 }

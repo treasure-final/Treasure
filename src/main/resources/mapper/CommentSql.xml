@@ -14,11 +14,11 @@
 		delete from comment where comment_id=#{comment_id}
 	</delete>
 	<!-- 게시물 id에 따른 댓글 정보 -->
-	<select id="getCommentsWithUserInfo" resultType="Map">
+	<select id="getCommentsByBoardId" resultType="Map">
 		select *
 		from comment c
 		join user u 
 		on c.user_num = u.user_num
-		where c.board_id = #{board_id}
+		where board_id = #{board_id}
 	</select>
 </mapper>

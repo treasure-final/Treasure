@@ -275,7 +275,8 @@ div.main {
 					$("#sell-immediate").css("background-color", " #ef6253")
 							.css("color", "#fff");
 					
-					$(".totalPrice").text("-원");					
+					$(".totalPrice").text("-원");
+					
 					calculatePrice("sell-immediate", $("#immediatePrice").text());
 				});
 		$(".deadline").click(function() {
@@ -305,6 +306,8 @@ div.main {
 				$("#hopePrice").css("border", "2px solid red");
 				$("#hopePrice").val("");	
 				$("#input-fail").css("display", "block");
+				$(".feeResult").text("-원");
+				$(".totalPrice").text("-원");
 				
 				return;
 				
@@ -314,7 +317,7 @@ div.main {
 				$("#hopePrice").css("border", "none");
 				$("#input-fail").css("display", "none");
 				$("#hopePrice").val(comma(replacePrice));
-				alert(price)
+				
 				calculatePrice("sell-bid", price);
 			}	
 
@@ -339,14 +342,19 @@ div.main {
 		
 		if(type == "sell-bid") {
 			price = parseFloat(obj.value.replace(/[^0-9]/g, ''));
-				
-			if(isNaN(price)) {	      
+			
+			if(isNaN(price))     
 		        return;
-		    }
+			
+			if(price < 4000) {
+				
+				return;
+			}
 			
 		} else if(type == "sell-immediate"){
 			price = parseFloat(obj.replace(/[^0-9]/g, ''));
-		} 	
+		} else 
+			price = price;
 		 
 		var fee = Math.round((price * 0.2) / 1000) * 1000;
 		totalPrice = (price - (fee + 3000));
@@ -357,7 +365,14 @@ div.main {
 	}
 
 	window.onclick = function change() {
-		
+		price = uncomma($("#hopePrice").val());
+	
+		if(price < 4000) {
+			$(".feeResult").text("-원");
+			$(".totalPrice").text("-원");
+		} else {
+			calculatePrice("sell-bid-onclick", price);		
+		} 
 	}
 </script>
 </head>

@@ -85,7 +85,14 @@ div.main {
 
 .sub-menu {
 	opacity: 0.5;
+}
+
+.subsub-menu{
 	cursor: pointer;
+}
+
+.subsub-menu:hover{
+	color: #747f55;
 }
 
 #logo {
@@ -251,6 +258,15 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 }
 </style>
 
+<script type="text/javascript">
+$(function(){
+	
+	$(".notready").click(function(){
+		
+		alert("서비스 준비 중입니다")
+	});
+})
+</script>
 
 </head>
 <body>
@@ -260,21 +276,21 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
         <div id="side-top">
             <div class="sub-title">쇼핑 정보</div>
             <div class="sub-menu">
-                <div>구매 내역</div>
-                <div>판매 내역</div>
-                <div>보관 판매</div>
-                <div>관심 상품</div>
+                <div class="subsub-menu" onclick="location.href='/user/buyHistory'">구매 내역</div>
+                <div class="subsub-menu" onclick="location.href='/user/sellHistory'">판매 내역</div>
+                <div class="subsub-menu notready">보관 판매</div>
+                <div class="subsub-menu notready">관심 상품</div>
             </div>
         </div>
         <div id="side-bottom">
             <div class="sub-title">내 정보</div>
             <div class="sub-menu">
-                <div  style="color: #747f55;"><b>프로필 정보</b></div>
-                <div>주소록</div>
-                <div>결제 정보</div>
-                <div>판매 정산 계좌</div>
-                <div>현금영수증 정보</div>
-                <div>포인트</div>
+                <div class="subsub-menu" onclick="location.href='/user/myProfile'" style="color: #747f55;"><b>프로필 정보</b></div>
+                <div class="subsub-menu notready">주소록</div>
+                <div class="subsub-menu notready">결제 정보</div>
+                <div class="subsub-menu notready">판매 정산 계좌</div>
+                <div class="subsub-menu notready">현금영수증 정보</div>
+                <div class="subsub-menu notready">포인트</div>
             </div>
         </div>
     </div>

@@ -59,7 +59,7 @@ div.main {
 	margin-top: 20px !important;
 	line-height: 30px;
 	/*background-color: #ced4da;*/
-	margin: auto;
+	margin:auto;
 	position: relative;
 }
 
@@ -115,13 +115,14 @@ div.main {
 	margin-bottom: 50px;
 	margin-top: 30px;
 	border: 1px solid #747f55;
+	cursor: pointer;
 }
 
 #sell-next {
 	font-size: 13px;
 	color: #fff;
 	background-color: #747f55;
-	padding: 12px 30px;
+	padding: 18px 30px;
 	border-radius: 25px;
 	font-weight: 400;
 	text-transform: capitalize;
@@ -135,6 +136,7 @@ div.main {
 	margin-bottom: 50px;
 	margin-top: 30px;
 	border: 1px solid #747f55;
+	cursor: pointer;
 }
 
 #sell-next:hover {
@@ -153,7 +155,9 @@ div.main {
 }
 
 img.sell_item_image {
-	width: 200px;
+	width: 180px;
+	height: 180px;
+	border-radius: 20px;
 }
 
 span.sell_brand {
@@ -165,38 +169,12 @@ span.sell_title {
 	font-size: 15px;
 }
 
-span.sell_size {
-	font-size: 12px;
-	vertical-align: middle;
-}
-
-div.sell_size {
-	margin: 3px;
-	padding: 18px;
-	flex-direction: column;
-	border: 1px solid #ebebeb;
-	border-radius: 20px;
-	background-color: white;
-	width: 110px;
-	vertical-align: middle;
-	text-align: center;
-	cursor: pointer;
-	line-height: 13px;
-}
-
-div.sell_active {
-	border: 2px solid #747f55;
-}
-
-div.sell_size:hover {
-	background-color: #f3f3f3;
-}
-
 .hr {
 	border: none;
 	height: 2px;
 	background: black;
 	margin-bottom: 50px;
+	
 }
 
 span.sell_size {
@@ -211,15 +189,16 @@ div.sell_size {
 	border: 1px solid #ebebeb;
 	border-radius: 20px;
 	background-color: white;
-	width: 110px;
+	width: 140px;
 	vertical-align: middle;
 	text-align: center;
 	cursor: pointer;
 	line-height: 13px;
+	
 }
 
 div.size_active {
-	border: 2px solid #747f55;
+	border: 1px solid #747f55;
 }
 
 div.sell_size:hover {
@@ -260,25 +239,25 @@ div.sell_size:hover {
 			<i id="logo">판매하기</i>
 		</div>
 		<div class="hr"></div>
-		<div style="display: flex;">
+		<div style="display: flex; align-items: center;">
 
 			<img src="../img/item_image/${itemDto.item_image }" class="sell_item_image">
 
-			<div style="flex-direction: column; padding: 20px; margin-top: 30px;">
+			<div style="flex-direction: column; margin-left: 10px;  justify-content: center; align-content: center; vertical-align: middle; ">
 				<span class="sell_brand">${itemDto.item_brandname }</span>
 				<br>
 				<span class="sell_title">${itemDto.item_engname }</span><br>
-				<span class="sell_title">${itemDto.item_korname }</span>
+				<span class="sell_title" style="opacity: 0.6">${itemDto.item_korname }</span>
 				<br>
 			</div>
 		</div>
-		
+<div style="margin-left:7px; width: 1000px;">		
 		<div style="display: flex;">
 			<c:choose>
 			<%-- 여성이라 사이즈는 225부터 시작, 사이즈는 5씩 증가 --%>
 			<c:when test="${itemDto.item_category eq 'shoes'}">
 				<c:forEach var="dto" items="${list}" varStatus="i">
-				<div class="sell_size">			 	
+				<div class="sell_size" style="display: inline-flex; justify-content: center;">			 	
 				     <span class="sell_size selectSize">${dto.buy_size}</span>
 				                 		           		
 					<br>
@@ -341,7 +320,7 @@ div.sell_size:hover {
 					
 				</div></div>
 				
-				 <c:if test="${i.count % 4 == 0}">
+				 <c:if test="${i.count % 4== 0}">
 		</div>
 		
 		<div style="display: flex;">
@@ -352,11 +331,11 @@ div.sell_size:hover {
 			</c:choose>
 		</div>
 	
+</div>
 		<div style="display: flex;">
 			<button type="button" id="sell-back">뒤로가기</button>
 			<button type="button" id="sell-next">판매 계속하기</button>
 		</div>
-	</div>
 
 	<script type="text/javascript">
 		//일단은 걍 뒤로가기

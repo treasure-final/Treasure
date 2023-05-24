@@ -156,6 +156,7 @@ input[type="checkbox"]+label {
    position: relative;
    margin-right: 5px;
    float: right;
+   cursor: pointer;
 }
 
 input[id="check1"]:checked+label::after, input[id="check2"]:checked+label::after,
@@ -172,13 +173,14 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
    left: 0;
    top: 0;
    float: right;
+   cursor: pointer;
 }
 
 #sell-back {
-   font-size: 13px;
+   font-size: 15px;
    color: #747f55;
    background-color: #fff;
-   padding: 12px 30px;
+   padding: 16px 30px;
    border-radius: 25px;
    font-weight: 400;
    text-transform: capitalize;
@@ -187,18 +189,19 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
    position: relative;
    overflow: hidden;
    margin: auto;
-   width: 45%;
+   width: 47%;
    text-align: center;
    margin-bottom: 50px;
    margin-top: 30px;
    border: 1px solid #747f55;
+   cursor: pointer;
 }
 
 #sell-next {
-   font-size: 13px;
+   font-size: 15px;
    color: #fff;
    background-color: #747f55;
-   padding: 12px 30px;
+   padding: 16px 30px;
    border-radius: 25px;
    font-weight: 400;
    text-transform: capitalize;
@@ -207,11 +210,12 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
    position: relative;
    overflow: hidden;
    margin: auto;
-   width: 45%;
+   width: 47%;
    text-align: center;
    margin-bottom: 50px;
    margin-top: 30px;
    border: 1px solid #747f55;
+   cursor: pointer;
 }
 
 #sell-next:hover {
@@ -275,6 +279,32 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
             font-weight: bold;
             color: black;
         }
+        
+        .item {
+            margin-left:-20px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .item-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 20px;
+        }
+
+        .item-info {
+            display: flex;
+            flex-direction: column;
+            margin-left: -10px;                        
+        }
+
+        .item-info > li {
+            list-style: none;
+            font-size: 14px;
+            margin-bottom: -3px;
+                     
+        }
 </style>
 
 <script type="text/javascript">
@@ -296,6 +326,9 @@ $(function(){
 		totalPrice = '${totalPrice}';
 		size = '${size}';
 		buy_num = '${buy_num}';
+		sell_num='${sell_num}';
+		sellnow_num='${sellnow_num}';
+		user_num='${user_num}';
 
 		// 판매 입찰
 		if(type == "bid") {
@@ -318,8 +351,9 @@ $(function(){
 				    "penaltypay2": penaltypay2	
 				},
 				success:function(res){
-					alert(res+"님 판매 접수가 완료 되었습니다");
-					location.href="/user/myPage";
+					
+					alert(res.loginEmail+"님 판매 접수가 완료 되었습니다");
+					location.href="/user/sellSuccess?sell_num="+res.sell_num;
 				}
 			});
 		} 
@@ -342,8 +376,8 @@ $(function(){
 				    "penaltypay2": penaltypay2	
 				},
 				success:function(res){
-					alert(res+"님 판매 접수가 완료 되었습니다");
-					location.href="/user/myPage";
+					alert(res.loginEmail+"님 판매 접수가 완료 되었습니다");
+					location.href="/user/sellNowSuccess?sellnow_num="+res.sellnow_num;
 				}, 
 				error: function (request, status, error) {
                     console.log("code: " + request.status)
@@ -383,19 +417,18 @@ $(function(){
     <div class="hr"></div>
     <!-- 주소 -->
     <div id="info" style="width: 100%; height: 30%; margin-bottom: 10px; margin-left: 40px;">
-        <img src="../img/item_image/${itemDto.item_image }"
-             style="width: 110px; float: left; margin-right: 20px; border-radius: 10px;">
-        <div id="left-info"
-             style="width: 70%; float: left; height: 40%; margin-right: 20px; margin-bottom: 10px; line-height: 20px; margin-top: 15px">
-            <div id="content" style="font-size: 14px;">
-                <b style="font-size: 14px">${itemDto.item_modelnum }</b><br>
-                ${itemDto.item_engname }
-                <div style="opacity: 0.6; font-size: 14px;">${itemDto.item_korname }</div>
-                ${size }
-            </div>
+    	
+        <div class="item">
+          <img alt="" src="../img/item_image/${itemDto.item_image }" class="item-photo">                  
+          <ul class="item-info">
+             <li style="font-weight: bold;">${itemDto.item_modelnum }</li>
+             <li>${itemDto.item_engname }</li>
+             <li style="opacity: 0.6">${itemDto.item_korname }</li>
+             <li>${size }</li>
+          </ul>
         </div>
         <div id="right-info"
-             style="width: 90%; float: left; height: 40%;">
+             style="width: 90%; float: left; height: 40%; margin-top: 20px;">
             <span style="font-size: 18px;">반송 주소</span>
             <a id="addr-btn" href="#addr-modal" rel="modal:open"> + 새 주소 추가</a>
             <table>
@@ -412,7 +445,7 @@ $(function(){
                     <td class="right-td" id="addr">${userDto.user_addr }</td>
                 </tr>
             </table>
-            <div style="font-size: 14px; opacity: 0.8; text-align:center; margin-top: 15px;">검수 불합격시 제품이 반송 될 주소를 등록해주세요</div>
+            <div style="font-size: 13px; color: red; opacity: 0.7; text-align:center; margin-top: 15px;">검수 불합격시 제품이 반송 될 주소를 등록해주세요</div>
         </div>
     </div>
     
@@ -482,7 +515,7 @@ $(function(){
 	        <div style="color: red; margin-left: 460px; font-size: 18px" id="totalPrice"><b><fmt:formatNumber value="${totalPrice }" type="number"/>원</b></div>
         </div>
         
-        <div style="display: flex; margin-top: 15px;">
+        <div style="display: flex; margin: 15px 5px 15px 5px;">
 	       <button type="button" id="sell-back">뒤로가기</button> 
 	       <button type="button" id="sell-next">판매 접수</button>
     	</div>    

@@ -82,7 +82,14 @@ div.main {
 
 .sub-menu {
 	opacity: 0.5;
+}
+
+.subsub-menu{
 	cursor: pointer;
+}
+
+.subsub-menu:hover{
+	color: #747f55;
 }
 
 #logo {
@@ -181,6 +188,16 @@ $(function(){
 });
 </script>
 
+<script type="text/javascript">
+$(function(){
+	
+	$(".notready").click(function(){
+		
+		alert("서비스 준비 중입니다")
+	});
+})
+</script>
+
 
 </head>
 <body>
@@ -190,21 +207,21 @@ $(function(){
         <div id="side-top">
             <div class="sub-title">쇼핑 정보</div>
             <div class="sub-menu">
-                <div>구매 내역</div>
-                <div style="color: #747f55;">판매 내역</div>
-                <div>보관 판매</div>
-                <div>관심 상품</div>
+                <div class="subsub-menu" onclick="location.href='/user/buyHistory'">구매 내역</div>
+                <div onclick="location.href='/user/sellHistory'" style="color: #747f55;">판매 내역</div>
+                <div class="subsub-menu notready">보관 판매</div>
+                <div class="subsub-menu notready">관심 상품</div>
             </div>
         </div>
         <div id="side-bottom">
             <div class="sub-title">내 정보</div>
             <div class="sub-menu">
-                <div><b>프로필 정보</b></div>
-                <div>주소록</div>
-                <div>결제 정보</div>
-                <div>판매 정산 계좌</div>
-                <div>현금영수증 정보</div>
-                <div>포인트</div>
+                <div class="subsub-menu" onclick="location.href='/user/myProfile'"><b>프로필 정보</b></div>
+                <div class="subsub-menu notready">주소록</div>
+                <div class="subsub-menu notready">결제 정보</div>
+                <div class="subsub-menu notready">판매 정산 계좌</div>
+                <div class="subsub-menu notready">현금영수증 정보</div>
+                <div class="subsub-menu notready">포인트</div>
             </div>
         </div>
     </div>
@@ -216,7 +233,7 @@ $(function(){
     
 	    <div class="sell-header">
 	    	<div style="width: 600px;">총 ${sellTotalCount }개</div>
-	    	<div style="width:80px;">검수현황</div>
+	    	<div style="width:80px;">타입</div>
 	    	<div style="width:80px;">상태</div>
 	    	<div style="width:170px; margin-left: 15px;">접수일</div>
 	    </div>
@@ -235,7 +252,7 @@ $(function(){
 	                    <div>${sellTotalDto.buyBidDto.buy_size}</div>
 	                </div>
 				</div>             
-	                <div style="width: 100px;">${sellTotalDto.sellNowDto.test_result}</div>
+	                <div style="width: 100px;">즉시</div>
 	                <div style="width: 100px;">${sellTotalDto.sellNowDto.sell_status}</div>
 	                <div style="width: 150px; margin-left: 15px;"><fmt:formatDate value="${sellTotalDto.sellNowDto.sellnow_inputday}" pattern="yyyy/MM/dd"/></div>              
 			</div>
@@ -251,7 +268,7 @@ $(function(){
 	                    <div>${sellTotalDto.buyBidDto.buy_size}</div>
 	                </div>
 				</div>             
-	                <div style="width: 100px; color: #31b46e;">${sellTotalDto.sellNowDto.test_result}</div>
+	                <div style="width: 100px;">즉시</div>
 	                <c:if test="${sellTotalDto.sellNowDto.sell_status eq '판매완료'}"><div style="width: 100px; color:#31b46e;">${sellTotalDto.sellNowDto.sell_status}</div></c:if>
 	                <c:if test="${sellTotalDto.sellNowDto.sell_status eq '판매대기'}"><div style="width: 100px;">${sellTotalDto.sellNowDto.sell_status}</div></c:if>
 	                
@@ -269,7 +286,7 @@ $(function(){
 	                    <div>${sellTotalDto.sellBidDto.sell_size}</div>
 	                </div>
 				</div>                
-	                <div style="width: 100px;">${sellTotalDto.sellBidDto.test_result}</div>
+	                <div style="width: 100px;">입찰</div>
 	                <div style="width: 100px;">${sellTotalDto.sellBidDto.sell_status}</div>
 	                <div style="width: 150px; margin-left: 15px;"><fmt:formatDate value="${sellTotalDto.sellBidDto.sell_inputday}" pattern="yyyy/MM/dd"/></div>                
 			</div>                
@@ -285,7 +302,7 @@ $(function(){
 	                    <div>${sellTotalDto.sellBidDto.sell_size}</div>
 	                </div>
 				</div>                
-	                <div style="width: 100px; color: #31b46e;">${sellTotalDto.sellBidDto.test_result}</div>
+	                <div style="width: 100px;">입찰</div>
 	                <c:if test="${sellTotalDto.sellBidDto.sell_status eq '판매완료'}"><div style="width: 100px; color:#31b46e;">${sellTotalDto.sellBidDto.sell_status}</div></c:if>
 	                <c:if test="${sellTotalDto.sellBidDto.sell_status eq '판매대기'}"><div style="width: 100px;">${sellTotalDto.sellBidDto.sell_status}</div></c:if>
 	                <div style="width: 150px; margin-left: 15px;"><fmt:formatDate value="${sellTotalDto.sellBidDto.sell_inputday}" pattern="yyyy/MM/dd"/></div>                
@@ -331,7 +348,7 @@ $(function(){
 	                              html += '           <div>' + sellTotalDto.buyBidDto.buy_size + '</div>';
 	                              html += '       </div>';
 	                              html += '   </div>';
-	                              html += '   <div style="width: 100px;">' + sellTotalDto.sellNowDto.test_result + '</div>';
+	                              html += '   <div style="width: 100px;">즉시</div>';
 	                              html += '   <div style="width: 100px;">' + sellTotalDto.sellNowDto.sell_status + '</div>';
 	                              html += '   <div style="width: 150px; margin-left: 15px;">' + sellTotalDto.sellNowDto.sellnow_inputday + '</div>';
 	                              html += '</div>';	                          	                           
@@ -347,7 +364,7 @@ $(function(){
 	                              html += '           <div>' + sellTotalDto.buyBidDto.buy_size + '</div>';
 	                              html += '       </div>';
 	                              html += '   </div>';
-	                              html += '   <div style="width: 100px; color: #31b46e;">' + sellTotalDto.sellNowDto.test_result + '</div>';
+	                              html += '   <div style="width: 100px;">즉시</div>';
 	                              if(sellTotalDto.sellNowDto.sell_status==='판매완료'){
 	                            	  html += '   <div style="width: 100px; color: #31b46e;">' + sellTotalDto.sellNowDto.sell_status + '</div>';	                            	  
 	                              }else if(sellTotalDto.sellNowDto.sell_status==='판매대기'){
@@ -367,7 +384,7 @@ $(function(){
 	                           html += '           <div>' + sellTotalDto.sellBidDto.sell_size + '</div>';
 	                           html += '       </div>';
 	                           html += '   </div>';
-	                           html += '   <div style="width: 100px;">' + sellTotalDto.sellBidDto.test_result + '</div>';
+	                           html += '   <div style="width: 100px;">입찰</div>';
 	                           html += '   <div style="width: 100px;">' + sellTotalDto.sellBidDto.sell_status + '</div>';
 	                           html += '   <div style="width: 150px; margin-left: 15px;">' + sellTotalDto.sellBidDto.sell_inputday + '</div>';
 	                           html += '</div>';                     
@@ -383,7 +400,7 @@ $(function(){
 	                           html += '           <div>' + sellTotalDto.sellBidDto.sell_size + '</div>';
 	                           html += '       </div>';
 	                           html += '   </div>';
-	                           html += '   <div style="width: 100px; color: #31b46e;">' + sellTotalDto.sellBidDto.test_result + '</div>';
+	                           html += '   <div style="width: 100px;">입찰</div>';
 	                           if(sellTotalDto.sellBidDto.sell_status==='판매완료'){
 	                           html += '   <div style="width: 100px; color: #31b46e;">' + sellTotalDto.sellBidDto.sell_status + '</div>';	                        	   
 	                           }else if(sellTotalDto.sellBidDto.sell_status==='판매대기'){

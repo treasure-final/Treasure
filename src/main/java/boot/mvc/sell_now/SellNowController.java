@@ -1,6 +1,7 @@
 package boot.mvc.sell_now;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpSession;
@@ -37,7 +38,7 @@ public class SellNowController {
 	
 	@PostMapping("/sell/insertSellNow")
 	@ResponseBody
-	public String sellNow(@RequestParam String item_num,
+	public Map<String, String> sellNow(@RequestParam String item_num,
 			@RequestParam String buy_num,
 			@RequestParam int totalPrice,
 			@RequestParam String name, 
@@ -48,6 +49,8 @@ public class SellNowController {
 			@RequestParam String penaltypay1, 
 			@RequestParam String penaltypay2,
 			HttpSession session) {
+		
+		Map<String, String> map=new HashMap<>();
 		
 		String loginEmail = (String) session.getAttribute("loginEmail");
 	      
@@ -113,6 +116,10 @@ public class SellNowController {
             
         }
         
-		return loginEmail;
+        map.put("sellnow_num", sellnow_num);
+        map.put("loginEmail", loginEmail);
+        map.put("user_num", user_num);
+        
+		return map;
 	}
 }

@@ -41,7 +41,7 @@ div.main {
 
 .container {
 	width: 900px;
-	height: 1200px;
+	min-height: 55vh;;
 	padding: 40px;
 	box-sizing: border-box;
 	margin: 50px auto;
@@ -382,7 +382,7 @@ div.main {
 <input type="hidden"id="totalPrice_" value="${totalPrice }">
 <div><i id="logo">판매하기</i></div>
  <div class="hr"></div>
-    <div id="info" style="width: 100%; height: 40%; margin-bottom: 10px; margin-left: 40px;">        
+    <div id="info" style="width: 100%; height: 60vh; margin-bottom: 10px; margin-left: 40px;">        
         <div class="item">
           <img alt="" src="../img/item_image/${itemDto.item_image }" class="item-photo">                  
           <ul class="item-info">

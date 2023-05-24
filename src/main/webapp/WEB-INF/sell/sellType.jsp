@@ -40,8 +40,8 @@ div.main {
 }
 
 .container {
-	width: 820px;
-	height: 1200px;
+	width: 900px;
+	min-height: 55vh;
 	padding: 40px;
 	box-sizing: border-box;
 	margin: 50px auto;
@@ -77,13 +77,14 @@ div.main {
 	margin-bottom: 50px;
 	margin-top: 30px;
 	border: 1px solid #747f55;
+	cursor: pointer;
 }
 
 #sell-next {
 	font-size: 13px;
 	color: #fff;
 	background-color: #747f55;
-	padding: 12px 30px;
+	padding: 18px 30px;
 	border-radius: 25px;
 	font-weight: 400;
 	text-transform: capitalize;
@@ -97,6 +98,7 @@ div.main {
 	margin-bottom: 50px;
 	margin-top: 30px;
 	border: 1px solid #747f55;
+	cursor: pointer;
 }
 
 #sell-next:hover {
@@ -143,7 +145,7 @@ div.main {
 	position: relative;
 	overflow: hidden;
 	margin-top: 4px;
-	width: 300px;
+	width: 335px;
 	text-align: center;
 	cursor: pointer;
 	font-family: "GmarketSansMedium";
@@ -157,7 +159,7 @@ div.main {
 
 .deadline {
 	border: 1px solid darkgray;
-	padding: 12px 46px;
+	padding: 17px 55px;
 	border-radius: 15px;
 	margin-right: 7px;
 	cursor: pointer;
@@ -194,7 +196,6 @@ div.main {
 	
 }
 
-
 .hr {
 	border: none;
 	height: 2px;
@@ -202,7 +203,38 @@ div.main {
 	margin-bottom: 50px;
 }
 
+.item {
+    width: 100%;
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    margin-left: -25px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
 
+.item-photo {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.item-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: -20px;                        
+    width: 700px;
+}
+
+.item-info > li {
+    list-style: none;
+    font-size: 14px;
+    margin-bottom: -3px;
+    font-size: 15px;
+   
+}
 </style>
 <script>
 	$(function() {
@@ -233,8 +265,8 @@ div.main {
 							"color", "#fff");
 					
 					$("#hopePrice").val("");
-					$(".feeResult").text("-원");
-					$(".totalPrice").text("-원");
+					$(".sellBid.feeResult").text("-원");
+					$(".sellBid.totalPrice").text("-원");
 				});
 		$("#sell-immediate").click(
 				function() {
@@ -245,7 +277,8 @@ div.main {
 					$("#sell-immediate").css("background-color", " #ef6253")
 							.css("color", "#fff");
 					
-					$(".totalPrice").text("-원");					
+					$(".totalPrice").text("-원");
+					
 					calculatePrice("sell-immediate", $("#immediatePrice").text());
 				});
 		$(".deadline").click(function() {
@@ -267,6 +300,30 @@ div.main {
 			$("#deadline-date").text(deadDay);
 		});
 
+		$("#hopePrice").change(function () {
+			var price = $(this).val();
+			replacePrice = parseFloat(price.replace(/[^0-9]/g, ''));
+
+			if(replacePrice < 4000) {
+				$("#hopePrice").css("border", "2px solid red");
+				$("#hopePrice").val("");	
+				$("#input-fail").css("display", "block");
+				$(".sellBid.feeResult").text("-원");
+				$(".sellBid.totalPrice").text("-원");
+				
+				return;
+				
+			} else {
+				replacePrice = Math.floor(replacePrice / 1000) * 1000; 
+				
+				$("#hopePrice").css("border", "none");
+				$("#input-fail").css("display", "none");
+				$("#hopePrice").val(comma(replacePrice));
+				
+				calculatePrice("sell-bid", price);
+			}	
+
+		})
 	});
 
 	function inputNumberFormat(obj) {
@@ -284,17 +341,22 @@ div.main {
 	}
 		
 	function calculatePrice(type, obj) {
-
+		
 		if(type == "sell-bid") {
 			price = parseFloat(obj.value.replace(/[^0-9]/g, ''));
-				
-			if(isNaN(price)) {	      
+			
+			if(isNaN(price))     
 		        return;
-		    }
+			
+			if(price < 4000) {
+				
+				return;
+			}
 			
 		} else if(type == "sell-immediate"){
 			price = parseFloat(obj.replace(/[^0-9]/g, ''));
-		} 
+		} else 
+			price = price;
 		
 		var fee = Math.round((price * 0.2) / 1000) * 1000;
 		totalPrice = (price - (fee + 3000));
@@ -303,7 +365,17 @@ div.main {
 		$(".totalPrice").text(comma(totalPrice) + "원");
 		$("#totalPrice_").val(totalPrice);	 
 	}
+
+	window.onclick = function change() {
+		price = uncomma($("#hopePrice").val());
 	
+		if(price < 4000) {
+			$(".sellBid.feeResult").text("-원");
+			$(".sellBid.totalPrice").text("-원");
+		} else {
+			calculatePrice("sell-bid", price);		
+		} 
+	}
 </script>
 </head>
 <body>
@@ -312,18 +384,17 @@ div.main {
 <input type="hidden"id="totalPrice_" value="${totalPrice }">
 <div><i id="logo">판매하기</i></div>
  <div class="hr"></div>
-    <div id="info" style="width: 100%; height: 30%; margin-bottom: 10px; margin-left: 40px;">
-        <img src="../img/item_image/${itemDto.item_image }"
-             style="width: 110px; float: left; margin-right: 20px; border-radius: 10px;">
-        <div id="left-info"
-             style="width: 70%; float: left; height: 40%; margin-right: 20px; margin-bottom: 10px; line-height: 20px; margin-top: 15px">
-            <div id="content" style="font-size: 14px;">
-                <b style="font-size: 14px">${itemDto.item_modelnum }</b><br>
-                ${itemDto.item_engname }<br>
-                <p style="opacity: 0.6; font-size: 14px;">${itemDto.item_korname }</p>
-                ${size }
-            </div>
-        </div>
+    <div id="info" style="width: 100%; height: 60vh; margin-bottom: 10px; margin-left: 40px;">        
+        <div class="item">
+          <img alt="" src="../img/item_image/${itemDto.item_image }" class="item-photo">                  
+          <ul class="item-info">
+             <li style="font-weight: bold;">${itemDto.item_modelnum }</li>
+             <li>${itemDto.item_engname }</li>
+             <li>${itemDto.item_korname }</li>
+             <li>${size }</li>
+          </ul>
+       </div>
+       
         <div id="right-info"
              style="border-top: 1px solid #b9b9b9; width: 90%; float: left; height: 40%;">
             <div class="price-info" align="center">
@@ -379,8 +450,12 @@ div.main {
     </div>
 	
 	<!-- 판매 입찰  -->
-    <div id="result-bid" style="margin-left: 40px">
-        <div style="font-size: 13px;">판매 희망가</div>
+    <div id="result-bid" style="margin-left: 40px">   
+	    <div style="font-size: 14px; width: 95%;">
+	    	<span>판매 희망가</span>
+	    	<span id="input-fail" style="float: right; font-size: 13px; color : red; display : none;">4천원 부터 천원단위로 입력 가능합니다</span>
+	    </div>
+
         <div align="right" style="font-size: 20px; margin-right: 35px;" id="sell-form">
             <input type="text" id="hopePrice" placeholder="희망가 입력" onkeyup="inputNumberFormat(this)" onkeydown="if (event.keyCode === 13) { calculatePrice('sell-bid', this); }">원
         </div>
@@ -392,7 +467,7 @@ div.main {
 			<span style="opacity: 0.4;">검수비</span>
 	        <span style="float: right;">3,000원</span><br>
 	        <span style="opacity: 0.4;">수수료</span>	    
-	        <span style="float: right;" class="feeResult">-원</span> 
+	        <span style="float: right;" class="sellBid feeResult">-원</span> 
 		</div>
         
         <div style="padding: 30px 0;">
@@ -400,24 +475,26 @@ div.main {
             <p style="font-size: 13px;"><span id="deadline-day" style="font-size: 13px"></span>(<span id="deadline-date"
                                                                                                       style="font-size: 13px;"></span>)
                 마감</p><br>
-            <span class="deadline" day="1">
-                1일
-            </span>
-            <span class="deadline" day="3">
-                3일
-            </span>
-            <span class="deadline" day="7">
-                7일
-            </span>
-            <span class="deadline" day="30">
-                30일
-            </span>
-            <span class="deadline" day="60">
-                60일
-            </span>
+             
+	            <span class="deadline" day="1">
+	                1일
+	            </span>
+	            <span class="deadline" day="3">
+	                3일
+	            </span>
+	            <span class="deadline" day="7">
+	                7일
+	            </span>
+	            <span class="deadline" day="30">
+	                30일
+	            </span>
+	            <span class="deadline" day="60">
+	                60일
+	            </span>
+            
         </div>
         <div class="result-bottom">
-            총 정산금액<span class="totalPrice" id="totalPrice" style="font-size: 14px; margin-left: 500px; float: right;">-원</span>
+            총 정산금액<span class="sellBid totalPrice" id="totalPrice" style="font-size: 14px; margin-left: 500px; float: right;">-원</span>
             <div style="display: flex;">
             <button type="button" id="sell-back" class="sell-back">뒤로가기</button> 
             <button type="button" id="sell-next" onclick="moveOrderPage('bid')">판매 입찰 계속하기</button>

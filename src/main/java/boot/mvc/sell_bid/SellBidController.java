@@ -3,6 +3,7 @@ package boot.mvc.sell_bid;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpSession;
@@ -205,9 +206,11 @@ public class SellBidController {
    
    @PostMapping("/sell/insertSellBid")
    @ResponseBody
-   public String insertSellBid(HttpSession session, int hopePrice, int totalPrice, String size, String deadline, String addr, String name, String phone, 
+   public Map<String, String> insertSellBid(HttpSession session, int hopePrice, int totalPrice, String size, String deadline, String addr, String name, String phone, 
          String account1, String account2, String penaltypay1, String penaltypay2,  @RequestParam("item_num") String item_num, Model model) {
       
+	   Map<String, String> map=new HashMap<>();
+	   
       String account=account1+" "+account2;
       String penaltypay=penaltypay1+" "+penaltypay2;
       String sellAddr=name+","+phone+","+addr;
@@ -250,7 +253,8 @@ public class SellBidController {
         sellBidDto.setTest_result(test_result);
         
         service.insertSellBid(sellBidDto);
-        String sell_num = service.getNowinsertSellBidNum();
+  
+        String sell_num=service.getNowinsertSellBidNum();
         
         // 전체 판매 insert
         SellTotalDto sellTotalDto = new SellTotalDto();
@@ -260,8 +264,12 @@ public class SellBidController {
         
         sellTotalService.insertSellNow(sellTotalDto);
         service.insertSellBid(sellBidDto);
-
-        return loginEmail;
+        
+        map.put("sell_num", sell_num);
+        map.put("user_num", user_num);
+        map.put("loginEmail", loginEmail);
+        
+        return map;
       
    }
 }  

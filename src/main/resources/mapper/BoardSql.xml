@@ -2,12 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boot.mvc.board.BoardMapperInter">
 	<insert id="insertStyle" parameterType="BoardDto">
-	insert into board(user_num, board_content,board_subject,board_image,myid,name,myphoto,board_writeday) values (#{user_num},#{board_content},#{board_subject},#{board_image},#{myid},#{name},#{myphoto},now())
+		insert into board(user_num, board_content,board_subject,board_image,myid,name,myphoto,board_writeday) values (#{user_num},#{board_content},#{board_subject},#{board_image},#{myid},#{name},#{myphoto},now())
 	</insert>
 	<select id="getList" resultType="BoardDto">
-	select * from board order by board_id DESC
+		select * from board order by board_id DESC
 	</select>
 	<delete id="deleteStyle" parameterType="String">
-	delete form board where board_id=#{board_id}
+		delete form board where board_id=#{board_id}
 	</delete>
+	<select id="getListBoard" parameterType="Map" resultType="BoardDto">
+		SELECT *
+		FROM board
+		WHERE board_id=#{board_id} order by board_id desc limit 6 offset #{offset}
+	</select>
 </mapper>

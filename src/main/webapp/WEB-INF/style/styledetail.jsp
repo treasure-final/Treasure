@@ -244,7 +244,7 @@ th.table_comment_writeday {
 <body>
 	<c:set var="loginOk" value="${sessionScope.loginOk}" />
 	<div id="content">
-		<input type="hidden" value=${bdto.board_id } id="board_id">	
+		<input type="hidden" value=${bdto.board_id } id="board_id">
 		<c:forEach items="${DetailList }" var="Bdto">
 			<input type="hidden" value="${Bdto.board_id }" class="board_id">
 			<div class="post">
@@ -297,11 +297,10 @@ th.table_comment_writeday {
 			<!-- 초기 콘텐츠 -->
 			<div class="slideshow-container" style="width: 80%; margin-left: 500px">
 				<div class="all">
-					<div class="mySlides fade">
-						<img src="../../img/style_image/${Bdto.board_image }"
-							style="width: 100%; height: 100%; border-radius: 10px"
-						>
-						
+					<div id="image-container">
+						<c:forEach var="image" items="${getImage}">
+							<img src="${image}" alt="Image">
+						</c:forEach>
 					</div>
 					<a class="prev" onclick="plusSlides(-1)">❮</a>
 					<a class="next" onclick="plusSlides(1)">❯</a>
@@ -323,13 +322,13 @@ th.table_comment_writeday {
 			<div>
 				<input type="hidden" name="board_id" value="${Bdto.board_id}">
 				<form id="comment-form">
-				<input id="comment_content" type="text" name="comment_content">
-				<c:if test="${not empty loginOk}">
-					<input id="comment_submit" type="submit" value="작성">
-				</c:if>
-				<c:if test="${empty loginOk}">
-					<input id="nologinwrite" type="button" value="작성" style="padding: 10px 30px">
-				</c:if>
+					<input id="comment_content" type="text" name="comment_content">
+					<c:if test="${not empty loginOk}">
+						<input id="comment_submit" type="submit" value="작성">
+					</c:if>
+					<c:if test="${empty loginOk}">
+						<input id="nologinwrite" type="button" value="작성" style="padding: 10px 30px">
+					</c:if>
 				</form>
 			</div>
 		</c:forEach>
@@ -435,45 +434,7 @@ th.table_comment_writeday {
 			/* dots[slideIndex - 1].className += " active"; */
 			
 		}
-		$(document).ready(function() {
-			var page = 1;
-
-			// 스크롤 이벤트 감지
-			$('#content').scroll(function() {
-				if ($('#content').scrollTop() >= ($('#content')[0].scrollHeight - $('#content').height())) {
-					loadMoreData();
-				}
-			});
-
-			function loadMoreData() {
-				page++;
-
-				$.ajax({
-					url : '/load-more-data',
-					type : 'GET',
-					data : {
-						page : page
-					},
-					beforeSend : function() {
-						// 로딩 스피너 표시 등의 처리
-					},
-					success : function(response) {
-						// 서버로부터 받은 데이터 처리
-						var data = response.data;
-						var html = '';
-
-						for (var i = 0; i < data.length; i++) {
-							html += '<div class="item">' + data[i] + '</div>';
-						}
-
-						$('#content').append(html);
-					},
-					complete : function() {
-						// 로딩 스피너 등의 처리 해제
-					}
-				});
-			}
-		})
+		
 		$('.heart').on('click', function() {
 			  el = $(this);
 			  if (el.hasClass('liked') ) {

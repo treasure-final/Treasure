@@ -15,5 +15,7 @@ public interface StyleMapperInter {
 	public BoardDto getData(int board_id);
 
 	public List<Map<String, Object>> selectCommentsByBoardId(int board_id);
+	
+	public List<BoardDto> getListBoard(int offset,int board_id);
 
 }

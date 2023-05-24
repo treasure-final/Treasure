@@ -181,9 +181,15 @@ div.all {
 
 .time {
 	vertical-align: bottom;
+	font-weight: normal;
 }
 
 .comment, .board_content, form {
+	margin-left: 500px;
+	margin-top: 10px;
+}
+
+.board_like {
 	margin-left: 500px;
 	margin-top: 10px;
 }
@@ -215,8 +221,23 @@ div.all {
 	padding: 10px;
 	border-radius: 10px;
 }
-.table_comment_content{
 
+.table_comment_content {
+	font-weight: normal;
+	text-align: left;
+}
+
+.table_comment_nickname {
+	width: 100px;
+	font-weight: bold;
+	text-align: left;
+	font-weight: bold;
+}
+
+th.table_comment_writeday {
+	text-align: left;
+	font-weight: normal;
+	color: gray
 }
 </style>
 <script type="text/javascript">
@@ -227,8 +248,9 @@ $(function(){
 </script>
 </head>
 <body>
+<c:set var="loginOk" value="${sessionScope.loginOk}"/>
 	<div id="content">
-		<input type="text" value=${bdto.board_id } id="board_id">
+		<input type="hidden" value=${bdto.board_id } id="board_id">
 		<c:forEach items="${DetailList }" var="Bdto">
 			<input type="hidden" value="${Bdto.board_id }" class="board_id">
 			<div class="post">
@@ -237,16 +259,17 @@ $(function(){
 						<tr>
 							<th rowspan="2">
 								<img src="/save/${Bdto.user_photo }" alt="프로필 사진"
-									style="border-radius: 100px; max-width: 40px; max-height: 40px"
+									style="border-radius: 100px; max-width: 35px; max-height: 35px"
 								>
 							</th>
-							<th>
+							<th width="60px" align="center">
 								<span class="nickname">${Bdto.user_name }</span>
 							</th>
 						</tr>
 						<tr>
 							<th>
 								<span class="time" style="color: gray">
+									&nbsp;
 									<fmt:parseDate var="dateFormatter" value="${Bdto.board_writeday}"
 										pattern="yyyy-MM-dd'T'HH:mm:ss"
 									/>
@@ -293,6 +316,12 @@ $(function(){
 			<div class="container">
 				<div class="heart"></div>
 			</div>
+			<div class="board_like">
+				<img alt=" " src="../img/style_image/heart.png"
+					style="width: 30px; margin-right: 15px; margin-top: 5px; color: gray; cursor: pointer;"
+				>
+			</div>
+			<div style="margin-left: 500px; margin-top: 10px">좋아요 몇개</div>
 			<div class="board_content">${Bdto.board_content }</div>
 			<br>
 			<hr width="35%">
@@ -301,7 +330,12 @@ $(function(){
 			<form id="commentForm_${Bdto.board_id}" class="commentform">
 				<input type="hidden" name="board_id" value="${Bdto.board_id}">
 				<input id="comment_content" type="text" name="comment_content">
-				<input id="comment_submit" type="submit" value="작성">
+				<c:if test="${not empty loginOk}">
+					<input id="comment_submit" type="submit" value="작성">
+				</c:if>
+				<c:if test="${empty loginOk}">
+					<input id="nologinwrite" type="button" value="작성" style="padding: 10px 30px">
+				</c:if>
 			</form>
 		</c:forEach>
 		<script type="text/javascript">
@@ -322,19 +356,16 @@ $(function(){
 
 		                // 각 댓글 데이터를 순회하며 HTML로 변환하여 commentHtml에 추가
 		                for (var i = 0; i < comments.length; i++) {
-		                    commentHtml += '<div class="comment-item">';
-		                    commentHtml += '<table>';
+		                    commentHtml += '<table class="">';
 		                    commentHtml += '<tr>';
-		                    commentHtml +='<th><img src="../../save/'+comments[i].user_photo+'" style="border-radius: 100px; ;max-width: 35px; max-height: 35px"></th>';
-		                    commentHtml +='<th><span class="table_comment_nickname" style="font-weight:bold">'+comments[i].user_nickname+'</span></th>';
-		                    commentHtml +='<th><span class="table_comment_content" style="font-weight:normal">'+comments[i].comment_content+'</span></th>';
-		                    commentHtml += '</tr>';
+		                    commentHtml +='<th rowspan="2"><img src="../../save/'+comments[i].user_photo+'" style="border-radius: 100px; ;max-width: 35px; max-height: 35px"></th>';
+		                    commentHtml +='<th class="table_comment_nickname">'+comments[i].user_nickname+'</th>';
+		                    commentHtml +='<th class="table_comment_content" rowspan="2">'+comments[i].comment_content+'</th>';
 		                    commentHtml += '<tr>';
-		                   	commentHtml +='<th></th>';
+		                    commentHtml += '<th class="table_comment_writeday"><span>'+formatRelativeTime(new Date(comments[i].comment_writeday))+'</span></th>';
 		                    commentHtml += '</tr>';
-		                    commentHtml +='';
+		                    commentHtml += '</tr>';
 		                    commentHtml +='</table>';
-		                    commentHtml += '</div>';
 		                }
 
 		                // 댓글 목록 영역에 commentHtml을 추가
@@ -458,6 +489,10 @@ $(function(){
 			    });  
 			  }
 			});
+		document.getElementById("nologinwrite").addEventListener("click", function() {
+		      alert("로그인 후 이용 가능합니다");
+		      window.location.href = "/user/loginForm";
+		   });
 	</script>
 </body>
 </html>

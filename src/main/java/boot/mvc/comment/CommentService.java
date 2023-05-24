@@ -14,19 +14,7 @@ public class CommentService implements CommentServiceInter {
 
 	@Override
 	public void InsertComment(CommentDto CDto) {
-		// TODO Auto-generated
-		// method stub
-		mapper.InsertComment(CDto);
-	}
-
-	@Override
-	public List<Map<String, Object>> getCommentsByBoardId(int board_id) {
 		// TODO Auto-generated method stub
-		return mapper.getCommentsByBoardId(board_id);
+		mapper.insertComment(CDto);
 	}
-
-
-	
-
-
 }

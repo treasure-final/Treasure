@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boot.mvc.comment.CommentMapperInter">
 	<!-- 댓글 추가 -->
-	<insert id="InsertComment" parameterType="CommentDto">
+	<insert id="insertComment" parameterType="CommentDto">
 		insert into comment(comment_content,user_num,board_id,comment_writeday) values (#{comment_content},#{user_num},#{board_id},now())
 	</insert>
 	<!-- 댓글 수정 -->
@@ -13,12 +13,5 @@
 	<delete id="DeleteComment" parameterType="String">
 		delete from comment where comment_id=#{comment_id}
 	</delete>
-	<!-- 게시물 id에 따른 댓글 정보 -->
-	<select id="getCommentsByBoardId" resultType="Map">
-		select *
-		from comment c
-		join user u 
-		on c.user_num = u.user_num
-		where board_id = #{board_id}
-	</select>
+	
 </mapper>

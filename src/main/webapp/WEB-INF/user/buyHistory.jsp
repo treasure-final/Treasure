@@ -361,6 +361,105 @@ $(function(){
     <div style="clear: left"></div>
 </div>
 
+<script type="text/javascript">
+    var offset=${offset};
+    window.onscroll = function(e) {
+        console.log(window.innerHeight , window.scrollY,document.body.offsetHeight,document.body.scrollHeight)
+        if((window.innerHeight + window.scrollY+1200) >= document.body.scrollHeight) {
+
+            offset=offset+6;   //데이터의 시작점 limit의 수와 똑같이 더해줘야함
+
+            $.ajax({
+                type:"get",
+                dataType:"json",
+                url:"/user/buyBidHistoryScroll",
+                data:{"offset":offset},
+                success:function(res){
+                    $.each(res,function(i,buyBidDto){   //res의 담겨있는 list를 이치함수로 받아와 반복문 실행
+                        let html = '312313';
+
+                        setTimeout(function() {
+                                html += '<div class="sell-content-no">';
+                                html += '   <div style="width: 600px; display: flex; font-size: 15px;">';
+                                html += '       <img class="sellImg" src="../img/item_image/' + buyBidDto.itemDto.item_image + '">';
+                                html += '       <div class="sellDescription">';
+                                html += '           <div>' + buyBidDto.itemDto.item_engname + '</div>';
+                                html += '           <div>' + buyBidDto.itemDto.item_korname + '</div>';
+                                html += '           <div>' + buyBidDto.buyBidDto.buy_size + '</div>';
+                                html += '       </div>';
+                                html += '   </div>';
+                                html += '   <div style="width: 100px;">' + buyBidDto.sellNowDto.test_result + '</div>';
+                                html += '   <div style="width: 100px;">' + buyBidDto.sellNowDto.sell_status + '</div>';
+                                html += '   <div style="width: 150px; margin-left: 15px;">' + buyBidDto.sellNowDto.sellnow_inputday + '</div>';
+                                html += '</div>';
+
+                            // if(buyBidDto.sell_num == null && buyBidDto.sellnow_num != null && buyBidDto.sellNowDto.test_result === '합격'){
+                            //     html += '<div class="sell-content sellNow" sellnow_num='+buyBidDto.sellnow_num+'>';
+                            //     html += '   <div style="width: 600px; display: flex; font-size: 15px;">';
+                            //     html += '       <img class="sellImg" src="../img/item_image/' + buyBidDto.itemDto.item_image + '">';
+                            //     html += '       <div class="sellDescription">';
+                            //     html += '           <div>' + buyBidDto.itemDto.item_engname + '</div>';
+                            //     html += '           <div style="opacity: 0.5;">' + buyBidDto.itemDto.item_korname + '</div>';
+                            //     html += '           <div>' + buyBidDto.buyBidDto.buy_size + '</div>';
+                            //     html += '       </div>';
+                            //     html += '   </div>';
+                            //     html += '   <div style="width: 100px; color: #31b46e;">' + buyBidDto.sellNowDto.test_result + '</div>';
+                            //     if(buyBidDto.sellNowDto.sell_status==='판매완료'){
+                            //         html += '   <div style="width: 100px; color: #31b46e;">' + buyBidDto.sellNowDto.sell_status + '</div>';
+                            //     }else if(buyBidDto.sellNowDto.sell_status==='판매대기'){
+                            //         html += '   <div style="width: 100px;">' + buyBidDto.sellNowDto.sell_status + '</div>';
+                            //     }
+                            //     html += '   <div style="width: 150px; margin-left: 15px;">' + buyBidDto.sellNowDto.sellnow_inputday + '</div>';
+                            //     html += '</div>';
+                            // };
+                            //
+                            // if(buyBidDto.sellnow_num == null && buyBidDto.sell_num != null  && buyBidDto.sellBidDto.test_result === '불합격'){
+                            //     html += '<div class="sell-content-no">';
+                            //     html += '   <div style="width: 600px; display: flex; font-size: 15px;">';
+                            //     html += '       <img class="sellImg" src="../img/item_image/' + buyBidDto.itemDto.item_image + '">';
+                            //     html += '       <div class="sellDescription">';
+                            //     html += '           <div>' + buyBidDto.itemDto.item_engname + '</div>';
+                            //     html += '           <div>' + buyBidDto.itemDto.item_korname + '</div>';
+                            //     html += '           <div>' + buyBidDto.sellBidDto.sell_size + '</div>';
+                            //     html += '       </div>';
+                            //     html += '   </div>';
+                            //     html += '   <div style="width: 100px;">' + buyBidDto.sellBidDto.test_result + '</div>';
+                            //     html += '   <div style="width: 100px;">' + buyBidDto.sellBidDto.sell_status + '</div>';
+                            //     html += '   <div style="width: 150px; margin-left: 15px;">' + buyBidDto.sellBidDto.sell_inputday + '</div>';
+                            //     html += '</div>';
+                            // };
+                            //
+                            // if(buyBidDto.sellnow_num == null && buyBidDto.sell_num != null  && buyBidDto.sellBidDto.test_result === '합격'){
+                            //     html += '<div class="sell-content sellBid" sell_num='+buyBidDto.sell_num+'>';
+                            //     html += '   <div style="width: 600px; display: flex; font-size: 15px;">';
+                            //     html += '       <img class="sellImg" src="../img/item_image/' + buyBidDto.itemDto.item_image + '">';
+                            //     html += '       <div class="sellDescription">';
+                            //     html += '           <div>' + buyBidDto.itemDto.item_engname + '</div>';
+                            //     html += '           <div style="opacity: 0.5;">' + buyBidDto.itemDto.item_korname + '</div>';
+                            //     html += '           <div>' + buyBidDto.sellBidDto.sell_size + '</div>';
+                            //     html += '       </div>';
+                            //     html += '   </div>';
+                            //     html += '   <div style="width: 100px; color: #31b46e;">' + buyBidDto.sellBidDto.test_result + '</div>';
+                            //     if(buyBidDto.sellBidDto.sell_status==='판매완료'){
+                            //         html += '   <div style="width: 100px; color: #31b46e;">' + buyBidDto.sellBidDto.sell_status + '</div>';
+                            //     }else if(buyBidDto.sellBidDto.sell_status==='판매대기'){
+                            //         html += '   <div style="width: 100px;">' + buyBidDto.sellBidDto.sell_status + '</div>';
+                            //     }
+                            //     html += '   <div style="width: 150px; margin-left: 15px;">' + buyBidDto.sellBidDto.sell_inputday + '</div>';
+                            //     html += '</div>';
+                            // };
+
+                            var addContent = document.createElement("div");
+                            addContent.innerHTML = html;
+                            document.querySelector('section').appendChild(addContent);
+                        },700);
+
+                    });
+                }
+            });
+        }
+    };
+</script>
 
 </body>
 </html>

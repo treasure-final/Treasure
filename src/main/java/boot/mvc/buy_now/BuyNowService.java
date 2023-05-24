@@ -4,7 +4,9 @@ import boot.mvc.sell_bid.SellBidDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class BuyNowService implements BuyNowServiceInter {
@@ -25,5 +27,15 @@ public class BuyNowService implements BuyNowServiceInter {
     @Override
     public List<BuyNowDto> getDataByStatus1(String user_num) {
         return mapper.getDataByStatus1(user_num);
+    }
+
+    @Override
+    public void insertBuyNow(BuyNowDto buyNowDto) {
+        mapper.insertBuyNow(buyNowDto);
+    }
+
+    @Override
+    public void updateSellStatus(String sell_num) {
+        mapper.updateSellStatus(sell_num);
     }
 }

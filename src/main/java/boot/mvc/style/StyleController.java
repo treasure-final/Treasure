@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,6 +37,12 @@ public class StyleController {
 
 		return mview;
 	}
+	@GetMapping("/style/comments/{board_id}")
+    @ResponseBody
+    public ResponseEntity<List<Map<String, Object>>> getCommentsByBoardId(@PathVariable("board_id") int board_id) {
+        List<Map<String, Object>> comments = SDservice.selectCommentsByBoardId(board_id);
+        return ResponseEntity.ok(comments);
+    }
 
 	@GetMapping("/load-more-data")
 	@ResponseBody
@@ -53,19 +60,8 @@ public class StyleController {
 	// 페이지에 따른 데이터 로드하는 메서드
 	// (가정)
 	private List<String> loadData(int page) {
-		int pageSize = 10; // 한
-							// 페이지에
-							// 보여줄
-							// 아이템
-							// 수
-		int offset = (page - 1) * pageSize; // 페이지에
-											// 해당하는
-											// 데이터의
-											// 시작
-											// 인덱스
-
-		// 예시로 임의의 데이터를 생성하여
-		// 반환합니다.
+		int pageSize = 10; // 한 페이지에 보여줄 아이템수
+		int offset = (page - 1) * pageSize; // 페이지에 해당하는 데이터의 시작 인덱스
 		List<String> data = new ArrayList<>();
 		for (int i = offset; i < offset + pageSize; i++) {
 			data.add("Item " + (i + 1));
@@ -73,4 +69,5 @@ public class StyleController {
 
 		return data;
 	}
+
 }

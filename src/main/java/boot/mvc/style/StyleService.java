@@ -26,4 +26,10 @@ public class StyleService implements StyleServiceInter {
 		// TODO Auto-generated method stub
 		return mapper.getData(board_id);
 	}
+
+	@Override
+	public List<Map<String, Object>> selectCommentsByBoardId(int board_id) {
+		// TODO Auto-generated method stub
+		return mapper.selectCommentsByBoardId(board_id);
+	}
 }

@@ -183,7 +183,7 @@ div.all {
 	vertical-align: bottom;
 }
 
-.comment, .board_content,form {
+.comment, .board_content, form {
 	margin-left: 500px;
 	margin-top: 10px;
 }
@@ -199,50 +199,38 @@ div.all {
 .styletable {
 	text-align: left;
 }
+
+.commentform {
+	width: 50%;
+}
+
+#comment_submit {
+	width: 10%;
+	background-color: white;
+	padding: 0px;
+}
+
+#comment_content {
+	width: 60%;
+	padding: 10px;
+	border-radius: 10px;
+}
+.table_comment_content{
+
+}
 </style>
 <script type="text/javascript">
 $(function(){
 	
 })
-$(document).ready(function() {
-    // 페이지 로드 시 댓글 조회
-    loadComments();
 
-    // 댓글 조회 함수
-    function loadComments() {
-    	var board_id=$("#board_id").val()
-        $.ajax({
-            url: "/comment/load-comments",  // 댓글 조회를 처리하는 URL
-            method: "GET",
-            data: { "board_id": board_id },  // 게시글 ID를 전달
-            dataType:"json",
-            success: function(response) {
-                // 댓글을 성공적으로 가져왔을 때 실행할 코드
-                var comments = response.comments;
-
-                // 가져온 댓글을 표시할 HTML 생성
-                var html = "";
-                for (var i = 0; i < comments.length; i++) {
-                    html += "<div>" + comments[i].comment_content + "</div>";
-                }
-
-                // 댓글을 표시할 요소에 HTML 삽입
-                $(".comment").html(html);
-            },
-            error: function(xhr, status, error) {
-                // AJAX 요청이 실패했을 때 실행할 코드
-                console.error("댓글 조회 오류: " + status + ", " + error);
-            }
-        });
-    }
-});
 </script>
 </head>
 <body>
 	<div id="content">
 		<input type="text" value=${bdto.board_id } id="board_id">
 		<c:forEach items="${DetailList }" var="Bdto">
-			<input type="text" value="${Bdto.board_id }" class="board_id">
+			<input type="hidden" value="${Bdto.board_id }" class="board_id">
 			<div class="post">
 				<div class="profile">
 					<table class="styletable">
@@ -294,7 +282,9 @@ $(document).ready(function() {
 			<div class="slideshow-container" style="width: 80%; margin-left: 500px">
 				<div class="all">
 					<div class="mySlides fade">
-						<img src="../../img/style_image/${Bdto.board_image }" style="width: 100%; height: 100%; border-radius: 10px">
+						<img src="../../img/style_image/${Bdto.board_image }"
+							style="width: 100%; height: 100%; border-radius: 10px"
+						>
 					</div>
 					<a class="prev" onclick="plusSlides(-1)">❮</a>
 					<a class="next" onclick="plusSlides(1)">❯</a>
@@ -308,12 +298,55 @@ $(document).ready(function() {
 			<hr width="35%">
 			<div class="comment" id="comment_${Bdto.board_id}"></div>
 			<!-- 댓글 작성 폼 -->
-			<form id="commentForm_${Bdto.board_id}">
+			<form id="commentForm_${Bdto.board_id}" class="commentform">
 				<input type="hidden" name="board_id" value="${Bdto.board_id}">
-				<input type="text" name="comment_content">
-				<input type="submit" value="댓글 작성">
+				<input id="comment_content" type="text" name="comment_content">
+				<input id="comment_submit" type="submit" value="작성">
 			</form>
 		</c:forEach>
+		<script type="text/javascript">
+		$(document).ready(function() {
+			$(".board_id").each(function() {
+		        var board_id = $(this).val();
+		        loadComments(board_id);
+		    });
+		    function loadComments(board_id) {
+		    	
+		        $.ajax({
+		            url: "/style/comments/" + board_id,
+		            type: "GET",
+		            dataType:"json",
+		            success: function(response) {
+		                var comments = response; // 받은 댓글 목록 데이터
+		                var commentHtml = '';
+
+		                // 각 댓글 데이터를 순회하며 HTML로 변환하여 commentHtml에 추가
+		                for (var i = 0; i < comments.length; i++) {
+		                    commentHtml += '<div class="comment-item">';
+		                    commentHtml += '<table>';
+		                    commentHtml += '<tr>';
+		                    commentHtml +='<th><img src="../../save/'+comments[i].user_photo+'" style="border-radius: 100px; ;max-width: 35px; max-height: 35px"></th>';
+		                    commentHtml +='<th><span class="table_comment_nickname" style="font-weight:bold">'+comments[i].user_nickname+'</span></th>';
+		                    commentHtml +='<th><span class="table_comment_content" style="font-weight:normal">'+comments[i].comment_content+'</span></th>';
+		                    commentHtml += '</tr>';
+		                    commentHtml += '<tr>';
+		                   	commentHtml +='<th></th>';
+		                    commentHtml += '</tr>';
+		                    commentHtml +='';
+		                    commentHtml +='</table>';
+		                    commentHtml += '</div>';
+		                }
+
+		                // 댓글 목록 영역에 commentHtml을 추가
+		                $("#comment_" + board_id).html(commentHtml);
+		            },
+		            error:function(request,status,error){
+		                console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+		               }
+		        });
+		    }
+		})
+		</script>
 		<!-- 점 -->
 		<!-- <div style="text-align: center">
 			<span class="dot" onclick="currentSlide(1)"></span>

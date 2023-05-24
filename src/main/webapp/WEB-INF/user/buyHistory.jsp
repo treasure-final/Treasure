@@ -44,7 +44,6 @@
 
         .container {
             width: 82%;
-            height: 1200px;
             padding: 40px;
             box-sizing: border-box;
             margin-left: 0px;
@@ -82,16 +81,16 @@
         }
 
         .sub-menu {
-            opacity: 0.5;           
+            opacity: 0.5;
         }
-        
-        .subsub-menu{
-	cursor: pointer;
-}
 
-.subsub-menu:hover{
-	color: #747f55;
-}
+        .subsub-menu {
+            cursor: pointer;
+        }
+
+        .subsub-menu:hover {
+            color: #747f55;
+        }
 
         #logo {
             font-size: 20px;
@@ -149,22 +148,8 @@
             font-size: 15px;
             font-weight: bold;
         }
-        .sell-content-no {
-            width: 900px;
-            font-size: 13px;
-            display: flex;
-            margin-left: 10px;
-            background-color: rgba(34,34,34,.1);
-            border: 1px solid rgba(34, 34, 34, .05);
-            box-shadow: 0 2px 6px rgba(0, 0, 0, .12);
-            border-radius: 20px;
-            padding: 10px;
-            margin-bottom: 25px;
-            justify-content: center;
-            align-items: center;
-            opacity: 0.7;
-        }
-        .buyDescription{
+
+        .buyDescription {
             width: 500px;
             display: flex;
             flex-direction: column;
@@ -172,6 +157,7 @@
             font-size: 13px;
             margin-top: 15px;
         }
+
     </style>
 
     <script type="text/javascript">
@@ -235,16 +221,16 @@
             return str.replace(/[^\d]+/g, '');
         }
     </script>
-    
+
     <script type="text/javascript">
-$(function(){
-	
-	$(".notready").click(function(){
-		
-		alert("서비스 준비 중입니다")
-	});
-})
-</script>
+        $(function () {
+
+            $(".notready").click(function () {
+
+                alert("서비스 준비 중입니다")
+            });
+        })
+    </script>
 </head>
 <body>
 <div class="wrapper">
@@ -277,7 +263,7 @@ $(function(){
         <h2 id="logo">구매 내역</h2>
         <div>
             <div class="process-menu" id="bid-menu" name="구매입찰">
-                <div class="menu-num" id="bid-num">${itemBuyBidJoinList.size()}</div>
+                <div class="menu-num" id="bid-num">${buyBidTotalCount}</div>
                 구매 입찰
             </div>
             <div class="process-menu" name="진행중">
@@ -323,49 +309,52 @@ $(function(){
                         </div>
                     </div>
                     <div style="width:150px; color: #f15746;"></div>
-                    <div style="width:400px; margin-right: 0px; font-size: 14px;" class="wishprice${i.count}">${list.buy_wishprice}원</div>
+                    <div style="width:400px; margin-right: 0px; font-size: 14px;"
+                         class="wishprice${i.count}">${list.buy_wishprice}원
+                    </div>
                     <div style="width:150px; padding-right: 20px; font-size: 14px;">
                         <fmt:formatDate value="${list.buy_inputday}" pattern="yyyy/MM/dd"></fmt:formatDate></div>
                 </div>
             </c:forEach>
-        </section>
+        </section1>
 
         <section2 id="ing-view">
             <c:forEach var="list" items="${purchaseIngList}">
-            <div class="bid-content">
-                <div style="width:750px; display: flex; font-size: 15px;">
-                    <img class="buyImg" src="../img/item_image/${list.itemDto.item_image}">
-                    <div class="buyDescription">
-                        <div>${list.itemDto.item_engname}</div>
-                        <div style="opacity: 0.6">${list.itemDto.item_korname}</div>
-                        <div>265</div>
+                <div class="bid-content">
+                    <div style="width:750px; display: flex; font-size: 15px;">
+                        <img class="buyImg" src="../img/item_image/${list.itemDto.item_image}">
+                        <div class="buyDescription">
+                            <div>${list.itemDto.item_engname}</div>
+                            <div style="opacity: 0.6">${list.itemDto.item_korname}</div>
+                            <div>265</div>
+                        </div>
+                    </div>
+                    <div style="width:150px; color: #f15746;"></div>
+                    <div style="width:150px; padding-right: 20px; font-size: 14px; text-align: center">
+                        대기 중<br><span style="opacity: 0.6; font-size: 14px;">발송 대기</span>
                     </div>
                 </div>
-                <div style="width:150px; color: #f15746;"></div>
-                <div style="width:150px; padding-right: 20px; font-size: 14px; text-align: center">
-                    대기 중<br><span style="opacity: 0.6; font-size: 14px;">발송 대기</span>
-                </div>
-            </div>
-                </c:forEach>
+            </c:forEach>
         </section2>
 
         <section3 id="end-view">
             <c:forEach var="list" items="${purchaseEndList}">
-            <div class="bid-content">
-                <div style="width:750px; display: flex; font-size: 15px;">
-                    <img class="buyImg" src="../img/item_image/${list.itemDto.item_image}">
-                    <div class="buyDescription">
-                        <div>${list.itemDto.item_engname}</div>
-                        <div style="opacity: 0.6">${list.itemDto.item_korname}</div>
-                        <div>255</div>
+                <div class="bid-content">
+                    <div style="width:750px; display: flex; font-size: 15px;">
+                        <img class="buyImg" src="../img/item_image/${list.itemDto.item_image}">
+                        <div class="buyDescription">
+                            <div>${list.itemDto.item_engname}</div>
+                            <div style="opacity: 0.6">${list.itemDto.item_korname}</div>
+                            <div>255</div>
+                        </div>
+                    </div>
+                    <div style="width:150px; color: #f15746;"></div>
+                    <div style="width:400px; margin-right: 30px"><fmt:formatDate value="${list.buynow_inputday}"
+                                                                                 pattern="yyyy/MM/dd"></fmt:formatDate></div>
+                    <div style="width:300px; font-size: 15px;">
+                        배송완료
                     </div>
                 </div>
-                <div style="width:150px; color: #f15746;"></div>
-                <div style="width:400px; margin-right: 30px"><fmt:formatDate value="${list.buynow_inputday}" pattern="yyyy/MM/dd"></fmt:formatDate></div>
-                <div style="width:300px; font-size: 15px;">
-                    배송완료
-                </div>
-            </div>
             </c:forEach>
         </section3>
 
@@ -375,44 +364,45 @@ $(function(){
 </div>
 
 <script type="text/javascript">
-    offset=${offset};
+    var offset=${offset};
     window.onscroll = function(e) {
         console.log(window.innerHeight , window.scrollY,document.body.offsetHeight,document.body.scrollHeight)
         if((window.innerHeight + window.scrollY+1200) >= document.body.scrollHeight) {
 
-            offset=offset+6;   //데이터의 시작점 limit의 수와 똑같이 더해줘야함
+            offset = offset + 6;   //데이터의 시작점 limit의 수와 똑같이 더해줘야함
 
             $.ajax({
-                type:"get",
-                dataType:"json",
-                url:"/user/buyBidHistoryScroll",
-                data:{"offset":offset},
-                success:function(res){
-                    $.each(res,function(i,buyBidDto){   //res의 담겨있는 list를 이치함수로 받아와 반복문 실행
-                        var html="";
-                        setTimeout(function() {
-                                html += '<div class="bid-content">';
-                                html += '   <div style="width:700px; display: flex; font-size: 15px;">';
-                                html += '       <img class="buyImg" src="../img/item_image/' + buyBidDto.itemDto.item_image + '">';
-                                html += '       <div class="buyDescription">';
-                                html += '           <div>' + buyBidDto.itemDto.item_engname + '</div>';
-                                html += '           <div style="opacity: 0.6">' + buyBidDto.itemDto.item_korname + '</div>';
-                                html += '           <div>' + buyBidDto.buy_size + '</div>';
-                                html += '       </div>';
-                                html += '   </div>';
-                                html += '   <div style="width: 100px;">' + comma(buyBidDto.buy_wishprice)+'원'+'</div>';
-                                html += '   <div style="width: 100px;">' + buyBidDto.buy_inputday + '</div>';
-                                html += '</div>';
+                type: "get",
+                dataType: "json",
+                url: "/user/buyBidHistoryScroll",
+                data: {"offset": offset},
+                success: function (res) {
+                    $.each(res, function (i, buyBidDto) {   //res의 담겨있는 list를 이치함수로 받아와 반복문 실행
+                        let html = '';
+                        setTimeout(function () {
+                            html += '<div class="bid-content">';
+                            html += '   <div style="width:700px; display: flex; font-size: 15px;">';
+                            html += '       <img class="buyImg" src="../img/item_image/' + buyBidDto.itemDto.item_image + '">';
+                            html += '       <div class="buyDescription">';
+                            html += '           <div>' + buyBidDto.itemDto.item_engname + '</div>';
+                            html += '           <div style="opacity: 0.6">' + buyBidDto.itemDto.item_korname + '</div>';
+                            html += '           <div>' + buyBidDto.buy_size + '</div>';
+                            html += '       </div>';
+                            html += '   </div>';
+                            html += '   <div style="width: 100px;">' + comma(buyBidDto.buy_wishprice) + '원' + '</div>';
+                            html += '   <div style="width: 100px;">' + buyBidDto.buy_inputday + '</div>';
+                            html += '</div>';
                             var addContent = document.createElement("div");
                             addContent.innerHTML = html;
                             document.querySelector('section1').appendChild(addContent);
-                        },700);
+                        }, 700);
 
                     });
                 }
             });
         }
     };
+
     function comma(str) {
         str = String(str);
         return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');

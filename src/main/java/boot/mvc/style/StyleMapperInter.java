@@ -16,6 +16,5 @@ public interface StyleMapperInter {
 
 	public List<Map<String, Object>> selectCommentsByBoardId(int board_id);
 	
-	public List<BoardDto> getListBoard(Map<String, Integer> map);
 
 }

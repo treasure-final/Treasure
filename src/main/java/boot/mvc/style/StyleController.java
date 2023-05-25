@@ -36,36 +36,25 @@ public class StyleController {
 	UserService uservice;
 
 	@GetMapping("/style/detail")
-	public ModelAndView detail(int board_id, @RequestParam(defaultValue = "0") int offset) {
-	    ModelAndView mview = new ModelAndView();
+	public ModelAndView detail(int board_id, HttpSession session) {
+		ModelAndView mview = new ModelAndView();
 
-	    List<Map<String, Object>> DetailList = SDservice.StyleDetailList();
-	    List<BoardDto> list = Bservice.getListBoard(board_id, offset);
-	    
+		String loginEmail = (String) session.getAttribute("loginEmail");
+		String user_num = uservice.findEmailUserNum(loginEmail);
+		
+		BoardDto bdto = SDservice.getData(board_id);
+		List<BoardDto> blist = Bservice.getList();
 
-	    BoardDto bdto = SDservice.getData(board_id);
-	    List<BoardDto> blist = Bservice.getList();
+		List<Map<String, Object>> DetailList = SDservice.StyleDetailList();
 
-	    mview.addObject("offset", offset);
-	    mview.addObject("list", list);
-	    mview.addObject("DetailList", DetailList);
-	    mview.addObject("bdto", bdto);
-	    mview.addObject("blist", blist);
+		mview.addObject("DetailList", DetailList);
+		mview.addObject("bdto", bdto);
+		mview.addObject("blist", blist);
 
-	    mview.setViewName("/style/styledetail");
+		mview.setViewName("/style/styledetail");
 
-	    return mview;
+		return mview;
 	}
-
-	// 리스트 무한스크롤 ajax
-		@GetMapping("/style/styleDetailScroll")
-		@ResponseBody
-		public List<BoardDto> styleDetailScroll(int board_id,int offset) {
-
-			List<BoardDto> list = Bservice.getListBoard(board_id, offset);
-			
-			return list;
-		}
 
 	@GetMapping("/style/comments/{board_id}")
 	@ResponseBody

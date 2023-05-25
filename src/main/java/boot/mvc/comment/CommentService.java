@@ -14,4 +14,11 @@ public class CommentService implements CommentServiceInter {
 		// TODO Auto-generated method stub
 		mapper.insertComment(CDto);
 	}
+
+	@Override
+	public void updateComment(CommentDto CDto) {
+		// TODO Auto-generated method stub
+		mapper.updateComment(CDto);
+		
+	}
 }

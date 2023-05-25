@@ -35,9 +35,9 @@ public class BoardService implements BoardServiceInter {
 	}
 
 	@Override
-	public Map<String, String> getBoardId(int board_id) {
+	public int getBoardId(String myid) {
 		// TODO Auto-generated method stub
-		return mapper.getBoardId(board_id);
+		return mapper.getBoardId(myid);
 	}
 
 	@Override

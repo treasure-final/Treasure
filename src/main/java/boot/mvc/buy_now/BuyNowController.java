@@ -128,7 +128,6 @@ public class BuyNowController {
         BuyNowDto buyNowDto=service.getBuyNowData(sell_num);
         ItemDto itemDto=itemService.getItemData(buyNowDto.getItem_num());
         String orderNum=orderService.getNowinsertOrderNum();
-        //System.out.println("orderNum"+orderNum);
         OrderDto orderDto=orderService.getOrderData(orderNum);
 
         String loginEmail = (String) session.getAttribute("loginEmail");

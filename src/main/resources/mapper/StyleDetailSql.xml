@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boot.mvc.style.StyleMapperInter">
+	<!-- 스타일 전체리스트 불러오기 -->
+	<select id="StyleDetailList" resultType="Map">
+		select *
+		from board b
+		join user u on b.user_num = u.user_num
+		order by b.board_writeday desc
+	</select>
+	<select id="getData" resultType="BoardDto" parameterType="int">
+		select *
+		from board
+		where board_id=#{board_id}
+	</select>
+	<select id="selectCommentsByBoardId" resultType="Map">
+		select *
+		from comment c
+		join user u
+		on c.user_num = u.user_num
+		where board_id =#{board_id};
+	</select>
+
+	<select id="getImageList" resultType="Map">
+		select board_image
+		from board
+		where board_id = #{board_id}
+	</select>
+</mapper>

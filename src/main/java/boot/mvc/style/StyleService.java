@@ -36,13 +36,6 @@ public class StyleService implements StyleServiceInter {
 		return mapper.selectCommentsByBoardId(board_id);
 	}
 
-	@Override
-	public List<BoardDto> getListBoard(int board_id, int offset) {
-		Map<String, Integer> map = new HashMap<>();
-		map.put("board_id", board_id);
-		map.put("offset", offset);
-		return mapper.getListBoard(map);
-	}
 
 	
 

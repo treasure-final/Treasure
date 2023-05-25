@@ -12,7 +12,7 @@ public class CommentDto {
 	private String comment_id;
 	private String comment_content;
 	private String user_num;
-	private int board_id;
+	private String board_id;
 	private String myid;
 	private Timestamp comment_writeday;
 }

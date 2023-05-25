@@ -10,8 +10,8 @@ import lombok.Data;
 @Data
 @Alias("BoardDto")
 public class BoardDto {
-private int board_id;   
-private int user_num;
+private String board_id;   
+private String user_num;
 private int item_num;
 private String board_content;
 private String board_image;

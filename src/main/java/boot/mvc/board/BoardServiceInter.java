@@ -11,7 +11,5 @@ public interface BoardServiceInter {
    public void deleteStyle(String board_id);
    public Map<String, String> getBoardId(int board_id);
    public List<BoardDto> getListBoard(int board_id, int offset);
-
-
-
+   public String getBoardDtoByUserNum(String user_num);
 }

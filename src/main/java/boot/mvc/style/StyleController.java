@@ -1,7 +1,5 @@
 package boot.mvc.style;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,26 +12,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import boot.mvc.board.BoardDto;
 import boot.mvc.board.BoardService;
-import boot.mvc.buy_bid.BuyBidDto;
-import boot.mvc.item.ItemDto;
 import boot.mvc.user.UserService;
 
 @Controller
 public class StyleController {
 
 	@Autowired
-	StyleService SDservice;
+	StyleService Sservice;
 
 	@Autowired
 	BoardService Bservice;
@@ -42,43 +34,28 @@ public class StyleController {
 	UserService uservice;
 
 	@GetMapping("/style/detail")
-	public ModelAndView detail(int board_id, @RequestParam(defaultValue = "0") int offset) {
-	    ModelAndView mview = new ModelAndView();
+	public ModelAndView detail(int board_id, HttpSession session) {
+		ModelAndView mview = new ModelAndView();
+		String loginEmail = (String) session.getAttribute("loginEmail");
 
-	    List<Map<String, Object>> DetailList = SDservice.StyleDetailList();
-	    List<BoardDto> list = Bservice.getListBoard(board_id, offset);
-	    
+		BoardDto bdto = Sservice.getData(board_id);
+		List<BoardDto> blist = Bservice.getList();
 
-	    BoardDto bdto = SDservice.getData(board_id);
-	    List<BoardDto> blist = Bservice.getList();
+		List<Map<String, Object>> DetailList = Sservice.StyleDetailList();
 
-	    mview.addObject("offset", offset);
-	    mview.addObject("list", list);
-	    mview.addObject("DetailList", DetailList);
-	    mview.addObject("bdto", bdto);
-	    mview.addObject("blist", blist);
+		mview.addObject("DetailList", DetailList);
+		mview.addObject("bdto", bdto);
+		mview.addObject("blist", blist);
 
-	    mview.setViewName("/style/styledetail");
+		mview.setViewName("/style/styledetail");
 
-	    return mview;
+		return mview;
 	}
-
-	// 리스트 무한스크롤 ajax
-		@GetMapping("/style/styleDetailScroll")
-		@ResponseBody
-		public List<BoardDto> styleDetailScroll(int board_id,int offset) {
-
-			List<BoardDto> list = Bservice.getListBoard(board_id, offset);
-			
-			return list;
-		}
 
 	@GetMapping("/style/comments/{board_id}")
 	@ResponseBody
-	public ResponseEntity<List<Map<String, Object>>> getCommentsByBoardId(@PathVariable("board_id") int board_id)
-	
-	{
-		List<Map<String, Object>> comments = SDservice.selectCommentsByBoardId(board_id);
+	public ResponseEntity<List<Map<String, Object>>> getCommentsByBoardId(@PathVariable("board_id") int board_id) {
+		List<Map<String, Object>> comments = Sservice.selectCommentsByBoardId(board_id);
 		return ResponseEntity.ok(comments);
 	}
 	

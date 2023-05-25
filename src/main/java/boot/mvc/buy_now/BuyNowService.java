@@ -38,4 +38,9 @@ public class BuyNowService implements BuyNowServiceInter {
     public void updateSellStatus(String sell_num) {
         mapper.updateSellStatus(sell_num);
     }
+
+    @Override
+    public BuyNowDto getBuyNowData(String sell_num) {
+        return mapper.getBuyNowData(sell_num);
+    }
 }

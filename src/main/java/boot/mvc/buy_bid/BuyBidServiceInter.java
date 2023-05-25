@@ -13,5 +13,6 @@ public interface BuyBidServiceInter {
     public List<BuyBidDto> getBuyBidData(String user_num);
     public List<BuyBidDto> getItemInfoByBuyBid(String user_num);
     public String getNowinsertBuyBidNum();
-
+    public List<BuyBidDto> getListBuyBidTotal(String user_num, int offset);
+    public int getTotalBuyBidCount(String user_num);
 }

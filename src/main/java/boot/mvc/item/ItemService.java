@@ -2,13 +2,16 @@ package boot.mvc.item;
 
 
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 
 @Service
@@ -18,9 +21,11 @@ public class ItemService implements ItemServiceInter {
 	ItemMapperInter inter;
 
 	@Override
+
 	public int getTotalCount() {
 		return inter.getTotalCount();
 	}
+
 
 	@Override
 	public List<ItemDto> getAllData() {
@@ -69,4 +74,9 @@ public class ItemService implements ItemServiceInter {
 		map.put("brand",brand);
 		return inter.searchItems(map);
 	}
+
+
+
+
+	
 }

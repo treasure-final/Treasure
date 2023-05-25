@@ -2,6 +2,7 @@ package boot.mvc.sell_total;
 
 import org.apache.ibatis.type.Alias;
 
+import boot.mvc.buy_bid.BuyBidDto;
 import boot.mvc.item.ItemDto;
 import boot.mvc.sell_bid.SellBidDto;
 import boot.mvc.sell_now.SellNowDto;
@@ -19,6 +20,8 @@ public class SellTotalDto {
 	private SellTotalDto sellTotalDto;
 	private SellNowDto sellNowDto;
 	private SellBidDto sellBidDto;
+	private BuyBidDto buyBidDto; 
+	
 	
 	public ItemDto getItemDto() {
 		return itemDto;
@@ -44,5 +47,16 @@ public class SellTotalDto {
 	public void setSellBidDto(SellBidDto sellBidDto) {
 		this.sellBidDto = sellBidDto;
 	} 
+	public BuyBidDto getBuyBidDto() {
+		return buyBidDto;
+	}
+
+	public void setBuyBidDto(BuyBidDto buyBidDto) {
+		this.buyBidDto = buyBidDto;
+	}
+	
+	
+	
+	
 	
 }

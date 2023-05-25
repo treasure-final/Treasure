@@ -16,4 +16,6 @@ public interface BuyBidMapperInter {
     public List<BuyBidDto> getBuyBidData(String user_num);
     public List<BuyBidDto> getItemInfoByBuyBid(String user_num);
     public String getNowinsertBuyBidNum();
+    List<BuyBidDto> getListBuyBidTotal(Map<String, Object> map);
+    public int getTotalBuyBidCount(String user_num);
 }

@@ -27,10 +27,8 @@
 
     <title></title>
 
-    <script type="text/javascript">
 
 
-    </script>
 
 
     <style type="text/css">
@@ -189,6 +187,7 @@
 
         #container {
             width: 1000px;
+            min-height : 60vh;
         }
     </style>
 </head>
@@ -209,7 +208,9 @@
         </ul>
     </div>
 
+
     <div class="Kategorie" style=" width: 200px; float: left; ">
+
 
         <form action="itemck" method="get">
 
@@ -281,11 +282,12 @@
                 <span style="vertical-align: top;">Wooyoungmi</span></label>
             <br>
 
-            <label><input type="radio" name="brand" value="Porter"><span
-                    style="vertical-align: top;">Porter</span></label>
-
+            
 
             <br><br>
+
+
+
 
 
             <b style="font-size: 20px;">카테고리</b>
@@ -317,7 +319,7 @@
     </div>
 
 
-    <div style="width:1000px; height: 5100px; margin-left: 20%; padding-left: 0px;">
+    <div style="width:1000px; margin-left: 20%; padding-left: 0px;">
         <div>
             <b style=" margin-left: 60px; float: left"> 상품 ${totitem } ${stotitem } ${soritem } 개</b>
             <div class="sortitembtn" align="right" style="margin-right: 30px; cursor: pointer">
@@ -346,5 +348,9 @@
         </div>
     </div>
 </div>
+
 </body>
+
+
 </html>
+

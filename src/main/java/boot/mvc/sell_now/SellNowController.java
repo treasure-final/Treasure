@@ -1,6 +1,7 @@
 package boot.mvc.sell_now;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpSession;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import boot.mvc.buy_bid.BuyBidService;
 import boot.mvc.buy_now.BuyNowService;
+import boot.mvc.order.OrderDto;
+import boot.mvc.order.OrderService;
 import boot.mvc.sell_total.SellTotalDto;
 import boot.mvc.sell_total.SellTotalService;
 import boot.mvc.user.UserService;
@@ -35,9 +38,12 @@ public class SellNowController {
 	@Autowired
 	SellTotalService sellTotalService;
 	
+	@Autowired
+	OrderService orderService;
+	
 	@PostMapping("/sell/insertSellNow")
 	@ResponseBody
-	public String sellNow(@RequestParam String item_num,
+	public Map<String, String> sellNow(@RequestParam String item_num,
 			@RequestParam String buy_num,
 			@RequestParam int totalPrice,
 			@RequestParam String name, 
@@ -48,6 +54,8 @@ public class SellNowController {
 			@RequestParam String penaltypay1, 
 			@RequestParam String penaltypay2,
 			HttpSession session) {
+		
+		Map<String, String> map=new HashMap<>();
 		
 		String loginEmail = (String) session.getAttribute("loginEmail");
 	      
@@ -92,8 +100,7 @@ public class SellNowController {
         	sellNowDto.setSell_status("판매완료");    
         	sellNowDto.setTest_result(test_result);
         	
-        	sellNowService.insertSellNow(sellNowDto);     	
-
+        	sellNowService.insertSellNow(sellNowDto);
         }
         
         String sellnow_num = sellNowService.getNowinsertSellNowNum();
@@ -105,14 +112,27 @@ public class SellNowController {
         sellTotalDto.setSellnow_num(sellnow_num);        
         
         sellTotalService.insertSellNow(sellTotalDto);
-        String selltotal_num = sellTotalService.getNowinsertSellTotalNum();        
-        
+ 
         if(test_result.equals("합격")) {
-        	         
-            buyBidService.updateBuyStatus(buy_num);      	
+        	// insertOrder  
+        	
+        	OrderDto orderDto = new OrderDto();
+        	
+        	orderDto.setBuy_user(buyBidService.getDataOfBuyBid(buy_num).getUser_num());
+        	orderDto.setSell_user(user_num);
+        	orderDto.setItem_num(item_num);
+          	orderDto.setSize(buyBidService.getDataOfBuyBid(buy_num).getBuy_size());
+        	orderDto.setWish_price(Integer.parseInt(buyBidService.getDataOfBuyBid(buy_num).getBuy_wishprice()));            
+			
+			orderService.insertOrder(orderDto);
+			buyBidService.updateBuyStatus(buy_num);      	
             
         }
         
-		return loginEmail;
+        map.put("sellnow_num", sellnow_num);
+        map.put("loginEmail", loginEmail);
+        map.put("user_num", user_num);
+        
+		return map;
 	}
 }

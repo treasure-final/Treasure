@@ -247,9 +247,9 @@ div.buy_size:hover {
 				//구매동의로 이동
 				var data = "item_num=${item_num}&size=" + size + "&deliveryWay=" + deliveryWay;
 				if ($(this).hasClass("fastbox")) {
-					location.href = "order?" + data + "&orderPrice=" + uncomma(price);;
+					location.href = "order?" + data + "&orderPrice=" + uncomma(price);
 				} else {
-					location.href = "check?" + data + "&price=" + price;;
+					location.href = "check?" + data + "&price=" + price;
 				}
 
 			}

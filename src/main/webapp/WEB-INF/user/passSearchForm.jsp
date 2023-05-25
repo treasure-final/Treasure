@@ -135,7 +135,7 @@
         }
     </style>
     <script>
-        $(document).ready(function () {
+        $(function () {
             $("#result-form").hide();
             $(".btn-search").click(function () {
                 let email = $("#email").val();
@@ -146,7 +146,7 @@
                     success: function(res) {
                         $("#search-form").hide();
                         if (res===1) {
-                            $("#content").innerHTML("입력하신 이메일로 임시 비밀번호를 전송하였습니다.");
+                            $("#content").text("입력하신 이메일로 임시 비밀번호를 전송하였습니다.");
                         } else {
                             $("#content").append("가입된 이메일이 존재하지 않습니다.");
                             $(".moveLogin").hide();
@@ -167,7 +167,7 @@
         이메일
         <input type="text" name="email" id="email" required="required">
 
-        <input type="button" value="임시 비밀번호 전송" class="btn-search submitBtn">
+        <input type="button" value="임시 비밀번호 전송" class="btn-search submitBtn" style="cursor: pointer">
     </form>
     <form id="result-form">
         <div id="content" align="center"></div>

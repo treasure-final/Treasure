@@ -44,7 +44,6 @@
 
         .container {
             width: 82%;
-            height: 1200px;
             padding: 40px;
             box-sizing: border-box;
             margin-left: 0px;
@@ -82,16 +81,16 @@
         }
 
         .sub-menu {
-            opacity: 0.5;           
+            opacity: 0.5;
         }
-        
-        .subsub-menu{
-	cursor: pointer;
-}
 
-.subsub-menu:hover{
-	color: #747f55;
-}
+        .subsub-menu {
+            cursor: pointer;
+        }
+
+        .subsub-menu:hover {
+            color: #747f55;
+        }
 
         #logo {
             font-size: 20px;
@@ -129,20 +128,10 @@
             background-color: #f3f3f3;
         }
 
-        .sellImg {
+        .buyImg {
             width: 100px;
             height: 100px;
             border-radius: 15px;
-        }
-
-        .sellDescription {
-            width: 500px;
-            display: flex;
-            flex-direction: column;
-            margin-left: 10px;
-            font-size: 13px;
-            margin-top: 15px;
-            padding-top: 8px;
         }
 
         .process-menu {
@@ -158,6 +147,19 @@
         .menu-num {
             font-size: 15px;
             font-weight: bold;
+        }
+
+        .buyDescription {
+            width: 500px;
+            display: flex;
+            flex-direction: column;
+            margin-left: 10px;
+            font-size: 13px;
+            margin-top: 15px;
+        }
+
+        img {
+            cursor: pointer;
         }
     </style>
 
@@ -221,17 +223,26 @@
             str = String(str);
             return str.replace(/[^\d]+/g, '');
         }
+
+        function moveDetailPage(sell_num) {
+            location.href = '/buy/ordersuccess?sell_num='+sell_num;
+        }
+
+        function moveDetailPage2(sell_num) {
+            alert(sell_num);
+            location.href = '/buy/ordersuccess?sell_num='+sell_num;
+        }
     </script>
-    
+
     <script type="text/javascript">
-$(function(){
-	
-	$(".notready").click(function(){
-		
-		alert("서비스 준비 중입니다")
-	});
-})
-</script>
+        $(function () {
+
+            $(".notready").click(function () {
+
+                alert("서비스 준비 중입니다")
+            });
+        })
+    </script>
 </head>
 <body>
 <div class="wrapper">
@@ -259,12 +270,11 @@ $(function(){
         </div>
     </div>
 
-
     <div class="container">
         <h2 id="logo">구매 내역</h2>
         <div>
             <div class="process-menu" id="bid-menu" name="구매입찰">
-                <div class="menu-num" id="bid-num">${itemBuyBidJoinList.size()}</div>
+                <div class="menu-num" id="bid-num">${buyBidTotalCount}</div>
                 구매 입찰
             </div>
             <div class="process-menu" name="진행중">
@@ -280,7 +290,7 @@ $(function(){
         </div>
 
         <div class="sell-header" id="bid-header">
-            <div style="width: 750px">전체 ${itemBuyBidJoinList.size()}개</div>
+            <div style="width: 750px">전체 ${buyBidTotalCount}개</div>
             <div style="width:200px; padding-left: 230px">구매 희망가</div>
             <div style="width:200px; padding-right: 60px; padding-top: 4px">만료일</div>
         </div>
@@ -298,63 +308,68 @@ $(function(){
 
         <div style="margin-top: 30px;"></div>
 
-        <section id="bid-view">
+        <section1 id="bid-view">
             <c:forEach var="list" items="${itemBuyBidJoinList}" varStatus="i">
                 <div class="bid-content">
                     <div style="width:750px; display: flex; font-size: 15px;">
-                        <img class="sellImg" src="../img/item_image/${list.itemDto.item_image}">
-                        <div class="sellDescription">
+                        <img class="buyImg" src="../img/item_image/${list.itemDto.item_image}"
+                             onclick="moveDetailPage()">
+                        <div class="buyDescription">
                             <div>${list.itemDto.item_engname}</div>
                             <div style="opacity: 0.6">${list.itemDto.item_korname}</div>
                             <div>${list.buy_size}</div>
                         </div>
                     </div>
                     <div style="width:150px; color: #f15746;"></div>
-                    <div style="width:400px; margin-right: 0px; font-size: 14px;" class="wishprice${i.count}">${list.buy_wishprice}원</div>
+                    <div style="width:400px; margin-right: 0px; font-size: 14px;"
+                         class="wishprice${i.count}">${list.buy_wishprice}원
+                    </div>
                     <div style="width:150px; padding-right: 20px; font-size: 14px;">
                         <fmt:formatDate value="${list.buy_inputday}" pattern="yyyy/MM/dd"></fmt:formatDate></div>
                 </div>
             </c:forEach>
-        </section>
+        </section1>
 
-        <section id="ing-view">
+        <section2 id="ing-view">
             <c:forEach var="list" items="${purchaseIngList}">
-            <div class="bid-content">
-                <div style="width:750px; display: flex; font-size: 15px;">
-                    <img class="sellImg" src="../img/item_image/${list.itemDto.item_image}">
-                    <div class="sellDescription">
-                        <div>${list.itemDto.item_engname}</div>
-                        <div style="opacity: 0.6">${list.itemDto.item_korname}</div>
-                        <div>265</div>
+                <div class="bid-content">
+                    <div style="width:750px; display: flex; font-size: 15px;">
+                        <img class="buyImg" src="../img/item_image/${list.itemDto.item_image}">
+                        <div class="buyDescription">
+                            <div>${list.itemDto.item_engname}</div>
+                            <div style="opacity: 0.6">${list.itemDto.item_korname}</div>
+                            <div>265</div>
+                        </div>
+                    </div>
+                    <div style="width:150px; color: #f15746;"></div>
+                    <div style="width:150px; padding-right: 20px; font-size: 14px; text-align: center">
+                        대기 중<br><span style="opacity: 0.6; font-size: 14px;">발송 대기</span>
                     </div>
                 </div>
-                <div style="width:150px; color: #f15746;"></div>
-                <div style="width:150px; padding-right: 20px; font-size: 14px; text-align: center">
-                    대기 중<br><span style="opacity: 0.6; font-size: 14px;">발송 대기</span>
-                </div>
-            </div>
-                </c:forEach>
-        </section>
-
-        <section id="end-view">
-            <c:forEach var="list" items="${purchaseEndList}">
-            <div class="bid-content">
-                <div style="width:750px; display: flex; font-size: 15px;">
-                    <img class="sellImg" src="../img/item_image/${list.itemDto.item_image}">
-                    <div class="sellDescription">
-                        <div>${list.itemDto.item_engname}</div>
-                        <div style="opacity: 0.6">${list.itemDto.item_korname}</div>
-                        <div>255</div>
-                    </div>
-                </div>
-                <div style="width:150px; color: #f15746;"></div>
-                <div style="width:400px; margin-right: 30px"><fmt:formatDate value="${list.buynow_inputday}" pattern="yyyy/MM/dd"></fmt:formatDate></div>
-                <div style="width:300px; font-size: 15px;">
-                    배송완료
-                </div>
-            </div>
             </c:forEach>
-        </section>
+        </section2>
+
+        <section3 id="end-view">
+            <c:forEach var="list" items="${purchaseEndList}">
+                <div class="bid-content">
+                    <div style="width:750px; display: flex; font-size: 15px;">
+                        <img class="buyImg" src="../img/item_image/${list.itemDto.item_image}"
+                             onclick="moveDetailPage2(${list.sell_num})">
+                        <div class="buyDescription">
+                            <div>${list.itemDto.item_engname}</div>
+                            <div style="opacity: 0.6">${list.itemDto.item_korname}</div>
+                            <div>255</div>
+                        </div>
+                    </div>
+                    <div style="width:150px; color: #f15746;"></div>
+                    <div style="width:400px; margin-right: 30px"><fmt:formatDate value="${list.buynow_inputday}"
+                                                                                 pattern="yyyy/MM/dd"></fmt:formatDate></div>
+                    <div style="width:300px; font-size: 15px;">
+                        배송완료
+                    </div>
+                </div>
+            </c:forEach>
+        </section3>
 
     </div>
 
@@ -367,98 +382,44 @@ $(function(){
         console.log(window.innerHeight , window.scrollY,document.body.offsetHeight,document.body.scrollHeight)
         if((window.innerHeight + window.scrollY+1200) >= document.body.scrollHeight) {
 
-            offset=offset+6;   //데이터의 시작점 limit의 수와 똑같이 더해줘야함
+            offset = offset + 6;   //데이터의 시작점 limit의 수와 똑같이 더해줘야함
 
             $.ajax({
-                type:"get",
-                dataType:"json",
-                url:"/user/buyBidHistoryScroll",
-                data:{"offset":offset},
-                success:function(res){
-                    $.each(res,function(i,buyBidDto){   //res의 담겨있는 list를 이치함수로 받아와 반복문 실행
-                        let html = '312313';
-
-                        setTimeout(function() {
-                                html += '<div class="sell-content-no">';
-                                html += '   <div style="width: 600px; display: flex; font-size: 15px;">';
-                                html += '       <img class="sellImg" src="../img/item_image/' + buyBidDto.itemDto.item_image + '">';
-                                html += '       <div class="sellDescription">';
-                                html += '           <div>' + buyBidDto.itemDto.item_engname + '</div>';
-                                html += '           <div>' + buyBidDto.itemDto.item_korname + '</div>';
-                                html += '           <div>' + buyBidDto.buyBidDto.buy_size + '</div>';
-                                html += '       </div>';
-                                html += '   </div>';
-                                html += '   <div style="width: 100px;">' + buyBidDto.sellNowDto.test_result + '</div>';
-                                html += '   <div style="width: 100px;">' + buyBidDto.sellNowDto.sell_status + '</div>';
-                                html += '   <div style="width: 150px; margin-left: 15px;">' + buyBidDto.sellNowDto.sellnow_inputday + '</div>';
-                                html += '</div>';
-
-                            // if(buyBidDto.sell_num == null && buyBidDto.sellnow_num != null && buyBidDto.sellNowDto.test_result === '합격'){
-                            //     html += '<div class="sell-content sellNow" sellnow_num='+buyBidDto.sellnow_num+'>';
-                            //     html += '   <div style="width: 600px; display: flex; font-size: 15px;">';
-                            //     html += '       <img class="sellImg" src="../img/item_image/' + buyBidDto.itemDto.item_image + '">';
-                            //     html += '       <div class="sellDescription">';
-                            //     html += '           <div>' + buyBidDto.itemDto.item_engname + '</div>';
-                            //     html += '           <div style="opacity: 0.5;">' + buyBidDto.itemDto.item_korname + '</div>';
-                            //     html += '           <div>' + buyBidDto.buyBidDto.buy_size + '</div>';
-                            //     html += '       </div>';
-                            //     html += '   </div>';
-                            //     html += '   <div style="width: 100px; color: #31b46e;">' + buyBidDto.sellNowDto.test_result + '</div>';
-                            //     if(buyBidDto.sellNowDto.sell_status==='판매완료'){
-                            //         html += '   <div style="width: 100px; color: #31b46e;">' + buyBidDto.sellNowDto.sell_status + '</div>';
-                            //     }else if(buyBidDto.sellNowDto.sell_status==='판매대기'){
-                            //         html += '   <div style="width: 100px;">' + buyBidDto.sellNowDto.sell_status + '</div>';
-                            //     }
-                            //     html += '   <div style="width: 150px; margin-left: 15px;">' + buyBidDto.sellNowDto.sellnow_inputday + '</div>';
-                            //     html += '</div>';
-                            // };
-                            //
-                            // if(buyBidDto.sellnow_num == null && buyBidDto.sell_num != null  && buyBidDto.sellBidDto.test_result === '불합격'){
-                            //     html += '<div class="sell-content-no">';
-                            //     html += '   <div style="width: 600px; display: flex; font-size: 15px;">';
-                            //     html += '       <img class="sellImg" src="../img/item_image/' + buyBidDto.itemDto.item_image + '">';
-                            //     html += '       <div class="sellDescription">';
-                            //     html += '           <div>' + buyBidDto.itemDto.item_engname + '</div>';
-                            //     html += '           <div>' + buyBidDto.itemDto.item_korname + '</div>';
-                            //     html += '           <div>' + buyBidDto.sellBidDto.sell_size + '</div>';
-                            //     html += '       </div>';
-                            //     html += '   </div>';
-                            //     html += '   <div style="width: 100px;">' + buyBidDto.sellBidDto.test_result + '</div>';
-                            //     html += '   <div style="width: 100px;">' + buyBidDto.sellBidDto.sell_status + '</div>';
-                            //     html += '   <div style="width: 150px; margin-left: 15px;">' + buyBidDto.sellBidDto.sell_inputday + '</div>';
-                            //     html += '</div>';
-                            // };
-                            //
-                            // if(buyBidDto.sellnow_num == null && buyBidDto.sell_num != null  && buyBidDto.sellBidDto.test_result === '합격'){
-                            //     html += '<div class="sell-content sellBid" sell_num='+buyBidDto.sell_num+'>';
-                            //     html += '   <div style="width: 600px; display: flex; font-size: 15px;">';
-                            //     html += '       <img class="sellImg" src="../img/item_image/' + buyBidDto.itemDto.item_image + '">';
-                            //     html += '       <div class="sellDescription">';
-                            //     html += '           <div>' + buyBidDto.itemDto.item_engname + '</div>';
-                            //     html += '           <div style="opacity: 0.5;">' + buyBidDto.itemDto.item_korname + '</div>';
-                            //     html += '           <div>' + buyBidDto.sellBidDto.sell_size + '</div>';
-                            //     html += '       </div>';
-                            //     html += '   </div>';
-                            //     html += '   <div style="width: 100px; color: #31b46e;">' + buyBidDto.sellBidDto.test_result + '</div>';
-                            //     if(buyBidDto.sellBidDto.sell_status==='판매완료'){
-                            //         html += '   <div style="width: 100px; color: #31b46e;">' + buyBidDto.sellBidDto.sell_status + '</div>';
-                            //     }else if(buyBidDto.sellBidDto.sell_status==='판매대기'){
-                            //         html += '   <div style="width: 100px;">' + buyBidDto.sellBidDto.sell_status + '</div>';
-                            //     }
-                            //     html += '   <div style="width: 150px; margin-left: 15px;">' + buyBidDto.sellBidDto.sell_inputday + '</div>';
-                            //     html += '</div>';
-                            // };
-
+                type: "get",
+                dataType: "json",
+                url: "/user/buyBidHistoryScroll",
+                data: {"offset": offset},
+                success: function (res) {
+                    $.each(res, function (i, buyBidDto) {   //res의 담겨있는 list를 이치함수로 받아와 반복문 실행
+                        let html = '';
+                        setTimeout(function () {
+                            html += '<div class="bid-content">';
+                            html += '   <div style="width:700px; display: flex; font-size: 15px;">';
+                            html += '       <img class="buyImg" src="../img/item_image/' + buyBidDto.itemDto.item_image + '">';
+                            html += '       <div class="buyDescription">';
+                            html += '           <div>' + buyBidDto.itemDto.item_engname + '</div>';
+                            html += '           <div style="opacity: 0.6">' + buyBidDto.itemDto.item_korname + '</div>';
+                            html += '           <div>' + buyBidDto.buy_size + '</div>';
+                            html += '       </div>';
+                            html += '   </div>';
+                            html += '   <div style="width: 100px;">' + comma(buyBidDto.buy_wishprice) + '원' + '</div>';
+                            html += '   <div style="width: 100px;">' + buyBidDto.buy_inputday + '</div>';
+                            html += '</div>';
                             var addContent = document.createElement("div");
                             addContent.innerHTML = html;
-                            document.querySelector('section').appendChild(addContent);
-                        },700);
+                            document.querySelector('section1').appendChild(addContent);
+                        }, 700);
 
                     });
                 }
             });
         }
     };
+
+    function comma(str) {
+        str = String(str);
+        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    }
 </script>
 
 </body>

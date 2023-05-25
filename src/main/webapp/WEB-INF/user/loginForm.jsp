@@ -167,13 +167,17 @@ div.main {
     <form method="post" action="loginProc" id="login-form">
         이메일 주소
         <input type="text" name="email" id="email" placeholder="Email" required="required"
-               value="${sessionScope.saveOk==null?"":sessionScope.loginEmail }">
+               value="${sessionScope.saveOk==null?'':sessionScope.loginEmail==dto.board_id }">
         <span>${valid_email}</span>
         비밀번호
         <input type="password" name="password" id="password" placeholder="Password" required="required">
         <label for="remember-check">
-            <input type="checkbox" id="remember-check" name="saveOk" style="cursor: pointer; float: left"
-                   name="${sessionScope.saveOk==null?"":"checked"}">
+
+            <input type="checkbox" id="remember-check" name="saveOk" style="float: left"
+                   ${sessionScope.saveOk==null?"":"checked"}>
+
+           
+
         </label>
         <div style="margin-top: 13px; float: left">아이디 저장하기</div>
 

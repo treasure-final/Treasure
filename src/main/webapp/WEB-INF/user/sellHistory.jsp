@@ -228,7 +228,7 @@ $(function(){
 
     <div class="container">
     <h2 id="logo"><i>판매 내역</i></h2>
-    <div style="margin-bottom: 60px;"></div>
+    <div style="margin-bottom: 30px;"></div>
     
     
 	    <div class="sell-header">

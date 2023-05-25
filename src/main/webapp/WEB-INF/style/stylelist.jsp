@@ -176,7 +176,7 @@ $(function(){
 
         if($likeBtn.hasClass('active')){          
            $(this).find('img').attr({
-              'src': 'https://cdn-icons-png.flaticon.com/512/803/803087.png',
+              'src': '../img/style_image/redheart.png',
                alt:'찜하기 완료'
                 });
           
@@ -184,7 +184,7 @@ $(function(){
          }else{
             $(this).find('i').removeClass('fas').addClass('far')
            $(this).find('img').attr({
-              'src': 'https://cdn-icons-png.flaticon.com/512/812/812327.png',
+              'src': '../img/style_image/heart.png',
               alt:"찜하기"
            })
          }

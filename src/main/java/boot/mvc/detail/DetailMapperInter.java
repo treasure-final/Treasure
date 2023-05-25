@@ -13,15 +13,19 @@ public interface DetailMapperInter {
 	public ItemDto DetailgetData(String item_num);
 
 	public List<ItemDto> getAllData();
+	
+	public List<Map<String, Object>> getBuyBidGroupedData(Map<String, Object> map);
+	
+	public List<Map<String, Object>> getSellBidGroupedData(Map<String, Object> map);
+  
+	public List<Map<String, Object>> getOrderData(Map<String, Object> map);
+	
+	public List<Integer> getOrderRecentPrice(Map<String, Object> map);
+	
+	public List<Map<String, Object>> getOrderChartData(Map<String, Object> map);
 
-	public List<Map<String, Object>> getBuyBidGroupedData(String item_num);
-
-	public List<Map<String, Object>> getSellBidGroupedData(String item_num);
-
-	public List<Map<String, Object>> getOrderData(String item);
-
-	public int getOrderRecentPriceAll(String item_num);
-
-	public int getOrderRecentPriceSize(Map<String, Object> map);
+	public List<Map<String, Object>> getSellChartData(Map<String, Object> map);
+	
+	public List<Map<String, Object>> getBuyChartData(Map<String, Object> map);
 
 }

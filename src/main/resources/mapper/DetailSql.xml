@@ -18,75 +18,104 @@
 	</select>
 
 	<!-- 판매 입찰 리스트(사이즈, 판매희망가, 수량) -->
-	<select id="getBuyBidGroupedData" resultType="Map">
+	<select id="getBuyBidGroupedData" resultType="Map" parameterType="Map">
 		select buy_size, buy_wishprice, count(*) as count
 		from buy_bid
-		where item_num = #{item_num}
+		where item_num=#{item_num}
+		<if test="size != 'all'">
+		and buy_size=#{size}
+		</if>		
 		group by buy_size, buy_wishprice
-		order by buy_wishprice desc
+		order by buy_wishprice desc 
 	</select>
-
+	
 	<!-- 구매 입찰 리스트(사이즈, 판매희망가, 수량) -->
-	<select id="getSellBidGroupedData" resultType="Map">
+	<select id="getSellBidGroupedData" resultType="Map" parameterType="Map">
 		select sell_size, sell_wishprice, count(*) as count
 		from sell_bid
 		where item_num = #{item_num}
+		<if test="size != 'all'">
+		and sell_size=#{size}
+		</if>
 		group by sell_size, sell_wishprice
 		order by sell_wishprice desc
 	</select>
-
-	<!-- 체결 거래 리스트(사이즈, 거래가, 거래일) -->
-	<!-- <select id="getOrderData" resultType="Map" parameterType="Map">
-       select size, wish_price, order_date
-       from order
-       where item_num=#{item_num}
-       <if test="size != '모든 사이즈'">
-          and size=#{size}
-       </if>
-       order by order_date desc
-    </select> -->
-
-	<select id="getOrderData" resultType="Map" parameterType="String">
+  
+	<!-- 체결 거래 리스트(사이즈, 거래가, 거래일) -->	
+	<select id="getOrderData" resultType="Map" parameterType="Map">
 		select size, wish_price, order_date
 		from `order`
 		where item_num=#{item_num}
+		<if test="size != 'all'">
+			and size=#{size}
+		</if>
+		group by size, wish_price
 		order by order_date desc
 	</select>
 
-
-	<!-- 최근 거래가(전체 사이즈) -->
-	<select id="getOrderRecentPriceAll" resultType="int" parameterType="String">
+	<!-- 최근 거래가 -->
+<!-- 	<select id="getOrderRecentPrice" resultType="int" parameterType="Map">
+>>>>>>> ddb1c889d0d516a5eb2968ca6c80ea96077bbc76
 		select coalesce(
-					   (select wish_price
-						from `order` where item_num=#{item_num}
-						order by order_date desc limit 1),
-      0) as wish_price
-	</select>
-
-	<!-- 최근 거래가(특정 사이즈) -->
-	<select id="getOrderRecentPriceSize" resultType="int" parameterType="Map">
-		select coalesce(
-					   (select wish_price
-						from order
-						where item_num=#{item_num} and size=#{size}
-           order by order_date desc limit 1),
-        0) as wish_price
-	</select>
-
-	<!-- 최근 거래가(특정 사이즈) -->
-	<select id="getPurchaseRecentPriceSize" resultType="int">
+  			(select wish_price
+  			from `order`
+ 			where item_num=#{item_num}
+ 			<if test="size != 'all'">
+    		 and size=#{size} 
+    		</if> 
+  			order by order_date desc limit 2), 
+  		0) as wish_price
+	</select> -->
+		
+		<select id="getOrderRecentPrice" resultType="int" parameterType="Map">
 		select wish_price
-		from order
-		where item_num=#{item_num} and size=#{size} order by order_date desc limit 1
+  			from `order`
+ 			where item_num=#{item_num}
+ 			<if test="size != 'all'">
+    		 and size=#{size} 
+    		</if> 
+  			order by order_date desc limit 2
 	</select>
-
+	
 	<!-- 스타일 -->
 	<select id="getItemStyleList" resultType="BoardDto">
 		select * from board where item_num=#{item_num}
 	</select>
 
-	<!-- <select id="getPurchaseData" resultType="PurchaseDto" parameterType="Map">
-         select * from purchase where user_num=#{user_num} and item_num=#{item_num}
-     </select> -->
-
+    <!-- 시세 차트에 팔요한 데이터 : 체결거래 -->
+    <select id="getOrderChartData" resultType="Map" parameterType="Map">
+    	select size, wish_price, order_date from `order` where
+    	<if test="size != 'all'">
+    		 size=#{size} and 
+    	</if>
+    	<if test="start != 'null'">
+    		order_date between #{start} and #{end} and
+    	</if>
+    	item_num=#{item_num} order by order_date desc
+    </select>
+    
+     <!-- 시세 차트에 팔요한 데이터 : 판매입찰 -->
+    <select id="getSellChartData" resultType="Map" parameterType="Map">
+    	select sell_size, sell_wishprice, sell_inputday from sell_bid where
+    	<if test="size != 'all'">
+    		 sell_size=#{size} and 
+    	</if>
+    	<if test="start != 'null'">
+    		sell_inputday between #{start} and #{end} and
+    	</if>
+    	item_num=#{item_num} order by sell_inputday desc
+    </select>
+    
+     <!-- 시세 차트에 팔요한 데이터 : 구매입찰 -->
+    <select id="getBuyChartData" resultType="Map" parameterType="Map">
+    	select buy_size, buy_wishprice, buy_inputday from buy_bid where
+    	<if test="size != 'all'">
+    		 buy_size=#{size} and 
+    	</if>
+    	<if test="start != 'null'">
+    		buy_inputday between #{start} and #{end} and
+    	</if>
+    	item_num=#{item_num} order by buy_inputday desc
+    </select>
+    
 </mapper>

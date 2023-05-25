@@ -40,8 +40,6 @@ public class BuyNowController {
         ModelAndView mv=new ModelAndView();
         ItemDto dto=itemService.getItemData(item_num);
         List<SellBidDto> buyNowPrice=service.getBuyNowPrice(item_num);
-        System.out.println(buyNowPrice.size());
-//      System.out.println(item_num);
 
         mv.addObject("item_num",item_num);
         mv.addObject("dto",dto);
@@ -60,16 +58,29 @@ public class BuyNowController {
         mv.addObject("dto", dto);
         mv.addObject("size", size);
         mv.addObject("deliveryWay", deliveryWay);
-        mv.addObject("price", price.substring(3, price.length()));
-//      System.out.println(size);
 
+        if(price.contains("ONE SIZE")) {
+            mv.addObject("price", price.substring(8, price.length()));
+        } else if(price.contains("XXXL")) {
+            mv.addObject("price", price.substring(4, price.length()));
+        } else if(price.contains("XXL")) {
+            mv.addObject("price", price.substring(3, price.length()));
+        } else if(price.contains("XS") || price.contains("XL")) {
+            mv.addObject("price", price.substring(2, price.length()));
+        } else if(price.contains("S") || price.contains("M") || price.contains("L")) {
+            mv.addObject("price", price.substring(1, price.length()));
+        } else if(price!=null) {
+            mv.addObject("price", price.substring(3, price.length()));
+        }  else {
+            mv.addObject("price", price);
+        }
         mv.setViewName("/purchase/purchaseAgree");
         return mv;
     }
 
     //구매입찰/즉시구매 선택
     @GetMapping("/buy/type")
-    public ModelAndView selectType(String item_num, String size, String deliveryWay,String price) {
+    public ModelAndView selectType(String item_num, String size, String deliveryWay, String price) {
         ModelAndView mv = new ModelAndView();
 
         ItemDto dto=itemService.getItemData(item_num);
@@ -84,7 +95,7 @@ public class BuyNowController {
 
     //구매/결제
     @GetMapping("/buy/order")
-    public ModelAndView buyOrder(String item_num, String price, String orderPrice,
+    public ModelAndView buyOrder(String item_num, String orderPrice, String price,
                                  HttpSession session, String size, String deadline, String deliveryWay, String buyType) {
         ModelAndView mv = new ModelAndView();
         String loginEmail = (String) session.getAttribute("loginEmail");
@@ -93,11 +104,6 @@ public class BuyNowController {
         UserDto userDto = userService.getUserNumData(userNum);
         ItemDto dto=itemService.getItemData(item_num);
         mv.addObject("dto", dto);
-        if(orderPrice!=null) {
-            mv.addObject("price", orderPrice.substring(3, orderPrice.length()));
-        } else {
-            mv.addObject("price", price);
-        }
 
         mv.addObject("deadline", deadline);
         mv.addObject("item_num", item_num);
@@ -114,18 +120,33 @@ public class BuyNowController {
     }
 
     @GetMapping("/buy/ordersuccess")
-    public ModelAndView ordersuccess(String item_num, HttpSession session,String size) {
+    public ModelAndView ordersuccess(String sell_num, HttpSession session,String size) {
         ModelAndView mv=new ModelAndView();
 
-        ItemDto dto=itemService.getItemData(item_num);
-        mv.addObject("dto", dto);
+        BuyNowDto buyNowDto=service.getBuyNowData(sell_num);
+        ItemDto itemDto=itemService.getItemData(buyNowDto.getItem_num());
+        String orderNum=orderService.getNowinsertOrderNum();
+        System.out.println("orderNum"+orderNum);
+        OrderDto orderDto=orderService.getOrderData(orderNum);
+
         String loginEmail = (String) session.getAttribute("loginEmail");
         String userNum = userService.findEmailUserNum(loginEmail);
         UserDto userDto = userService.getUserNumData(userNum);
 
+        if(buyNowDto.getDelivery().equals("빠른배송")) {
+            int delivery=5000;
+            mv.addObject("delivery",delivery);
+        } else {
+            int delivery=3000;
+            mv.addObject("delivery",delivery);
+        }
+
+        mv.addObject("buyNowDto",buyNowDto);
+        mv.addObject("orderDto",orderDto);
+        mv.addObject("itemDto", itemDto);
         mv.addObject("userName", userDto.getUser_name());
         mv.addObject("userPhone", userDto.getUser_hp());
-        mv.addObject("size", size);
+        mv.addObject("size", orderDto.getSize());
 
         mv.setViewName("/purchase/purchaseSuccess");
         return mv;
@@ -153,15 +174,6 @@ public class BuyNowController {
 //        System.out.println(buy_addr);
 //        System.out.println(payment);
 
-        //order에 insert
-        OrderDto orderDto=new OrderDto();
-        orderDto.setSell_user(sell_user);
-        orderDto.setItem_num(item_num);
-        orderDto.setBuy_user(user_num);
-        orderDto.setSize(size);
-        orderDto.setWish_price(Integer.parseInt(wish_price));
-        orderService.insertOrder(orderDto);
-
         //buy_now에 insert
         BuyNowDto buyNowDto=new BuyNowDto();
         buyNowDto.setUser_num(user_num);
@@ -185,6 +197,15 @@ public class BuyNowController {
         //sell_bid에서 판매상태 '판매완료'로 변경
         service.updateSellStatus(sell_num);
 
-        return item_num;
+        //order에 insert
+        OrderDto orderDto=new OrderDto();
+        orderDto.setSell_user(sell_user);
+        orderDto.setItem_num(item_num);
+        orderDto.setBuy_user(user_num);
+        orderDto.setSize(size);
+        orderDto.setWish_price(Integer.parseInt(wish_price));
+        orderService.insertOrder(orderDto);
+
+        return sell_num;
     }
 }

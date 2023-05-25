@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -58,20 +59,33 @@ public class ItemController {
 	}
 
 	@GetMapping("/item/itemsearch")
-	public ModelAndView itemSearch(String searchText,
-								  String brand) {
-		System.out.println(searchText);
-		System.out.println(brand);
+	public ModelAndView itemSearch(String searchText,@RequestParam(required = false)String ck,@RequestParam(required = false) String brand) {
+//		System.out.println(searchText);
+//		System.out.println(brand);
 		ModelAndView mv=new ModelAndView();
 
-		List<ItemDto> searchList=service.searchItems(searchText,brand);
-		mv.addObject("searchList",searchList);
-		if(brand!=null) {
-			searchList=service.searchItems(searchText,brand);
-			mv.addObject("searchList",searchList);
-			return mv;
-		}
+		List<ItemDto> searchList=service.searchItems(searchText,ck,brand);
 		mv.addObject("searchText",searchText);
+		mv.addObject("searchList",searchList);
+		mv.setViewName("/item/searchList");
+		return mv;
+	}
+
+	@GetMapping("/item/searchselect")
+	@ResponseBody
+	public ModelAndView itemBrandSearch(String searchText,String ck,String brand) {
+		ModelAndView mv=new ModelAndView();
+
+		System.out.println(searchText);
+		System.out.println(brand);
+		System.out.println(ck);
+		if(ck!=null || brand!=null) {
+			List<ItemDto> searchList=service.searchItems(searchText,ck,brand);
+			mv.addObject("searchList",searchList);
+		} else {
+			List<ItemDto> searchList=service.searchItems(searchText,ck,brand);
+			mv.addObject("searchList",searchList);
+		}
 
 		mv.setViewName("/item/searchList");
 		return mv;

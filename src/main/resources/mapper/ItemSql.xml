@@ -12,7 +12,7 @@
 	</select>
 	
 	<select id="getCategory" parameterType="Map" resultType="ItemDto">
-  		select * from item  where
+  		select * from item where
   		<if test="brand!=null" > 
   		 item_brandname=#{brand} 
   		</if>
@@ -59,7 +59,7 @@
   			and
   		</if>
   		<if test="ck!=null">
-		  		(item_category= SUBSTRING_INDEX(#{ck}, ',', 1)  
+		  		(item_category= SUBSTRING_INDEX(#{ck}, ',', 1)
 	  		OR item_category= SUBSTRING_INDEX(SUBSTRING_INDEX(#{ck}, ',', -4),',',1)
 	  		OR item_category= SUBSTRING_INDEX(SUBSTRING_INDEX(#{ck}, ',', -3),',',1)
 	  		OR item_category= SUBSTRING_INDEX(SUBSTRING_INDEX(#{ck}, ',', -2),',',1)
@@ -76,15 +76,31 @@
 	<select id="getItemData" parameterType="String" resultType="ItemDto">
 	select * from item where item_num=#{item_num}
 	</select>
-
+	<!-- item 검색 쿼리 -->
 	<select id="searchItems" parameterType="Map" resultType="ItemDto">
 		SELECT *
 		FROM item
-		WHERE (item_engname LIKE CONCAT('%', #{searchText}, '%')
+		WHERE (
+		item_engname LIKE CONCAT('%', #{searchText}, '%')
 		OR item_korname LIKE CONCAT('%', #{searchText}, '%')
-		OR item_brandname LIKE CONCAT('%', #{searchText}, '%'))
-		<if test="brand != null">
-			AND item_brandname = #{brand}
+		OR item_brandname LIKE CONCAT('%', #{searchText}, '%')
+		)
+		<if test="ck != null or brand != null">
+			AND (
+			<if test="ck != null">
+				item_category= SUBSTRING_INDEX(#{ck}, ',', 1)
+				OR item_category= SUBSTRING_INDEX(SUBSTRING_INDEX(#{ck}, ',', -4),',',1)
+				OR item_category= SUBSTRING_INDEX(SUBSTRING_INDEX(#{ck}, ',', -3),',',1)
+				OR item_category= SUBSTRING_INDEX(SUBSTRING_INDEX(#{ck}, ',', -2),',',1)
+				OR item_category= SUBSTRING_INDEX(SUBSTRING_INDEX(#{ck}, ',', -1),',',1)
+			</if>
+			<if test="ck != null and brand != null">
+				AND
+			</if>
+			<if test="brand != null">
+				item_brandname = #{brand}
+			</if>
+			)
 		</if>
 	</select>
 	

@@ -163,7 +163,6 @@ public class BoardController {
 				}
 				
 				
-				
 				String loginEmail = (String) session.getAttribute("loginEmail");
 				// System.out.println(loginEmail);
 
@@ -180,19 +179,14 @@ public class BoardController {
 				
 				return bview;
 			}
-	 
-			
-		
-			 
-		  
-	
-		
-	 
+
 	 @GetMapping("/style/delete")
 	@ResponseBody
 	public void deleteStyle(@RequestParam String board_id)
 		{
 			service.deleteStyle(board_id);
 		}
+	 
+	 
 
 }

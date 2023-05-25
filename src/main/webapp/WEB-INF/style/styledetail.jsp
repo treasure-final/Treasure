@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -239,6 +240,47 @@ th.table_comment_writeday {
    font-weight: normal;
    color: gray
 }
+/*좋아요 하트 css  */
+.right_area{
+float: right;
+}
+
+.right_area>a{
+  text-decoration:none; color:inherit; cursor: pointer;
+}
+ .right_area .icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100vw * (45 / 1920));
+    height: calc(100vw * (45 / 1920));
+    border-radius: 50%;
+    border: solid 2px #eaeaea;
+    background-color: #fff;
+}
+
+.icon.heart img{
+    width: calc(100vw * (24 / 1920));
+    height: calc(100vw * (24 / 1920));
+}
+
+.icon.heart.fas{
+  color:red
+}
+.heart{
+    transform-origin: center;
+}
+.heart.active img{
+    animation: animateHeart .3s linear forwards;
+}
+
+@keyframes animateHeart{
+    0%{transform:scale(.2);}
+    40%{transform:scale(1.2);}
+    100%{transform:scale(1);}
+  }
+  
+  /*좋아요 하트 css 끝  */
 </style>
 </head>
 <body>
@@ -295,6 +337,9 @@ th.table_comment_writeday {
                </table>
             </div>
          </div>
+         
+         
+         
          <!-- 초기 콘텐츠 -->
          <div class="slideshow-container" style="width: 80%; margin-left: 500px">
             <div class="all">
@@ -311,9 +356,13 @@ th.table_comment_writeday {
             <div class="heart"></div>
          </div>
          <div class="board_like">
-            <img alt=" " src="../img/style_image/heart.png"
-               style="width: 30px; margin-right: 15px; margin-top: 5px; color: gray; cursor: pointer;"
-            >
+              <div class="right_area" >
+ 					 <a href="javascript:;" class="icon heart">
+					  				
+					<img src="../img/style_image/heart.png" alt="찜하기" style=" width: 15px; ">
+					
+ 					 </a>
+					</div>
          </div>
          <div style="margin-left: 500px; margin-top: 10px">좋아요 몇개</div>
          <div class="board_content">${Bdto.board_content }</div>
@@ -333,6 +382,14 @@ th.table_comment_writeday {
             </form>
          </div>
       </c:forEach>
+      
+      
+      
+      
+      
+      
+      
+      
       <script type="text/javascript">
       $(document).ready(function() {
          $(".board_id").each(function() {
@@ -394,6 +451,31 @@ th.table_comment_writeday {
               }
             });
           });
+          
+          
+          /*하트  */
+          
+          
+           var $likeBtn =$('.icon.heart');
+
+        $likeBtn.click(function(){
+        $likeBtn.toggleClass('active');
+
+        if($likeBtn.hasClass('active')){          
+           $(this).find('img').attr({
+              'src': 'https://cdn-icons-png.flaticon.com/512/803/803087.png',
+               alt:'찜하기 완료'
+                });
+          
+          
+         }else{
+            $(this).find('i').removeClass('fas').addClass('far')
+           $(this).find('img').attr({
+              'src': 'https://cdn-icons-png.flaticon.com/512/812/812327.png',
+              alt:"찜하기"
+           })
+         }
+     })
       })
       </script>
       <!-- 점 -->
@@ -491,5 +573,7 @@ th.table_comment_writeday {
             window.location.href = "/user/loginForm";
          });
    </script>
+
+
 </body>
 </html>

@@ -313,13 +313,13 @@
                             type: "post",
                             data:{"item_num":'${item_num}',
                                 "size":'${size}',
-                                "wish_price":${price},
+                                "wish_price": '${price}',
                                 "delivery":'${deliveryWay}',
                                 "buy_addr":'${userAddr}',
                                 "payment":pgName},
                             success:function(data) {
                                 alert(msg);
-                                location.href="ordersuccess?item_num="+data;
+                                location.href="ordersuccess?sell_num="+data;
                             },statusCode:{
                                 404:function() {
                                     alert("json 파일이 없어요");

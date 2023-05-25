@@ -7,4 +7,6 @@ public interface BoardServiceInter {
    public List<BoardDto> getList();
    public void deleteStyle(String board_id);
 
+
+
 }

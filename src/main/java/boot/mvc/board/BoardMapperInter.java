@@ -10,4 +10,6 @@ public interface BoardMapperInter {
 	public void insertStyle(BoardDto dto);
 	public List<BoardDto> getList();
 	public void deleteStyle(String board_id);
+	
+	
 }

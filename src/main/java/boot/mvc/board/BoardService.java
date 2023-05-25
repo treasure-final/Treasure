@@ -29,4 +29,7 @@ public void deleteStyle(String board_id) {
 	mapper.deleteStyle(board_id);
 }
 
+
+
+
 }

@@ -16,8 +16,10 @@
 	</select>
 	
 	<delete id="deleteStyle" parameterType="String">
-	delete form board where board_id=#{board_id}
+	delete from board where board_id=#{board_id}
 	</delete>
+	
+	
 	
 	
 		

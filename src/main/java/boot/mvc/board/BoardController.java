@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +46,7 @@ public class BoardController {
 		{
 			String [] photos=bdto.getBoard_image().split(",");
 				bdto.setDimage(photos[0]);
+				
 		}
 		
 		
@@ -68,7 +68,7 @@ public class BoardController {
 	}
 
 	@GetMapping("/style/writestyleform")
-	public String writemystyle(Model model, HttpSession session) {
+	public String writeMytyle(Model model, HttpSession session) {
 
 		String loginEmail = (String) session.getAttribute("loginEmail");
 		// System.out.println(loginEmail);
@@ -88,8 +88,8 @@ public class BoardController {
 
 	
 	 @PostMapping("/style/insert")
-	 public String insert(@ModelAttribute BoardDto
-	  bdto, @RequestParam ArrayList<MultipartFile> upload, HttpSession session) {
+	 public String insert(@ModelAttribute BoardDto bdto,
+	  @RequestParam ArrayList<MultipartFile> upload, HttpSession session) {
 		 
 	  String path=session.getServletContext().getRealPath("/img/style_image");
 	 System.out.println(path);
@@ -148,18 +148,49 @@ public class BoardController {
 	 
 	  
 	 @GetMapping("/style/mystyle")
-		public String mystyle() {
-		 
-		 
-		 
 		
-		 
-			return "/style/mystyle";
-		}
+		 public ModelAndView myStyle(Model model, HttpSession session) {
+				ModelAndView bview = new ModelAndView();
+
+				
+						List<BoardDto> list = service.getList();
+			
+				for(BoardDto bdto:list)
+				{
+					String [] photos =bdto.getBoard_image().split(",");
+						bdto.setDimage(photos[0]);
+						
+				}
+				
+				
+				
+				String loginEmail = (String) session.getAttribute("loginEmail");
+				// System.out.println(loginEmail);
+
+				String user_num = uservice.findEmailUserNum(loginEmail);
+				// System.out.println(user_num);
+
+				UserDto dto = uservice.getUserNumData(user_num);
+				
+				bview.addObject("list", list);
+				bview.setViewName("/style/mystyle");
+
+				bview.addObject("dto", dto);
+				bview.addObject("user_num", user_num);
+				
+				return bview;
+			}
 	 
-	 @GetMapping("/style/styledelete")
-		@ResponseBody
-		public void deleteMember(@RequestParam String board_id)
+			
+		
+			 
+		  
+	
+		
+	 
+	 @GetMapping("/style/delete")
+	@ResponseBody
+	public void deleteStyle(@RequestParam String board_id)
 		{
 			service.deleteStyle(board_id);
 		}

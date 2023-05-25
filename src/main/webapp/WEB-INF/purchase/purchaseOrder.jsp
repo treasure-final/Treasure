@@ -363,9 +363,9 @@
                         "deadline": "${deadline}",
                         "addr": addr_info
                     },
-                    dataType:"json",
-                    success: function (data) {
-                        location.href="buybidsuccess?buy_num="+data;
+                    success: function (res) {
+                        alert(res + "님 구매입찰이 완료되었습니다.")
+                        location.reload();
                     }
                 });
             });
@@ -488,63 +488,63 @@
     </script>
 </head>
 <body>
-    <div class="container">
-        <div><i id="logo">구매/결제</i></div>
-        <div class="hr"></div>
-        <div id="info" style="width: 100%; height: 20%; margin-left: 40px; margin-bottom: 20px;">
-            <img src="/img/item_image/${dto.item_image}"
-                 style="width: 110px; float: left; margin-right: 20px; border-radius: 10px;">
-            <div id="left-info"
-                 style="width: 70%; float: left; height: 40%; margin-right: 20px; margin-bottom: 10px; line-height: 20px; margin-top: 15px">
-                <div id="content" style="font-size: 14px;">
-                    <b style="font-size: 14px">${dto.item_modelnum}</b><br>
-                    ${dto.item_engname}
-                    <div style="opacity: 0.6; font-size: 14px;">${dto.item_korname}</div>
-                    ${size}
-                </div>
-            </div>
-            <div id="right-info"
-                 style="width: 90%; float: left; height: 40%;">
-                <span style="font-size: 18px;">배송 주소</span>
-                <a id="addr-btn" href="#addr-modal" rel="modal:open">+ 새 주소 추가</a>
-                <table>
-                    <tr>
-                        <td class="left-td">받는분</td>
-                        <td class="right-td" id="buy-name">${userName}</td>
-                    </tr>
-                    <tr>
-                        <td class="left-td">연락처</td>
-                        <td class="right-td" id="buy-phone">${userPhone}</td>
-                    </tr>
-                    <tr>
-                        <td class="left-td">배송 주소</td>
-                        <td class="right-td" id="buy-addr">${userAddr}</td>
-                    </tr>
-                </table>
+<div class="container">
+    <div><i id="logo">구매/결제</i></div>
+    <div class="hr"></div>
+    <div id="info" style="width: 100%; height: 20%; margin-left: 40px; margin-bottom: 20px;">
+        <img src="/img/item_image/${dto.item_image}"
+             style="width: 110px; float: left; margin-right: 20px; border-radius: 10px;">
+        <div id="left-info"
+             style="width: 70%; float: left; height: 40%; margin-right: 20px; margin-bottom: 10px; line-height: 20px; margin-top: 15px">
+            <div id="content" style="font-size: 14px;">
+                <b style="font-size: 14px">${dto.item_modelnum}</b><br>
+                ${dto.item_engname}
+                <div style="opacity: 0.6; font-size: 14px;">${dto.item_korname}</div>
+                ${size}
             </div>
         </div>
-        <div id="result-view" style="margin-left: 40px">
-            <div class="result-content"
-                 style="border-top: 1px solid #e3e3e3; width: 95%; margin-top: 10px;">
-            </div>
-            <div style="padding-bottom: 30px; font-size: 14px; opacity: 0.4">
-            </div>
-            <div style="font-size: 18px; margin-top: 5px">배송 방법</div>
-            <div class="select-box" id="basic-box">
+        <div id="right-info"
+             style="width: 90%; float: left; height: 40%;">
+            <span style="font-size: 18px;">배송 주소</span>
+            <a id="addr-btn" href="#addr-modal" rel="modal:open">+ 새 주소 추가</a>
+            <table>
+                <tr>
+                    <td class="left-td">받는분</td>
+                    <td class="right-td" id="buy-name">${userName}</td>
+                </tr>
+                <tr>
+                    <td class="left-td">연락처</td>
+                    <td class="right-td" id="buy-phone">${userPhone}</td>
+                </tr>
+                <tr>
+                    <td class="left-td">배송 주소</td>
+                    <td class="right-td" id="buy-addr">${userAddr}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div id="result-view" style="margin-left: 40px">
+        <div class="result-content"
+             style="border-top: 1px solid #e3e3e3; width: 95%; margin-top: 10px;">
+        </div>
+        <div style="padding-bottom: 30px; font-size: 14px; opacity: 0.4">
+        </div>
+        <div style="font-size: 18px; margin-top: 5px">배송 방법</div>
+        <div class="select-box" id="basic-box">
+            <c:if test="${deliveryWay eq 'nomal'}">
+                <img src="../../img/iconmonstr-shipping-box-3-240 (2).png" class="typeImg" style="float: left;">
+            </c:if>
+            <c:if test="${deliveryWay eq 'fast'}">
+                <img src="../../img/iconmonstr-weather-76-240 (1).png" class="typeImg" style="float: left;">
+            </c:if>
+            <div style="margin-top: 18px; margin-left: 65px; width: 300px; height: 55px; line-height: 20px">
                 <c:if test="${deliveryWay eq 'nomal'}">
-                    <img src="../../img/iconmonstr-shipping-box-3-240 (2).png" class="typeImg" style="float: left;">
+                    일반배송 3,000원
                 </c:if>
                 <c:if test="${deliveryWay eq 'fast'}">
-                    <img src="../../img/iconmonstr-weather-76-240 (1).png" class="typeImg" style="float: left;">
+                    빠른배송 5,000원
                 </c:if>
-                <div style="margin-top: 18px; margin-left: 65px; width: 300px; height: 55px; line-height: 20px">
-                    <c:if test="${deliveryWay eq 'nomal'}">
-                        일반배송 3,000원
-                    </c:if>
-                    <c:if test="${deliveryWay eq 'fast'}">
-                        빠른배송 5,000원
-                    </c:if>
-                    <br><span>
+                <br><span>
                 <c:if test="${deliveryWay eq 'nomal'}">
                     검수 후 배송 ・ 5-7일 내 도착 예정
                 </c:if>
@@ -553,13 +553,6 @@
                         id="tomorrow"></span> 도착 예정</span>
                 </c:if>
             </span></div>
-            </div>
-            <div class="select-box">
-                <img src="../../img/iconmonstr-building-5-240.png" class="typeImg" style="float: left">
-                <div style="margin-top: 18px; margin-left: 65px; width: 300px; height: 55px; line-height: 20px">
-                    창고보관 첫 30일
-                    <br><span style="opacity: 0.6;">배송 없이 창고에 보관 ・ 빠르게 판매 가능</span></div>
-            </div>
         </div>
         <div class="select-box">
             <img src="../../img/iconmonstr-building-5-240.png" class="typeImg" style="float: left">
@@ -570,197 +563,197 @@
     </div>
     <div id="totalOrderInfo" style="border-top: 1px solid #e3e3e3; width: 90%; height: 10%; margin-top: 40px; margin-left: 40px;
     padding-top: 35px">
-            <div style="font-size: 18px; margin-bottom: 10px">최종 주문 정보</div>
-            <div style="font-size: 14px">총 결제금액</div>
-            <div style="color: red; margin-left: 535px; font-size: 18px"><b id="totalPrice">173,500원</b></div>
-            <div id="sub-info" style="border-top: 2px solid #e3e3e3; padding-bottom: 50px; margin-top: 30px">
-                <table style="padding-top: 20px">
-                    <tr>
-                        <td id="priceName"></td>
-                        <td class="td2" align="right"><b id="price"></b></td>
-                    </tr>
-                    <tr>
-                        <td style="opacity: 0.8">검수비</td>
-                        <td class="td2" align="right">무료</td>
-                    </tr>
-                    <tr>
-                        <td style="opacity: 0.8">수수료</td>
-                        <td class="td2" align="right">2,500원</td>
-                    </tr>
-                    <tr>
-                        <td style="opacity: 0.8">배송비</td>
-                        <c:if test="${deliveryWay eq 'nomal'}">
-                            <td class="td2" align="right">3,000원</td>
-                        </c:if>
-                        <c:if test="${deliveryWay eq 'fast'}">
-                            <td class="td2" align="right">5,000원</td>
-                        </c:if>
-                    </tr>
-                </table>
-            </div>
-            <div id="purchaseForm" style="border-top: 1px solid #e3e3e3; padding-top: 35px">
-                <div style="font-size: 18px; margin-bottom: 10px">결제 방법</div>
-                <div style="font-size: 15px;">일반 결제 <span style="opacity: 0.6; font-size: 12px;">일시불・할부</span></div>
-                <div id="perchase-selectBox">
-                    <div class="pay-box" id="card" style="margin-right: 10px; cursor: pointer" name="uplus">
-                        신용카드
-                    </div>
-                    <div class="pay-box" style="cursor: pointer; float: left; padding-bottom: 13px" name="kakaopay">
-                        <div style="float: left">
-                            카카오페이
-                        </div>
-                        <div style="float: left; margin-top: 5px">
-                            <img src="../../img/kakaopay.png" id="kakaopay" style="width: 50px; margin-left: 90px;">
-                        </div>
-                    </div>
-                    <div style="clear: left"></div>
-                </div>
-            </div>
-            <div class="agree-box" id="immediateAgree">
-                <div class="agree-sub">
-                    <input type="checkbox" required="required" class="chk" name="chkBox" id="check1" style="width: 25px;">
-                    <label for="check1" style="margin-top: 8px;"></label>
-                    판매자의 판매거부, 배송지연, 미입고 등의 사유가 발생할 경우, 거래가 취소될 수 있습니다.<br>
-                    <span>앱 알림 해제, 알림톡 차단, 전화번호 변경 후 미등록 시에는 거래 진행 상태 알림을 받을 수 없습니다.</span>
-                </div>
-                <div class="agree-sub">
-                    <input type="checkbox" required="required" id="check2" name="chkBox" class="chk">
-                    <label for="check2" style="margin-top: 8px"></label>
-                    창고 보관을 선택한 경우, 구매자에게 배송되지 않고 TREASURE 창고에 보관됩니다.<br>
-                    <span>검수 합격 후 보관이 완료되면 창고 이용료(현재 첫 30일 무료)가 결제됩니다.</span>
-                </div>
-                <div class="agree-sub">
-                    <input type="checkbox" required="required" id="check3" name="chkBox" class="chk">
-                    <label for="check3" style="margin-top: 8px"></label>
-                    구매 입찰의 거래가 체결되면, 단순 변심이나 실수에 의한 취소가 불가능합니다.<br>
-                    <span>본 거래는 개인간 거래로 전자상거래법(제17조)에 따른 청약철회(환불, 교환) 규정이 적용되지 않습니다.</span>
-                </div>
-                <div class="agree-sub" style="border: none; font-weight: bold">
-                    구매 조건을 모두 확인하였으며, 입찰 진행에 동의합니다.
-                    <input type="checkbox" required="required" id="check4" name="chkBox" class="chk">
-                    <label for="check4"></label>
-                </div>
-            </div>
-            <div class="agree-box" id="bidAgree">
-                <div class="agree-sub">
-                    <input type="checkbox" required="required" class="chk" name="chkBox" id="check5" style="width: 25px;">
-                    <label for="check5" style="margin-top: 8px;"></label>
-                    판매자의 판매거부, 배송지연, 미입고 등의 사유가 발생할 경우, 거래가 취소될 수 있습니다.<br>
-                    <span>앱 알림 해제, 알림톡 차단, 전화번호 변경 후 미등록 시에는 거래 진행 상태 알림을 받을 수 없습니다.</span>
-                </div>
-                <div class="agree-sub">
-                    <input type="checkbox" required="required" id="check6" name="chkBox" class="chk">
-                    <label for="check6" style="margin-top: 8px"></label>
-                    구매 입찰의 거래가 체결되면, 단순 변심이나 실수에 의한 취소가 불가능합니다.<br>
-                    <span>본 거래는 개인간 거래로 전자상거래법(제17조)에 따른 청약철회(환불, 교환) 규정이 적용되지 않습니다.</span>
-                </div>
-                <div class="agree-sub" style="border: none; font-weight: bold">
-                    구매 조건을 모두 확인하였으며, 입찰 진행에 동의합니다.
-                    <input type="checkbox" required="required" id="check7" name="chkBox" class="chk">
-                    <label for="check7"></label>
-                </div>
-            </div>
-            <input type="hidden" id="userNum">
-            <div style="margin-top: 50px; font-size: 18px;">
-                <span><b>총 결제 금액</b></span><span style="margin-left: 435px; color: red"><b class="totalPrice"></b></span>
-            </div>
-            <input type="button" value="결제하기" class="btn-submit" id="btn-submit"><br><br>
-            <input type="button" value="구매입찰 하기" class="btn-submit" id="btn-bid"><br><br>
+        <div style="font-size: 18px; margin-bottom: 10px">최종 주문 정보</div>
+        <div style="font-size: 14px">총 결제금액</div>
+        <div style="color: red; margin-left: 535px; font-size: 18px"><b id="totalPrice">173,500원</b></div>
+        <div id="sub-info" style="border-top: 2px solid #e3e3e3; padding-bottom: 50px; margin-top: 30px">
+            <table style="padding-top: 20px">
+                <tr>
+                    <td id="priceName"></td>
+                    <td class="td2" align="right"><b id="price"></b></td>
+                </tr>
+                <tr>
+                    <td style="opacity: 0.8">검수비</td>
+                    <td class="td2" align="right">무료</td>
+                </tr>
+                <tr>
+                    <td style="opacity: 0.8">수수료</td>
+                    <td class="td2" align="right">2,500원</td>
+                </tr>
+                <tr>
+                    <td style="opacity: 0.8">배송비</td>
+                    <c:if test="${deliveryWay eq 'nomal'}">
+                        <td class="td2" align="right">3,000원</td>
+                    </c:if>
+                    <c:if test="${deliveryWay eq 'fast'}">
+                        <td class="td2" align="right">5,000원</td>
+                    </c:if>
+                </tr>
+            </table>
         </div>
+        <div id="purchaseForm" style="border-top: 1px solid #e3e3e3; padding-top: 35px">
+            <div style="font-size: 18px; margin-bottom: 10px">결제 방법</div>
+            <div style="font-size: 15px;">일반 결제 <span style="opacity: 0.6; font-size: 12px;">일시불・할부</span></div>
+            <div id="perchase-selectBox">
+                <div class="pay-box" id="card" style="margin-right: 10px; cursor: pointer" name="uplus">
+                    신용카드
+                </div>
+                <div class="pay-box" style="cursor: pointer; float: left; padding-bottom: 13px" name="kakaopay">
+                    <div style="float: left">
+                        카카오페이
+                    </div>
+                    <div style="float: left; margin-top: 5px">
+                        <img src="../../img/kakaopay.png" id="kakaopay" style="width: 50px; margin-left: 90px;">
+                    </div>
+                </div>
+                <div style="clear: left"></div>
+            </div>
+        </div>
+        <div class="agree-box" id="immediateAgree">
+            <div class="agree-sub">
+                <input type="checkbox" required="required" class="chk" name="chkBox" id="check1" style="width: 25px;">
+                <label for="check1" style="margin-top: 8px;"></label>
+                판매자의 판매거부, 배송지연, 미입고 등의 사유가 발생할 경우, 거래가 취소될 수 있습니다.<br>
+                <span>앱 알림 해제, 알림톡 차단, 전화번호 변경 후 미등록 시에는 거래 진행 상태 알림을 받을 수 없습니다.</span>
+            </div>
+            <div class="agree-sub">
+                <input type="checkbox" required="required" id="check2" name="chkBox" class="chk">
+                <label for="check2" style="margin-top: 8px"></label>
+                창고 보관을 선택한 경우, 구매자에게 배송되지 않고 TREASURE 창고에 보관됩니다.<br>
+                <span>검수 합격 후 보관이 완료되면 창고 이용료(현재 첫 30일 무료)가 결제됩니다.</span>
+            </div>
+            <div class="agree-sub">
+                <input type="checkbox" required="required" id="check3" name="chkBox" class="chk">
+                <label for="check3" style="margin-top: 8px"></label>
+                구매 입찰의 거래가 체결되면, 단순 변심이나 실수에 의한 취소가 불가능합니다.<br>
+                <span>본 거래는 개인간 거래로 전자상거래법(제17조)에 따른 청약철회(환불, 교환) 규정이 적용되지 않습니다.</span>
+            </div>
+            <div class="agree-sub" style="border: none; font-weight: bold">
+                구매 조건을 모두 확인하였으며, 입찰 진행에 동의합니다.
+                <input type="checkbox" required="required" id="check4" name="chkBox" class="chk">
+                <label for="check4"></label>
+            </div>
+        </div>
+        <div class="agree-box" id="bidAgree">
+            <div class="agree-sub">
+                <input type="checkbox" required="required" class="chk" name="chkBox" id="check5" style="width: 25px;">
+                <label for="check5" style="margin-top: 8px;"></label>
+                판매자의 판매거부, 배송지연, 미입고 등의 사유가 발생할 경우, 거래가 취소될 수 있습니다.<br>
+                <span>앱 알림 해제, 알림톡 차단, 전화번호 변경 후 미등록 시에는 거래 진행 상태 알림을 받을 수 없습니다.</span>
+            </div>
+            <div class="agree-sub">
+                <input type="checkbox" required="required" id="check6" name="chkBox" class="chk">
+                <label for="check6" style="margin-top: 8px"></label>
+                구매 입찰의 거래가 체결되면, 단순 변심이나 실수에 의한 취소가 불가능합니다.<br>
+                <span>본 거래는 개인간 거래로 전자상거래법(제17조)에 따른 청약철회(환불, 교환) 규정이 적용되지 않습니다.</span>
+            </div>
+            <div class="agree-sub" style="border: none; font-weight: bold">
+                구매 조건을 모두 확인하였으며, 입찰 진행에 동의합니다.
+                <input type="checkbox" required="required" id="check7" name="chkBox" class="chk">
+                <label for="check7"></label>
+            </div>
+        </div>
+        <input type="hidden" id="userNum">
+        <div style="margin-top: 50px; font-size: 18px;">
+            <span><b>총 결제 금액</b></span><span style="margin-left: 435px; color: red"><b class="totalPrice"></b></span>
+        </div>
+        <input type="button" value="결제하기" class="btn-submit" id="btn-submit"><br><br>
+        <input type="button" value="구매입찰 하기" class="btn-submit" id="btn-bid"><br><br>
     </div>
+</div>
 
-    <!-- 주소 modal창 -->
-    <div id="addr-modal">
-        <div align="center" style="margin-bottom: 30px; font-weight: bold">새 주소 추가</div>
-        <form id="addrForm">
-            <div class="modal-input">
-                이름<br>
-                <input type="text" id="modal-name" placeholder="수령인 이름 입력" required="required">
-            </div>
-            <div class="modal-input">
-                전화번호<br>
-                <input type="text" id="modal-phone" placeholder="- 없이 입력" required="required"
-                       oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
-            </div>
-            <input type="hidden" id="sample6_extraAddress">
-            <div class="modal-input">
-                우편번호<br>
-                <input type="text" placeholder="우편 번호를 검색하세요" class="none-input" id="sample6_postcode"
-                       readonly="readonly" style="float: left; width: 75%" required="required">
-                <input type="button" class="btn-modal addr-search" onclick="sample6_execDaumPostcode()" value="주소 검색"
-                       style="float: left; font-size: 12px; padding: 0px 19px; height: 40px; margin-top: 7px;
+<!-- 주소 modal창 -->
+<div id="addr-modal">
+    <div align="center" style="margin-bottom: 30px; font-weight: bold">새 주소 추가</div>
+    <form id="addrForm">
+        <div class="modal-input">
+            이름<br>
+            <input type="text" id="modal-name" placeholder="수령인 이름 입력" required="required">
+        </div>
+        <div class="modal-input">
+            전화번호<br>
+            <input type="text" id="modal-phone" placeholder="- 없이 입력" required="required"
+                   oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+        </div>
+        <input type="hidden" id="sample6_extraAddress">
+        <div class="modal-input">
+            우편번호<br>
+            <input type="text" placeholder="우편 번호를 검색하세요" class="none-input" id="sample6_postcode"
+                   readonly="readonly" style="float: left; width: 75%" required="required">
+            <input type="button" class="btn-modal addr-search" onclick="sample6_execDaumPostcode()" value="주소 검색"
+                   style="float: left; font-size: 12px; padding: 0px 19px; height: 40px; margin-top: 7px;
                             border-radius: 0px; border: none; border-bottom: 1px solid #e3e3e3">
-            </div>
-            <div style="clear: left; margin-bottom: 20px"></div>
-            <div class="modal-input">
-                주소<br>
-                <input type="text" id="sample6_address" placeholder="우편 번호 입력 시 자동 입력" class="none-input"
-                       readonly="readonly">
-            </div>
-            <div class="modal-input">
-                상세 주소<br>
-                <input type="text" id="sample6_detailAddress" placeholder="건물, 아파트, 동/호수 입력" required="required">
-            </div>
-            <div align="center">
-                <a href="#" rel="modal:close">
-                    <input type="button" class="btn-modal" value="취소">
-                </a>
-                <a href="#" rel="modal:close">
-                    <input type="button" class="btn-modal" id="modal-submit" value="저장">
-                </a>
-            </div>
-        </form>
-    </div>
+        </div>
+        <div style="clear: left; margin-bottom: 20px"></div>
+        <div class="modal-input">
+            주소<br>
+            <input type="text" id="sample6_address" placeholder="우편 번호 입력 시 자동 입력" class="none-input"
+                   readonly="readonly">
+        </div>
+        <div class="modal-input">
+            상세 주소<br>
+            <input type="text" id="sample6_detailAddress" placeholder="건물, 아파트, 동/호수 입력" required="required">
+        </div>
+        <div align="center">
+            <a href="#" rel="modal:close">
+                <input type="button" class="btn-modal" value="취소">
+            </a>
+            <a href="#" rel="modal:close">
+                <input type="button" class="btn-modal" id="modal-submit" value="저장">
+            </a>
+        </div>
+    </form>
+</div>
 
-    <!-- 주소api -->
-    <script type="text/javascript">
-        function sample6_execDaumPostcode() {
-            new daum.Postcode({
-                oncomplete: function (data) {
-                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+<!-- 주소api -->
+<script type="text/javascript">
+    function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function (data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-                    // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                    var addr = ''; // 주소 변수
-                    var extraAddr = ''; // 참고항목 변수
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
 
-                    //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-                    if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                        addr = data.roadAddress;
-                    } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                        addr = data.jibunAddress;
-                    }
-
-                    // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
-                    if (data.userSelectedType === 'R') {
-                        // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                        // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                        if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-                            extraAddr += data.bname;
-                        }
-                        // 건물명이 있고, 공동주택일 경우 추가한다.
-                        if (data.buildingName !== '' && data.apartment === 'Y') {
-                            extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                        }
-                        // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                        if (extraAddr !== '') {
-                            extraAddr = ' (' + extraAddr + ')';
-                        }
-                        // 조합된 참고항목을 해당 필드에 넣는다.
-                        document.getElementById("sample6_extraAddress").value = extraAddr;
-
-                    } else {
-                        document.getElementById("sample6_extraAddress").value = '';
-                    }
-
-                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                    document.getElementById('sample6_postcode').value = data.zonecode;
-                    document.getElementById("sample6_address").value = addr;
-                    // 커서를 상세주소 필드로 이동한다.
-                    document.getElementById("sample6_detailAddress").focus();
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
                 }
-            }).open();
-        }
-    </script>
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if (data.userSelectedType === 'R') {
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if (data.buildingName !== '' && data.apartment === 'Y') {
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if (extraAddr !== '') {
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+                    document.getElementById("sample6_extraAddress").value = extraAddr;
+
+                } else {
+                    document.getElementById("sample6_extraAddress").value = '';
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample6_postcode').value = data.zonecode;
+                document.getElementById("sample6_address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("sample6_detailAddress").focus();
+            }
+        }).open();
+    }
+</script>
 </body>
 </html>

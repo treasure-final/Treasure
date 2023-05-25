@@ -278,7 +278,7 @@
         </div>
     </div>
 
-    <div class="card-list" style="height: 350px;">
+    <div class="card-list" style="height: 380px;">
         <div style="margin-left: 10px;">
             <span style="font-weight: bold; font-size: 14px;">Items By Category </span><br>
             <span style="opacity: 0.6; font-size: 12px;">카테고리별 상품</span>
@@ -300,7 +300,8 @@
         </div>
         <div style="clear: left"></div>
     </div>
-    <div class="card-list">
+
+    <div class="card-list" style="height: 550px;">
         <div style="margin-left: 10px;">
             <span style="font-weight: bold; font-size: 14px;">Most Popular</span><br>
             <span style="opacity: 0.6; font-size: 12px;">인기 상품</span>
@@ -317,6 +318,54 @@
                                 ${dto.item_releaseprice}
                         </div>
                         <div style="font-size: 10px; opacity: 0.6;">즉시 구매가</div>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+        <div style="clear: left"></div>
+        <div id="hr4" style="width: 950px; border: 1px solid #e3e3e3; margin-top: 70px;"></div>
+    </div>
+
+    <div class="card-list" style="height: 450px;">
+        <div style="margin-left: 10px;">
+            <span style="font-weight: bold; font-size: 14px;">New In</span><br>
+            <span style="opacity: 0.6; font-size: 12px;">신규 등록 상품</span>
+        </div>
+        <div id="new-box">
+            <c:forEach items="${itemDtoList5}" var="dto" varStatus="i">
+                <div class="item-wrapper">
+                    <div class="item-box" style="margin-bottom: 20px; font-size: 5px;">
+                        <img src="../../img/item_image/${dto.item_image}">
+                        <div style="width: 220px; font-size: 10px; font-weight: bold;">${dto.item_brandname}</div>
+                        <div style="width: 220px; font-size: 9px;
+                        padding-top: 5px;">${dto.item_engname}</div>
+                        <div style="width: 220px; height: 20px; font-size: 9px; font-size: 13px; font-weight: bold; padding-top: 20px">
+                                ${dto.item_releaseprice}
+                        </div>
+                        <div style="font-size: 10px; opacity: 0.6;">즉시 구매가</div>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+        <div style="clear: left"></div>
+    </div>
+
+    <div class="card-list" style="height: 350px;">
+        <div style="margin-left: 10px;">
+            <span style="font-weight: bold; font-size: 14px;">Style Picks</span><br>
+        </div>
+        <div id="style-box">
+            <c:forEach items="${boardList}" var="dto" varStatus="i">
+                <div class="item-wrapper">
+                    <div class="item-box" style="margin-bottom: 20px; font-size: 5px; width: 160px;">
+                        <img src="../../img/style_image/${dto.board_image}" style="width: 150px;">
+                            <%--                        <div style="width: 220px; font-size: 10px; font-weight: bold;">${dto.item_brandname}</div>--%>
+                            <%--                        <div style="width: 220px; font-size: 9px;--%>
+                            <%--                        padding-top: 5px;">${dto.item_engname}</div>--%>
+                            <%--                        <div style="width: 220px; height: 20px; font-size: 9px; font-size: 13px; font-weight: bold; padding-top: 20px">--%>
+                            <%--                                ${dto.item_releaseprice}--%>
+                            <%--                        </div>--%>
+                            <%--                        <div style="font-size: 10px; opacity: 0.6;">즉시 구매가</div>--%>
                     </div>
                 </div>
             </c:forEach>

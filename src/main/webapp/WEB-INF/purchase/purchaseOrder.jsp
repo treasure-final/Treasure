@@ -48,7 +48,7 @@
 
         .container {
             width: 800px;
-            height: 1500px;
+            height: 2000px;
             padding: 40px;
             box-sizing: border-box;
             margin: 100px auto 200px auto;
@@ -561,7 +561,14 @@
                     <br><span style="opacity: 0.6;">배송 없이 창고에 보관 ・ 빠르게 판매 가능</span></div>
             </div>
         </div>
-        <div id="totalOrderInfo" style="border-top: 1px solid #e3e3e3; width: 90%; height: 10%; margin-top: 40px; margin-left: 40px;
+        <div class="select-box">
+            <img src="../../img/iconmonstr-building-5-240.png" class="typeImg" style="float: left">
+            <div style="margin-top: 18px; margin-left: 65px; width: 300px; height: 55px; line-height: 20px">
+                창고보관 첫 30일
+                <br><span style="opacity: 0.6;">배송 없이 창고에 보관 ・ 빠르게 판매 가능</span></div>
+        </div>
+    </div>
+    <div id="totalOrderInfo" style="border-top: 1px solid #e3e3e3; width: 90%; height: 10%; margin-top: 40px; margin-left: 40px;
     padding-top: 35px">
             <div style="font-size: 18px; margin-bottom: 10px">최종 주문 정보</div>
             <div style="font-size: 14px">총 결제금액</div>

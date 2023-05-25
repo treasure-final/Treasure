@@ -105,7 +105,6 @@ div.main {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	
 }
 
 .profilebtn {

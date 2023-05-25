@@ -167,7 +167,7 @@
         이메일
         <input type="text" name="email" id="email" required="required">
 
-        <input type="button" value="임시 비밀번호 전송" class="btn-search submitBtn">
+        <input type="button" value="임시 비밀번호 전송" class="btn-search submitBtn" style="cursor: pointer">
     </form>
     <form id="result-form">
         <div id="content" align="center"></div>

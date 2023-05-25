@@ -102,7 +102,8 @@ h6 {
 					<a href="#">1:1 문의하기는 앱에서만 가능합니다.</a>
 				</li>
 			</ul>
-			<button type="button" id="footquestion" onclick="#">자주묻는 질문</button>
+			<button type="button" id="footquestion" onclick="#
+">자주묻는 질문</button>
 		</div>
 	</div>
 		<hr>

@@ -104,7 +104,8 @@ public class BuyNowController {
         UserDto userDto = userService.getUserNumData(userNum);
         ItemDto dto=itemService.getItemData(item_num);
         mv.addObject("dto", dto);
-
+        mv.addObject("price", price);
+        mv.addObject("orderPrice", orderPrice);
         mv.addObject("deadline", deadline);
         mv.addObject("item_num", item_num);
         mv.addObject("buyType", buyType);
@@ -117,6 +118,7 @@ public class BuyNowController {
         mv.setViewName("/purchase/purchaseOrder");
 
         return mv;
+
     }
 
     @GetMapping("/buy/ordersuccess")
@@ -126,7 +128,7 @@ public class BuyNowController {
         BuyNowDto buyNowDto=service.getBuyNowData(sell_num);
         ItemDto itemDto=itemService.getItemData(buyNowDto.getItem_num());
         String orderNum=orderService.getNowinsertOrderNum();
-        System.out.println("orderNum"+orderNum);
+        //System.out.println("orderNum"+orderNum);
         OrderDto orderDto=orderService.getOrderData(orderNum);
 
         String loginEmail = (String) session.getAttribute("loginEmail");
@@ -164,15 +166,6 @@ public class BuyNowController {
         List<SellBidDto> list=service.getBuyNowPrice(item_num);
         String sell_user=list.get(0).getUser_num();
         String sell_num=list.get(0).getSell_num();
-
-//        System.out.println(item_num);
-//        System.out.println(wish_price);
-//        System.out.println(size);
-//        System.out.println(sell_user);
-//        System.out.println(sell_num);
-//        System.out.println(delivery);
-//        System.out.println(buy_addr);
-//        System.out.println(payment);
 
         //buy_now에 insert
         BuyNowDto buyNowDto=new BuyNowDto();

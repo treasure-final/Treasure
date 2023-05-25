@@ -214,27 +214,49 @@
         }
     </style>
 </head>
+<script>
+    let deadline = '${buyBidDto.buy_deadline}';
+    let today = new Date();
+    let year = today.getFullYear();
+    let month = today.getMonth() + 1
+    if(deadline===30) {
+        month+=1;
+        deadline-=31;
+    }
+    if (deadline===60) {
+        month+=2;
+        deadline-=61;
+    }
+    let date = today.getDate() + parseInt(deadline);
+    defaultDate = today.getDate() + 30;
+    var deadDay = year + "/" + month + "/" + date;
+
+    $(function() {
+        $("#deadline").append(deadDay+" (${buyBidDto.buy_deadline}일)");
+    });
+</script>
 <body>
     <div class="login-wrapper">
         <div>
-            <i id="logo">즉시 구매가 완료되었습니다</i>
+            <i id="logo">구매입찰이 완료되었습니다</i>
         </div>
         <div class="hr"></div>
         <div style="display:flex; justify-content: center;">
             <img src="/img/item_image/${itemDto.item_image}" class="order_image">
         </div>
         <div style="display:flex; justify-content: center; margin-bottom: 100px;">
-        <span style="margin-bottom: 20px; font-size: 12pt; color: dimgray;">구매한 상품은 전문가 검수 완료 후, 안전하게 배송될 예정입니다.</span>
+        <span style="margin-bottom: 20px; font-size: 12pt; color: dimgray;">결제는 거래가 성사되는 시점에 등록하신 결제 정보로 자동 처리됩니다.</span>
         </div>
         <div style="font-size: 16pt;">
-        <span>총 결제금액</span><span style="float: right;"><b style="color: #ff6961; font-style: italic;"><fmt:formatNumber value="${buyNowDto.buynow_price+delivery+2500}" pattern="###,###,###"/></b> 원</span>
+        <span>총 결제금액</span><span style="float: right;"><b style="color: #ff6961; font-style: italic;"><fmt:formatNumber value="${buyBidDto.buy_wishprice}" pattern="###,###,###"/></b> 원</span>
         </div>
-        <div style=" margin-bottom: 50px;">
-        <span>구매 가격</span><span style="float: right;"><fmt:formatNumber value="${buyNowDto.buynow_price}" pattern="###,###,###"/></span><br>
-        <span>배송비</span><span style="float: right;"><fmt:formatNumber value="${delivery}" pattern="#,###"/></span><br>
-        <span>검수비</span><span style="float: right;">2,500</span>
+        <div style=" margin-bottom: 10px;">
+        <span>구매 희망가</span><span style="float: right;"><fmt:formatNumber value="${buyBidDto.buy_wishprice}" pattern="###,###,###"/></span><br>
+        <span>검수비</span><span style="float: right;">무료</span>
+        <div style="border: none; height: 1px; background: lightgray; margin-bottom: 10px;"></div>
+        <span>입찰 마감 기한</span><span id="deadline" style="float: right;"></span>
         </div>
-        <div style="border: none; height: 1px; background: gray; margin-bottom: 50px;"></div>
+        <div style="border: none; height: 1px; background: lightgray; margin-bottom: 30px;"></div>
             <div id="right-info"
                  style="width: 90%; float: left;">
                 <span style="font-size: 18px;">주문 상품</span>
@@ -249,23 +271,7 @@
                     </tr>
                     <tr>
                         <td class="left-td">사이즈</td>
-                        <td class="right-td">${size}</td>
-                    </tr>
-                </table>
-                <br><br>
-                <span style="font-size: 18px;">배송 주소</span>
-                <table>
-                    <tr>
-                        <td class="left-td">받는분</td>
-                        <td class="right-td" id="buy-name">${userName}</td>
-                    </tr>
-                    <tr>
-                        <td class="left-td">연락처</td>
-                        <td class="right-td" id="buy-phone">${userPhone}</td>
-                    </tr>
-                    <tr>
-                        <td class="left-td">배송 주소</td>
-                        <td class="right-td" id="buy-addr">${buyNowDto.buy_addr}</td>
+                        <td class="right-td">${buyBidDto.buy_size}</td>
                     </tr>
                 </table>
                 <div class="hr" style="margin-top: 60px;"></div>

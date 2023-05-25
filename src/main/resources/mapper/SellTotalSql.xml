@@ -6,15 +6,15 @@
 
 	<!-- 전체 판매 insert -->
 	<insert id="insertSellNow" parameterType="SellTotalDto">
-		 <if test="sell_num == null">
-	        insert into sell_total (user_num, sellnow_num)
-	        values (#{user_num}, #{sellnow_num})
-	    </if>
-	    
-	    <if test="sellnow_num == null">
-	        insert into sell_total (user_num, sell_num)
-	        values (#{user_num}, #{sell_num})
-	    </if>
+		<if test="sell_num == null">
+			insert into sell_total (user_num, sellnow_num)
+			values (#{user_num}, #{sellnow_num})
+		</if>
+
+		<if test="sellnow_num == null">
+			insert into sell_total (user_num, sell_num)
+			values (#{user_num}, #{sell_num})
+		</if>
 	</insert>
 
 	<!-- 방금 insert된 selltotal_num 가져오기 -->
@@ -22,22 +22,22 @@
 		select LAST_INSERT_ID()
 	</select>
 
-	
+
 	<select id="getListSellTotal" parameterType="Map" resultType="SellTotalDto">
-    SELECT st.*, sn.sellnow_num AS sellNowDto_sellnow_num, sb.sell_num AS sellBidDto_sell_num, i.item_num AS itemDto_item_num
-    FROM sell_total st
-    LEFT JOIN sell_now sn ON st.sellnow_num = sn.sellnow_num
-    LEFT JOIN sell_bid sb ON st.sell_num = sb.sell_num
-    LEFT JOIN item i ON sb.item_num = i.item_num
-    WHERE st.user_num = #{user_num} order by selltotal_num desc limit 6 offset #{offset}
+		SELECT st.*, sn.sellnow_num AS sellNowDto_sellnow_num, sb.sell_num AS sellBidDto_sell_num, i.item_num AS itemDto_item_num
+		FROM sell_total st
+		LEFT JOIN sell_now sn ON st.sellnow_num = sn.sellnow_num
+		LEFT JOIN sell_bid sb ON st.sell_num = sb.sell_num
+		LEFT JOIN item i ON sb.item_num = i.item_num
+		WHERE st.user_num = #{user_num} order by selltotal_num desc limit 6 offset #{offset}
 	</select>
-	
+
 	<select id="getTotalSellCount" parameterType="String" resultType="int">
-	select count(*) from sell_total where user_num=#{user_num}
+		select count(*) from sell_total where user_num=#{user_num}
 	</select>
-	
-	
-	
+
+
+
 
 
 </mapper>

@@ -1,5 +1,6 @@
 package boot.mvc.style;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -36,15 +37,13 @@ public class StyleService implements StyleServiceInter {
 	}
 
 	@Override
-	public List<Map<String, String>> getImageList() {
-		List<Map<String, String>> imageList = mapper.getImageList();
-		// 이미지 중복 제거
-		imageList.removeIf(image -> loadedImages.contains(image.get("board_image")));
-		// 이미지 로드 기록 업데이트
-		for (Map<String, String> image : imageList) {
-			loadedImages.add(image.get("board_image"));
-		}
-		return imageList;
+	public List<BoardDto> getListBoard(int board_id, int offset) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("board_id", board_id);
+		map.put("offset", offset);
+		return mapper.getListBoard(map);
 	}
+
+	
 
 }

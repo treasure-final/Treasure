@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import boot.mvc.board.BoardService;
 import boot.mvc.user.UserDto;
 import boot.mvc.user.UserService;
 
@@ -18,9 +20,12 @@ public class CommentController {
 
 	@Autowired
 	UserService uservice;
+	
+	@Autowired
+	BoardService bservice;
 
 	@PostMapping("/comment/insert")
-	public String insert(@ModelAttribute CommentDto cdto, HttpSession session,String board_id) {
+	public String insert(@ModelAttribute CommentDto cdto, HttpSession session,int board_id) {
 		
 		String loginEmail = (String)session.getAttribute("loginEmail");
 		String user_num = uservice.findEmailUserNum(loginEmail);

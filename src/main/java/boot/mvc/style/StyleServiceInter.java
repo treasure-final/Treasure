@@ -12,5 +12,5 @@ public interface StyleServiceInter {
 	
 	public List<Map<String, Object>> selectCommentsByBoardId(int board_id);
 	
-	public List<Map<String, String>> getImageList();
+	public List<BoardDto> getListBoard(int board_id, int offset);
 }

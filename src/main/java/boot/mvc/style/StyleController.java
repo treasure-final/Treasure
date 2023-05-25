@@ -19,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import boot.mvc.board.BoardDto;
 import boot.mvc.board.BoardService;
+import boot.mvc.buy_bid.BuyBidDto;
+import boot.mvc.item.ItemDto;
 import boot.mvc.user.UserService;
 
 @Controller
@@ -33,31 +35,37 @@ public class StyleController {
 	@Autowired
 	UserService uservice;
 
-	private static final int PAGE_SIZE = 10; // 페이지당
-												// 아이템
-												// 수
-
 	@GetMapping("/style/detail")
 	public ModelAndView detail(int board_id, @RequestParam(defaultValue = "0") int offset) {
-		ModelAndView mview = new ModelAndView();
+	    ModelAndView mview = new ModelAndView();
 
-		List<BoardDto> list=Bservice.getList();
-		for (BoardDto boarddto : list) {
-			
-        }
-		
-		List<Map<String, Object>> DetailList = SDservice.StyleDetailList();
-		BoardDto bdto = SDservice.getData(board_id);
-		List<BoardDto> blist = Bservice.getList();
+	    List<Map<String, Object>> DetailList = SDservice.StyleDetailList();
+	    List<BoardDto> list = Bservice.getListBoard(board_id, offset);
+	    
 
-		mview.addObject("DetailList", DetailList);
-		mview.addObject("bdto", bdto);
-		mview.addObject("blist", blist);
+	    BoardDto bdto = SDservice.getData(board_id);
+	    List<BoardDto> blist = Bservice.getList();
 
-		mview.setViewName("/style/styledetail");
+	    mview.addObject("offset", offset);
+	    mview.addObject("list", list);
+	    mview.addObject("DetailList", DetailList);
+	    mview.addObject("bdto", bdto);
+	    mview.addObject("blist", blist);
 
-		return mview;
+	    mview.setViewName("/style/styledetail");
+
+	    return mview;
 	}
+
+	// 리스트 무한스크롤 ajax
+		@GetMapping("/style/styleDetailScroll")
+		@ResponseBody
+		public List<BoardDto> styleDetailScroll(int board_id,int offset) {
+
+			List<BoardDto> list = Bservice.getListBoard(board_id, offset);
+			
+			return list;
+		}
 
 	@GetMapping("/style/comments/{board_id}")
 	@ResponseBody

@@ -10,9 +10,12 @@
 	<delete id="deleteStyle" parameterType="String">
 		delete form board where board_id=#{board_id}
 	</delete>
-	<select id="getListBoard" parameterType="Map" resultType="BoardDto">
-		SELECT *
-		FROM board
-		WHERE board_id=#{board_id} order by board_id desc limit 6 offset #{offset}
+	<select id="getBoardId" parameterType="int" resultType="Map">
+	select board_image from board where board_id=#{board_id}
 	</select>
+	<select id="getListBoard" parameterType="int" resultType="Map">
+        SELECT board_image
+        FROM board
+        WHERE board_id=#{board_id} order by board_id desc limit 6 offset #{offset}
+    </select>
 </mapper>

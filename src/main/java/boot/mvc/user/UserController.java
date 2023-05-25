@@ -639,6 +639,7 @@ public class UserController {
 
 		model.addAttribute("offset", offset);
 		model.addAttribute("itemBuyBidJoinList", list);
+		model.addAttribute("buyBidTotalCount", buyBidTotalCount);
 		model.addAttribute("purchaseIngList", purchaseIngList);
 		model.addAttribute("purchaseEndList", purchaseEndList);
 
@@ -646,7 +647,7 @@ public class UserController {
 	}
 
 	//리스트 무한스크롤 ajax
-	@GetMapping("/user/buyHistoryScroll")
+	@GetMapping("/user/buyBidHistoryScroll")
 	@ResponseBody
 	public List<BuyBidDto> buyHistoryScroll(HttpSession session, int offset) {
 

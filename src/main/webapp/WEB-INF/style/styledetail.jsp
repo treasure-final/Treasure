@@ -231,19 +231,23 @@ div.all {
 	width: 100px;
 	font-weight: bold;
 	text-align: left;
-	font-weight: bold;
 }
 
-th.table_comment_writeday {
+.table_comment_writeday {
 	text-align: left;
 	font-weight: normal;
-	color: gray
+	color: gray;
+}
+.table_comment_update{
+text-align: right;
+margin-bottom: 30px
 }
 </style>
 </head>
 <body>
 	<c:set var="loginOk" value="${sessionScope.loginOk}" />
 	<div id="content">
+		<input type="hidden" value="${bdto.board_id }" class="board_id">
 		<c:forEach items="${DetailList }" var="Bdto">
 			<input type="hidden" value="${Bdto.board_id }" class="board_id">
 			<div class="post">
@@ -298,7 +302,7 @@ th.table_comment_writeday {
 			<div class="slideshow-container" style="width: 80%; margin-left: 500px">
 				<div class="all">
 					<div class="mySlides fade">
-						<img src="../../img/style_image/${Bdto.board_image }"
+						<img src="../../img/style_image/${bdto.board_image }"
 							style="width: 100%; height: 100%; border-radius: 10px"
 						>
 					</div>
@@ -321,7 +325,7 @@ th.table_comment_writeday {
 			<div class="comment" id="comment_${Bdto.board_id}"></div>
 			<div>
 				<form id="comment-form">
-				<input type="hidden" name="board_id" value="${Bdto.board_id}">
+					<input type="hidden" name="board_id" value="${Bdto.board_id}">
 					<input id="comment_content" type="text" name="comment_content">
 					<c:if test="${not empty loginOk}">
 						<input id="comment_submit" type="submit" value="작성">
@@ -351,13 +355,14 @@ th.table_comment_writeday {
 
                       // 각 댓글 데이터를 순회하며 HTML로 변환하여 commentHtml에 추가
                       for (var i = 0; i < comments.length; i++) {
-                          commentHtml += '<table class="">';
-                          commentHtml += '<tr>';
-                          commentHtml +='<th rowspan="2"><img src="../../save/'+comments[i].user_photo+'" style="border-radius: 100px; ;max-width: 35px; max-height: 35px"></th>';
+                          commentHtml += '<table style="width:500px">';
+                          commentHtml += '<tr align="left">';
+                          commentHtml +='<th class="table_comment_nickname" rowspan="2" align="left"><img src="../../save/'+comments[i].user_photo+'" style="border-radius: 100px; ;max-width: 35px; max-height: 35px"></th>';
                           commentHtml +='<th class="table_comment_nickname">'+comments[i].user_nickname+'</th>';
                           commentHtml +='<th class="table_comment_content" rowspan="2">'+comments[i].comment_content+'</th>';
                           commentHtml += '<tr>';
                           commentHtml += '<th class="table_comment_writeday"><span>'+formatRelativeTime(new Date(comments[i].comment_writeday))+'</span></th>';
+                          commentHtml += '<th class="table_comment_update" rowspan="2"><span><button>수정</button></span></th>';
                           commentHtml += '</tr>';
                           commentHtml += '</tr>';
                           commentHtml +='</table>';
@@ -371,14 +376,12 @@ th.table_comment_writeday {
                      }
               });
           }
-          function addComments(board_id) {
           // AJAX를 사용하여 댓글 양식 제출
           $("#comment-form").submit(function(event) {
             event.preventDefault();
             var board_id = $("#board_id").val();
             var comment_content = $("#comment_content").val();
-            
-
+ 
             $.ajax({
               url: "/comment/insert",
               type: "POST",
@@ -389,14 +392,14 @@ th.table_comment_writeday {
               success: function(response) {
                 // 댓글 제출 후 댓글 섹션 새로고침 및 입력 필드 초기화
                 $("#comment_content").val("");
-                loadComments(board_id);
+                location.reload()
               },
               error: function(request, status, error) {
                 console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
               }
             });
           });
-      }
+      
           })
       
       </script>
@@ -439,45 +442,6 @@ th.table_comment_writeday {
          /* dots[slideIndex - 1].className += " active"; */
          
       }
-      $(document).ready(function() {
-         var page = 1;
-
-         // 스크롤 이벤트 감지
-         $('#content').scroll(function() {
-            if ($('#content').scrollTop() >= ($('#content')[0].scrollHeight - $('#content').height())) {
-               loadMoreData();
-            }
-         });
-
-         function loadMoreData() {
-            page++;
-
-            $.ajax({
-               url : '/load-more-data',
-               type : 'GET',
-               data : {
-                  page : page
-               },
-               beforeSend : function() {
-                  // 로딩 스피너 표시 등의 처리
-               },
-               success : function(response) {
-                  // 서버로부터 받은 데이터 처리
-                  var data = response.data;
-                  var html = '';
-
-                  for (var i = 0; i < data.length; i++) {
-                     html += '<div class="item">' + data[i] + '</div>';
-                  }
-
-                  $('#content').append(html);
-               },
-               complete : function() {
-                  // 로딩 스피너 등의 처리 해제
-               }
-            });
-         }
-      })
       $('.heart').on('click', function() {
            el = $(this);
            if (el.hasClass('liked') ) {

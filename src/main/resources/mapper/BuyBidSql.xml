@@ -71,6 +71,6 @@
 
     <!-- 방금 insert된 sell_num 가져오기 -->
     <select id="getNowinsertBuyBidNum" resultType="String">
-        select count(LAST_INSERT_ID()) from buy_bid
+        SELECT LAST_INSERT_ID() AS last_id
     </select>
 </mapper>

@@ -214,6 +214,27 @@
         }
     </style>
 </head>
+<script>
+    let deadline = '${buyBidDto.buy_deadline}';
+    let today = new Date();
+    let year = today.getFullYear();
+    let month = today.getMonth() + 1
+    if(deadline===30) {
+        month+=1;
+        deadline-=31;
+    }
+    if (deadline===60) {
+        month+=2;
+        deadline-=61;
+    }
+    let date = today.getDate() + parseInt(deadline);
+    defaultDate = today.getDate() + 30;
+    var deadDay = year + "/" + month + "/" + date;
+
+    $(function() {
+        $("#deadline").append(deadDay+" (${buyBidDto.buy_deadline}일)");
+    });
+</script>
 <body>
     <div class="login-wrapper">
         <div>
@@ -229,13 +250,13 @@
         <div style="font-size: 16pt;">
         <span>총 결제금액</span><span style="float: right;"><b style="color: #ff6961; font-style: italic;"><fmt:formatNumber value="${buyBidDto.buy_wishprice}" pattern="###,###,###"/></b> 원</span>
         </div>
-        <div style=" margin-bottom: 50px;">
+        <div style=" margin-bottom: 10px;">
         <span>구매 희망가</span><span style="float: right;"><fmt:formatNumber value="${buyBidDto.buy_wishprice}" pattern="###,###,###"/></span><br>
         <span>검수비</span><span style="float: right;">무료</span>
-        <div style="border: none; height: 1px; background: gray; margin-bottom: 50px;"></div>
-        <span>입찰 마감 기한</span><span style="float: right;">${buyBidDto.buy_deadline}</span>
+        <div style="border: none; height: 1px; background: lightgray; margin-bottom: 10px;"></div>
+        <span>입찰 마감 기한</span><span id="deadline" style="float: right;"></span>
         </div>
-        <div style="border: none; height: 1px; background: gray; margin-bottom: 50px;"></div>
+        <div style="border: none; height: 1px; background: lightgray; margin-bottom: 30px;"></div>
             <div id="right-info"
                  style="width: 90%; float: left;">
                 <span style="font-size: 18px;">주문 상품</span>

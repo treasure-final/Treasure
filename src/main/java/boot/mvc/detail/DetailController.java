@@ -1,6 +1,7 @@
 package boot.mvc.detail;
 
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -79,16 +80,18 @@ public class DetailController {
 		int firstPrice = 0;
 		int secondPrice = 0;
 		double percentChange = 0;
-		int priceChange = 0;
+		String priceChange = "";
 		
 		if (prices.size() >= 1) {
 	        firstPrice = prices.get(0);
 	        if (prices.size() >= 2) {
 	        	firstPrice = prices.get(0);
 	 		    secondPrice = prices.get(1);
-	 		
-	 		    percentChange = (secondPrice - firstPrice) / (double) firstPrice * 100;	 		 
-	 		    priceChange = Math.abs(secondPrice - firstPrice);
+	 		    
+	 		    percentChange = Math.round(((secondPrice - firstPrice) / (double) firstPrice * 100) * 10) / 10.0;
+	 		    
+	 		    DecimalFormat decimalFormat = new DecimalFormat("#,###");	 		   
+	 		    priceChange = decimalFormat.format(Math.abs(secondPrice - firstPrice));
 	        }
 	    }
 		

@@ -565,16 +565,19 @@ hr {
   
 		            if(res.percentChange < 0) {
 		            	 $(".ChangeRecentPrice-span").css("color", "#ec0b00");
+		            	 $(".ChangeRecentPrice-span").css("opacity", "1");
 		            	 $("#ChangeRecentPrice-i").html('<i class="fa fa-caret-down me-1" id="ChangeRecentPrice-i"></i>');
 		            	 $(".price-change").text(res.priceChange);
 		            	 $(".percent-change").text(res.percentChange);
 		            } else if(res.percentChange > 0) {
 		            	 $(".ChangeRecentPrice-span").css("color", "green");
+		            	 $(".ChangeRecentPrice-span").css("opacity", "1");
 		            	 $("#ChangeRecentPrice-i").html('<i class="fa fa-caret-up me-1" id="ChangeRecentPrice-i"></i>');
 		            	 $(".price-change").text(res.priceChange);
 		            	 $(".percent-change").text(res.percentChange);
 		            } else {
-		            	$(".ChangeRecentPrice-span").css("opacity", " 0.6");
+		            	$(".ChangeRecentPrice-span").css("color", "black");
+		            	$(".ChangeRecentPrice-span").css("opacity", "0.6");
 		            	$("#ChangeRecentPrice-i").html('<i class="me-5" id="ChangeRecentPrice-i"></i>');
 		            	$(".price-change").text(0);
 		            	$(".percent-change").text(0);

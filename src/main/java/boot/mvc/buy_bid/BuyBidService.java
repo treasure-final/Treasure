@@ -49,6 +49,10 @@ public class BuyBidService implements BuyBidServiceInter {
 	}
 
 	@Override
+	public String getNowinsertBuyBidNum() {
+		return mapper.getNowinsertBuyBidNum();
+}
+  @Override
 	public List<BuyBidDto> getListBuyBidTotal(String user_num, int offset) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("user_num", user_num);

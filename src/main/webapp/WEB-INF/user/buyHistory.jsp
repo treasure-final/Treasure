@@ -158,6 +158,9 @@
             margin-top: 15px;
         }
 
+        img {
+            cursor: pointer;
+        }
     </style>
 
     <script type="text/javascript">
@@ -220,6 +223,15 @@
             str = String(str);
             return str.replace(/[^\d]+/g, '');
         }
+
+        function moveDetailPage(sell_num) {
+            location.href = '/buy/ordersuccess?sell_num='+sell_num;
+        }
+
+        function moveDetailPage2(sell_num) {
+            alert(sell_num);
+            location.href = '/buy/ordersuccess?sell_num='+sell_num;
+        }
     </script>
 
     <script type="text/javascript">
@@ -257,7 +269,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="container">
         <h2 id="logo">구매 내역</h2>
@@ -301,7 +312,8 @@
             <c:forEach var="list" items="${itemBuyBidJoinList}" varStatus="i">
                 <div class="bid-content">
                     <div style="width:750px; display: flex; font-size: 15px;">
-                        <img class="buyImg" src="../img/item_image/${list.itemDto.item_image}">
+                        <img class="buyImg" src="../img/item_image/${list.itemDto.item_image}"
+                             onclick="moveDetailPage()">
                         <div class="buyDescription">
                             <div>${list.itemDto.item_engname}</div>
                             <div style="opacity: 0.6">${list.itemDto.item_korname}</div>
@@ -341,7 +353,8 @@
             <c:forEach var="list" items="${purchaseEndList}">
                 <div class="bid-content">
                     <div style="width:750px; display: flex; font-size: 15px;">
-                        <img class="buyImg" src="../img/item_image/${list.itemDto.item_image}">
+                        <img class="buyImg" src="../img/item_image/${list.itemDto.item_image}"
+                             onclick="moveDetailPage2(${list.sell_num})">
                         <div class="buyDescription">
                             <div>${list.itemDto.item_engname}</div>
                             <div style="opacity: 0.6">${list.itemDto.item_korname}</div>

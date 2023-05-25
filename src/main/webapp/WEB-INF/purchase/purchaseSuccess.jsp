@@ -209,8 +209,36 @@
         }
         .order_image {
             width: 300px;
-            margin-top: -60px;
+            margin-top: 20px;
             margin-bottom: 40px;
+        }
+
+        #buttonProfile {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profilebtn:hover {
+            background-color: #dfebda;
+        }
+
+        .profilebtn {
+            font-size: 15px;
+            color: black;
+            background-color: #fff;
+            padding: 15px 25px;
+            border-radius: 20px;
+            font-weight: 400;
+            text-transform: capitalize;
+            overflow: hidden;
+            margin: auto;
+            width: 40%;
+            text-align: center;
+            margin: 30px 3px 30px 3px;
+            border: 1px solid #e3e3e3;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .12);
+            cursor: pointer;
         }
     </style>
 </head>
@@ -270,6 +298,11 @@
                 </table>
                 <div class="hr" style="margin-top: 60px;"></div>
             </div>
+        <div style="clear: left"></div>
+
+        <div id="buttonProfile">
+            <button type="button" id="profile-back" class="profilebtn" onclick="location.href='/user/buyHistory'">구매 목록</button>
+        </div>
         </div>
 </body>
 </html>

@@ -21,6 +21,7 @@
     <resultMap id="buyNowDto" type="BuyNowDto">
         <result property="buy_status" column="buy_status"/>
         <result property="buynow_inputday" column="buynow_inputday"/>
+        <result property="sell_num" column="sell_num"/>
         <collection resultMap="itemDto" property="itemDto"/>
     </resultMap>
 

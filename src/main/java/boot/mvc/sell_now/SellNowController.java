@@ -100,8 +100,7 @@ public class SellNowController {
         	sellNowDto.setSell_status("판매완료");    
         	sellNowDto.setTest_result(test_result);
         	
-        	sellNowService.insertSellNow(sellNowDto);     	
-
+        	sellNowService.insertSellNow(sellNowDto);
         }
         
         String sellnow_num = sellNowService.getNowinsertSellNowNum();

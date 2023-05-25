@@ -175,11 +175,11 @@ public class UserController {
         userDto.setUser_name(nickname);
 
 
-        if (service.userSearchEmail(email) != 1) {
+        if (service.userSearchEmail(userDto.getUser_email()) != 1) {
 
             service.insertJoinUser(userDto);
 
-            model.addAttribute("user_num", service.findEmailUserNum(email));
+            model.addAttribute("user_num", service.findEmailUserNum(userDto.getUser_email()));
 
             return "redirect:/user/kakaoUserForm?user_num=" + model.getAttribute("user_num");
         } else {
@@ -442,8 +442,7 @@ public class UserController {
         String user_num = service.findEmailUserNum(loginEmail);
 
         List<SellTotalDto> list = sellTotalService.getListSellTotal(user_num, offset);
-        
-        
+                
         int sellTotalCount=sellTotalService.getTotalSellCount(user_num);
         
         for(SellTotalDto sellTotalDto : list) {
@@ -470,8 +469,7 @@ public class UserController {
         		ItemDto itemDto=itemService.getItemData(item_num);
         		
         		sellTotalDto.setSellBidDto(sellBidDto);
-        		sellTotalDto.setItemDto(itemDto);
-        		
+        		sellTotalDto.setItemDto(itemDto);        		
         	}
         }
 

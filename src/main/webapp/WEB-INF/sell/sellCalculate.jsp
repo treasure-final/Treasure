@@ -23,94 +23,94 @@
             charset="utf-8"></script>
 <style>
 @font-face {
-	font-family: "GmarketSansMedium";
-	src:
-		url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
-		format("woff");
-	font-weight: normal;
-	font-style: normal;
+   font-family: "GmarketSansMedium";
+   src:
+      url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+      format("woff");
+   font-weight: normal;
+   font-style: normal;
 }
 
 *{
-	font-family: "GmarketSansMedium";
+   font-family: "GmarketSansMedium";
 }
 
 div.main {
-	font-family: "GmarketSansMedium";
-	font-size: 13px;
-	padding: 0;
-	margin: 0;
-	border: none;
-	color: black;
+   font-family: "GmarketSansMedium";
+   font-size: 13px;
+   padding: 0;
+   margin: 0;
+   border: none;
+   color: black;
 }
 
 .container {
 	width: 820px;
-	height: 1300px;
 	padding: 40px;
 	box-sizing: border-box;
 	margin: 50px auto;
 	line-height: 30px;
 	background-color: #ffffff;
+
 }
 
 .right-td {
-	font-size: 14px;
-	padding-left: 20px;
+   font-size: 14px;
+   padding-left: 20px;
 }
 
 .left-td {
-	font-size: 14px;
-	opacity: 0.7;
+   font-size: 14px;
+   opacity: 0.7;
 }
 
 .td2 {
-	padding-left: 490px;
+   padding-left: 490px;
 }
 
 td {
-	font-size: 14px;
+   font-size: 14px;
 }
 
 .hr {
-	border: none;
-	height: 2px;
-	background: black;
-	margin-bottom: 50px;
+   border: none;
+   height: 2px;
+   background: black;
+   margin-bottom: 50px;
 }
 
 #logo {
-	font-size: 25px;
-	font-weight: bold;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-bottom: 20px;
+   font-size: 25px;
+   font-weight: bold;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-bottom: 20px;
 }
 
 select {
-	width: 120px;
-	height: 53px;
-	border-radius: 15px;
-	background-color: #ffffff;
-	padding: 5px 15px;
-	margin: 10px 0;
-	border: 1px solid #e3e3e3;
+   width: 120px;
+   height: 53px;
+   border-radius: 15px;
+   background-color: #ffffff;
+   padding: 5px 15px;
+   margin: 10px 0;
+   border: 1px solid #e3e3e3;
 }
 
 .bank-number {
-	width: 480px;
-	border-radius: 15px;
-	background-color: #ffffff;
-	text-align: left;
-	padding: 5px 15px;
-	margin: 10px 0;
-	border: 1px solid #e3e3e3;
+   width: 480px;
+   border-radius: 15px;
+   background-color: #ffffff;
+   text-align: left;
+   padding: 5px 15px;
+   margin: 10px 0;
+   border: 1px solid #e3e3e3;
 }
 
 input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
+   -webkit-appearance: none;
+   margin: 0;
 }
 
 .agree-ment {
@@ -156,6 +156,7 @@ input[type="checkbox"]+label {
    position: relative;
    margin-right: 5px;
    float: right;
+   cursor: pointer;
 }
 
 input[id="check1"]:checked+label::after, input[id="check2"]:checked+label::after,
@@ -172,13 +173,14 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
    left: 0;
    top: 0;
    float: right;
+   cursor: pointer;
 }
 
 #sell-back {
-   font-size: 13px;
+   font-size: 15px;
    color: #747f55;
    background-color: #fff;
-   padding: 12px 30px;
+   padding: 16px 30px;
    border-radius: 25px;
    font-weight: 400;
    text-transform: capitalize;
@@ -187,18 +189,19 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
    position: relative;
    overflow: hidden;
    margin: auto;
-   width: 45%;
+   width: 47%;
    text-align: center;
    margin-bottom: 50px;
    margin-top: 30px;
    border: 1px solid #747f55;
+   cursor: pointer;
 }
 
 #sell-next {
-   font-size: 13px;
+   font-size: 15px;
    color: #fff;
    background-color: #747f55;
-   padding: 12px 30px;
+   padding: 16px 30px;
    border-radius: 25px;
    font-weight: 400;
    text-transform: capitalize;
@@ -207,11 +210,12 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
    position: relative;
    overflow: hidden;
    margin: auto;
-   width: 45%;
+   width: 47%;
    text-align: center;
    margin-bottom: 50px;
    margin-top: 30px;
    border: 1px solid #747f55;
+   cursor: pointer;
 }
 
 #sell-next:hover {
@@ -275,88 +279,118 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
             font-weight: bold;
             color: black;
         }
+        
+        .item {
+            margin-left:-20px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .item-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 20px;
+        }
+
+        .item-info {
+            display: flex;
+            flex-direction: column;
+            margin-left: -10px;                        
+        }
+
+        .item-info > li {
+            list-style: none;
+            font-size: 14px;
+            margin-bottom: -3px;
+                     
+        }
 </style>
 
 <script type="text/javascript">
 $(function(){
-	
-	$("#addr-modal").hide();
-	
-	$("#sell-next").click(function(){
-		var type = '${type}';
-		
-		item_num = '${item_num}';
-		name = $("#name").text();
-		phone = $("#phone").text();
-		addr = $("#addr").text();
-		account1 = $("#account1").val();
-		account2 = $("#account2").val();
-		penaltypay1 = $("#penaltypay1").val();
-		penaltypay2 = $("#penaltypay2").val();
-		totalPrice = '${totalPrice}';
-		size = '${size}';
-		buy_num = '${buy_num}';
+   
+   $("#addr-modal").hide();
+   
+   $("#sell-next").click(function(){
+      var type = '${type}';
+      
+      item_num = '${item_num}';
+      name = $("#name").text();
+      phone = $("#phone").text();
+      addr = $("#addr").text();
+      account1 = $("#account1").val();
+      account2 = $("#account2").val();
+      penaltypay1 = $("#penaltypay1").val();
+      penaltypay2 = $("#penaltypay2").val();
+      totalPrice = '${totalPrice}';
+      size = '${size}';
+      buy_num = '${buy_num}';
+      sell_num='${sell_num}';
+      sellnow_num='${sellnow_num}';
+      user_num='${user_num}';
 
-		// 판매 입찰
-		if(type == "bid") {
-			
-			$.ajax({
-				type:"post",
-				url:"/sell/insertSellBid",
-				data:{
-					"item_num": item_num, // item_num 값을 포함시킴
-				    "size": size,
-				    "totalPrice": totalPrice,
-				    "hopePrice": "${hopePrice}",
-				    "deadline": "${deadline}",
-				    "name": name,
-				    "phone": phone,
-				    "addr": addr,
-				    "account1": account1,
-				    "account2": account2,
-				    "penaltypay1": penaltypay1,
-				    "penaltypay2": penaltypay2	
-				},
-				success:function(res){
-					alert(res+"님 판매 접수가 완료 되었습니다");
-					location.href="/user/myPage";
-				}
-			});
-		} 
-		// 즉시 판매
-		else {
-			
-			$.ajax({
-				type:"post",
-				url:"/sell/insertSellNow",
-				data:{
-					"item_num": item_num, 
-					"buy_num" : buy_num,
-				    "totalPrice": totalPrice,
-				    "name": name,
-				    "phone": phone,
-				    "addr": addr,
-				    "account1": account1,
-				    "account2": account2,
-				    "penaltypay1": penaltypay1,
-				    "penaltypay2": penaltypay2	
-				},
-				success:function(res){
-					alert(res+"님 판매 접수가 완료 되었습니다");
-					location.href="/user/myPage";
-				}, 
-				error: function (request, status, error) {
+      // 판매 입찰
+      if(type == "bid") {
+         
+         $.ajax({
+            type:"post",
+            url:"/sell/insertSellBid",
+            data:{
+               "item_num": item_num, // item_num 값을 포함시킴
+                "size": size,
+                "totalPrice": totalPrice,
+                "hopePrice": "${hopePrice}",
+                "deadline": "${deadline}",
+                "name": name,
+                "phone": phone,
+                "addr": addr,
+                "account1": account1,
+                "account2": account2,
+                "penaltypay1": penaltypay1,
+                "penaltypay2": penaltypay2   
+            },
+            success:function(res){
+               
+               alert(res.loginEmail+"님 판매 접수가 완료 되었습니다");
+               location.href="/user/sellSuccess?sell_num="+res.sell_num;
+            }
+         });
+      } 
+      // 즉시 판매
+      else {
+         
+         $.ajax({
+            type:"post",
+            url:"/sell/insertSellNow",
+            data:{
+               "item_num": item_num, 
+               "buy_num" : buy_num,
+                "totalPrice": totalPrice,
+                "name": name,
+                "phone": phone,
+                "addr": addr,
+                "account1": account1,
+                "account2": account2,
+                "penaltypay1": penaltypay1,
+                "penaltypay2": penaltypay2   
+            },
+            success:function(res){
+               alert(res.loginEmail+"님 판매 접수가 완료 되었습니다");
+               location.href="/user/sellNowSuccess?sellnow_num="+res.sellnow_num;
+            }, 
+            error: function (request, status, error) {
                     console.log("code: " + request.status)
                     console.log("message: " + request.responseText)
                     console.log("error: " + error);
                 }
-			});
-			
-		}
-		
-	});
-	
-	 $(".modal-input > input:not(.btn-modal)").click(function () {
+         });
+         
+      }
+      
+   });
+   
+    $(".modal-input > input:not(.btn-modal)").click(function () {
          $(".modal-input > input").css("border-bottom", "1px solid #e3e3e3");
          $(this).css("border-bottom", "2px solid #747f55");
          $(".none-input").css("border-bottom", "1px solid #e3e3e3");
@@ -371,7 +405,7 @@ $(function(){
          $("#phone").text(mphone);
          $("#addr").text(maddr);
      });
-	
+   
 });
 </script>
 
@@ -383,19 +417,18 @@ $(function(){
     <div class="hr"></div>
     <!-- 주소 -->
     <div id="info" style="width: 100%; height: 30%; margin-bottom: 10px; margin-left: 40px;">
-        <img src="../img/item_image/${itemDto.item_image }"
-             style="width: 110px; float: left; margin-right: 20px; border-radius: 10px;">
-        <div id="left-info"
-             style="width: 70%; float: left; height: 40%; margin-right: 20px; margin-bottom: 10px; line-height: 20px; margin-top: 15px">
-            <div id="content" style="font-size: 14px;">
-                <b style="font-size: 14px">${itemDto.item_modelnum }</b><br>
-                ${itemDto.item_engname }
-                <div style="opacity: 0.6; font-size: 14px;">${itemDto.item_korname }</div>
-                ${size }
-            </div>
+       
+        <div class="item">
+          <img alt="" src="../img/item_image/${itemDto.item_image }" class="item-photo">                  
+          <ul class="item-info">
+             <li style="font-weight: bold;">${itemDto.item_modelnum }</li>
+             <li>${itemDto.item_engname }</li>
+             <li style="opacity: 0.6">${itemDto.item_korname }</li>
+             <li>${size }</li>
+          </ul>
         </div>
         <div id="right-info"
-             style="width: 90%; float: left; height: 40%;">
+             style="width: 90%; float: left; height: 200px; margin-top: 20px;">
             <span style="font-size: 18px;">반송 주소</span>
             <a id="addr-btn" href="#addr-modal" rel="modal:open"> + 새 주소 추가</a>
             <table>
@@ -412,80 +445,80 @@ $(function(){
                     <td class="right-td" id="addr">${userDto.user_addr }</td>
                 </tr>
             </table>
-            <div style="font-size: 14px; opacity: 0.8; text-align:center; margin-top: 15px;">검수 불합격시 제품이 반송 될 주소를 등록해주세요</div>
+            <div style="font-size: 13px; color: red; opacity: 0.7; text-align:center; margin-top: 15px;">검수 불합격시 제품이 반송 될 주소를 등록해주세요</div>
         </div>
     </div>
     
     <!-- 정산 계좌  -->
     <div style="margin-left: 40px;">
-        <div style="border-top: 1px solid #e3e3e3; width: 95%; height: 10%; margin-top: 3px; margin-bottom: 15px;"></div>
+        <div style="border-top: 1px solid #e3e3e3; width: 95%; height: 10%; margin-top: 220px; margin-bottom: 15px;"></div>
         <div style="padding-top: 20px;  font-size: 14px; opacity: 0.4;"></div>
         
         <div style="font-size: 18px;">정산 계좌 정보</div>
         <div>
-       		<select name="account1" id="account1">
-	       		<option value="국민">국민</option>
-	       		<option value="농협">농협</option>
-	       		<option value="신한">신한</option>
-	       		<option value="새마을금고">새마을금고</option>
-	       		<option value="카카오뱅크">카카오뱅크</option>
-	       		<option value="토스">토스</option>
-       		</select>
+             <select name="account1" id="account1">
+                <option value="국민">국민</option>
+                <option value="농협">농협</option>
+                <option value="신한">신한</option>
+                <option value="새마을금고">새마을금고</option>
+                <option value="카카오뱅크">카카오뱅크</option>
+                <option value="토스">토스</option>
+             </select>
             <input type="number"  name="account2" id="account2" class="bank-number" placeholder="- 제외 계좌번호를 입력해주세요" required="required"> 
         </div>   
-	
-	<!-- 패널티 카드정보  -->       
+   
+   <!-- 패널티 카드정보  -->       
         <div style="font-size: 18px; margin-top: 30px; ">패널티 결제 정보</div>
         <div>
-       		<select name="penaltypay1" id="penaltypay1">
-	       		<option value="BC">BC</option>
-	       		<option value="현대">현대</option>
-	       		<option value="카카오뱅크">카카오뱅크</option>
-	       		<option value="농협">농협</option>
-	       		<option value="신한">신한</option>
-	       		<option value="토스">토스</option>
-       		</select>
+             <select name="penaltypay1" id="penaltypay1">
+                <option value="BC">BC</option>
+                <option value="현대">현대</option>
+                <option value="카카오뱅크">카카오뱅크</option>
+                <option value="농협">농협</option>
+                <option value="신한">신한</option>
+                <option value="토스">토스</option>
+             </select>
             <input type="number" name="penaltypay2" id="penaltypay2" class="bank-number" placeholder="신용카드 번호를 입력해주세요" required="required">
         </div>   
     </div>
-    	
-    	<!-- 동의 -->
-    	<div style="margin-left: 40px; margin-bottom: 30px;">
-	    	<div style="border-top: 1px solid #e3e3e3; width: 95%; height: 10%; margin-top: 30px; margin-bottom: 15px;"></div>
-	        <div style="padding-top: 20px;  font-size: 14px; opacity: 0.4;"></div>
+       
+       <!-- 동의 -->
+       <div style="margin-left: 40px; margin-bottom: 30px;">
+          <div style="border-top: 1px solid #e3e3e3; width: 95%; height: 10%; margin-top: 30px; margin-bottom: 15px;"></div>
+           <div style="padding-top: 20px;  font-size: 14px; opacity: 0.4;"></div>
         
-    		<div  style="font-size: 18px; margin-bottom: 15px;">이용방침과 최종 정산 금액을 꼭 확인 해주세요</div>
+          <div  style="font-size: 18px; margin-bottom: 15px;">이용방침과 최종 정산 금액을 꼭 확인 해주세요</div>
    
-	        <div class="agree-check" id="agree-check">
-		          <div>
-		          <span>접수 후 48시간 이내에 발송하여 송장번호를 기재하겠습니다</span><input type="checkbox" required="required" id="check1" class="chk"><label for="check1"></label>
-		          </div>
-		          
-		          <div>
-		          <span>허위정보 작성 및 발송기한 초과시 패널티요금이 결제 됩니다</span><input type="checkbox" required="required" id="check2" class="chk"><label for="check2"></label>
-		          </div>
-		          
-		          <div>
-		          <span>접수 내역을 꼼꼼하게 확인했습니다</span><input type="checkbox" required="required" id="check3" class="chk"><label for="check3"></label>
-		          </div>
-		          
-		          <div>
-		          <span>위 사항을 모두 확인 하였으며 판매 접수에 최종 동의 합니다</span><input type="checkbox" id="check4" required="required"><label for="check4"></label>
-		          </div>
-	       </div>
+           <div class="agree-check" id="agree-check">
+                <div>
+                <span>접수 후 48시간 이내에 발송하여 송장번호를 기재하겠습니다</span><input type="checkbox" required="required" id="check1" class="chk"><label for="check1"></label>
+                </div>
+                
+                <div>
+                <span>허위정보 작성 및 발송기한 초과시 패널티요금이 결제 됩니다</span><input type="checkbox" required="required" id="check2" class="chk"><label for="check2"></label>
+                </div>
+                
+                <div>
+                <span>접수 내역을 꼼꼼하게 확인했습니다</span><input type="checkbox" required="required" id="check3" class="chk"><label for="check3"></label>
+                </div>
+                
+                <div>
+                <span>위 사항을 모두 확인 하였으며 판매 접수에 최종 동의 합니다</span><input type="checkbox" id="check4" required="required"><label for="check4"></label>
+                </div>
+          </div>
        </div>
 
     <!-- 최종 정산 정보  -->
     <div style="border-top: 1px solid #e3e3e3; width: 93%; height: 10%; margin:auto; margin-top: 30px; margin-left: 40px; padding-top: 50px">
         <div style="display: flex; margin: auto; ">
-	        <div style="font-size: 18px;">최종 정산 금액</div>
-	        <div style="color: red; margin-left: 460px; font-size: 18px" id="totalPrice"><b><fmt:formatNumber value="${totalPrice }" type="number"/>원</b></div>
+           <div style="font-size: 18px;">최종 정산 금액</div>
+           <div style="color: red; margin-left: 460px; font-size: 18px" id="totalPrice"><b><fmt:formatNumber value="${totalPrice }" type="number"/>원</b></div>
         </div>
         
-        <div style="display: flex; margin-top: 15px;">
-	       <button type="button" id="sell-back">뒤로가기</button> 
-	       <button type="button" id="sell-next">판매 접수</button>
-    	</div>    
+        <div style="display: flex; margin: 15px 5px 15px 5px;">
+          <button type="button" id="sell-back">뒤로가기</button> 
+          <button type="button" id="sell-next">판매 접수</button>
+       </div>    
     </div>         
 </div>
 
@@ -542,17 +575,17 @@ $("#check4").click(function(){
 });
 
 $(".chk").click(function() {
-	if($('input:checkbox[class=chk]:checked').length===3) {
-		$("input[type='checkbox']").prop("checked", true);
-		$('.chk').prop("checked",true);
-		} else {
-		$("#check4").prop("checked", false);
-	}
+   if($('input:checkbox[class=chk]:checked').length===3) {
+      $("input[type='checkbox']").prop("checked", true);
+      $('.chk').prop("checked",true);
+      } else {
+      $("#check4").prop("checked", false);
+   }
 });
 
 //일단은 걍 뒤로가기
 $("#sell-back").click(function(){
-	history.back();
+   history.back();
 });
 </script>
 

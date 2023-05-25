@@ -52,6 +52,7 @@ input[type="checkbox"]+label {
    float: right;
    overflow: hidden;
    vertical-align: middle;
+   cursor: pointer;
    
    
 }
@@ -71,6 +72,7 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
    top: 0;
    float: right;
    padding-top: 5px;
+   cursor: pointer;
    
 }
 
@@ -79,7 +81,7 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
    font-size: 13px;
    color: #747f55;
    background-color: #fff;
-   padding: 12px 30px;
+   padding: 18px 30px;
    border-radius: 25px;
    font-weight: 400;
    text-transform: capitalize;
@@ -93,13 +95,14 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
    margin-bottom: 50px;
    margin-top: 30px;
    border: 1px solid #747f55;
+   cursor: pointer;
 }
 
 #agree-next {
    font-size: 13px;
    color: #fff;
    background-color: #747f55;
-   padding: 12px 30px;
+   padding: 18px 30px;
    border-radius: 25px;
    font-weight: 400;
    text-transform: capitalize;
@@ -113,6 +116,7 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
    margin-bottom: 50px;
    margin-top: 30px;
    border: 1px solid #747f55;
+   cursor: pointer;
 }
 
 #agree-next:hover {
@@ -134,30 +138,36 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
             width: 100%;
             margin: auto;
             margin-top: 30px;
+            margin-bottom: 30px;
             display: flex;
             flex-direction: row;
             align-items: center;
         }
 
         .item-photo {
-            width: 150px;
+            width: 180px;
+            height: 180px;
             object-fit: cover;
-            border-radius: 10px;
+            border-radius: 20px;
         }
 
         .item-info {
             display: flex;
             flex-direction: column;
-            margin-left: 20px;
+            margin-left: -10px;                        
+            width: 700px;
         }
 
         .item-info > li {
             list-style: none;
             font-size: 14px;
+            margin-bottom: -3px;
+            font-size: 15px;
+           
         }
 
         .agree-ment {
-            margin-top: 30px;
+            margin-top: 50px;
             font-size: 20px;
         }
 
@@ -238,9 +248,9 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
        <div class="item">
           <img alt="" src="../img/item_image/${itemDto.item_image }" class="item-photo">                  
           <ul class="item-info">
-             <li>${itemDto.item_modelnum }</li>
+             <li style="font-weight: bold;">${itemDto.item_modelnum }</li>
              <li>${itemDto.item_engname }</li>
-             <li>${itemDto.item_korname }</li>
+             <li style="opacity: 0.6">${itemDto.item_korname }</li>
              <li>${size }</li>
           </ul>
        </div>
@@ -305,7 +315,7 @@ input[id="check5"]:checked+label::after,input[id="check6"]:checked+label::after 
     });
     
     $("#agree-back").click(function(){
-    	history.back();
+       history.back();
     });
 
 </script>

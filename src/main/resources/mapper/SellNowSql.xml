@@ -24,4 +24,12 @@
 		select * from sell_now where user_num=#{user_num} and sellnow_num=#{sellnow_num}
 	</select>
 	
+	<select id="getSellNowdSuccessCount" parameterType="String" resultType="int">
+		select count(*) from sell_now where user_num=${user_num} and sell_status='판매완료' or sell_status='판매불가'
+	</select>
+	
+	<select id="getSellNowDataOfSellNowNum" resultType="SellNowDto" parameterType="String">
+		select * from sell_now where sellnow_num=#{sellnow_num}
+	</select>
+	
 </mapper>

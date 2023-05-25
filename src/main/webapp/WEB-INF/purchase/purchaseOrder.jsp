@@ -313,7 +313,7 @@
                             type: "post",
                             data:{"item_num":'${item_num}',
                                 "size":'${size}',
-                                "wish_price":${price},
+                                "wish_price": '${price}',
                                 "delivery":'${deliveryWay}',
                                 "buy_addr":'${userAddr}',
                                 "payment":pgName},

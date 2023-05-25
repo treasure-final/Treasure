@@ -180,6 +180,7 @@
 
         #container {
             width: 1000px;
+            min-height : 60vh;
         }
     </style>
 </head>
@@ -311,7 +312,7 @@
     </div>
 
 
-    <div style="width:1000px; height: 5100px; margin-left: 20%; padding-left: 0px;">
+    <div style="width:1000px; margin-left: 20%; padding-left: 0px;">
         <div>
             <b style=" margin-left: 60px; float: left"> 상품 ${totitem } ${stotitem } ${soritem } 개</b>
             <div class="sortitembtn" align="right" style="margin-right: 30px; cursor: pointer">

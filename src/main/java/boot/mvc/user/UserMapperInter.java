@@ -21,6 +21,7 @@ public interface UserMapperInter {
     public String findEmailByUserInfo(String hp);
 
     public UserDto findByUserEmail(String Email);
+    
 
     //카카오 정보 추가 입력
     public void kakaoUserInfoUpdate(UserDto dto);

@@ -241,21 +241,11 @@ th.table_comment_writeday {
 }
 </style>
 </head>
-<script type="text/javascript">
-$(function(){
-	document.getElementById("nologinwrite").addEventListener("click", function() {
-	    alert("로그인 후 이용 가능합니다");
-	    window.location.href = "/user/loginForm";
-	 });
-})
-
-</script>
 <body>
 	<c:set var="loginOk" value="${sessionScope.loginOk}" />
 	<div id="content">
-		<input type="hidden" value=${bdto.board_id } id="board_id">
 		<c:forEach items="${DetailList }" var="Bdto">
-			<input type="text" value="${Bdto.board_id }" class="board_id">
+			<input type="hidden" value="${Bdto.board_id }" class="board_id">
 			<div class="post">
 				<div class="profile">
 					<table class="styletable">
@@ -265,38 +255,39 @@ $(function(){
 									style="border-radius: 100px; max-width: 35px; max-height: 35px"
 								>
 							</th>
-							<th width="100px">
+							<th width="60px" align="center">
 								<span class="nickname">${Bdto.user_name }</span>
 							</th>
 						</tr>
 						<tr>
 							<th>
 								<span class="time" style="color: gray">
+									&nbsp;
 									<fmt:parseDate var="dateFormatter" value="${Bdto.board_writeday}"
 										pattern="yyyy-MM-dd'T'HH:mm:ss"
 									/>
 									<script type="text/javascript">
-										function formatRelativeTime(date) {
-											var now = new Date();
-											var diff = Math.floor((now - date) / 1000);
+                              function formatRelativeTime(date) {
+                                 var now = new Date();
+                                 var diff = Math.floor((now - date) / 1000);
 
-											if (diff < 60) {
-												return diff + '초 전';
-											} else if (diff < 60 * 60) {
-												var minutes = Math.floor(diff / 60);
-												return minutes + '분 전';
-											} else if (diff < 60 * 60 * 24) {
-												var hours = Math.floor(diff / (60 * 60));
-												return hours + '시간 전';
-											} else {
-												var days = Math.floor(diff / (60 * 60 * 24));
-												return days + '일 전';
-											}
-										}
-										var formattedDate = new Date("${Bdto.board_writeday}");
-										var relativeTime = formatRelativeTime(formattedDate);
-										document.write(relativeTime);
-									</script>
+                                 if (diff < 60) {
+                                    return diff + '초 전';
+                                 } else if (diff < 60 * 60) {
+                                    var minutes = Math.floor(diff / 60);
+                                    return minutes + '분 전';
+                                 } else if (diff < 60 * 60 * 24) {
+                                    var hours = Math.floor(diff / (60 * 60));
+                                    return hours + '시간 전';
+                                 } else {
+                                    var days = Math.floor(diff / (60 * 60 * 24));
+                                    return days + '일 전';
+                                 }
+                              }
+                              var formattedDate = new Date("${Bdto.board_writeday}");
+                              var relativeTime = formatRelativeTime(formattedDate);
+                              document.write(relativeTime);
+                           </script>
 								</span>
 							</th>
 						</tr>
@@ -306,10 +297,10 @@ $(function(){
 			<!-- 초기 콘텐츠 -->
 			<div class="slideshow-container" style="width: 80%; margin-left: 500px">
 				<div class="all">
-					<div id="image-container">
-						<c:forEach var="image" items="${getImage}">
-							<img src="${image}" alt="Image">
-						</c:forEach>
+					<div class="mySlides fade">
+						<img src="../../img/style_image/${Bdto.board_image }"
+							style="width: 100%; height: 100%; border-radius: 10px"
+						>
 					</div>
 					<a class="prev" onclick="plusSlides(-1)">❮</a>
 					<a class="next" onclick="plusSlides(1)">❯</a>
@@ -329,8 +320,8 @@ $(function(){
 			<hr width="35%">
 			<div class="comment" id="comment_${Bdto.board_id}"></div>
 			<div>
-				<input type="hidden" name="board_id" value="${Bdto.board_id}">
 				<form id="comment-form">
+				<input type="hidden" name="board_id" value="${Bdto.board_id}">
 					<input id="comment_content" type="text" name="comment_content">
 					<c:if test="${not empty loginOk}">
 						<input id="comment_submit" type="submit" value="작성">
@@ -342,129 +333,167 @@ $(function(){
 			</div>
 		</c:forEach>
 		<script type="text/javascript">
-		$(document).ready(function() {
-			$(".board_id").each(function() {
-		        var board_id = $(this).val();
-		        loadComments(board_id);
-		    });
-		    function loadComments(board_id) {
-		    	
-		        $.ajax({
-		            url: "/style/comments/" + board_id,
-		            type: "GET",
-		            dataType:"json",
-		            success: function(response) {
-		                var comments = response; // 받은 댓글 목록 데이터
-		                var commentHtml = '';
+      $(document).ready(function() {
+         $(".board_id").each(function() {
+              var board_id = $(this).val();
+              loadComments(board_id);
+              
+          });
+          function loadComments(board_id) {
+             
+              $.ajax({
+                  url: "/style/comments/" + board_id,
+                  type: "GET",
+                  dataType:"json",
+                  success: function(response) {
+                      var comments = response; // 받은 댓글 목록 데이터
+                      var commentHtml = '';
 
-		                // 각 댓글 데이터를 순회하며 HTML로 변환하여 commentHtml에 추가
-		                for (var i = 0; i < comments.length; i++) {
-		                    commentHtml += '<table class="">';
-		                    commentHtml += '<tr>';
-		                    commentHtml +='<th rowspan="2"><img src="../../save/'+comments[i].user_photo+'" style="border-radius: 100px; ;max-width: 35px; max-height: 35px"></th>';
-		                    commentHtml +='<th class="table_comment_nickname">'+comments[i].user_nickname+'</th>';
-		                    commentHtml +='<th class="table_comment_content" rowspan="2">'+comments[i].comment_content+'</th>';
-		                    commentHtml += '<tr>';
-		                    commentHtml += '<th class="table_comment_writeday"><span>'+formatRelativeTime(new Date(comments[i].comment_writeday))+'</span></th>';
-		                    commentHtml += '</tr>';
-		                    commentHtml += '</tr>';
-		                    commentHtml +='</table>';
-		                }
+                      // 각 댓글 데이터를 순회하며 HTML로 변환하여 commentHtml에 추가
+                      for (var i = 0; i < comments.length; i++) {
+                          commentHtml += '<table class="">';
+                          commentHtml += '<tr>';
+                          commentHtml +='<th rowspan="2"><img src="../../save/'+comments[i].user_photo+'" style="border-radius: 100px; ;max-width: 35px; max-height: 35px"></th>';
+                          commentHtml +='<th class="table_comment_nickname">'+comments[i].user_nickname+'</th>';
+                          commentHtml +='<th class="table_comment_content" rowspan="2">'+comments[i].comment_content+'</th>';
+                          commentHtml += '<tr>';
+                          commentHtml += '<th class="table_comment_writeday"><span>'+formatRelativeTime(new Date(comments[i].comment_writeday))+'</span></th>';
+                          commentHtml += '</tr>';
+                          commentHtml += '</tr>';
+                          commentHtml +='</table>';
+                      }
 
-		                // 댓글 목록 영역에 commentHtml을 추가
-		                $("#comment_" + board_id).html(commentHtml);
-		            },
-		            error:function(request,status,error){
-		                console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-		               }
-		        });
-		    }
-		    // AJAX를 사용하여 댓글 양식 제출
+                      // 댓글 목록 영역에 commentHtml을 추가
+                      $("#comment_" + board_id).html(commentHtml);
+                  },
+                  error:function(request,status,error){
+                      console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                     }
+              });
+          }
+          function addComments(board_id) {
+          // AJAX를 사용하여 댓글 양식 제출
+          $("#comment-form").submit(function(event) {
+            event.preventDefault();
+            var board_id = $("#board_id").val();
+            var comment_content = $("#comment_content").val();
+            
 
-		    	
-		    $("#comment-form").submit(function(event) {
-		      $(".board_id").each(function() {
-			        var board_id = $(this).val();
-			        commentadd(board_id);
-			    });
-		      function commentadd(board_id){
-		      var board_id = $("#board_id").val();
-		      var comment_content = $("#comment_content").val();
-
-		      $.ajax({
-		        url: "/comment/insert",
-		        type: "POST",
-		        data: {
-		          "board_id": board_id,
-		          "comment_content": comment_content
-		        },
-		        success: function(response) {
-		          // 댓글 제출 후 댓글 섹션 새로고침 및 입력 필드 초기화
-		          $("#comment_content").val("");
-		          loadComments(board_id);
-		        },
-		        error: function(request, status, error) {
-		          console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
-		        }
-		      });
-		    });
-		    }
-		    
-		})
-		</script>
+            $.ajax({
+              url: "/comment/insert",
+              type: "POST",
+              data: {
+                "board_id": board_id,
+                "comment_content": comment_content
+              },
+              success: function(response) {
+                // 댓글 제출 후 댓글 섹션 새로고침 및 입력 필드 초기화
+                $("#comment_content").val("");
+                loadComments(board_id);
+              },
+              error: function(request, status, error) {
+                console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+              }
+            });
+          });
+      }
+          })
+      
+      </script>
 		<!-- 점 -->
 		<!-- <div style="text-align: center">
-			<span class="dot" onclick="currentSlide(1)"></span>
-			<span class="dot" onclick="currentSlide(2)"></span>
-			<span class="dot" onclick="currentSlide(3)"></span>
-		</div> -->
+         <span class="dot" onclick="currentSlide(1)"></span>
+         <span class="dot" onclick="currentSlide(2)"></span>
+         <span class="dot" onclick="currentSlide(3)"></span>
+      </div> -->
 	</div>
 	<script>
-		let slideIndex = 1;
-		showSlides(slideIndex);
+      let slideIndex = 1;
+      showSlides(slideIndex);
 
-		function plusSlides(n) {
-			showSlides(slideIndex += n);
-		}
+      function plusSlides(n) {
+         showSlides(slideIndex += n);
+      }
 
-		function currentSlide(n) {
-			showSlides(slideIndex = n);
-		}
+      function currentSlide(n) {
+         showSlides(slideIndex = n);
+      }
 
-		function showSlides(n) {
-			let i;
-			let slides = document.getElementsByClassName("mySlides");
-			/* let dots = document.getElementsByClassName("dot"); */
-			if (n > slides.length) {
-				slideIndex = 1
-			}
-			if (n < 1) {
-				slideIndex = slides.length
-			}
-			for (i = 0; i < slides.length; i++) {
-				slides[i].style.display = "none";
-			}
-		/* 	for (i = 0; i < dots.length; i++) {
-				dots[i].className = dots[i].className.replace(" active", "");
-			} */
-			slides[slideIndex - 1].style.display = "block";
-			/* dots[slideIndex - 1].className += " active"; */
-			
-		}
-		
-		$('.heart').on('click', function() {
-			  el = $(this);
-			  if (el.hasClass('liked') ) {
-			    el.removeClass('liked');
-			    return
-			  } else {
-			    el.addClass('liking');
-			    el.one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function (e) {
-			      el.addClass('liked').removeClass('liking');
-			    });  
-			  }
-			});
-		
-	</script>
+      function showSlides(n) {
+         let i;
+         let slides = document.getElementsByClassName("mySlides");
+         /* let dots = document.getElementsByClassName("dot"); */
+         if (n > slides.length) {
+            slideIndex = 1
+         }
+         if (n < 1) {
+            slideIndex = slides.length
+         }
+         for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+         }
+      /*    for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+         } */
+         slides[slideIndex - 1].style.display = "block";
+         /* dots[slideIndex - 1].className += " active"; */
+         
+      }
+      $(document).ready(function() {
+         var page = 1;
+
+         // 스크롤 이벤트 감지
+         $('#content').scroll(function() {
+            if ($('#content').scrollTop() >= ($('#content')[0].scrollHeight - $('#content').height())) {
+               loadMoreData();
+            }
+         });
+
+         function loadMoreData() {
+            page++;
+
+            $.ajax({
+               url : '/load-more-data',
+               type : 'GET',
+               data : {
+                  page : page
+               },
+               beforeSend : function() {
+                  // 로딩 스피너 표시 등의 처리
+               },
+               success : function(response) {
+                  // 서버로부터 받은 데이터 처리
+                  var data = response.data;
+                  var html = '';
+
+                  for (var i = 0; i < data.length; i++) {
+                     html += '<div class="item">' + data[i] + '</div>';
+                  }
+
+                  $('#content').append(html);
+               },
+               complete : function() {
+                  // 로딩 스피너 등의 처리 해제
+               }
+            });
+         }
+      })
+      $('.heart').on('click', function() {
+           el = $(this);
+           if (el.hasClass('liked') ) {
+             el.removeClass('liked');
+             return
+           } else {
+             el.addClass('liking');
+             el.one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function (e) {
+               el.addClass('liked').removeClass('liking');
+             });  
+           }
+         });
+      document.getElementById("nologinwrite").addEventListener("click", function() {
+            alert("로그인 후 이용 가능합니다");
+            window.location.href = "/user/loginForm";
+         });
+   </script>
 </body>
 </html>

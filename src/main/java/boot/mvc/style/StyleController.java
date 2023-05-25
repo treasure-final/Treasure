@@ -1,7 +1,5 @@
 package boot.mvc.style;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,24 +8,20 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import boot.mvc.board.BoardDto;
 import boot.mvc.board.BoardService;
-import boot.mvc.buy_bid.BuyBidDto;
-import boot.mvc.item.ItemDto;
 import boot.mvc.user.UserService;
 
 @Controller
 public class StyleController {
 
 	@Autowired
-	StyleService SDservice;
+	StyleService Sservice;
 
 	@Autowired
 	BoardService Bservice;
@@ -38,14 +32,12 @@ public class StyleController {
 	@GetMapping("/style/detail")
 	public ModelAndView detail(int board_id, HttpSession session) {
 		ModelAndView mview = new ModelAndView();
-
 		String loginEmail = (String) session.getAttribute("loginEmail");
-		String user_num = uservice.findEmailUserNum(loginEmail);
-		
-		BoardDto bdto = SDservice.getData(board_id);
+
+		BoardDto bdto = Sservice.getData(board_id);
 		List<BoardDto> blist = Bservice.getList();
 
-		List<Map<String, Object>> DetailList = SDservice.StyleDetailList();
+		List<Map<String, Object>> DetailList = Sservice.StyleDetailList();
 
 		mview.addObject("DetailList", DetailList);
 		mview.addObject("bdto", bdto);
@@ -59,7 +51,7 @@ public class StyleController {
 	@GetMapping("/style/comments/{board_id}")
 	@ResponseBody
 	public ResponseEntity<List<Map<String, Object>>> getCommentsByBoardId(@PathVariable("board_id") int board_id) {
-		List<Map<String, Object>> comments = SDservice.selectCommentsByBoardId(board_id);
+		List<Map<String, Object>> comments = Sservice.selectCommentsByBoardId(board_id);
 		return ResponseEntity.ok(comments);
 	}
 

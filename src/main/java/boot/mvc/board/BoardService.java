@@ -35,20 +35,10 @@ public class BoardService implements BoardServiceInter {
 	}
 
 	@Override
-	public int getBoardId(String myid) {
+	public String getBoardDtoByUserNum(String user_num) {
 		// TODO Auto-generated method stub
-		return mapper.getBoardId(myid);
-	}
-
-	@Override
-	public List<BoardDto> getListBoard(int board_id, int offset) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("board_id", board_id);
-		map.put("offset", offset);
-		return mapper.getListBoard(map);
+		return mapper.getBoardDtoByUserNum(user_num);
 	}
 
 	
-
-
 }

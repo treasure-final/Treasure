@@ -17,7 +17,7 @@ public interface BoardMapperInter {
 
 	public void deleteStyle(String board_id);
 	
-	public int getBoardId(String myid);
+	public String getBoardDtoByUserNum(String user_num);
 	
-	List<BoardDto> getListBoard(Map<String, Object> map);
+	
 }

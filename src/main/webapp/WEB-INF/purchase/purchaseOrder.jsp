@@ -48,7 +48,7 @@
 
         .container {
             width: 800px;
-            height: 2000px;
+            height: 1500px;
             padding: 40px;
             box-sizing: border-box;
             margin: 100px auto 200px auto;
@@ -125,6 +125,7 @@
             justify-content: center;
             align-items: center;
             margin-bottom: 20px;
+            margin-top: -50px;
         }
 
         .btn-submit {
@@ -364,8 +365,8 @@
                         "addr": addr_info
                     },
                     success: function (res) {
-                        alert(res + "님 구매입찰이 완료되었습니다.")
-                        location.reload();
+                        alert("${loginEmail}" + "님 구매입찰이 완료되었습니다.");
+                        location.href="buybidsuccess?buy_num="+res;
                     }
                 });
             });

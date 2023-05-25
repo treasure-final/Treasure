@@ -7,7 +7,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import boot.mvc.buy_bid.BuyBidDto;
 
 @Service
 public class BoardService implements BoardServiceInter {
@@ -40,5 +39,4 @@ public class BoardService implements BoardServiceInter {
 		return mapper.getBoardDtoByUserNum(user_num);
 	}
 
-	
 }

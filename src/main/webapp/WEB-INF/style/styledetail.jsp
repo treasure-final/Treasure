@@ -8,8 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link
 	href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-	rel="stylesheet"
->
+	rel="stylesheet">
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet"
@@ -337,7 +336,6 @@ th.table_comment_writeday {
          $(".board_id").each(function() {
               var board_id = $(this).val();
               loadComments(board_id);
-              
           });
           function loadComments(board_id) {
              
@@ -377,7 +375,6 @@ th.table_comment_writeday {
             event.preventDefault();
             var board_id = $("#board_id").val();
             var comment_content = $("#comment_content").val();
-            
 
             $.ajax({
               url: "/comment/insert",
@@ -396,12 +393,35 @@ th.table_comment_writeday {
               }
             });
           });
-      }
-          })
-      
+          
+          
+          /*하트  */
+          
+          
+           var $likeBtn =$('.icon.heart');
+
+        $likeBtn.click(function(){
+        $likeBtn.toggleClass('active');
+
+        if($likeBtn.hasClass('active')){          
+           $(this).find('img').attr({
+              'src': 'https://cdn-icons-png.flaticon.com/512/803/803087.png',
+               alt:'찜하기 완료'
+                });
+          
+          
+         }else{
+            $(this).find('i').removeClass('fas').addClass('far')
+           $(this).find('img').attr({
+              'src': 'https://cdn-icons-png.flaticon.com/512/812/812327.png',
+              alt:"찜하기"
+           })
+         }
+     })
+      })
       </script>
-		<!-- 점 -->
-		<!-- <div style="text-align: center">
+      <!-- 점 -->
+      <!-- <div style="text-align: center">
          <span class="dot" onclick="currentSlide(1)"></span>
          <span class="dot" onclick="currentSlide(2)"></span>
          <span class="dot" onclick="currentSlide(3)"></span>
@@ -451,7 +471,6 @@ th.table_comment_writeday {
 
          function loadMoreData() {
             page++;
-
             $.ajax({
                url : '/load-more-data',
                type : 'GET',
@@ -465,6 +484,37 @@ th.table_comment_writeday {
                   // 서버로부터 받은 데이터 처리
                   var data = response.data;
                   var html = '';
+
+                  for (var i = 0; i < data.length; i++) {
+                     html += '<div class="item">' + data[i] + '</div>';
+                  }
+
+                  $('#content').append(html);
+               },
+               complete : function() {
+                  // 로딩 스피너 등의 처리 해제
+               }
+            });
+         }
+      })
+      $('.heart').on('click', function() {
+           el = $(this);
+           if (el.hasClass('liked') ) {
+             el.removeClass('liked');
+             return
+           } else {
+             el.addClass('liking');
+             el.one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function (e) {
+               el.addClass('liked').removeClass('liking');
+             });  
+           }
+         });
+      document.getElementById("nologinwrite").addEventListener("click", function() {
+            alert("로그인 후 이용 가능합니다");
+            window.location.href = "/user/loginForm";
+         });
+   </script>
+
 
                   for (var i = 0; i < data.length; i++) {
                      html += '<div class="item">' + data[i] + '</div>';

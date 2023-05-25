@@ -24,4 +24,5 @@ private String name;
 private MultipartFile upload; 
 private String myphoto;
 private String dimage;
+private String cimage;
 }

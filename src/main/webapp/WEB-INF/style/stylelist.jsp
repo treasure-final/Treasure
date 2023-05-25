@@ -163,7 +163,6 @@ float: right;
   }
   
   /*좋아요 하트 css 끝  */
-}
 
 </style>
 
@@ -237,8 +236,6 @@ $(function(){
             <div id="stylepho">
              <img alt="" src="../../img/style_image/${b.dimage }" onclick="location.href='/style/detail?board_id=${b.board_id}'"
                   style="width: 230px; height: 300px; border-radius: 10%; cursor: pointer;">
-                 
-                 
             </div>
 
             <div id="styledata">
@@ -246,14 +243,7 @@ $(function(){
                
             <c:if test="${b.myphoto==null }"><img src="../../img/profile.png" id="profile-img"></c:if>
                  <c:if test="${b.myphoto!=null }"><img src="../../save/${b.myphoto }" id="profile-img"></c:if>
-                 	
-                 	
                     <a href="#" ><b style="width: 30px;  height: 20px; cursor: pointer; margin-left: 8px; font-size: 8px; float: left; margin-top: 6px;"> ${b.name}</b></a>
-                 
-                 
-                 
-                       
-                 
                  <div class="right_area" >
  					 <a href="javascript:;" class="icon heart">
 					  				
@@ -261,11 +251,7 @@ $(function(){
 					
  					 </a>
 					</div>
-                 
-                   <img alt="" src="../img/style_image/${b.board_image}">
-                     
                </div>
-					
                <div id="stylecontent">
                   <a>${b.board_subject } </a> <br> <a>${b.board_content }</a> <br>
                </div>

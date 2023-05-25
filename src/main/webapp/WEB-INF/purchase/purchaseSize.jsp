@@ -52,6 +52,7 @@ div.main {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin-top: -50px;
 }
 
 .login-wrapper {

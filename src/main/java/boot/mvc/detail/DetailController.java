@@ -80,7 +80,6 @@ public class DetailController {
 		int firstPrice = 0;
 		int secondPrice = 0;
 		double percentChange = 0;
-		int priceChange_ori = 0;
 		String priceChange = "";
 		
 		if (prices.size() >= 1) {
@@ -88,13 +87,11 @@ public class DetailController {
 	        if (prices.size() >= 2) {
 	        	firstPrice = prices.get(0);
 	 		    secondPrice = prices.get(1);
-	 		
-	 		    percentChange = (secondPrice - firstPrice) / (double) firstPrice * 100;	
-	 		    percentChange = Math.round(percentChange * 10) / 10.0;
+	 		    
+	 		    percentChange = Math.round(((secondPrice - firstPrice) / (double) firstPrice * 100) * 10) / 10.0;
 	 		    
 	 		    DecimalFormat decimalFormat = new DecimalFormat("#,###");	 		   
-	 		    priceChange_ori = Math.abs(secondPrice - firstPrice);
-	 		    priceChange = decimalFormat.format(priceChange_ori);
+	 		    priceChange = decimalFormat.format(Math.abs(secondPrice - firstPrice));
 	        }
 	    }
 		

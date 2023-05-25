@@ -116,6 +116,7 @@
             width: 220px;
             height: 200px;
             position: relative;
+            cursor: pointer;
         }
 
         .p {

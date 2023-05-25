@@ -120,8 +120,78 @@ body {
 a {
    cursor: pointer;
 }
+
+
+/*좋아요 하트 css  */
+.right_area{
+float: right;
 }
+
+.right_area>a{
+  text-decoration:none; color:inherit; cursor: pointer;
+}
+ .right_area .icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100vw * (45 / 1920));
+    height: calc(100vw * (45 / 1920));
+    border-radius: 50%;
+    border: solid 2px #eaeaea;
+    background-color: #fff;
+}
+
+.icon.heart img{
+    width: calc(100vw * (24 / 1920));
+    height: calc(100vw * (24 / 1920));
+}
+
+.icon.heart.fas{
+  color:red
+}
+.heart{
+    transform-origin: center;
+}
+.heart.active img{
+    animation: animateHeart .3s linear forwards;
+}
+
+@keyframes animateHeart{
+    0%{transform:scale(.2);}
+    40%{transform:scale(1.2);}
+    100%{transform:scale(1);}
+  }
+  
+  /*좋아요 하트 css 끝  */
+}
+
 </style>
+
+<script type="text/javascript">
+$(function(){
+    var $likeBtn =$('.icon.heart');
+
+        $likeBtn.click(function(){
+        $likeBtn.toggleClass('active');
+
+        if($likeBtn.hasClass('active')){          
+           $(this).find('img').attr({
+              'src': '../img/style_image/redheart.png',
+               alt:'찜하기 완료'
+                });
+          
+          
+         }else{
+            $(this).find('i').removeClass('fas').addClass('far')
+           $(this).find('img').attr({
+              'src': '../img/style_image/heart.png',
+              alt:"찜하기"
+           })
+         }
+     })
+})
+
+</script>
 
 
 </head>
@@ -131,17 +201,28 @@ a {
 
    <div>
       <div id="wrtiemystyle">
-         <a href="#"><b>인기순</b></a> <a href="/style/stylelist"><b>최신순</b></a>
+         <a href="#"><b>인기순</b></a>
+                  &nbsp;
+          <a href="/style/stylelist"><b>최신순</b></a>
       </div>
+      
 
       <div id="sortstyle">
 
          <c:if test="${not empty loginOk}">
-            <a href="/style/writestyleform">글쓰기</a>
+            <a href="/style/writestyleform"><b>글쓰기</b></a>
          </c:if>
 
          <c:if test="${empty loginOk}">
-            <a id="nologinwrite">글쓰기</a>
+            <a id="nologinwrite"><b>글쓰기</b></a>
+         </c:if>
+         &nbsp;
+         <c:if test="${not empty loginOk}">
+      		<a href="/style/mystyle"><b>내 스타일</b></a>
+         </c:if>
+      		  
+      	 <c:if test="${empty loginOk}">
+            <a id="nologinstylewrite"><b>내 스타일</b></a>
          </c:if>
       </div>
    </div>
@@ -154,9 +235,10 @@ a {
          <div class="stylebox">
 
             <div id="stylepho">
-               <img alt="" src="../../img/style_image/${b.dimage }"
-                  onclick="location.href='#'"
+             <img alt="" src="../../img/style_image/${b.dimage }" onclick="location.href='/style/detail?board_id=${b.board_id}'"
                   style="width: 230px; height: 300px; border-radius: 10%; cursor: pointer;">
+                 
+                 
             </div>
 
             <div id="styledata">
@@ -168,18 +250,29 @@ a {
                  	
                     <a href="#" ><b style="width: 30px;  height: 20px; cursor: pointer; margin-left: 8px; font-size: 8px; float: left; margin-top: 6px;"> ${b.name}</b></a>
                  
-                  <img alt=" " src="../img/style_image/heart.png" onclick="#"
-                     style="float: right; width: 15px; margin-right: 15px; margin-top: 5px; color: gray; cursor: pointer;">
+                 
+                 
+                       
+                 
+                 <div class="right_area" >
+ 					 <a href="javascript:;" class="icon heart">
+					  				
+					<img src="../img/style_image/heart.png" alt="찜하기" style=" width: 15px; ">
+					
+ 					 </a>
+					</div>
+                 
+                   <img alt="" src="../img/style_image/${b.board_image}">
                      
                </div>
-
+					
                <div id="stylecontent">
                   <a>${b.board_subject } </a> <br> <a>${b.board_content }</a> <br>
                </div>
                   
             </div>
 
-
+				
 
 
 
@@ -202,7 +295,26 @@ a {
    document.getElementById("nologinwrite").addEventListener("click", function() {
       alert("로그인 후 이용 가능합니다");
       window.location.href = "/user/loginForm";
+      
+     
+      
+
+
    });
+   
+   document.getElementById("nologinstylewrite").addEventListener("click", function() {
+	      alert("로그인 후 이용 가능합니다");
+	      window.location.href = "/user/loginForm";
+	      
+	     
+	      
+
+
+	   });
+   
+   
+   
+   
 </script>
 
 </body>

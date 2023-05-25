@@ -112,6 +112,43 @@ select {
 	background-color: #fff;
 	padding: 30px;
 }
+<<<<<<< HEAD
+</style>
+<script type="text/javascript">
+		$(function() {
+			var item_num = $(".item_num").val();
+
+<<<<<<< HEAD
+		// 모달창에서 사이즈 선택
+		$(".sizeselect").click(function() {
+			var buy_size = $(this).find(".size").text();
+			var selectElement2 = document.getElementById("size-select2");
+=======
+			sendPurchaseRecentPriceSizeRequest(item_num, "모든 사이즈");
+
+			// 모달창에서 사이즈 선택
+			$(".sizeselect").click(function() {
+				var buy_size = $(this).find(".size").text();
+
+				$(".size-text").text(buy_size);
+				$(".size-select").val(buy_size);
+				$("#sizeModal").modal("hide");
+
+				sendPurchaseRecentPriceSizeRequest(item_num, buy_size);
+			});
+
+			$('#size-select2').change(function() {
+				var selectedSize = $(this).val();
+				$('.col-6 span').each(function() {
+					if ($(this).text() == selectedSize) {
+						$(this).closest('.d-flex').show();
+					} else {
+						$(this).closest('.d-flex').hide();
+					}
+				});
+			});
+>>>>>>> 4a6b9b8410cce1104f88b0ec4b45414c23028f99
+=======
 
 hr {
 	background-color : rgba(34, 34, 34, 0.1);
@@ -134,6 +171,7 @@ hr {
 			$(".size-text").text(buy_size);
 			$(".size-select").val(buy_size);
 			$("#sizeModal").modal("hide");
+>>>>>>> ddb1c889d0d516a5eb2968ca6c80ea96077bbc76
 
 			$(".chart-size").val(buy_size);
 			
@@ -148,12 +186,28 @@ hr {
 	    	if(period == "")
 	    		period = "전체";
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+			// 선택한 값을 두 번째 select 요소에 옵션으로 추가
+			var option = document.createElement("option");
+			option.value = buy_size;
+			option.text = buy_size;
+			selectElement2.add(option);
+
+			// 선택한 값을 두 번째 select 요소에서 선택 상태로 설정
+			selectElement2.value = buy_size;
+
+			sendPurchaseRecentPriceSizeRequest1(item_num, buy_size);
+=======
+>>>>>>> 4a6b9b8410cce1104f88b0ec4b45414c23028f99
+=======
 	    	if(buy_size == "모든 사이즈" || buy_size == "")
 	    		buy_size = "all";
 	
 	    	// alert("sizeselect : " +type + "," +item_num + ","+ period + "," + buy_size);
 			getChartData(type, item_num, period, buy_size);
 			tabContentChange(type, item_num, buy_size);
+>>>>>>> ddb1c889d0d516a5eb2968ca6c80ea96077bbc76
 		});
 	    
 	    // 시세 차트 tab
@@ -201,6 +255,54 @@ hr {
 	    	tabContentChange(type, item_num, size);
 	    });
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+	function sendPurchaseRecentPriceSizeRequest1(item_num, buy_size) {
+		$.ajax({
+			url : '/item/getPurchaseRecentPriceSize',
+			type : 'GET',
+			data : {
+				"item_num" : item_num,
+				"buy_size" : buy_size
+			},
+			dataType : 'json', // 데이터 타입을 JSON으로 지정
+			success : function(response) {
+				// 응답 데이터 처리
+				// response는 서버에서 반환하는 JSON 데이터
+
+				// 숫자 포맷팅 및 업데이트
+				var formattedPrice = new Intl.NumberFormat().format(response.purchase_total_price);
+				var price = $(".ChangeRecentPriceSize").text(formattedPrice);
+			},
+			error : function(xhr, status, error) {
+				// 에러 처리
+				console.error("AJAX 요청 에러:", error);
+			}
+		});
+	}
+
+	function handleSizeSelect() {
+		var selectElement = document.getElementById("size-select");
+		var selectElement2 = document.getElementById("size-select2");
+
+		var selectedValue = selectElement.value;
+		var sizeTextElement = document.querySelector(".size-text");
+=======
+		function sendPurchaseRecentPriceSizeRequest(item_num, buy_size) {
+
+			$.ajax({
+				url : '/item/getOrderRecentPriceSize',
+				type : 'GET',
+				data : {
+					"item_num" : item_num,
+					"buy_size" : buy_size
+				},
+				dataType : 'text',
+				success : function(response) {
+					// 응답 데이터 처리
+					// response는 서버에서 반환하는 최근 거래 가격
+>>>>>>> 4a6b9b8410cce1104f88b0ec4b45414c23028f99
+=======
 	    // 시세 모달에서 사이즈 변경
 	    $("#size-select2").on("change", function() {
 	        var size = $(this).val();
@@ -366,6 +468,7 @@ hr {
 					}); 
 					
 					for(var i = res.length; i < 5; i++) {
+>>>>>>> ddb1c889d0d516a5eb2968ca6c80ea96077bbc76
 
 						s += '<div class="d-flex" style="padding: 5px; text-align: center; margin-right: 20px;">';
 						s += '<div class="col-6">';																						
@@ -462,16 +565,19 @@ hr {
   
 		            if(res.percentChange < 0) {
 		            	 $(".ChangeRecentPrice-span").css("color", "#ec0b00");
+		            	 $(".ChangeRecentPrice-span").css("opacity", "1");
 		            	 $("#ChangeRecentPrice-i").html('<i class="fa fa-caret-down me-1" id="ChangeRecentPrice-i"></i>');
 		            	 $(".price-change").text(res.priceChange);
 		            	 $(".percent-change").text(res.percentChange);
 		            } else if(res.percentChange > 0) {
 		            	 $(".ChangeRecentPrice-span").css("color", "green");
+		            	 $(".ChangeRecentPrice-span").css("opacity", "1");
 		            	 $("#ChangeRecentPrice-i").html('<i class="fa fa-caret-up me-1" id="ChangeRecentPrice-i"></i>');
 		            	 $(".price-change").text(res.priceChange);
 		            	 $(".percent-change").text(res.percentChange);
 		            } else {
-		            	$(".ChangeRecentPrice-span").css("opacity", " 0.6");
+		            	$(".ChangeRecentPrice-span").css("color", "black");
+		            	$(".ChangeRecentPrice-span").css("opacity", "0.6");
 		            	$("#ChangeRecentPrice-i").html('<i class="me-5" id="ChangeRecentPrice-i"></i>');
 		            	$(".price-change").text(0);
 		            	$(".percent-change").text(0);
@@ -508,6 +614,19 @@ hr {
 		option.text = selectedValue;
 		selectElement2.add(option);
 
+<<<<<<< HEAD
+			// 선택한 값을 두 번째 select 요소에서 선택 상태로 설정
+			selectElement2.value = selectedValue;
+
+			alert(selectedValue);
+			$("#size_" + selectedValue).hide();
+
+			// size_${g.buy_size }
+			// 선택한 값을 두 번째 select 요소에서 선택 상태로 설정
+			selectElement2.value = selectedValue;
+		}
+	</script>
+=======
 		// 선택한 값을 두 번째 select 요소에서 선택 상태로 설정
 		selectElement2.value = selectedValue;
 	
@@ -694,6 +813,7 @@ hr {
 		});
 		
 	}
+>>>>>>> ddb1c889d0d516a5eb2968ca6c80ea96077bbc76
 </script>
 </head>
 <body>
@@ -718,9 +838,31 @@ hr {
 												style="position: relative; bottom: 50px"
 											>
 										</div>
+<<<<<<< HEAD
+										<%-- <div class="carousel-item" data-bs-interval="4000" data-bs-pause="hover">
+                                       <img src="/assets/images/${Ddto.item_image }" class="d-block w-100" alt="..."
+=======
+>>>>>>> ddb1c889d0d516a5eb2968ca6c80ea96077bbc76
 
 									</div>
 
+<<<<<<< HEAD
+                                    </div> --%>
+									</div>
+									<!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
+                                   data-bs-slide="prev"
+                                >
+                                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                   <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
+                                   data-bs-slide="next"
+                                >
+                                   <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                   <span class="visually-hidden">Next</span>
+                                </button> -->
+=======
+>>>>>>> ddb1c889d0d516a5eb2968ca6c80ea96077bbc76
 								</div>
 							</div>
 						</div>
@@ -766,13 +908,16 @@ hr {
 											<div class="mb-4">
 												<button type="button" class="btn btn-detail btn-lg w-100"
 													style="width: 290px; height: 7vh; margin-top: 70px; margin-left: 40px"
+
 													onclick="loginCheck('buy')"
 												>구매</button>
 											</div>
 											<div>
 												<button type="button" class="btn btn-outline-detail btn-lg w-100"
 													style="height: 7vh; width: 290px; margin-left: 40px;"
+
 													onclick="loginCheck('sell')"
+
 												>판매</button>
 											</div>
 										</div>
@@ -800,18 +945,22 @@ hr {
 															<div class="d-flex row col-12">
 																<!-- 카테고리 별 사이즈 -->
 																<c:if test="${Ddto.item_category != 'bag'}">
+
 																	<div class="col-4 p-2">																
 																		
+
 																		<button type="button" class="btn btn-outline-detail btn-lg w-100 sizeselect"
 																			style="height: 10vh;"
 																		>
 																			<span class="size" style="font-size: 0.9rem;">모든 사이즈</span>
 																			<br>
+
 																		
 																			<c:if test="${minPrice != 0}">
 																				<span style="font-size: 0.7rem; color: #ec0b00;"><fmt:formatNumber value="${minPrice}" type="number" /></span>
 																			</c:if>
 																			
+
 																			<c:if test="${minPrice == 0}">
 																				<span style="font-size: 0.7rem; color: black;">구매입찰</span>
 																			</c:if>
@@ -822,6 +971,7 @@ hr {
 																
 																<c:choose>
 																	<c:when test="${Ddto.item_category == 'shoes'}">																																
+
 																		<c:forEach var="size" begin="220" end="270" step="5">
 																			<div class="col-4 p-2">
 																				<button type="button" class="btn btn-outline-detail btn-lg w-100 sizeselect"
@@ -829,6 +979,7 @@ hr {
 																				>
 																					<span class="size" style="font-size: 0.9rem; margin-bottom: 1rem;">${size}</span>
 																					<br>
+
 																					
 																					<c:if test="${priceList.size() != 0}">																																																							
 																					<c:forEach var="dto" items="${priceList }">																																					
@@ -836,6 +987,7 @@ hr {
 																							<span style="font-size: 0.7rem; color: #ec0b00;"><fmt:formatNumber value="${dto.sell_wishprice}" type="number" /></span>
 																						</c:if>	
 																						
+
 																						<c:if test="${dto.sell_size != size}">
 																							<span style="font-size: 0.7rem; color: black;">구매입찰</span>
 																						</c:if>																																									
@@ -869,6 +1021,7 @@ hr {
 																					</c:if>																																									
 																				</c:forEach>
 																				</c:if>
+
 																						
 																				<c:if test="${priceList.size() == 0}">																																							
 																				<span style="font-size: 0.7rem; color: black;">구매입찰</span>
@@ -879,6 +1032,7 @@ hr {
 							
 																	<c:otherwise>
 																		<c:set var="otherSize">XS,S,M,L,XL,XXL,XXXL</c:set>																														
+
 																		<c:forEach var="size" items="${otherSize}" varStatus="i">
 																			<div class="col-4 p-2">
 																				<button type="button" class="btn btn-outline-detail btn-lg w-100 sizeselect"
@@ -886,6 +1040,7 @@ hr {
 																				>
 																					<span class="size" style="font-size: 0.9rem; margin-bottom: 1rem;">${size}</span>
 																					<br>
+
 																					
 																					<c:if test="${priceList.size() != 0}">																																																							
 																					<c:forEach var="dto" items="${priceList }">																																						
@@ -909,26 +1064,32 @@ hr {
 			
 																</c:choose>
 						
+
 															</div>
 														</div>
 													</div>
 												</div>
 											</div>
 										</div>
+
 									</div>									
+
 									<!-- 최근 거래가 -->
 									<div class="d-flex pe-2 mb-5">
 										<div class="heading-section col-9">
 											<span style="font-size: 1.1em; color: #666;">최근 거래가</span>
 										</div>
 
+
 										<div class="heading-section col-3">
 											<span style="font-size: 1.1em; float: right;">
 												<b class="ChangeRecentPrice">
+
 													<fmt:formatNumber value="" />
 												</b>
 												<b>원</b>
 											</span>
+
 											<span class="ChangeRecentPrice-span" style="font-size: 0.8em; float: right;">
 												<i id="ChangeRecentPrice-i"></i>
 												<span class="price-change"></span>원 (<span class="percent-change"></span>%)
@@ -938,6 +1099,7 @@ hr {
 									</div>
 									<!-- 시세 -->
 									<div class="d-flex pe-2 mb-3 price-chart">
+
 										<div class="heading-section col-9">
 											<span style="font-size: 1.3em; font-weight: 600;">시세</span>
 											<br>
@@ -948,6 +1110,7 @@ hr {
 												style="border: 0px; font-size: 1em; float: right; color: #666;"
 												onchange="handleSizeSelect()"
 											>
+
 												<option>모든 사이즈</option>											
 												
 												<c:choose>
@@ -969,43 +1132,56 @@ hr {
 													</c:otherwise>
 												</c:choose>
 		
+
 											</select>
 										</div>
 									</div>
 									<!-- 시세 그래프 -->
+
 									<div class="d-flex pe-2 mb-1 price-chart">
 									<input type="hidden" class="chart-size" value="">
 									<input type="hidden" class="chart-period" value="">
 									<input type="hidden" class="chart-type" value="">
+
 										<div class="col-xl-12">
 											<div class="nav-align-top mb-4">
 												<ul class="nav nav-pills mb-3 nav-fill" role="tablist">
 													<li class="nav-item">
+
 														<button type="button" class="btn btn-detail active w-100 chart-tab" role="tab"
+
 															data-bs-toggle="tab" data-bs-target="#onemonth" aria-controls="onemonth"
 															aria-selected="true" style="border-radius: 20px 0px 0px 20px"
 														>1개월</button>
 													</li>
 													<li class="nav-item">
+
 														<button type="button" class="btn btn-detail w-100 chart-tab" role="tab" data-bs-toggle="tab"
+
 															data-bs-target="#threemonth" aria-controls="threemonth" aria-selected="false"
 															style="border-radius: 0px"
 														>3개월</button>
 													</li>
 													<li class="nav-item">
+
 														<button type="button" class="btn btn-detail w-100 chart-tab" role="tab" data-bs-toggle="tab"
+
 															data-bs-target="#sixmonth" aria-controls="sixmonth" aria-selected="false"
 															style="border-radius: 0px"
 														>6개월</button>
 													</li>
 													<li class="nav-item">
+
 														<button type="button" class="btn btn-detail w-100 chart-tab" role="tab" data-bs-toggle="tab"
+
 															data-bs-target="#oneyear" aria-controls="oneyear" aria-selected="false"
 															style="border-radius: 0px"
 														>1년</button>
 													</li>
 													<li class="nav-item">
+
 														<button type="button" class="btn btn-detail w-100 chart-tab" role="tab" data-bs-toggle="tab"
+
 															data-bs-target="#all" aria-controls="all" aria-selected="false"
 															style="border-radius: 0px 20px 20px 0px"
 														>전체</button>
@@ -1047,30 +1223,39 @@ hr {
 										</div>
 									</div>
 									<!-- 체결 내역 -->
+
 									<div class="d-flex pe-2 mb-5">
+
 										<div class="col-xl-12">
 											<div class="nav-align-top mb-4">
 												<ul class="nav nav-pills mb-2 nav-fill" role="tablist">
 													<li class="nav-item">
+
 														<button type="button" class="btn btn-detail active w-100 chart-btn" role="tab"
+
 															data-bs-toggle="tab" data-bs-target="#deal" aria-controls="deal" aria-selected="true"
 															style="border-radius: 20px 0px 0px 20px"
 														>체결 거래</button>
 													</li>
 													<li class="nav-item">
+
 														<button type="button" class="btn btn-detail w-100 chart-btn" role="tab" data-bs-toggle="tab"
+
 															data-bs-target="#sellBid" aria-controls="sellBid" aria-selected="false"
 															style="border-radius: 0px"
 														>판매 입찰</button>
 													</li>
 													<li class="nav-item">
+
 														<button type="button" class="btn btn-detail w-100 chart-btn" role="tab" data-bs-toggle="tab"
+
 															data-bs-target="#buyBid" aria-controls="buyBid" aria-selected="false"
 															style="border-radius: 0px 20px 20px 0px"
 														>구매 입찰</button>
 													</li>
 												</ul>
 												<div class="tab-content">
+
 													<div class="tab-pane fade show active" id="deal" role="tabpanel">																									
 														<div class="tab-deal-null"></div>
 														<div class="tab-deal"></div>																									
@@ -1090,7 +1275,6 @@ hr {
 												<div class="modal" id="detailModal" tabindex="-1">
 													<input type="hidden" id="modal-tab" value="">
 													<input type="hidden" id="modal-size" value="">
-												
 													<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 														<div class="modal-content">
 															<div class="modal-header">
@@ -1103,6 +1287,7 @@ hr {
 																		<img src="/assets/images/${Ddto.item_image }"
 																			style="height: 8vh; border-radius: 1.3rem;"
 																		>
+
 																	</div>
 																	<div class="p-2 mb-3" style="flex: 0 0 auto; width: 89%;">
 																		<div class="row">
@@ -1146,29 +1331,36 @@ hr {
 																		<ul class="nav nav-pills mb-2 nav-fill" role="tablist">
 																			<li class="nav-item">
 																				<button type="button" class="btn btn-detail modal-btn active w-100" role="tab"
+
 																					data-bs-toggle="tab" data-bs-target="#dealModal" aria-controls="deal"
 																					aria-selected="true" style="font-size: 0.9rem;"
 																				>체결 거래</button>
 																			</li>
 																			<li class="nav-item">
+
 																				<button type="button" class="btn btn-detail modal-btn w-100" role="tab"
+
 																					data-bs-toggle="tab" data-bs-target="#sellBidModal" aria-controls="sellBid"
 																					aria-selected="false" style="font-size: 0.9rem;"
 																				>판매 입찰</button>
 																			</li>
 																			<li class="nav-item">
+
 																				<button type="button" class="btn btn-detail modal-btn w-100" role="tab"
+
 																					data-bs-toggle="tab" data-bs-target="#buyBidModal" aria-controls="buyBid"
 																					aria-selected="false" style="font-size: 0.9rem;"
 																				>구매 입찰</button>
 																			</li>
 																		</ul>
+
 																		<div class="tab-content">
 																			<div class="tab-pane fade show active deal modal-scroll" id="dealModal" role="tabpanel"  style="overflow-y: scroll;">
 																				<div class="p-2 mb-1 deal modal-ori" style="height: 17vh;">
 																					<div class="d-flex">
 																						<div class="col-6">
 																							<span style="font-size: 0.8em; color: #a0a0a0; margin-left: 15px;">사이즈</span>
+
 																						</div>
 																						<div class="col-3">
 																							<span style="font-size: 0.8em; color: #a0a0a0;">거래가</span>
@@ -1178,6 +1370,7 @@ hr {
 																						</div>
 																					</div>
 																					<hr class="mt-0 mb-0">
+
 																					
 																					<c:forEach items="${getOrderData }" var="p">
 																						<div class="d-flex deal m_size m_size_${p.size }">
@@ -1187,10 +1380,12 @@ hr {
 																							<div class="col-3">
 																								<span style="font-size: 0.9em; color: #666;">
 																									<fmt:formatNumber value="${p.wish_price }" />원
+
 																								</span>
 																							</div>
 																							<div class="col-3">
 																								<span style="font-size: 0.9em; color: #666;">
+
 																									<script type="text/javascript">
 																							          var dateTimeString = '${p.order_date }';
 																							          var dateTime = new Date(dateTimeString);
@@ -1201,10 +1396,12 @@ hr {
 																							          var formattedDate = year + '/' + month + '/' + day;
 																							          document.write(formattedDate);
 																							        </script>			
+
 																								</span>
 																							</div>
 																						</div>
 																					</c:forEach>
+
 						
 																				</div>
 																				
@@ -1220,6 +1417,7 @@ hr {
 																					<div class="d-flex">
 																						<div class="col-6">
 																							<span style="font-size: 0.8em; color: #a0a0a0; margin-left: 15px;">사이즈</span>
+
 																						</div>
 																						<div class="col-4">
 																							<span style="font-size: 0.8em; color: #a0a0a0;">판매 희망가</span>
@@ -1228,6 +1426,7 @@ hr {
 																							<span style="font-size: 0.8em; color: #a0a0a0;">수량</span>
 																						</div>
 																					</div>
+
 																					
 																					<hr class="mt-0 mb-0">
 																					
@@ -1261,6 +1460,7 @@ hr {
 																					<div class="d-flex">
 																						<div class="col-6">
 																							<span style="font-size: 0.8em; color: #a0a0a0; margin-left: 15px;">사이즈</span>
+
 																						</div>
 																						<div class="col-4">
 																							<span style="font-size: 0.8em; color: #a0a0a0;">구매 희망가</span>
@@ -1270,6 +1470,7 @@ hr {
 																						</div>
 																					</div>
 																					<hr class="mt-0 mb-0">
+
 																					
 																					<c:forEach items="${groupedBuyData }" var="g">
 																						<div class="d-flex buyBid m_size m_size_${g.buy_size }">
@@ -1295,6 +1496,7 @@ hr {
 																					</div>
 																				</div>
 																				
+
 																			</div>
 																		</div>
 																	</div>
@@ -1521,7 +1723,9 @@ hr {
 		<div class="d-flex">
 			<div class="col-11 align-self-center">
 				<span class="fs-4">
+
 					<b>${Ddto.item_brandname }</b>의 다른 상품
+
 				</span>
 			</div>
 			<div class="col-1 align-self-center">
@@ -1531,14 +1735,18 @@ hr {
 				</span>
 			</div>
 		</div>
+
 		<div class="mt-4 mb-lg-5" style="height: 35vh;">
+
 			<c:forEach items="${list }" var="a">
 				<c:if
 					test="${a.item_brandname==Ddto.item_brandname && a.item_category==Ddto.item_category && a.item_num!=Ddto.item_num}"
 				>
 					<a href='/item/detail?item_num=${a.item_num }'>
 						<img alt="" src="/assets/images/${a.item_image }"
+
 							style="border: 1px solid rgba(34, 34, 34, 0.1); border-radius: 10px; height: 250px; width: 250px; margin-right: 5px;"
+
 						>
 					</a>
 				</c:if>

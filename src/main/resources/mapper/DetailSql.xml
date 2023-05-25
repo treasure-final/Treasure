@@ -55,6 +55,7 @@
 
 	<!-- 최근 거래가 -->
 <!-- 	<select id="getOrderRecentPrice" resultType="int" parameterType="Map">
+>>>>>>> ddb1c889d0d516a5eb2968ca6c80ea96077bbc76
 		select coalesce(
   			(select wish_price
   			from `order`

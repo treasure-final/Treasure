@@ -8,5 +8,17 @@ public class CommentService implements CommentServiceInter {
 
 	@Autowired
 	CommentMapperInter mapper;
-	
+
+	@Override
+	public void InsertComment(CommentDto CDto) {
+		// TODO Auto-generated method stub
+		mapper.insertComment(CDto);
+	}
+
+	@Override
+	public void updateComment(CommentDto CDto) {
+		// TODO Auto-generated method stub
+		mapper.updateComment(CDto);
+		
+	}
 }

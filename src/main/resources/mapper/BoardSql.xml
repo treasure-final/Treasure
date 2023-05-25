@@ -1,24 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="boot.mvc.board.BoardMapperInter">
-
-
-
 	<insert id="insertStyle" parameterType="BoardDto">
-	
-	insert into board(user_num, board_content,board_subject,board_image,myid,name,myphoto,board_writeday) values (#{user_num},#{board_content},#{board_subject},#{board_image},#{myid},#{name},#{myphoto},now())
+		insert into board(user_num, board_content,board_subject,board_image,myid,name,myphoto,board_writeday) values (#{user_num},#{board_content},#{board_subject},#{board_image},#{myid},#{name},#{myphoto},now())
 	</insert>
 	
 	<select id="getList" resultType="BoardDto">
-	select * from board order by board_id DESC
+		select * from board order by board_id DESC
 	</select>
 	
 	<delete id="deleteStyle" parameterType="String">
-	delete form board where board_id=#{board_id}
+
+		delete from board where board_id=#{board_id}
 	</delete>
 	
+	 <select id="getBoardId" parameterType="int" resultType="Map">
+	select board_image from board where board_id=#{board_id}
+	</select>
 	
-		
+	<select id="getListBoard" parameterType="int" resultType="Map">
+        SELECT board_image
+        FROM board
+        WHERE board_id=#{board_id} order by board_id desc limit 6 offset #{offset}
+    </select> 
+
+	<select id="getBoardDtoByUserNum" resultType="String">
+	select board_id from board where user_num=#{user_num} LIMIT 1
+	</select>
 </mapper>

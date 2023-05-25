@@ -1,14 +1,23 @@
+<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+=======
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+>>>>>>> 4b9823000c6f82da0d84ce450f8d7f346888a371
 
 <!DOCTYPE html>
 <html>
-
 <head>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4b9823000c6f82da0d84ce450f8d7f346888a371
     <meta charset="utf-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -83,10 +92,10 @@
             margin-right: .4rem;
         }
 
-        .moveTopBtn:hover {
-            color: white;
-            background: #747f55;
-        }
+.moveTopBtn:hover {
+	color: white;
+	background: #747f55;
+}
 
         /* 글꼴 적용*/
         @font-face {
@@ -96,13 +105,22 @@
             font-style: normal;
         }
 
+<<<<<<< HEAD
+        /* 글꼴 적용*/
+        @font-face {
+            font-family: 'GmarketSansMedium';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+=======
+>>>>>>> 4b9823000c6f82da0d84ce450f8d7f346888a371
         body {
             font-family: 'GmarketSansMedium';
         }
     </style>
 </head>
-
-
 <body style="overflow-x: hidden;">
 <div class="layout">
 

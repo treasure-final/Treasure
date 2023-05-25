@@ -17,6 +17,13 @@
             rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="../hangul.js" type="text/javascript"></script>
+    <!-- or from CDN -->
+    <script src="https://unpkg.com/hangul-js" type="text/javascript"></script>
+    <script src="/assets/js/data.js"></script>
 
     <title></title>
 

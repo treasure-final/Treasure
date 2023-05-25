@@ -248,9 +248,9 @@ div.buy_size:hover {
 				//구매동의로 이동
 				var data = "item_num=${item_num}&size=" + size + "&deliveryWay=" + deliveryWay;
 				if ($(this).hasClass("fastbox")) {
-					location.href = "order?" + data + "&orderPrice=" + uncomma(price);;
+					location.href = "order?" + data + "&orderPrice=" + uncomma(price);
 				} else {
-					location.href = "check?" + data + "&price=" + price;;
+					location.href = "check?" + data + "&price=" + price;
 				}
 
 			}
@@ -338,7 +338,7 @@ div.buy_size:hover {
 										<span class="buy_size" style="color: #ec0b00;"><fmt:formatNumber value="${buyPrice.sell_wishprice}" pattern="###,###,###"/></span>
 									</c:when>
 									<c:otherwise>
-										${buyPrice.sell_size}
+<%--										${buyPrice.sell_size}--%>
 										<span class="buy_size" style="color: black;">구매입찰</span>
 									</c:otherwise>
 								</c:choose>

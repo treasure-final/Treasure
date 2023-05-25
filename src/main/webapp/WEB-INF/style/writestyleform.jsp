@@ -55,7 +55,7 @@ body {
 	font-family: 'GmarketSansMedium';
 }
 
-button {
+button{
 	font-size: 13px;
 	color: #747f55;
 	background-color: #fff;
@@ -76,7 +76,7 @@ button {
 
 .style-wrapper {
 	width: 1200px;
-	border: 1px solid black;
+	border: px solid black;
 	height: 600px;
 	margin-top: 30px;
 }
@@ -89,10 +89,11 @@ button {
 }
 
 #styleinsert {
-	border: 1px solid black;
+	
 	width: 800px;
 	height: 500px;
 	margin-left: 200px;
+	
 }
 
 #stlyewrite {
@@ -121,11 +122,11 @@ button {
 	border: 0px solid gray;
 	width: 800px;
 	height: 70px;
-	margin-top:350px;
+	margin-top:330px;
 	text-align: center;
 	
 }
-
+	
 #stlyewrite>input {
 	width: 265px;
 	border-radius: 0;
@@ -174,6 +175,7 @@ button {
 	color: #999;
 	font-size: .9em;
 }
+
 </style>
 
 
@@ -188,7 +190,7 @@ button {
 
 
 			<div id="styleinsert">
-				<div id="insertsubject" style="width: 800px; height: 50px; border: 1px solid pink;">
+				<div id="insertsubject" style="width: 800px; height: 50px; ">
 				<h3 style="width: 300px; margin-left: 240px;  text-align: center;">스타일 올리기</h3>
 				</div>
 

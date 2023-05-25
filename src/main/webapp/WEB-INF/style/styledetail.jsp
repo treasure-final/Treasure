@@ -253,9 +253,9 @@ $(function(){
 <body>
 	<c:set var="loginOk" value="${sessionScope.loginOk}" />
 	<div id="content">
-		<input type="hidden" value=${bdto.board_id } id="board_id">
+		<input type="hidden" value="${bdto.board_id }" id="board_id">
 		<c:forEach items="${DetailList }" var="Bdto">
-			<input type="text" value="${Bdto.board_id }" class="board_id">
+			<input type="hidden" value="${Bdto.board_id }" class="board_id">
 			<div class="post">
 				<div class="profile">
 					<table class="styletable">
@@ -307,8 +307,8 @@ $(function(){
 			<div class="slideshow-container" style="width: 80%; margin-left: 500px">
 				<div class="all">
 					<div id="image-container">
-						<c:forEach var="image" items="${getImage}">
-							<img src="${image}" alt="Image">
+						<c:forEach var="image" items="${Bdto.board_image}">
+							<img src="../img/style_image/${image}" alt="Image">
 						</c:forEach>
 					</div>
 					<a class="prev" onclick="plusSlides(-1)">❮</a>

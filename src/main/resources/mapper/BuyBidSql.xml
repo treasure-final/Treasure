@@ -72,6 +72,7 @@
     <!-- 방금 insert된 sell_num 가져오기 -->
     <select id="getNowinsertBuyBidNum" resultType="String">
         SELECT LAST_INSERT_ID() AS last_id
+    </select>
 
     <select id="getListBuyBidTotal" parameterType="Map" resultType="BuyBidDto">
         SELECT bd.*, i.*

@@ -1,23 +1,12 @@
-<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
-=======
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
->>>>>>> 4b9823000c6f82da0d84ce450f8d7f346888a371
 
 <!DOCTYPE html>
 <html>
 <head>
-<<<<<<< HEAD
-
-=======
->>>>>>> 4b9823000c6f82da0d84ce450f8d7f346888a371
     <meta charset="utf-8">
     <meta name="viewport"
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -105,7 +94,6 @@
             font-style: normal;
         }
 
-<<<<<<< HEAD
         /* 글꼴 적용*/
         @font-face {
             font-family: 'GmarketSansMedium';
@@ -113,9 +101,6 @@
             font-weight: normal;
             font-style: normal;
         }
-
-=======
->>>>>>> 4b9823000c6f82da0d84ce450f8d7f346888a371
         body {
             font-family: 'GmarketSansMedium';
         }

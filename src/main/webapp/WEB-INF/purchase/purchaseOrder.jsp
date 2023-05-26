@@ -48,7 +48,7 @@
 
         .container {
             width: 800px;
-            height: 1500px;
+            height: 1800px;
             padding: 40px;
             box-sizing: border-box;
             margin: 100px auto 200px auto;
@@ -296,7 +296,7 @@
                     pay_method: 'card',
                     merchant_uid: 'merchant_' + new Date().getTime(),
                     name: "${dto.item_korname}",
-                    amount: 100,
+                    amount: ${price}+"원",
                     buyer_email: "${loginEmail}",
                     buyer_name: "${userName}",
                     buyer_tel: "${userPhone}",

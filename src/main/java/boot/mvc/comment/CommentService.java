@@ -1,5 +1,8 @@
 package boot.mvc.comment;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,4 +24,12 @@ public class CommentService implements CommentServiceInter {
 		mapper.updateComment(CDto);
 		
 	}
+
+	@Override
+	public String getUserEmailByUserNum(String user_num) {
+		// TODO Auto-generated method stub
+		return mapper.getUserEmailByUserNum(user_num);
+	}
+
+	
 }

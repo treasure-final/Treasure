@@ -13,18 +13,9 @@
 
 		delete from board where board_id=#{board_id}
 	</delete>
-	
-	 <select id="getBoardId" parameterType="int" resultType="Map">
-	select board_image from board where board_id=#{board_id}
-	</select>
-	
-	<select id="getListBoard" parameterType="int" resultType="Map">
-        SELECT board_image
-        FROM board
-        WHERE board_id=#{board_id} order by board_id desc limit 6 offset #{offset}
-    </select> 
 
+	
 	<select id="getBoardDtoByUserNum" resultType="String">
-	select board_id from board where user_num=#{user_num} LIMIT 1
+	select board_id from board where user_num=#{user_num} limit 1
 	</select>
 </mapper>

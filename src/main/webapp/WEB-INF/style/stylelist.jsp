@@ -262,7 +262,6 @@ $(function(){
  					 </a>
 					</div>
                  
-                   <img alt="" src="../img/style_image/${b.board_image}">
                      
                </div>
 					

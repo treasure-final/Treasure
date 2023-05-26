@@ -36,6 +36,10 @@ public class StyleService implements StyleServiceInter {
 		return mapper.selectCommentsByBoardId(board_id);
 	}
 
+	
+
+	
+
 
 	
 

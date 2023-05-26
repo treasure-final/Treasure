@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boot.mvc.comment.CommentMapperInter">
+	
+	<select id="getUserEmailByUserNum" resultType="String">
+	select user_email from comment c join user u on c.user_num=u.user_num where c.user_num=#{user_num} limit 1
+	</select>
+
 	<!-- 댓글 추가 -->
 	<insert id="insertComment" parameterType="CommentDto">
 		insert into comment(comment_content,user_num,board_id,comment_writeday) values (#{comment_content},#{user_num},#{board_id},now())
@@ -9,5 +14,6 @@
 	<update id="updateComment" parameterType="Map">
 	update comment set comment_content=#{comment_content}, comment_writeday=now() where comment_id=#{comment_id} and user_num=#{user_num}
 	</update>
+	
 	
 </mapper>

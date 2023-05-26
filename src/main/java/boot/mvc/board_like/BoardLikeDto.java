@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @Alias("BoardLikeDto")
 public class BoardLikeDto {
-private int board_like_id;
-private int board_id;
-private int user_num;
+private String board_like_id;
+private String board_id;
+private String user_num;
 }

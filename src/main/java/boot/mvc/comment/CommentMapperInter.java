@@ -9,5 +9,5 @@ public interface CommentMapperInter {
 	
 	public void updateComment(CommentDto CDto);
 	
-	
+	public void deleteComment(String comment_id);
 }

@@ -500,18 +500,7 @@
 		/* dots[slideIndex - 1].className += " active"; */
 
 	}
-	$('.heart').on('click', function() {
-		el = $(this);
-		if (el.hasClass('liked') ) {
-			el.removeClass('liked');
-			return
-		} else {
-			el.addClass('liking');
-			el.one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function (e) {
-				el.addClass('liked').removeClass('liking');
-			});
-		}
-	});
+	
 	document.getElementById("nologinwrite").addEventListener("click", function() {
 		alert("로그인 후 이용 가능합니다");
 		window.location.href = "/user/loginForm";

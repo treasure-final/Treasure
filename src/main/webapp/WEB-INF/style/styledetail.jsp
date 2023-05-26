@@ -408,7 +408,7 @@
 								commentHtml += '<tr>';
 								commentHtml += '<th class="table_comment_writeday"><span>' + formatRelativeTime(new Date(comments[i].comment_writeday)) + '</span></th>';
 								commentHtml += '<th class="table_comment_update" rowspan="2"><span><button>수정</button></span></th>';
-								commentHtml += '<th class="table_comment_delete" rowspan="2" comment_id="' + comments[i].comment_id + '" onclick="deleteComment();"><span><button>삭제</button></span></th>';
+								commentHtml += '<th class="table_comment_delete" rowspan="2" comment_id="' + comments[i].comment_id + '" onclick="deleteComment()"><span><button>삭제</button></span></th>';
 								commentHtml += '</tr>';
 								commentHtml += '</tr>';
 								commentHtml += '</table>';

@@ -15,4 +15,5 @@ public class CommentDto {
 	private String board_id;
 	private String myid;
 	private Timestamp comment_writeday;
+	private int boardLikeCheck;
 }

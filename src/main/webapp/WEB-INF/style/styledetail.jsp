@@ -121,8 +121,7 @@
 			animation-duration: 1.5s;
 		}
 
-		@
-		keyframes fade {
+		@keyframes fade {
 		from {opacity: .4
 		}
 
@@ -158,10 +157,9 @@
 		}
 
 		div.all {
-			width: 50%;
-			height: 600px;
+			max-width: 50%;
+			max-height: 100%;
 			border-radius: 10px;
-			border: 1px solid black;
 		}
 		/* Slideshow container */
 		.slideshow-container {
@@ -182,9 +180,15 @@
 
 		.time {
 			vertical-align: bottom;
+			font-weight: normal;
 		}
 
-		.comment {
+		.comment, .board_content, form {
+			margin-left: 500px;
+			margin-top: 10px;
+		}
+
+		.board_like {
 			margin-left: 500px;
 			margin-top: 10px;
 		}
@@ -200,231 +204,318 @@
 		.styletable {
 			text-align: left;
 		}
+
+		.commentform {
+			width: 50%;
+		}
+
+		#comment_submit, #nologinwrite {
+			width: 5%;
+			background-color: white;
+			padding: 0px;
+		}
+
+		#comment_content {
+			width: 47%;
+			padding: 10px;
+			border-radius: 10px;
+		}
+
+		.table_comment_content {
+			font-weight: normal;
+			text-align: left;
+		}
+
+		.table_comment_nickname {
+			width: 100px;
+			font-weight: bold;
+			text-align: left;
+		}
+
+		.table_comment_writeday {
+			text-align: left;
+			font-weight: normal;
+			color: gray;
+		}
+
+		.table_comment_update {
+			text-align: right;
+			margin-bottom: 30px
+		}
 	</style>
 </head>
 <body>
-	<c:set var="root" value="<%=request.getContextPath()%>" />
-	<div id="content">
-		<input type="text" class="board_id" value=${board_id }>
-		<c:forEach items="${DetailList }" var="Bdto">
-			<div class="post">
-				<div class="profile">
-					<table class="styletable">
-						<tr>
-							<th rowspan="2">
-								<img src="/save/${Bdto.user_photo }" alt="프로필 사진"
-									 style="border-radius: 100px; max-width: 40px; max-height: 40px"
-								>
-							</th>
-							<th>
-								<span class="nickname">${Bdto.user_name }</span>
-							</th>
-						</tr>
-						<tr>
-							<th>
+<c:set var="loginOk" value="${sessionScope.loginOk}" />
+<div id="content">
+	<input type="hidden" value="${bdto.board_id }" class="board_id">
+	<c:forEach items="${DetailList }" var="Bdto">
+		<input type="hidden" value="${Bdto.board_id }" class="board_id">
+		<div class="post">
+			<div class="profile">
+				<table class="styletable">
+					<tr>
+						<th rowspan="2">
+							<img src="/save/${Bdto.user_photo }" alt="프로필 사진"
+								 style="border-radius: 100px; max-width: 35px; max-height: 35px"
+							>
+						</th>
+						<th width="60px" align="center">
+							<span class="nickname">${Bdto.user_name }</span>
+						</th>
+					</tr>
+					<tr>
+						<th>
 								<span class="time" style="color: gray">
+									&nbsp;
 									<fmt:parseDate var="dateFormatter" value="${Bdto.board_writeday}"
 												   pattern="yyyy-MM-dd'T'HH:mm:ss"
 									/>
 									<script type="text/javascript">
-										function formatRelativeTime(date) {
-											var now = new Date();
-											var diff = Math.floor((now - date) / 1000);
+                              function formatRelativeTime(date) {
+								  var now = new Date();
+								  var diff = Math.floor((now - date) / 1000);
 
-											if (diff < 60) {
-												return diff + '초 전';
-											} else if (diff < 60 * 60) {
-												var minutes = Math.floor(diff / 60);
-												return minutes + '분 전';
-											} else if (diff < 60 * 60 * 24) {
-												var hours = Math.floor(diff / (60 * 60));
-												return hours + '시간 전';
-											} else {
-												var days = Math.floor(diff / (60 * 60 * 24));
-												return days + '일 전';
-											}
-										}
-										var formattedDate = new Date("${Bdto.board_writeday}");
-										var relativeTime = formatRelativeTime(formattedDate);
-										document.write(relativeTime);
-									</script>
+								  if (diff < 60) {
+									  return diff + '초 전';
+								  } else if (diff < 60 * 60) {
+									  var minutes = Math.floor(diff / 60);
+									  return minutes + '분 전';
+								  } else if (diff < 60 * 60 * 24) {
+									  var hours = Math.floor(diff / (60 * 60));
+									  return hours + '시간 전';
+								  } else {
+									  var days = Math.floor(diff / (60 * 60 * 24));
+									  return days + '일 전';
+								  }
+							  }
+							  var formattedDate = new Date("${Bdto.board_writeday}");
+							  var relativeTime = formatRelativeTime(formattedDate);
+							  document.write(relativeTime);
+                           </script>
 								</span>
-							</th>
-						</tr>
-					</table>
-				</div>
+						</th>
+					</tr>
+				</table>
 			</div>
-			<!-- 초기 콘텐츠 -->
-			<div class="slideshow-container" style="width: 80%; margin-left: 500px">
-				<div class="all">
-					<div class="mySlides fade">
-						<img src="../assets/images/1.png" style="width: 100%">
-					</div>
-					<!-- <div class="mySlides fade">
-					<img src="../assets/images/2.png" style="width: 100%">
-				</div>
-				<div class="mySlides fade">
-					<img src="../assets/images/3.png" style="width: 100%">
-				</div> -->
-					<a class="prev" onclick="plusSlides(-1)">❮</a>
-					<a class="next" onclick="plusSlides(1)">❯</a>
-				</div>
-			</div>
-			<div class="container">
-				<div class="heart"></div>
-			</div>
-		</c:forEach>
-		<div class="comments">
-			<c:forEach items="${commentList}" var="comment">
-				<div class="comment">
-					<span class="nickname">${comment.user_nickname}</span>
-					<span class="time" style="color: gray">${comment.comment_writeday}</span>
-					<p>${comment.comment_content}</p>
-				</div>
-			</c:forEach>
 		</div>
-		<!-- 점 -->
-		<!-- <div style="text-align: center">
-			<span class="dot" onclick="currentSlide(1)"></span>
-			<span class="dot" onclick="currentSlide(2)"></span>
-			<span class="dot" onclick="currentSlide(3)"></span>
-		</div> -->
-	</div>
-
-	<script>
-		let slideIndex = 1;
-		showSlides(slideIndex);
-
-		function plusSlides(n) {
-			showSlides(slideIndex += n);
-		}
-
-		function currentSlide(n) {
-			showSlides(slideIndex = n);
-		}
-
-		function showSlides(n) {
-			let i;
-			let slides = document.getElementsByClassName("mySlides");
-			/* let dots = document.getElementsByClassName("dot"); */
-			if (n > slides.length) {
-				slideIndex = 1
-			}
-			if (n < 1) {
-				slideIndex = slides.length
-			}
-			for (i = 0; i < slides.length; i++) {
-				slides[i].style.display = "none";
-			}
-			/* 	for (i = 0; i < dots.length; i++) {
-                    dots[i].className = dots[i].className.replace(" active", "");
-                } */
-			slides[slideIndex - 1].style.display = "block";
-			/* dots[slideIndex - 1].className += " active"; */
-
-		}
+		<!-- 초기 콘텐츠 -->
+		<div class="slideshow-container" style="width: 80%; margin-left: 500px">
+			<div class="all">
+				<div class="mySlides fade">
+					<img src="../../img/style_image/${bdto.board_image }"
+						 style="width: 100%; height: 100%; border-radius: 10px"
+					>
+				</div>
+				<a class="prev" onclick="plusSlides(-1)">❮</a>
+				<a class="next" onclick="plusSlides(1)">❯</a>
+			</div>
+		</div>
+		<div class="container">
+			<div class="heart"></div>
+		</div>
+		<c:if test="${bdto.boardLikeCheck eq 1}">
+		<div class="board_like active" board_id="${bdto.board_id}">
+			<img src="../img/style_image/redheart.png" alt="찜하기" style=" width: 15px; ">
+		</div>
+		</c:if>
+		<c:if test="${bdto.boardLikeCheck ne 1}">
+		<div class="board_like" board_id="${bdto.board_id}">
+			<img alt=" " src="../img/style_image/heart.png"
+				 style="width: 30px; margin-right: 15px; margin-top: 5px; color: gray; cursor: pointer;">
+		</div>
+		</c:if>
+		<div style="margin-left: 500px; margin-top: 10px">좋아요 몇개</div>
+		<div class="board_content">${Bdto.board_content }</div>
+		<br>
+		<hr width="35%">
+		<div class="comment" id="comment_${Bdto.board_id}"></div>
+		<div>
+			<form id="comment-form">
+				<input type="hidden" name="board_id" value="${Bdto.board_id}">
+				<input id="comment_content" type="text" name="comment_content">
+				<c:if test="${not empty loginOk}">
+					<input id="comment_submit" type="submit" value="작성">
+				</c:if>
+				<c:if test="${empty loginOk}">
+					<input id="nologinwrite" type="button" value="작성" style="padding: 10px 30px">
+				</c:if>
+			</form>
+		</div>
+	</c:forEach>
+	<script type="text/javascript">
 		$(document).ready(function() {
-			var page = 1;
+			$(".board_id").each(function () {
+				var board_id = $(this).val();
+				loadComments(board_id);
 
-			// 스크롤 이벤트 감지
-			$('#content').scroll(function() {
-				if ($('#content').scrollTop() >= ($('#content')[0].scrollHeight - $('#content').height())) {
-					loadMoreData();
+			});
+
+				//좋아요 부분
+				var likeBtn = $('.board_like');
+
+				likeBtn.click(function () {
+					if (likeBtn.hasClass('active')) {
+						$(this).removeClass('active')
+						$(this).find('img').attr({
+							'src': '../img/style_image/heart.png',
+							// alt:"찜하기"
+						});
+						var board_id = $(this).attr("board_id");
+						$.ajax({
+							url: "/style/deleteLike",
+							data: {"board_id": board_id},
+							type: "get",
+							success: function () {
+								// alert("찜하기 삭제");
+							}
+						});
+
+					} else {
+						$(this).addClass('active')
+						$(this).find('img').attr({
+							'src': '../img/style_image/redheart.png',
+							// alt:'찜하기 완료'
+						})
+						var board_id = $(this).attr("board_id");
+						$.ajax({
+							url: "/style/insertLike",
+							data: {"board_id": board_id},
+							type: "get",
+							success: function () {
+								// alert("찜하기 완료");
+							}
+						});
+					}
+				});
+
+				function loadComments(board_id) {
+
+					$.ajax({
+						url: "/style/comments/" + board_id,
+						type: "GET",
+						dataType: "json",
+						success: function (response) {
+							var comments = response; // 받은 댓글 목록 데이터
+							var commentHtml = '';
+
+							// 각 댓글 데이터를 순회하며 HTML로 변환하여 commentHtml에 추가
+							for (var i = 0; i < comments.length; i++) {
+								commentHtml += '<table style="width:500px">';
+								commentHtml += '<tr align="left">';
+								commentHtml += '<th class="table_comment_nickname" rowspan="2" align="left"><img src="../../save/' + comments[i].user_photo + '" style="border-radius: 100px; ;max-width: 35px; max-height: 35px"></th>';
+								commentHtml += '<th class="table_comment_nickname">' + comments[i].user_nickname + '</th>';
+								commentHtml += '<th class="table_comment_content" rowspan="2">' + comments[i].comment_content + '</th>';
+								commentHtml += '<tr>';
+								commentHtml += '<th class="table_comment_writeday"><span>' + formatRelativeTime(new Date(comments[i].comment_writeday)) + '</span></th>';
+								commentHtml += '<th class="table_comment_update" rowspan="2"><span><button>수정</button></span></th>';
+								commentHtml += '<th class="table_comment_delete" rowspan="2" comment_id="' + comments[i].comment_id + '" onclick="deleteComment();"><span><button>삭제</button></span></th>';
+								commentHtml += '</tr>';
+								commentHtml += '</tr>';
+								commentHtml += '</table>';
+							}
+
+							// 댓글 목록 영역에 commentHtml을 추가
+							$("#comment_" + board_id).html(commentHtml);
+						},
+						error: function (request, status, error) {
+							console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
+						}
+					});
 				}
-			});
 
-			function loadMoreData() {
-				page++;
-
-				$.ajax({
-					url : '/load-more-data',
-					type : 'GET',
-					data : {
-						page : page
-					},
-					beforeSend : function() {
-						// 로딩 스피너 표시 등의 처리
-					},
-					success : function(response) {
-						// 서버로부터 받은 데이터 처리
-						var data = response.data;
-						var html = '';
-
-						for (var i = 0; i < data.length; i++) {
-							html += '<div class="item">' + data[i] + '</div>';
+				// AJAX를 사용하여 댓글 양식 제출
+				$("#comment-form").submit(function (event) {
+					event.preventDefault();
+					var board_id = $("#board_id").val();
+					var comment_content = $("#comment_content").val();
+					$.ajax({
+						url: "/comment/insert",
+						type: "POST",
+						data: {
+							"board_id": board_id,
+							"comment_content": comment_content
+						},
+						success: function (response) {
+							// 댓글 제출 후 댓글 섹션 새로고침 및 입력 필드 초기화
+							$("#comment_content").val("");
+							location.reload()
+						},
+						error: function (request, status, error) {
+							console.log("code:" + request.status + "\n" + "message:" + request.responseText + "\n" + "error:" + error);
 						}
-
-						$('#content').append(html);
-					},
-					complete : function() {
-						// 로딩 스피너 등의 처리 해제
-					}
+					});
 				});
-			}
-			function loadComments(board_id) {
-				$.ajax({
-					url: '/comment/list',
-					type: 'GET',
-					data: {
-						"board_id": board_id
-					},
-					dataType:'json',
-					success: function(response) {
-						var comments = response;
-						var html = '';
 
-						for (var i = 0; i < comments.length; i++) {
-							html += '<div class="comment">';
-							html += '<span class="nickname">' + comments[i].user_nickname + '</span><br>';
-							html += '<span class="time" style="color: gray">' + comments[i].comment_writeday + '</span><br>';
-							html += '<span class="content">' + comments[i].comment_content + '</span>';
-							html += '</div>';
-						}
 
-						$('.comments').html(html);
-					},
-					error:function(request,status,error){
-						console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-					}
-				});
-			}
-
-			// 페이지 로딩 시 댓글 불러오기
-			loadComments(${board_id});
-
-			// 댓글 등록
-			$('#commentForm').submit(function(e) {
-				e.preventDefault();
-
-				var formData = $(this).serialize();
+		});
+			function deleteComment() {
+				var comment_id=$(this).attr("comment_id");
 
 				$.ajax({
-					url: '/comment/add',
-					type: 'POST',
-					data: formData,
-					success: function(response) {
-						// 등록 성공 시 댓글을 다시 불러옴
-						loadComments(${board_id});
-						$('#commentContent').val('');
-					},
-					error: function() {
-						alert('댓글 등록 중에 오류가 발생했습니다.');
+					url:"/comment/deletecomment",
+					data:{"comment_id":comment_id},
+					type:"get",
+					success:function() {
+						alert("삭제");
 					}
 				});
-			});
-		});
-		$('.heart').on('click', function() {
-			el = $(this);
-			if (el.hasClass('liked') ) {
-				el.removeClass('liked');
-				return
-			} else {
-				el.addClass('liking');
-				el.one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function (e) {
-					el.addClass('liked').removeClass('liking');
-				});
 			}
-		});
 	</script>
+	<!-- 점 -->
+	<!-- <div style="text-align: center">
+     <span class="dot" onclick="currentSlide(1)"></span>
+     <span class="dot" onclick="currentSlide(2)"></span>
+     <span class="dot" onclick="currentSlide(3)"></span>
+  </div> -->
+</div>
+<script>
+	let slideIndex = 1;
+	showSlides(slideIndex);
+
+	function plusSlides(n) {
+		showSlides(slideIndex += n);
+	}
+
+	function currentSlide(n) {
+		showSlides(slideIndex = n);
+	}
+
+	function showSlides(n) {
+		let i;
+		let slides = document.getElementsByClassName("mySlides");
+		/* let dots = document.getElementsByClassName("dot"); */
+		if (n > slides.length) {
+			slideIndex = 1
+		}
+		if (n < 1) {
+			slideIndex = slides.length
+		}
+		for (i = 0; i < slides.length; i++) {
+			slides[i].style.display = "none";
+		}
+		/*    for (i = 0; i < dots.length; i++) {
+              dots[i].className = dots[i].className.replace(" active", "");
+           } */
+		slides[slideIndex - 1].style.display = "block";
+		/* dots[slideIndex - 1].className += " active"; */
+
+	}
+	$('.heart').on('click', function() {
+		el = $(this);
+		if (el.hasClass('liked') ) {
+			el.removeClass('liked');
+			return
+		} else {
+			el.addClass('liking');
+			el.one('webkitAnimationEnd oanimationend msAnimationEnd animationend', function (e) {
+				el.addClass('liked').removeClass('liking');
+			});
+		}
+	});
+	document.getElementById("nologinwrite").addEventListener("click", function() {
+		alert("로그인 후 이용 가능합니다");
+		window.location.href = "/user/loginForm";
+	});
+</script>
 </body>
 </html>

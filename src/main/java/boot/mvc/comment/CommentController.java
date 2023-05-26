@@ -3,6 +3,7 @@ package boot.mvc.comment;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,4 +49,10 @@ public class CommentController {
 		cservice.updateComment(cdto);
 	}
 
+	@GetMapping("/comment/deletecomment")
+	public String deleteComment(String comment_id) {
+		System.out.println(comment_id);
+
+		return "/style/styledetail";
+	}
 }

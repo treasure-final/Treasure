@@ -184,7 +184,7 @@
                      data:{"board_id":board_id},
                      type:"get",
                      success:function() {
-                        alert("찜하기 삭제");
+                        // alert("찜하기 삭제");
                      }
                   });
 
@@ -200,7 +200,7 @@
                   data:{"board_id":board_id},
                   type:"get",
                   success:function() {
-                     alert("찜하기 완료");
+                     // alert("찜하기 완료");
                   }
                });
 
@@ -258,8 +258,8 @@
 
             <div id="styledata">
                <div id="profile">
-                  <c:if test="${b.myphoto==null }"><img src="../../img/profile.png" id="profile-img"></c:if>
-                  <c:if test="${b.myphoto!=null }"><img src="../../save/${b.myphoto }" id="profile-img"></c:if>
+                  <c:if test="${b.myphoto eq null }"><img src="../../img/profile.png" id="profile-img"></c:if>
+                  <c:if test="${b.myphoto ne null }"><img src="../../save/${b.myphoto }" id="profile-img"></c:if>
                   <a href="#" ><b style="width: 30px;  height: 20px; cursor: pointer; margin-left: 8px; font-size: 8px; float: left; margin-top: 6px;">${b.name}</b></a>
 
                   <div class="right_area">
@@ -269,12 +269,12 @@
                         </a>
                      </c:if>
                      <c:if test="${b.boardLikeCheck ne 1}">
-                        <a class="icon heart">
+                        <a class="icon heart" board_id="${b.board_id}">
                            <img src="../img/style_image/heart.png" alt="찜하기" style=" width: 15px; ">
                         </a>
                      </c:if>
                   </div>
-                  <img alt="" src="../img/style_image/${b.board_image}">
+<%--                  <img alt="" src="../img/style_image/${b.board_image}">--%>
                </div>
 
                <div id="stylecontent">

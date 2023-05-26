@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import boot.mvc.board_like.BoardLikeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,15 +34,22 @@ public class StyleController {
 	@Autowired
 	UserService uservice;
 
+	@Autowired
+	BoardLikeService boardLikeService;
+
 	@GetMapping("/style/detail")
 	public ModelAndView detail(int board_id, HttpSession session) {
 		ModelAndView mview = new ModelAndView();
 		String loginEmail = (String) session.getAttribute("loginEmail");
+		String user_num = uservice.findEmailUserNum(loginEmail);
 
 		BoardDto bdto = Sservice.getData(board_id);
 		List<BoardDto> blist = Bservice.getList();
 
 		List<Map<String, Object>> DetailList = Sservice.StyleDetailList();
+		for(int i=0; i<blist.size(); i++) {
+			blist.get(i).setBoardLikeCheck(boardLikeService.boardLikeCheck(blist.get(i).getBoard_id(),user_num));
+		}
 
 		mview.addObject("DetailList", DetailList);
 		mview.addObject("bdto", bdto);

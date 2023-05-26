@@ -60,7 +60,6 @@ public class BoardController {
 		String user_num = uservice.findEmailUserNum(loginEmail);
 		// System.out.println(user_num);
 
-//		List<Integer> boardLike=new ArrayList<>();
 		for(int i=0; i<list.size(); i++) {
 			list.get(i).setBoardLikeCheck(boardLikeService.boardLikeCheck(list.get(i).getBoard_id(),user_num));
 		}
@@ -68,7 +67,6 @@ public class BoardController {
 		UserDto dto = uservice.getUserNumData(user_num);
 
 		bview.addObject("list", list);
-//		bview.addObject("boardLike",boardLike);
 		bview.setViewName("/style/stylelist");
 
 		model.addAttribute("dto", dto);

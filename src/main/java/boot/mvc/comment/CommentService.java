@@ -21,4 +21,9 @@ public class CommentService implements CommentServiceInter {
 		mapper.updateComment(CDto);
 		
 	}
+
+	@Override
+	public void deleteComment(String comment_id) {
+		mapper.deleteComment(comment_id);
+	}
 }

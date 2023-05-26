@@ -27,11 +27,6 @@ public class BoardLikeService implements BoardLikeServiceInter {
 	}
 
 	@Override
-	public List<BoardLikeDto> getUsersBoardLike(String user_num) {
-		return mapper.getUsersBoardLike(user_num);
-	}
-
-	@Override
 	public int boardLikeCheck(String board_id, String user_num) {
 		Map<String,String> map=new HashMap<>();
 		map.put("board_id",board_id);

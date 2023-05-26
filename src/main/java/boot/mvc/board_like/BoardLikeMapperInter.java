@@ -10,6 +10,5 @@ public interface BoardLikeMapperInter {
 
 	public void insertBoardLike(BoardLikeDto boardLikeDto);
 	public void deleteBoardLike(Map<String,String> map);
-	public List<BoardLikeDto> getUsersBoardLike(String user_num);
 	public int boardLikeCheck(Map<String,String> map);
 }

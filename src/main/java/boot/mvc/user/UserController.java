@@ -628,6 +628,7 @@ public class UserController {
 			String item_num = buyBidDto.getItem_num();
 			ItemDto itemDto = itemService.getItemData(item_num);
 			buyBidDto.setItemDto(itemDto);
+			System.out.println(buyBidDto.getSell_num());
 		}
 
 		int buyBidTotalCount = buyBidService.getTotalBuyBidCount(user_num);

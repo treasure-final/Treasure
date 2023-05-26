@@ -15,6 +15,7 @@ import java.sql.Timestamp;
 public class BuyBidDto {
     private String buy_num;
     private String item_num;
+    private String sell_num;
     private String user_num;
     private String buy_wishprice;
     private String buy_size;

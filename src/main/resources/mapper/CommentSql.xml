@@ -9,5 +9,8 @@
 	<update id="updateComment" parameterType="Map">
 	update comment set comment_content=#{comment_content}, comment_writeday=now() where comment_id=#{comment_id} and user_num=#{user_num}
 	</update>
-	
+
+	<delete id="deleteComment" parameterType="String">
+		delete from comment where comment_id=#{comment_id}
+	</delete>
 </mapper>

@@ -40,6 +40,7 @@
 
     <resultMap id="buyBidDto" type="BuyBidDto">
         <result property="buy_num" column="buy_num"/>
+        <result property="sell_num" column="sell_num"/>
         <result property="buy_wishprice" column="buy_wishprice"/>
         <result property="buy_inputday" column="buy_inputday"/>
         <result property="buy_size" column="buy_size"/>
@@ -56,6 +57,7 @@
 
     <select id="getItemInfoByBuyBid" resultMap="buyBidDto" parameterType="String">
         select buy_num,
+               sell_num,
                buy_wishprice,
                buy_inputday,
                buy_size,

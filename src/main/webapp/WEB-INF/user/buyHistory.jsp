@@ -224,13 +224,11 @@
             return str.replace(/[^\d]+/g, '');
         }
 
-        function moveDetailPage(sell_num) {
-            location.href = '/buy/ordersuccess?sell_num='+sell_num;
+        function moveDetailPage(buy_num) {
+            location.href = '/buy/buybidsuccess?buy_num='+buy_num;
         }
 
         function moveDetailPage2(sell_num) {
-            alert(sell_num);
-            location.href = '/buy/ordersuccess?sell_num='+sell_num;
         }
     </script>
 
@@ -313,7 +311,7 @@
                 <div class="bid-content">
                     <div style="width:750px; display: flex; font-size: 15px;">
                         <img class="buyImg" src="../img/item_image/${list.itemDto.item_image}"
-                             onclick="moveDetailPage()">
+                             onclick="moveDetailPage(${list.buy_num})">
                         <div class="buyDescription">
                             <div>${list.itemDto.item_engname}</div>
                             <div style="opacity: 0.6">${list.itemDto.item_korname}</div>
@@ -395,7 +393,7 @@
                         setTimeout(function () {
                             html += '<div class="bid-content">';
                             html += '   <div style="width:700px; display: flex; font-size: 15px;">';
-                            html += '       <img class="buyImg" src="../img/item_image/' + buyBidDto.itemDto.item_image + '">';
+                            html += '       <img class="buyImg" src="../img/item_image/' + buyBidDto.itemDto.item_image + '" onclick="moveDetailPage(buy_num)})">';
                             html += '       <div class="buyDescription">';
                             html += '           <div>' + buyBidDto.itemDto.item_engname + '</div>';
                             html += '           <div style="opacity: 0.6">' + buyBidDto.itemDto.item_korname + '</div>';

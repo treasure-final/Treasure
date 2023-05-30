@@ -112,7 +112,7 @@
 		}
 
 		.active, .dot:hover {
-			background-color: #717171;
+			background-color: white
 		}
 
 		/* Fading animation */
@@ -121,14 +121,8 @@
 			animation-duration: 1.5s;
 		}
 
-		@keyframes fade {
-			from {opacity: .4
-			}
-
-			to {
-				opacity: 1
-			}
-
+		to {
+			opacity: 1
 		}
 
 		/* On smaller screens, decrease text size */
@@ -181,6 +175,7 @@
 		.time {
 			vertical-align: bottom;
 			font-weight: normal;
+			font-size: 10px
 		}
 
 		.comment, .board_content, form {
@@ -224,12 +219,13 @@
 		.table_comment_content {
 			font-weight: normal;
 			text-align: left;
+			width: 500px
 		}
 
 		.table_comment_nickname {
-			width: 100px;
 			font-weight: bold;
 			text-align: left;
+			width: 100px
 		}
 
 		.table_comment_writeday {
@@ -240,7 +236,20 @@
 
 		.table_comment_update {
 			text-align: right;
-			margin-bottom: 30px
+			width: 60px
+		}
+
+		.table_comment_delete {
+			text-align: right;
+			width: 60px
+		}
+
+		.span_comment_divall {
+			display: table;
+		}
+
+		.table-all {
+			width: 500px;
 		}
 	</style>
 </head>
@@ -255,9 +264,8 @@
 				<table class="styletable">
 					<tr>
 						<th rowspan="2">
-							<img src="/save/${Bdto.user_photo }" alt="프로필 사진"
-								 style="border-radius: 100px; max-width: 35px; max-height: 35px"
-							>
+							<c:if test="${Bdto.user_photo==null }"><img src="../../img/profile.png" style="border-radius: 100px; max-width: 35px; max-height: 35px"></c:if>
+							<c:if test="${Bdto.user_photo!=null }"><img src="../../save/${Bdto.user_photo }" style="border-radius: 100px; max-width: 35px; max-height: 35px"></c:if>
 						</th>
 						<th width="60px" align="center">
 							<span class="nickname">${Bdto.user_name }</span>
@@ -302,7 +310,7 @@
 		<div class="slideshow-container" style="width: 80%; margin-left: 500px">
 			<div class="all">
 				<div class="mySlides fade">
-					<img src="../../img/style_image/${bdto.board_image }"
+					<img src="../../img/style_image/${Bdto.board_image}"
 						 style="width: 100%; height: 100%; border-radius: 10px"
 					>
 				</div>
@@ -327,14 +335,13 @@
 		<div style="margin-left: 500px; margin-top: 10px">좋아요 몇개</div>
 		<div class="board_content">${Bdto.board_content }</div>
 		<br>
-		<hr width="35%">
 		<div class="comment" id="comment_${Bdto.board_id}"></div>
-		<div>
+		<div style="margin-bottom: 200px;">
 		<%--			댓글입력폼--%>
 			<form id="comment-form">
-				<input id="comment_content${Bdto.board_id}" type="text">
+				<input id="comment_content${Bdto.board_id}" type="text" style="padding-right: 200px;">
 				<c:if test="${not empty loginOk}">
-					<button class="comment_submit" type="button" value="${Bdto.board_id}">전송${Bdto.board_id}
+					<button style="width: 60px; border: none" class="comment_submit" type="button" value="${Bdto.board_id}">전송
 				</c:if>
 				<c:if test="${empty loginOk}">
 					<input id="nologinwrite" type="button" value="작성" style="padding: 10px 30px">
@@ -409,8 +416,8 @@
 							commentHtml += '<th class="table_comment_content" rowspan="2">' + comments[i].comment_content + '</th>';
 							commentHtml += '<tr>';
 							commentHtml += '<th class="table_comment_writeday"><span>' + formatRelativeTime(new Date(comments[i].comment_writeday)) + '</span></th>';
-							commentHtml += '<th class="table_comment_update" rowspan="2"><span><button>수정</button></span></th>';
-							commentHtml += '<th class="table_comment_delete" rowspan="2" comment_id="' + json.com + '" onclick="deleteComment()"><span><button>삭제</button></span></th>';
+							commentHtml += '<th class="table_comment_update" rowspan="2"><span><button style="border: none">수정</button></span></th>';
+							commentHtml += '<th class="table_comment_delete" rowspan="2" comment_id="' + json.com + '" onclick="deleteComment()"><span><button style="border: none">삭제</button></span></th>';
 							commentHtml += '</tr>';
 							commentHtml += '</tr>';
 							commentHtml += '</table>';

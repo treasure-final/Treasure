@@ -218,15 +218,14 @@
 <c:set var="loginOk" value="${sessionScope.loginOk}"/>
 
 <div>
-    <div id="wrtiemystyle">
+    <div id="wrtiemystyle" style="margin-left: 70px;">
         <a href="#"><b>인기순</b></a>
         &nbsp;
         <a href="/style/stylelist"><b>최신순</b></a>
     </div>
 
 
-    <div id="sortstyle">
-
+    <div id="sortstyle" style="margin-right: 200px;">
         <c:if test="${not empty loginOk}">
             <a href="/style/writestyleform"><b>글쓰기</b></a>
         </c:if>
@@ -247,7 +246,7 @@
 
 <br>
 
-<div class="stylemain">
+<div class="stylemain" style="margin-left: 30px;">
     <c:forEach var="b" items="${list }" varStatus="i">
         <div class="stylebox">
 

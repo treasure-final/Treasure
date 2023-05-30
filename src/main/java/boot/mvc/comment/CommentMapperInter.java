@@ -14,5 +14,5 @@ public interface CommentMapperInter {
 	
 	public String getUserEmailByUserNum(String user_num);
 	
-	
+	public void deleteComment(String comment_id);
 }

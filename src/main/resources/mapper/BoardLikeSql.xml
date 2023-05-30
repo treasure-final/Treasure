@@ -10,7 +10,6 @@
 	<delete id="deleteBoardLike" parameterType="Map">
 		delete from board_like where board_id=#{board_id} and user_num=#{user_num}
 	</delete>
-	
 	<select id="boardLikeCheck" parameterType="Map" resultType="int">
 		select count(*) from board_like where board_id=#{board_id} and user_num=#{user_num}
 	</select>

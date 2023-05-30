@@ -21,6 +21,7 @@ public class BoardLikeService implements BoardLikeServiceInter {
 
 	@Override
 	public void deleteBoardLike(String board_id, String user_num) {
+
 		Map<String, String> map = new HashMap<>();
 		map.put("board_id", board_id);
 		map.put("user_num", user_num);

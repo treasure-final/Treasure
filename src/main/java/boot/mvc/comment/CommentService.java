@@ -13,7 +13,7 @@ public class CommentService implements CommentServiceInter {
 	CommentMapperInter mapper;
 
 	@Override
-	public void InsertComment(CommentDto CDto) {
+	public void insertComment(CommentDto CDto) {
 		// TODO Auto-generated method stub
 		mapper.insertComment(CDto);
 	}
@@ -26,10 +26,13 @@ public class CommentService implements CommentServiceInter {
 	}
 
 	@Override
+
 	public String getUserEmailByUserNum(String user_num) {
 		// TODO Auto-generated method stub
 		return mapper.getUserEmailByUserNum(user_num);
 	}
 
-	
+	public void deleteComment(String comment_id) {
+		mapper.deleteComment(comment_id);
+	}
 }

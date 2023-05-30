@@ -3,9 +3,7 @@ package boot.mvc.comment;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import boot.mvc.board.BoardDto;
 import boot.mvc.board.BoardService;
@@ -29,20 +27,21 @@ public class CommentController {
 	StyleService sservice;
 
 	@PostMapping("/comment/insert")
-	public String insert(@ModelAttribute CommentDto cdto, HttpSession session,String board_id) {
+	public String insert(@ModelAttribute CommentDto cdto, HttpSession session,String board_id,String comment_content) {
 
 		String myid = (String) session.getAttribute("loginEmail");
 		String user_num = uservice.findEmailUserNum(myid);
 
 		cdto.setMyid(myid);
 		cdto.setUser_num(user_num);
+		cdto.setComment_content(comment_content);
 
 		System.out.println(board_id);
 		System.out.println(myid);
 		System.out.println(user_num);
 
-		cservice.InsertComment(cdto);
-		return "redirect:/style/styledetail?board_id=" + board_id;
+		cservice.insertComment(cdto);
+		return board_id;
 	}
 
 	@PostMapping("/comment/update")
@@ -50,4 +49,10 @@ public class CommentController {
 		cservice.updateComment(cdto);
 	}
 
+	@GetMapping("/comment/deletecomment")
+	public String deleteComment(String comment_id) {
+		System.out.println(comment_id);
+
+		return "/style/styledetail";
+	}
 }

@@ -12,3 +12,4 @@ public interface BoardLikeMapperInter {
 	public void deleteBoardLike(Map<String,String> map);
 	public int boardLikeCheck(Map<String,String> map);
 }
+

@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import boot.mvc.board_like.BoardLikeDto;
+import boot.mvc.board_like.BoardLikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,14 +38,16 @@ public class BoardController {
 	@Autowired
 	ItemService iservice;
 
+	@Autowired
+	BoardLikeService boardLikeService;
+
 	@GetMapping("/style/stylelist")
 	public ModelAndView list(Model model, HttpSession session) {
 		ModelAndView bview = new ModelAndView();
 
 		List<BoardDto> list = service.getList();
 
-		for(BoardDto bdto:list)
-		{
+		for(BoardDto bdto:list) {
 			String [] photos=bdto.getBoard_image().split(",");
 			bdto.setDimage(photos[0]);
 
@@ -55,6 +59,10 @@ public class BoardController {
 
 		String user_num = uservice.findEmailUserNum(loginEmail);
 		// System.out.println(user_num);
+
+		for(int i=0; i<list.size(); i++) {
+			list.get(i).setBoardLikeCheck(boardLikeService.boardLikeCheck(list.get(i).getBoard_id(),user_num));
+		}
 
 		UserDto dto = uservice.getUserNumData(user_num);
 
@@ -85,8 +93,6 @@ public class BoardController {
 	}
 
 
-
-
 	@PostMapping("/style/insert")
 	public String insert(@ModelAttribute BoardDto bdto,
 						 @RequestParam ArrayList<MultipartFile> upload, HttpSession session) {
@@ -100,8 +106,7 @@ public class BoardController {
 		if (upload.get(0).getOriginalFilename().equals(""))
 			uploadName="no";
 		else {
-			for(MultipartFile f:upload)
-			{
+			for(MultipartFile f:upload) {
 				SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss"); //겹치지않게 해주는거
 				String fName=idx++ +"_"+sdf.format(new Date())+"_"+f.getOriginalFilename(); //인덱스 번호 붙이기
 				uploadName+=fName+",";
@@ -129,22 +134,15 @@ public class BoardController {
 		System.out.println(name);
 
 
-
 		String photo =uservice.getUserPhoto(myid);
 		bdto.setMyphoto(photo);
 		System.out.println(photo);
-
-
 
 
 		service.insertStyle(bdto);
 
 		return "redirect:/style/stylelist";
 	}
-
-
-
-
 
 
 	@GetMapping("/style/mystyle")
@@ -155,8 +153,7 @@ public class BoardController {
 
 		List<BoardDto> list = service.getList();
 
-		for(BoardDto bdto:list)
-		{
+		for(BoardDto bdto:list) {
 			String [] photos =bdto.getBoard_image().split(",");
 			bdto.setDimage(photos[0]);
 
@@ -182,8 +179,10 @@ public class BoardController {
 
 	@GetMapping("/style/delete")
 	@ResponseBody
-	public void deleteStyle(@RequestParam String board_id)
-	{
+	public void deleteStyle(@RequestParam String board_id) {
 		service.deleteStyle(board_id);
 	}
+
+
+
 }

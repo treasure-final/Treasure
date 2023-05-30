@@ -428,11 +428,10 @@ $(function(){
                           commentHtml +='<th class="table_comment_nickname"><span>'+comments[i].user_nickname+'</span><br><span>'+formatRelativeTime(new Date(comments[i].comment_writeday))+'</span></th>';
                           commentHtml +='<th class="table_comment_content" rowspan="2"><span>'+comments[i].comment_content+'</span></th>';
                           // 댓글 작성자와 동일한 유저만 수정가능
-                          if (${loginOk!=null} && user_num==comments[i].user_num){ 
-								
+                          if (${loginOk!=null} && user_num==comments[i].user_num){ 	
                               commentHtml += '<th class="table_comment_update"><span><button>수정</button></span></th>';
-							
                           }
+                          //댓글 작성자와 동일한 유저와 운영자만 삭제가능
                           if (${loginOk!=null}&&myid=="admin@naver.com" || ${loginOk!=null} && user_num==comments[i].user_num){ 
                               commentHtml += '<th class="table_comment_delete"><span><button>삭제</button></span></th>';
                           }
@@ -476,16 +475,11 @@ $(function(){
               }
             });
           });
-
-      
-
-      
-
           
+          
+
           
           /*하트  */
-          
-          
           
       })
       </script>

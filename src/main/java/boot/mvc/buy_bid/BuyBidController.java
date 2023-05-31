@@ -5,6 +5,7 @@ import boot.mvc.item.ItemService;
 import boot.mvc.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,7 +29,7 @@ public class BuyBidController {
 
     @PostMapping("/buy/insertBuyBid")
     @ResponseBody
-    public String insertBuyBid(HttpSession session, String price, String size, String deadline, String addr, String item_num) {
+    public String insertBuyBid(HttpSession session, String price, String size, String deadline, String addr, String item_num, Model model) {
         Map<String,String> map=new HashMap<>();
         String loginEmail = (String) session.getAttribute("loginEmail");
         String user_num = userService.findEmailUserNum(loginEmail);
@@ -43,6 +44,7 @@ public class BuyBidController {
 
         service.insertBuyBid(buyBidDto);
         String buy_num=service.getNowinsertBuyBidNum();
+        model.addAttribute("loginEmail",loginEmail);
 
         return buy_num;
     }

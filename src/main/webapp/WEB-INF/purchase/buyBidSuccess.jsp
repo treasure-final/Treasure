@@ -209,7 +209,7 @@
         }
         .order_image {
             width: 300px;
-            margin-top: -60px;
+            margin-top: 20px;
             margin-bottom: 40px;
         }
     </style>
@@ -276,6 +276,8 @@
                 </table>
                 <div class="hr" style="margin-top: 60px;"></div>
             </div>
+        <div style="clear: left"></div>
+
     </div>
 </body>
 </html>

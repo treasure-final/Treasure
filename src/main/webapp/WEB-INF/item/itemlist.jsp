@@ -312,7 +312,7 @@
     </div>
 
 
-    <div style="width:1000px; margin-left: 20%; padding-left: 0px;">
+    <div style="width:1000px; min-height: 1300px; margin-left: 20%; padding-left: 0px;">
         <div>
             <b style=" margin-left: 60px; float: left"> 상품 ${totitem } ${stotitem } ${soritem } 개</b>
             <div class="sortitembtn" align="right" style="margin-right: 30px; cursor: pointer">

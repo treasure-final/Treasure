@@ -52,28 +52,15 @@
 		group by size, wish_price
 		order by order_date desc
 	</select>
-
-	<!-- 최근 거래가 -->
-<!-- 	<select id="getOrderRecentPrice" resultType="int" parameterType="Map">
-		select coalesce(
-  			(select wish_price
-  			from `order`
- 			where item_num=#{item_num}
- 			<if test="size != 'all'">
-    		 and size=#{size} 
-    		</if> 
-  			order by order_date desc limit 2), 
-  		0) as wish_price
-	</select> -->
-		
-		<select id="getOrderRecentPrice" resultType="int" parameterType="Map">
+	
+	<select id="getOrderRecentPrice" resultType="int" parameterType="Map">
 		select wish_price
-  			from `order`
- 			where item_num=#{item_num}
- 			<if test="size != 'all'">
-    		 and size=#{size} 
-    		</if> 
-  			order by order_date desc limit 2
+ 		from `order`
+		where item_num=#{item_num}
+		<if test="size != 'all'">
+   		 and size=#{size} 
+   		</if> 
+ 		order by order_date desc limit 2
 	</select>
 	
 	<!-- 스타일 -->

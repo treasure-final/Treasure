@@ -730,7 +730,7 @@ hr {
 						<div class="col-lg-6" style="height: 85vh;">
 							<div style="height: 85vh;">
 								<div class="item-detail detail-box"
-									style="padding: 2rem; padding-left: 2rem; padding-top: 0.8rem; width: 100%; height: 85vh; overflow-y: scroll;"
+									style="padding: 2rem; padding-left: 2rem; padding-top: 0.8rem; width: 100%; overflow-y: scroll;"
 								>
 									<!-- 상품명 -->
 									<div class="heading-section mt-sm-3">
@@ -1520,7 +1520,7 @@ hr {
 				</div>
 			</div>
 		</div>
-		<hr class="mb-5 mt-5">
+		<%-- <hr class="mb-5 mt-5">
 		<div class="d-flex">
 			<div class="col-11 align-self-center">
 				<span class="fs-4">
@@ -1564,7 +1564,7 @@ hr {
 		</div>
 		<div class="col-lg-12 text-center">
 			<button type="button" class="btn btn-outline-detail" style="width: 10%; height: 5vh;">더보기</button>
-		</div>
+		</div> --%>
 	</div>
 	<!-- Scripts -->
 	<!-- Bootstrap core JavaScript -->

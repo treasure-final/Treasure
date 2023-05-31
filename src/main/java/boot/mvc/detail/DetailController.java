@@ -88,7 +88,7 @@ public class DetailController {
 	        	firstPrice = prices.get(0);
 	 		    secondPrice = prices.get(1);
 	 		    
-	 		    percentChange = Math.round(((secondPrice - firstPrice) / (double) firstPrice * 100) * 10) / 10.0;
+	 		    percentChange = Math.round(((firstPrice - secondPrice) / (double) firstPrice * 100) * 10) / 10.0;
 	 		    
 	 		    DecimalFormat decimalFormat = new DecimalFormat("#,###");	 		   
 	 		    priceChange = decimalFormat.format(Math.abs(secondPrice - firstPrice));

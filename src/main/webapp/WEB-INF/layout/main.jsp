@@ -357,8 +357,8 @@
         <div id="style-box">
             <c:forEach items="${boardList}" var="dto" varStatus="i">
                 <div class="item-wrapper">
-                    <div class="item-box" style="margin-bottom: 20px; font-size: 5px; width: 160px;">
-                        <img src="../../img/style_image/${dto.board_image}" style="width: 150px;">
+                    <div class="item-box" style="margin-bottom: 20px; font-size: 5px; width: 160px; height: 200px;">
+                        <img src="../../img/style_image/${dto.board_image}" style="width: 150px;  height: 200px;">
                             <%--                        <div style="width: 220px; font-size: 10px; font-weight: bold;">${dto.item_brandname}</div>--%>
                             <%--                        <div style="width: 220px; font-size: 9px;--%>
                             <%--                        padding-top: 5px;">${dto.item_engname}</div>--%>

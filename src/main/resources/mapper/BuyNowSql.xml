@@ -7,15 +7,11 @@
         SELECT *
         FROM sell_bid AS sb1
         WHERE sb1.item_num = #{item_num}
-          AND sb1.sell_wishprice = (
-            SELECT MIN(sb2.sell_wishprice)
-            FROM sell_bid AS sb2
-            WHERE sb2.item_num = #{item_num}
-              AND sb2.sell_size = sb1.sell_size
-        )
-          AND sb1.sell_status = '판매대기'
-          AND sb1.test_result = '합격'
-        GROUP BY sb1.sell_size
+          AND sb1.sell_wishprice = (SELECT MIN(sb2.sell_wishprice)
+                                    FROM sell_bid AS sb2
+                                    WHERE sb2.item_num = #{item_num}
+                                      AND sb2.sell_size = sb1.sell_size)
+       <!--  GROUP BY sb1.sell_size -->
     </select>
 
     <resultMap id="buyNowDto" type="BuyNowDto">
@@ -55,9 +51,4 @@
     <update id="updateSellStatus" parameterType="String">
         update sell_bid set sell_status = '판매완료' where sell_num=#{sell_num}
     </update>
-    <select id="getBuyNowData" parameterType="String" resultType="BuyNowDto">
-        select *
-        from buy_now
-        where sell_num=#{sell_num};
-    </select>
 </mapper>

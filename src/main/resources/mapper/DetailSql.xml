@@ -49,7 +49,7 @@
 		<if test="size != 'all'">
 			and size=#{size}
 		</if>
-		group by size, wish_price
+		group by size, wish_price, order_date
 		order by order_date desc
 	</select>
 	

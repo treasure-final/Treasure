@@ -3,6 +3,8 @@
 '프로젝트 트레저(Treasure)'는 젊은 층을 주요 타겟으로 한 '한정판 제품'에 대한 관심과 수요가 높은 현상을 바탕으로, 리셀(Resell) 시장을 대상으로한 거래 중개 사이트를 구축하는 프로젝트입니다.
 사용자가 저희 사이트에서 보물같은 상품을 발견하고, 그 여정이 즐겁기를 바라며 treasure라고 이름을 지었습니다.
 <br><br>
+[![Video Label](http://img.youtube.com/vi/LYddPiMrF3o/0.jpg)](https://youtu.be/LYddPiMrF3o)
+<br><br>
 
 ## 사용 기술
 <img width="550" alt="사용 기술들ㅇ" src="https://github.com/treasure-final/Treasure/assets/84509774/9fd796bb-246e-46a0-894d-a0ed2b0e7f29">

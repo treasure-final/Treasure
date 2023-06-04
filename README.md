@@ -1,4 +1,4 @@
-# Treasure <a href="https://www.youtube.com/watch?v=LYddPiMrF3o"><img src="https://img.shields.io/badge/youtube-FF0000?style=flat&logo=youtube&logoColor=white"/></a>
+# Treasure <a href="https://www.youtube.com/watch?v=DzTVOzSCGL0"><img src="https://img.shields.io/badge/youtube-FF0000?style=flat&logo=youtube&logoColor=white"/></a>
 
 
 '프로젝트 트레저(Treasure)'는 젊은 층을 주요 타겟으로 한 '한정판 제품'에 대한 관심과 수요가 높은 현상을 바탕으로, 리셀(Resell) 시장을 대상으로한 거래 중개 사이트를 구축하는 프로젝트입니다.

@@ -56,7 +56,6 @@ public class UserController {
     private NaverLoginBO naverLoginBO;
     private String apiResult = null;
 
-
     @Autowired
     private void setNaverLoginBO(NaverLoginBO naverLoginBO) {
         this.naverLoginBO = naverLoginBO;
@@ -68,21 +67,10 @@ public class UserController {
         model.addAttribute("urlNaver", naverAuthUrl);
 
         String kakaoAuthUrl = kakaoLoginBO.getAuthorizationUrl(session);
-        System.out.println("카카오:" + kakaoAuthUrl);
         model.addAttribute("urlKakao", kakaoAuthUrl);
 
         return "/user/loginForm";
     }
-
-    /*
-     * @RequestMapping(value = "/login.do",method =
-     * {RequestMethod.GET,RequestMethod.POST}) public String login(Model model,
-     * HttpSession session) { String kakaoAuthUrl =
-     * kakaoLoginBO.getAuthorizationUrl(session); System.out.println("카카오:" +
-     * kakaoAuthUrl); model.addAttribute("urlKakao", kakaoAuthUrl);
-     *
-     * return "user/loginForm"; }
-     */
 
     @RequestMapping(value = "/naverLoginCallback", method = {RequestMethod.GET, RequestMethod.POST})
     public String callbackNaver(@RequestParam String code, @RequestParam String state,
@@ -133,7 +121,6 @@ public class UserController {
     @RequestMapping(value = "/callbackKakao.do", method = {RequestMethod.GET, RequestMethod.POST})
     public String callbackKakao(Model model, @RequestParam String code, @RequestParam String state, HttpSession session) throws Exception {
 
-        System.out.println("카카오 로그인 성공 callbackKakao");
         OAuth2AccessToken oauthToken;
         oauthToken = kakaoLoginBO.getAccessToken(session, code, state);
         apiResult = kakaoLoginBO.getUserProfile(oauthToken);
@@ -157,19 +144,14 @@ public class UserController {
         userDto.setUser_email(email);
         userDto.setUser_name(nickname);
 
-
         if (service.userSearchEmail(userDto.getUser_email()) != 1) {
-
             service.insertJoinUser(userDto);
-
             model.addAttribute("user_num", service.findEmailUserNum(userDto.getUser_email()));
-
             return "redirect:/user/kakaoUserForm?user_num=" + model.getAttribute("user_num");
         } else {
 
             return "redirect:/";
         }
-
     }
 
 
@@ -190,15 +172,11 @@ public class UserController {
 
     @PostMapping("/user/updateKaKaoUser")
     public String updateKakaoUser(@ModelAttribute UserDto dto, String addr1, String addr2, String addr3) {
-
         String user_addr = addr1 + " " + addr2 + " " + addr3;
         dto.setUser_addr(user_addr);
-
-        System.out.println(dto.getUser_num());
         service.kakaoUserInfoUpdate(dto);
 
         return "redirect:/";
-
     }
 
     @PostMapping("/user/loginProc")
@@ -219,8 +197,6 @@ public class UserController {
     @ResponseBody
     public int loginError(String email, String password) {
         int check = service.checkIdAndPassword(email, password);
-        System.out.println(email + " " + password);
-        System.out.println(check);
         return check;
     }
 
@@ -251,8 +227,6 @@ public class UserController {
     public String joinInsert(@ModelAttribute UserDto dto, String addr1, String addr2, String addr3, HttpSession session) {
         String user_addr = addr1 + " " + addr2 + " " + addr3;
         dto.setUser_addr(user_addr);
-        System.out.println(addr1 + " " + addr2 + " " + addr3);
-
         service.insertJoinUser(dto);
         return "redirect:/user/loginForm";
     }
@@ -280,25 +254,10 @@ public class UserController {
         map.put("user_birth", birth);
         map.put("user_hp", phone);
         int check = service.checkEmailByUserInfo(map);
-
-        Map<String, Object> resultMap = new HashMap<>();
         String email = service.findEmailByUserInfo(phone);
-//		if (check == 1) {
-//			String[] emails = email.split("@");
-//			String[] first_email = emails[0].split("");
-//			String security_email = "";
-//			security_email += first_email[0] + first_email[1] + first_email[2];
-//			for (int i = 3; i < first_email.length - 1; i++) {
-//				security_email += first_email[i].replace(first_email[i], "*");
-//			}
-//			security_email += first_email[first_email.length - 1];
-//			security_email += "@" + emails[1];
-        resultMap.put("check", check);
-//			map2.put("email", security_email);
-//		} else {
-        resultMap.put("email", email);
-//		}
-        return resultMap;
+        Map<String, Object> checkResultMap = service.resultByCheck(check, email);
+
+        return checkResultMap;
     }
 
     @GetMapping("/user/myPage")
@@ -318,7 +277,6 @@ public class UserController {
         int sellBidSuccessCount = sellBiService.getSellBidSuccessCount(user_num);
         int sellNowSuccessCount = sellNowService.getSellNowdSuccessCount(user_num);
 
-
         model.addAttribute("dto", dto);
         model.addAttribute("user_num", user_num);
         model.addAttribute("bidSize", itemBuyBidJoinList.size());
@@ -335,25 +293,10 @@ public class UserController {
     public String myProfile(Model model, HttpSession session) {
 
         String loginEmail = (String) session.getAttribute("loginEmail");
-        System.out.println(loginEmail);
-
         String user_num = service.findEmailUserNum(loginEmail);
-        System.out.println(user_num);
 
         UserDto dto = service.getUserNumData(user_num);
-
-        // 주소 분리
-        String user_addr = dto.getUser_addr();
-        String[] addressParts = user_addr.split(" ");
-        String addr1 = addressParts[0];
-        String addr2 = addressParts[1];
-        String addr3 = addressParts[2];
-
-        // 분리된 주소를 DTO에 저장
-        dto.setAddr1(addr1);
-        dto.setAddr2(addr2);
-        dto.setAddr3(addr3);
-
+        dto = service.splitAddrUserDto(dto);
         model.addAttribute("dto", dto);
         model.addAttribute("user_num", user_num);
 
@@ -362,34 +305,25 @@ public class UserController {
 
     @PostMapping("/user/updateProfile")
     public String updateProfile(UserDto dto, String addr1, String addr2, String addr3, HttpSession session, MultipartFile upload) {
-
         String user_addr = addr1 + " " + addr2 + " " + addr3;
         dto.setUser_addr(user_addr);
 
         String path = session.getServletContext().getRealPath("/save");
-
         String fileName = UUID.randomUUID().toString() + "_" + upload.getOriginalFilename();
 
         if (upload.isEmpty()) {
             dto.setUser_photo(null);
         } else {
-
             dto.setUser_photo(fileName);
-
             try {
                 upload.transferTo(new File(path + "\\" + fileName));
-
             } catch (IllegalStateException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-
         }
         service.userProfileUpdate(dto);
-
         return "redirect:/user/myPage";
     }
 
@@ -402,14 +336,10 @@ public class UserController {
     @GetMapping("/user/passSearchMailSender")
     @ResponseBody
     public int passSearchMailSender(@RequestParam String email) {
-//        System.out.println(email);
-
         int checkEmail = service.isUserEmail(email);
-//        System.out.println(checkEmail);
         if (checkEmail == 1) {
             MailSender.mailSend(email);
             String randompass = MailSender.getRandompass();
-//            System.out.println(randompass);
             service.updateTemporarilyPass(randompass, email);
         }
         return checkEmail;
@@ -418,12 +348,10 @@ public class UserController {
     //일반 sell내역
     @GetMapping("/user/sellHistory")
     public String sellHistory(Model model, HttpSession session, @RequestParam(defaultValue = "0") int offset) {
-
         String loginEmail = (String) session.getAttribute("loginEmail");
         String user_num = service.findEmailUserNum(loginEmail);
 
         List<SellTotalDto> list = sellTotalService.getListSellTotal(user_num, offset);
-
         int sellTotalCount = sellTotalService.getTotalSellCount(user_num);
 
         for (SellTotalDto sellTotalDto : list) {
@@ -443,7 +371,6 @@ public class UserController {
 
             } else {
                 String sell_num = sellTotalDto.getSell_num();
-
                 SellBidDto sellBidDto = sellBiService.getSellBidData(user_num, sell_num);
 
                 String item_num = sellBidDto.getItem_num();
@@ -466,13 +393,10 @@ public class UserController {
     @GetMapping("/user/sellHistoryScroll")
     @ResponseBody
     public List<SellTotalDto> sellHistoryScroll(HttpSession session, int offset) {
-
         String loginEmail = (String) session.getAttribute("loginEmail");
         String user_num = service.findEmailUserNum(loginEmail);
 
         List<SellTotalDto> list = sellTotalService.getListSellTotal(user_num, offset);
-        /* System.out.println(list.size()); */
-
         for (SellTotalDto sellTotalDto : list) {
             if (sellTotalDto.getSell_num() == null) {
                 String sellnow_num = sellTotalDto.getSellnow_num();
@@ -487,7 +411,6 @@ public class UserController {
                 sellTotalDto.setSellNowDto(sellNowDto);
                 sellTotalDto.setItemDto(itemDto);
                 sellTotalDto.setBuyBidDto(buyBidDto);
-
             } else {
                 String sell_num = sellTotalDto.getSell_num();
 
@@ -498,21 +421,16 @@ public class UserController {
 
                 sellTotalDto.setSellBidDto(sellBidDto);
                 sellTotalDto.setItemDto(itemDto);
-
             }
         }
-
         return list;
     }
 
     //판매입찰 상세
     @GetMapping("/user/sellSuccess")
     public String sellSuccsee(Model model, String sell_num) {
-
         SellBidDto sellBidDto = sellBiService.getSellBidDataOfSellNum(sell_num);
-
         String sell_addr = sellBidDto.getSell_addr();
-
         String[] addressParts = sell_addr.split(",");
         String name = addressParts[0].trim();
         String phone = addressParts[1].trim();
@@ -552,7 +470,6 @@ public class UserController {
     //즉시판매 상세
     @GetMapping("/user/sellNowSuccess")
     public String sellNowSuccess(Model model, String sellnow_num) {
-
         SellNowDto sellNowDto = sellNowService.getSellNowDataOfSellNowNum(sellnow_num);
 
         String sellnow_addr = sellNowDto.getSellnow_addr();
@@ -600,7 +517,6 @@ public class UserController {
 
     @GetMapping("/user/buyHistory")
     public String sellHistory(HttpSession session, Model model, @RequestParam(defaultValue = "0") int offset) {
-
         String loginEmail = (String) session.getAttribute("loginEmail");
         String user_num = service.findEmailUserNum(loginEmail);
 
@@ -609,15 +525,11 @@ public class UserController {
             String item_num = buyBidDto.getItem_num();
             ItemDto itemDto = itemService.getItemData(item_num);
             buyBidDto.setItemDto(itemDto);
-            System.out.println(buyBidDto.getSell_num());
         }
 
         int buyBidTotalCount = buyBidService.getTotalBuyBidCount(user_num);
-
-        List<BuyBidDto> itemBuyBidJoinList = buyBidService.getItemInfoByBuyBid(user_num);
         List<BuyNowDto> purchaseIngList = buyNowService.getDataByStatus0(user_num);
         List<BuyNowDto> purchaseEndList = buyNowService.getDataByStatus1(user_num);
-        List<BuyBidDto> buyBidDtoList = buyBidService.getListBuyBidTotal(user_num, offset);
 
         model.addAttribute("offset", offset);
         model.addAttribute("itemBuyBidJoinList", list);
@@ -632,7 +544,6 @@ public class UserController {
     @GetMapping("/user/buyBidHistoryScroll")
     @ResponseBody
     public List<BuyBidDto> buyHistoryScroll(HttpSession session, int offset) {
-
         String loginEmail = (String) session.getAttribute("loginEmail");
         String user_num = service.findEmailUserNum(loginEmail);
 
@@ -645,5 +556,4 @@ public class UserController {
         }
         return list;
     }
-
 }

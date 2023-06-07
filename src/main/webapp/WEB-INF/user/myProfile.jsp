@@ -327,10 +327,10 @@ $(function(){
              <input type="date" class="profile-input" value="${dto.user_birth }" name="user_birth">   
           </div>
           
-         <%-- <div style="align-content: flex-end; display: flex;">
-             <span>주소</span>  
+         <div style="align-content: flex-end; display: flex;">
+             <span>주소</span>
              <input type="text" class="profile-input" value="${dto.user_addr }" name="user_addr">
-          </div>  --%>
+          </div>
           
           <div class="formbold-mb-3">
           <span>주소</span>
